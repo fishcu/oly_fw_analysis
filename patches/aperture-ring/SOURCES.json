@@ -1,0 +1,77 @@
+{
+  "contributor": "flickering-star",
+  "assembly_origin": "Authored PEN-F electronic aperture-ring hooks and HSL compatibility layout. Short replayed instructions and original-byte guards derive from the identified stock firmware.",
+  "source_scope": "Assembly, linker scripts, exact-build manifests, a portable source builder, bounded native probes and contributor camera observations. No vendor image, bulk disassembly or private camera data included.",
+  "upstream_tools": {
+    "repository": "https://github.com/fishcu/oly_fw_analysis",
+    "revision": "539fcf1fa9eda5fdef8ede4deeab94a4691d94c3",
+    "components": [
+      "tools/oly_container.py",
+      "tools/penf_emulator.py",
+      "tools/penf_boot_emulator.py",
+      "patches/hsl/pen-f"
+    ],
+    "license_note": "Existing repository and component provenance/licensing notices remain applicable; no new repository-wide license is asserted."
+  },
+  "inputs": [
+    {
+      "model": "PEN-F",
+      "version": "3.1",
+      "build": "3101",
+      "source_url": "https://dl01.om-digitalsolutions.net/OMDS/FIRMWARES/0001/1220/OLY_E_122_3101_0000_0000.BIN",
+      "manifests": [
+        "pen-f/patch.json",
+        "pen-f-hsl/patch.json"
+      ]
+    }
+  ],
+  "camera_report": {
+    "source": "Direct contributor reports from physical camera testing",
+    "camera": "PEN-F",
+    "confirmed": [
+      "Electronic aperture-ring control in A and M",
+      "Depth of field preview displayed correctly",
+      "HSL and aperture together work on camera",
+      "Correct f/1.7 ring values on 15 mm, 10-25 mm and 25-50 mm lenses"
+    ],
+    "earlier_displayed_range_reports": [
+      "12 mm",
+      "42.5 mm",
+      "200 mm"
+    ],
+    "limits": [
+      "Exact per-lens firmware revisions and measured iris/exposure data were not supplied",
+      "Do not infer universal lens compatibility or guaranteed update recovery",
+      "Separate HSL RAW/preview measurements were not supplied"
+    ]
+  },
+  "native_scope": {
+    "ring": [
+      "original getter and snapshot",
+      "signed official limit selection",
+      "original zoom-dependent cache producer",
+      "original aperture text formatter"
+    ],
+    "hsl": [
+      "loaded-section guard and live arguments",
+      "original-versus-relocated CMIO arithmetic",
+      "metadata-transfer stop boundary"
+    ],
+    "not_emulated": [
+      "camera scheduling",
+      "lens electrical transport",
+      "physical iris",
+      "physical cache/DMA",
+      "flash programming",
+      "image-processing hardware"
+    ]
+  },
+  "derived_hsl_sources": {
+    "pen-f-hsl/orf_metadata.s": "Adapted from patches/hsl/pen-f/src/orf_metadata/orf_metadata.s in the pinned upstream revision; preserve the export body and relocate its helpers.",
+    "pen-f-hsl/layout.ld": "New combined placement using the existing HSL ORF group boundaries; other HSL ranges are preserved.",
+    "canonical_helpers": [
+      "patches/hsl/pen-f/src/orf_metadata/cmio_stream.s",
+      "patches/hsl/pen-f/src/orf_metadata/cmio_tables.s"
+    ]
+  }
+}

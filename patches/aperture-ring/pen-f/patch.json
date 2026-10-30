@@ -1,0 +1,102 @@
+{
+  "model": "PEN-F",
+  "version": "3.1",
+  "build": "3101",
+  "reference_patch": "PEN-F electronic aperture ring with official lens limits",
+  "stock_container_sha256": "77398610b379f80238117f31a6d5bbf65d608b49ec563666c64d84367e969f2c",
+  "stock_filename": "OLY_E_122_3101_0000_0000.BIN",
+  "component_count": 4,
+  "cpu_base": "0x60021020",
+  "original_main_sha256": "a2eb1d1f1afe47cce148e9aae0a04dfb82547d9de9437d342e012341140913f4",
+  "patched_main_sha256": "01f0df43d8242a2316fef7a1e4be5b6d644a17c35e52ef8625e1da45524e5260",
+  "install_sha256": "af42e92ab4b9e6df4b13e597526f58217f185b4ffb93fc324e9bacc35d90bbc7",
+  "restore_sha256": "e5523d1765b31a5b7d5e7fa6f30341d79eacb503234b26f8a26b21278d01ca83",
+  "package_bytes": 21364736,
+  "sd_filename": "E1229999.BIN",
+  "loaded_section": 1,
+  "loaded_start": "0x60142800",
+  "loaded_end_exclusive": "0x601cb000",
+  "state_address": "0x601cafb0",
+  "state_uncached": "0xa01cafb0",
+  "ranges": [
+    {
+      "name": "text",
+      "address": "0x601caa50",
+      "bytes": 436,
+      "before_sha256": "c577d543ef7c1615afd34449fda585dc345ad1465d67b331eaa41c4c30945255",
+      "after_sha256": "731320b34292ce3334f0f72f42dc258f8388b3d8a3bcd881f5a22b538f29999e"
+    },
+    {
+      "name": "state",
+      "address": "0x601cafb0",
+      "bytes": 4,
+      "before_sha256": "ad95131bc0b799c0b1af477fb14fcf26a6a9f76079e48bf090acb7e8367bfd0e",
+      "after_sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119"
+    },
+    {
+      "name": "poll",
+      "address": "0x60171c16",
+      "bytes": 9,
+      "before_sha256": "e8224057c6fa66cf75be2c738f1b90b1d959894e45ed97ce226df67cf78ce6c4",
+      "after_sha256": "f466882315085b35049c48874ac924ce5931048c68676974d0e320f71cb61cfa"
+    },
+    {
+      "name": "parser",
+      "address": "0x60165276",
+      "bytes": 8,
+      "before_sha256": "b73dd8ae49f2fe609da6e765128b55bbde62b21dd13afad95b5823c5329e4e3a",
+      "after_sha256": "8de2c66a7d56fdc8f81bc38b21f075b6f16be694947ec68fee15aeb66187fc1e"
+    },
+    {
+      "name": "ae",
+      "address": "0x605ddb6c",
+      "bytes": 7,
+      "before_sha256": "d02e35810b2cb6fcdb0066b1e0e6f7b80b05bd18ddd495483da2326b18628dbc",
+      "after_sha256": "a6d8c7f289def2721c52c444c0a1af50308c14f9e90e4683c454917d7112bcc4"
+    },
+    {
+      "name": "disconnect",
+      "address": "0x60158fee",
+      "bytes": 8,
+      "before_sha256": "c95811db9659d75fc4f0fc8bb88a110c01254b5d64bdbf273bf80d075181980b",
+      "after_sha256": "89fd2d0f6f6b4c2ee0b2a7f274ab0f8eb496c4e8fe570956e1a49ff48dad60a1"
+    },
+    {
+      "name": "dispatch",
+      "address": "0x60175f48",
+      "bytes": 9,
+      "before_sha256": "18a781d2a2f70f5ffc4199bba5e4ab204b5b82a439c583e4ea730a8e4a100f21",
+      "after_sha256": "71948ea79b9bdc0483bef04133b6eb8e6c8087b49e1943b05460b0c6dc233463"
+    }
+  ],
+  "source_sha256": {
+    "ring.S": "887998d0c27cdf5986498aa846415267271e49844c32ecda94978977a559fa22",
+    "layout.ld": "ebff3932b980dd332dc748f1ff3b6dfdffe789412bdde1a755a14da556296b3b"
+  },
+  "ae_probe": {
+    "entry": "0x605ddb5f",
+    "stop": "0x605ddb78",
+    "config_stack_offset": 4,
+    "config_pointer_offset": 0,
+    "input_stack_offset": 24,
+    "device_pointer": "0x61c40090",
+    "capability_offset": "0x23c",
+    "connected": "0x6184d730",
+    "connected_initial": "01000000",
+    "registry_bank": "0x61c281e0",
+    "registry_descriptors": "0x61c281e4",
+    "ae_handle": "0x618d2b20",
+    "bounds": "0x6184d704",
+    "extra_points": [],
+    "cpu_number": "0x8050",
+    "aperture_point": "0x80ca",
+    "bounds_layout": [
+      "effective_av",
+      "official_minimum",
+      "official_maximum"
+    ],
+    "official_minimum": "0x6184d706",
+    "official_maximum": "0x6184d708"
+  },
+  "camera_report": "Contributor reports A/M ring operation, DOF preview, combined HSL operation, and corrected f/1.7 on 15 mm, 10-25 mm and 25-50 mm lenses. Measured exposure/iris data not supplied."
+}

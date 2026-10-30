@@ -12,9 +12,9 @@ camera with the same processor.
 | Color processing | [Modes and generations](color/MODES.md) · [HSL tables and scales](color/pen-f/HSL_TABLES.md) · [Processing jobs](color/pen-f/CREATIVE_PROCESSING_JOBS.md) |
 | Profile integration | [Editor and display](color/pen-f/EDITOR.md) · [Saved settings](color/pen-f/SETTINGS_STORAGE.md) · [Per-image parameters](color/pen-f/CAPTURE_PARAMETERS.md) · [ORF metadata](color/pen-f/ORF_METADATA.md) |
 | Other image effects | [Grain](color/pen-f/GRAIN.md) · [Sharpening](color/pen-f/SHARPENING.md) · [Creative shading](color/pen-f/SHADING.md) |
-| Other camera features | [Silent burst and Pro Capture](features/om-5/BURST.md) · [External flash](features/FLASH.md) · [Published firmware hacks](features/HISTORICAL_HACKS.md) |
+| Other camera features | [Electronic aperture rings](features/APERTURE_RING.md) · [Silent burst and Pro Capture](features/om-5/BURST.md) · [External flash](features/FLASH.md) · [Published firmware hacks](features/HISTORICAL_HACKS.md) |
 | Modification techniques | [Code placement](safety/CODE_SPACE.md) · [Validation](safety/VALIDATION.md) · [Resource graphics](tooling/pen-f/RESOURCES.md) · [MN103 emulator](tooling/EMULATOR.md) |
-| Source builds | [PEN-F HSL](../patches/hsl/pen-f/README.md) · [IDA/MN103 setup and automation](tooling/ida/README.md) |
+| Source builds | [PEN-F HSL](../patches/hsl/pen-f/README.md) · [PEN-F aperture ring](../patches/aperture-ring/README.md) · [IDA/MN103 setup and automation](tooling/ida/README.md) |
 
 For address-level PEN-F 3101 work, use the [startup function map](boot/pen-f/FUNCTION_MAP.md),
 [settings and structure reference](color/pen-f/STRUCTURES.md), and

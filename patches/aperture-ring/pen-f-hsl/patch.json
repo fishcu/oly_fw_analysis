@@ -1,0 +1,252 @@
+{
+  "model": "PEN-F",
+  "version": "3.1",
+  "build": "3101",
+  "reference_patch": "PEN-F electronic aperture ring with official lens limits and HSL compatibility",
+  "stock_container_sha256": "77398610b379f80238117f31a6d5bbf65d608b49ec563666c64d84367e969f2c",
+  "stock_filename": "OLY_E_122_3101_0000_0000.BIN",
+  "component_count": 4,
+  "cpu_base": "0x60021020",
+  "original_main_sha256": "a2eb1d1f1afe47cce148e9aae0a04dfb82547d9de9437d342e012341140913f4",
+  "patched_main_sha256": "868e5173a54b05c4a70df40fd84ea73aed02cd76d7d6698a7e18f78817894e51",
+  "install_sha256": "81781482738718549e54c97d4e16a606e016abf6381bef98cb7b578f61ec2f47",
+  "restore_sha256": "e13f9813d01d15441082ed907966aec54356d70ba0f75ae9b6c2b259ff01f26a",
+  "package_bytes": 44433408,
+  "sd_filename": "E1229999.BIN",
+  "loaded_section": 1,
+  "loaded_start": "0x60142800",
+  "loaded_end_exclusive": "0x601cb000",
+  "state_address": "0x601caa40",
+  "state_uncached": "0xa01caa40",
+  "ranges": [
+    {
+      "name": "ring_disconnect",
+      "address": "0x601caa50",
+      "bytes": 19,
+      "before_sha256": "9f83412475f4342b5c1e302ee014e148cb7e81c4cef45c60c85c199f995a095f",
+      "after_sha256": "476d7940c3fd8487b08f89e88455f407829f8aea26bb6250ea80529492f09622"
+    },
+    {
+      "name": "ring_poll",
+      "address": "0x601cac00",
+      "bytes": 99,
+      "before_sha256": "7fc9604aa1284227c052bf6af262d85fbf8dbbb4e8bfb8e60f4bcd21348b9c86",
+      "after_sha256": "5550436a6d19b822ad4a107c701342bba6e38413e2a00329a5e7a9e119f1d889"
+    },
+    {
+      "name": "ring_parser",
+      "address": "0x601cade0",
+      "bytes": 68,
+      "before_sha256": "45711c71a8ea9075f812520ebd55ac5565beaa67a4a54b7f7768d156e728d926",
+      "after_sha256": "c1f2512824ff65f0cb474826c180fad7199a36684f2ab1615f0dbc4b3db871ba"
+    },
+    {
+      "name": "ring_ae",
+      "address": "0x601cae24",
+      "bytes": 113,
+      "before_sha256": "dca2ff9c3eb663449f43c0508feba50c28ac3084bc461612375412628268f56a",
+      "after_sha256": "e58198dda97db449830365f6b941f82c0065cea97823e2fbd631357bd23da414"
+    },
+    {
+      "name": "ring_dispatch",
+      "address": "0x601caed0",
+      "bytes": 137,
+      "before_sha256": "8d1f1fb5dfffe9eb3c7ba6ed8ee3763555f582a945bf78e7ebd012f181838b0e",
+      "after_sha256": "6be460bfa81d3802fa5c1e1ce3b66db2ef9b96de418ef095e3fe8094df6bbf61"
+    },
+    {
+      "name": "state",
+      "address": "0x601caa40",
+      "bytes": 4,
+      "before_sha256": "ad95131bc0b799c0b1af477fb14fcf26a6a9f76079e48bf090acb7e8367bfd0e",
+      "after_sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119"
+    },
+    {
+      "name": "poll",
+      "address": "0x60171c16",
+      "bytes": 9,
+      "before_sha256": "e8224057c6fa66cf75be2c738f1b90b1d959894e45ed97ce226df67cf78ce6c4",
+      "after_sha256": "b73ad873d330bb260bd0ed2578372bc5a8a4433ba9cd8b7aa40d6c5f31ceee13"
+    },
+    {
+      "name": "parser",
+      "address": "0x60165276",
+      "bytes": 8,
+      "before_sha256": "b73dd8ae49f2fe609da6e765128b55bbde62b21dd13afad95b5823c5329e4e3a",
+      "after_sha256": "f56368db1bcbd6648a1236477d844a4c65c4b0c0cc4c2ec85a88ef9cb12d189e"
+    },
+    {
+      "name": "ae",
+      "address": "0x605ddb6c",
+      "bytes": 7,
+      "before_sha256": "d02e35810b2cb6fcdb0066b1e0e6f7b80b05bd18ddd495483da2326b18628dbc",
+      "after_sha256": "215ef260b3394d4d996caf6d591a18460f540f6c9c1aa40394db20fdb5ff9d88"
+    },
+    {
+      "name": "disconnect",
+      "address": "0x60158fee",
+      "bytes": 8,
+      "before_sha256": "c95811db9659d75fc4f0fc8bb88a110c01254b5d64bdbf273bf80d075181980b",
+      "after_sha256": "04892c8cb8eb83c1400643b161004a727c44f9a2be1a21cf6a7c64299f43ec08"
+    },
+    {
+      "name": "dispatch",
+      "address": "0x60175f48",
+      "bytes": 9,
+      "before_sha256": "18a781d2a2f70f5ffc4199bba5e4ab204b5b82a439c583e4ea730a8e4a100f21",
+      "after_sha256": "b84c3b0ad44906b71a0d6716778771da2ccc816bcd7fdc07b40902b495c0ff46"
+    },
+    {
+      "name": "native_orf_guard",
+      "address": "0x601caaca",
+      "bytes": 36,
+      "before_sha256": "c38236f1e6d5ba2e8616b0c8a115bf8bf0814ddae740ac6cbea93d063417cd0e",
+      "after_sha256": "6c0a531084df94654d99f5980cdeec0d134a87f383e10fbb1096ae52fb9275ab"
+    },
+    {
+      "name": "native_orf_hook",
+      "address": "0x6053caff",
+      "bytes": 7,
+      "before_sha256": "67fe44d55b2817bf73a8171ad5956f7a7683bb5d2fb1f3e262a329196f113355",
+      "after_sha256": "5964087f0211cab293bd2e487d4e6db3fa97e65dbe7bc17bbd6deac634819937"
+    },
+    {
+      "name": "native_orf_export",
+      "address": "0x6115b060",
+      "bytes": 191,
+      "before_sha256": "9362c6ea998bd95bc34e9c71a5ecdb7631aa390d3263fc547a8e78d15c227d95",
+      "after_sha256": "6db7b90982086645b3f249c5b43867cf44635b526ecd4643548a5b4959213455"
+    },
+    {
+      "name": "cmio_table",
+      "address": "0x6115b120",
+      "bytes": 91,
+      "before_sha256": "6ac68154dfd05d7ae050c752d9e5ab1d302f34d0a3f0df8f479846a3f15e0c2b",
+      "after_sha256": "3e52cdeebffd601de09c29e305ff6a433c4c82a92b1da0a0585f22d01ba76b2a"
+    },
+    {
+      "name": "cmio_table_tail",
+      "address": "0x6115b180",
+      "bytes": 105,
+      "before_sha256": "b3975f72da0a05abaf1dfea2fb44172fb2538acf938492a9536b2d557f4765c2",
+      "after_sha256": "6561a6be5624611726a9de4e2c63d821e234c66d9ef3c0f71f23defbfca2759b"
+    },
+    {
+      "name": "cmio_stream",
+      "address": "0x6115b1f0",
+      "bytes": 32,
+      "before_sha256": "af9613760f72635fbdb44a5a0a63c39f12af30f950a6ee5c971be188e89c4051",
+      "after_sha256": "83bad4609c382ee791f1e924d9935e963036706a947920cbffd4740e3d11fba6"
+    },
+    {
+      "name": "text",
+      "address": "0x6115b220",
+      "bytes": 155,
+      "before_sha256": "a337dc97fa35e7943f0d523fd3ac6c3f0f8a91c2665df61543b4867e6cb51886",
+      "after_sha256": "9d10ba107a98d30d057ced3f976db7a12fd10e8fde36f2effad4cf792ff9b480"
+    }
+  ],
+  "source_sha256": {
+    "ring.S": "79ad3a1690e627b17701221c86101329125444aa3182b903baf72c831feae02a",
+    "layout.ld": "505104707b11dbdf96e480c259b9f92a256a4154fa545f08a0f926f1fd4e391d",
+    "orf_guard.S": "f36f3fb43c650103e4b5e28ffca711f21c37ab52c1a44065047802adc9c66445",
+    "orf_metadata.s": "ff794a842c7b2c903496ac90ac81cbe9e84af39e603c9948fd3d69f477380a78"
+  },
+  "ae_probe": {
+    "entry": "0x605ddb5f",
+    "stop": "0x605ddb78",
+    "config_stack_offset": 4,
+    "config_pointer_offset": 0,
+    "input_stack_offset": 24,
+    "device_pointer": "0x61c40090",
+    "capability_offset": "0x23c",
+    "connected": "0x6184d730",
+    "connected_initial": "01000000",
+    "registry_bank": "0x61c281e0",
+    "registry_descriptors": "0x61c281e4",
+    "ae_handle": "0x618d2b20",
+    "bounds": "0x6184d704",
+    "extra_points": [],
+    "cpu_number": "0x8050",
+    "aperture_point": "0x80ca",
+    "bounds_layout": [
+      "effective_av",
+      "official_minimum",
+      "official_maximum"
+    ],
+    "official_minimum": "0x6184d706",
+    "official_maximum": "0x6184d708"
+  },
+  "extra_source_sha256": {
+    "patches/hsl/pen-f/src/orf_metadata/cmio_stream.s": "9db915c44627e8670bb9b38359a237cfd1dd0adff510d3a8180ae2bd7c8d5c44",
+    "patches/hsl/pen-f/src/orf_metadata/cmio_tables.s": "5308451ded14b80e806da3b44f086fcc83ffb87f2f18bdfb293f3c2589513c55"
+  },
+  "hsl_release": "alpha-20261017",
+  "hsl_install_sha256": "4f9a36e6742728ded3d9b443915355f1d1eea0371e1da673f322de970994f717",
+  "hsl_original_main_sha256": "850936e7fa5d9c089f054385dd0bbcc310b64285c784a5da3ab347173730d12e",
+  "hsl_osd_sha256": "f713df2a2d7d57a511e55cabb0f84ac4d612f99c58df4502a89b32bd8580084c",
+  "hsl_relocated_sections": [
+    {
+      "name": "cmio_stream",
+      "address": "0x601caa50"
+    },
+    {
+      "name": "cmio_table",
+      "address": "0x601caaca"
+    },
+    {
+      "name": "cmio_table_tail",
+      "address": "0x601cac00"
+    },
+    {
+      "name": "native_orf_export",
+      "address": "0x601cade0"
+    },
+    {
+      "name": "native_orf_hook",
+      "address": "0x6053caff"
+    },
+    {
+      "name": "text",
+      "address": "0x601caed0"
+    }
+  ],
+  "loaded_orf_section": 8,
+  "loaded_orf_start": "0x61104000",
+  "loaded_orf_end_exclusive": "0x6115b800",
+  "section_loaded_guard": "0xa1c58404 bit 0x80",
+  "native_symbols": {
+    "cmio_export_guard": "0x601caaca",
+    "cmio_guard_stock": "0x601caae4",
+    "native_cmio_copy": "0x604db0f1",
+    "cmio_capture_export": "0x6115b060",
+    "cmio_after_copy": "0x6115b074",
+    "cmio_export_neutral": "0x6115b115",
+    "cmio_export_done": "0x6115b116",
+    "cmio_patch_table": "0x6115b120",
+    "cmio_table_window": "0x6115b12b",
+    "cmio_table_map": "0x6115b157",
+    "cmio_table_mapped": "0x6115b168",
+    "cmio_table_direct": "0x6115b16f",
+    "cmio_table_address": "0x6115b180",
+    "cmio_table_count": "0x6115b18c",
+    "cmio_table_release": "0x6115b1ab",
+    "cmio_table_advance": "0x6115b1be",
+    "cmio_table_error": "0x6115b1dd",
+    "cmio_table_success": "0x6115b1e5",
+    "cmio_table_return": "0x6115b1e6",
+    "cmio_delta_stream": "0x6115b1f0",
+    "cmio_stream_loop": "0x6115b1f6",
+    "cmio_stream_done": "0x6115b20c",
+    "cmio_capture_weights": "0x6115b220",
+    "cmio_weight_loop": "0x6115b22c",
+    "cmio_sector_ready": "0x6115b236",
+    "cmio_s_valid": "0x6115b246",
+    "cmio_positive_s": "0x6115b25a",
+    "cmio_h_valid": "0x6115b289",
+    "cmio_l_valid": "0x6115b29e"
+  },
+  "guard_loaded_address": "0x61c58404",
+  "guard_loaded_mask": 128,
+  "camera_report": "Contributor reports A/M ring operation, DOF preview, combined HSL operation, and corrected f/1.7 on 15 mm, 10-25 mm and 25-50 mm lenses. Measured exposure/iris data not supplied."
+}
