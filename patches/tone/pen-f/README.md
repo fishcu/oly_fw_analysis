@@ -92,8 +92,8 @@ its stock restore container. Producing these files performs no device access.
 |---|---|
 | Required full stock | `77398610b379f80238117f31a6d5bbf65d608b49ec563666c64d84367e969f2c` |
 | Pinned HSL package | `4f9a36e6742728ded3d9b443915355f1d1eea0371e1da673f322de970994f717` |
-| RGB five-point main | `2980da55912e53ca948a5b3494e61cb522393c39a083872d330dde47b9c977af` |
-| RGB five-point container,44433408 bytes | `838960996cddf2d7fcb1d59c98601e990281d01cfeefc9aef349634828f8d8ce` |
+| RGB five-point main | `0c5194663691e9c51aa74dd94de46dc0428d33d0e5195ec330beb09c6dd18b39` |
+| RGB five-point container,44433408 bytes | `3c7ea08309c880e18f1781248b2a52946c7aa877760b5f36fd775ff01b2cdb6d` |
 | Retained HSL OSD | `f713df2a2d7d57a511e55cabb0f84ac4d612f99c58df4502a89b32bd8580084c` |
 
 The candidate main and container hashes for each build are recorded in `build.json`.
@@ -109,10 +109,14 @@ offline candidate; LCD timing, silicon stage order and saved JPEG color output
 remain unqualified. The earlier white-only delay is not claimed fixed.
 
 
-The final offline run passes90 distinct tests: RGB14, viewer/graph13, and
-other tone/native-bank63. Focused modal-dispatch and INFO publication rechecks
-also pass; they are not counted twice. The generated audit records the exact
-package/main hashes, per-test logs and four fixture previews.
+The earlier candidate passed 90 distinct offline tests, but its trash fixtures
+fabricated a matching screen field and missed a native-constructor regression.
+That count is historical and does not qualify the current build. The trash fix
+has a separate audit under `generated/rgb-tone-trash-fix/audit`, including the
+failing regression, test-only patch, focused test logs and current build hashes.
+The current build passes 27 distinct focused tests, all 15 RGB tests and 12 native
+editor tests including INFO publication. An independent run also passes the
+native trash regression on the main payload decoded from the delivered BIN.
 
 The core probe executes canonical decode, legacy migration, selected-axis edits
 and all1024 transfer inputs for48 representative states. It checks neutral exact
@@ -146,6 +150,17 @@ completion. The new footer changes real displayed content rather than spare
 payload bytes. Async setter completion, event queue delivery and physical LCD
 refresh timing remain outside these fixtures; this is not a claim that the
 reported camera display delay has been physically resolved.
+
+The trash regression executes the native constructor at `0x60c87a89`, binding,
+axis eligibility and common dispatcher with screen 897. The constructor leaves
+actuator offset 100 untouched. The former screen comparison therefore rejected
+valid trash presses. Native event `0x9749` sets offset 200 to 1 as an active timeout
+flag, which must also permit cycling. The fix removes those two rejection checks
+and keeps the profile, current-mode, modal, busy and selection-range checks.
+Twelve constructor scenarios cover three COLOR profiles, zero and sentinel heap
+contents, and inactive or natively activated timeouts. Each runs all four channel
+transitions. Property, status, parameter and timer services have explicit models;
+viewer and draw completion remain modeled. Hardware behavior is unverified.
 
 The RGB native probes cover all36 profile/channel/page states, explicit async
 requests, held reset, guarded trash dispatch, equal-neutral redraw, all45

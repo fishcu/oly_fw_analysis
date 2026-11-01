@@ -48,6 +48,39 @@ clear the extension. Other native actuator families retain their native state.
 The vtable's eighteen methods and the adjacent constructor/event region were
 inspected for offset194 consumers; this is bounded static evidence.
 
+## Native trash dispatch regression
+
+Screen 897 selects native tone type 9 through `0x60cefa8e`. The default handler
+at `0x60cd1bed` returns 20 for that screen. Table `0x60f7bba0` maps 20 to actuator
+kind 3, whose factory at `0x60c87a49` calls constructor `0x60c87a89`. This constructor
+selects the three supported tables `0x60f4cd08`, `0x60f4cd40` and `0x60f4cd78`.
+The generic tone constructor does not produce these tables.
+
+The dedicated constructor leaves actuator offset 100 untouched. The original
+trash handler copied an HSL screen comparison against this field, so a
+native-created tone actuator fell through to stock dispatch without cycling.
+The former fixtures hid the defect by writing `0x13b8` into both offset 100 and
+the current-screen global. The corrected fixtures use screen 897 and never
+write offset 100. Native event `0x9749` also sets offset 200 to 1 and starts timer
+500 for 8000 units. That field is an active timeout flag, not a busy-state guard.
+The native arrow and INFO routes accept this state.
+
+`tone_cycle` now omits the offset-100 comparison and offset 200 from its busy
+checks. It retains the FSM 2/2 requirement, modal globals, controller and viewer
+checks, exact supported profile table, current COLOR mode, busy fields 16 and
+44, and selection range. It does not add a screen whitelist or alter the timer.
+
+`native_cycle_cases` executes the constructor, binding and axis eligibility on
+zero and sentinel allocations for all three COLOR profiles. It then drives the
+real `0x9016` common dispatcher through ALL, R, G, B and ALL, both before and
+after executing native `0x9749`. The regression checks unchanged settings and
+retention of the native timeout flag. The 36-state matrix checks page retention.
+Unloaded, modal and unsupported-actuator cases retain the stock fallback ABI.
+External property, status, parameter and timer services are modeled. Viewer and
+draw completion are modeled as in the existing dispatcher probe. The initial
+failing log and test-only patch precede the production fix in the generated
+audit. These checks do not execute event queue delivery or a physical LCD.
+
 ## Image processing and channel naming limit
 
 ALL continues to transform the later luminance tone table. RGB transforms the

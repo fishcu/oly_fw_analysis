@@ -726,11 +726,7 @@ tone_cycle:
  call tone_selected_id,[d2],8
  cmp 0,d0
  beq tone_cycle_no
- movhu (100,a2),d0
- movhu (0x6161b81c),d1
- cmp d1,d0
- bne tone_cycle_no
- .irp offset,16,44,200
+ .irp offset,16,44
  mov (\offset,a2),d0
  cmp 0,d0
  bne tone_cycle_no
