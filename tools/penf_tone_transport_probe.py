@@ -165,7 +165,6 @@ def owner_matrix(candidate):
         expected = bytearray(before)
         struct.pack_into('<I', expected, slot * 4, SOURCE_WORDS[profile - 1])
         assert s.read(candidate.symbols['tone_rows'], 180) == bytes(expected)
-        # The later source is deliberately different: a job must use its owner's snapshot.
         source = s.read(candidate.symbols['tone_source'], 12)
         s.write(candidate.symbols['tone_source'], bytes(12))
         copied = call(s, candidate.symbols['hl_owner_to_job'], a0=address, a2=JOB + 14920)
@@ -286,7 +285,6 @@ def pipeline(candidate, *, loaded=True, raw=(0, 0, 4, -2, -3), record=0, route='
     output = s.read(OUTPUT, 5212)
     pointer = struct.unpack_from('<I', output, 4656)[0]
     actual = struct.unpack('<256H', s.read(pointer, 512))
-    # Native reference is separately executed, never replaced by a host spline.
     stock = setup(candidate, reference=True, processing=True, raw=raw, record=record)
     helpers(stock)
     reenter(stock, 0x604f8543, 0xf0, 40, dict(PRESERVED, a0=CONTEXT))

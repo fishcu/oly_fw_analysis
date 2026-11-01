@@ -2,7 +2,7 @@
 
 This offline unit connects the endpoint kernel to the native ordinary COLOR tone builder. It does not add camera controls, persistent endpoint acquisition, or an installable image.
 
-The user can eventually move black and white vertically while the native shadow, middle, and highlight heights remain unchanged. This adapter preserves the entire final LUT interval around those inner controls. It clamps each requested endpoint independently when an inner control reduces the available range.
+The composed feature lets the user move black and white vertically while the native shadow, middle, and highlight heights remain unchanged. This adapter preserves the entire final LUT interval around those inner controls. It clamps each requested endpoint independently when an inner control reduces the available range.
 
 ## Native boundary
 
@@ -30,7 +30,7 @@ Before it calls the endpoint kernel, the adapter checks all 256 final samples. E
 
 Black becomes `min(requested_black, final_shadow_height)`. White becomes `max(requested_white, final_highlight_height)`. The two clamps are independent. If both effective endpoints are neutral, the adapter keeps the native pointer and bytes. Otherwise it copies a shared curve into output+4660 before editing, or reuses that scratch when the native builder already owns it. The pointer at output+4656 then names that context-owned scratch.
 
-The future UI must distinguish requested strength from effective height. A seven-step editor cannot round an effective clamped height back into a different request. This unit stores the requested 10-bit coordinates and calculates the effective endpoints per curve. The graph must show those effective values.
+The UI distinguishes requested coordinates from effective height and keeps an exact partial final step. This unit stores the requested 10-bit coordinates and calculates the effective endpoints per curve. The graph must show those effective values.
 
 ## Reproduction and evidence
 
@@ -47,8 +47,8 @@ The audit compares 27 source/contrast fixtures against native pre-control sample
 
 Four native uploader calls cover both banks with the same cache tag and dirty zero. Each call checks all 256 expanded 32-bit tone entries. The two cache-lock helpers use the existing single-thread model. These are separate bounded upload fixtures. They do not simulate concurrent jobs, cache scheduling, ISP pixels, or a camera.
 
-## Remaining integration
+## Composition
 
-The packed endpoint source, 45 owner snapshots, constructor extension, acquisition and conversion hooks, and native reset scopes remain required. External backup and ORF metadata support are outside this first feature and do not preserve endpoint settings through new extension records. The body page cycle, getter, setter, default action, and graph callback also remain required. No firmware cavity or loaded-section lifetime is assigned by this synthetic unit.
+The packed endpoint source, 45 owner snapshots, constructor extension, acquisition and conversion hooks, and native reset scopes are implemented in the transport unit. External backup and ORF metadata support are outside this first feature and do not preserve endpoint settings through new extension records. The body page cycle, setter, reset and graph are documented in [TONE_EDITOR.md](TONE_EDITOR.md) and [TONE_GRAPH.md](TONE_GRAPH.md). No firmware cavity or loaded-section lifetime is assigned by this synthetic unit.
 
 The composed source/owner/job candidate and residency guards are documented in [TONE_TRANSPORT.md](TONE_TRANSPORT.md). A null selected LUT now returns to the stock builder before the signal prepass; the native neutral-inner null-pointer result is covered by a differential regression.

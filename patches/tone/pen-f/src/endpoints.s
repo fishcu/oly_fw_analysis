@@ -1,6 +1,6 @@
-/* Probe-only kernel. The caller validates the full LUT and endpoint contract.
+/* The caller validates the full LUT and endpoint contract.
  * a0 is a writable 256*u16 LUT. a1 is {black,white,shadow_index,highlight_index},
- * four u16 values. CALL([d2,d3,a2,a3],16). No firmware placement is assigned.
+ * four u16 values. CALL([d2,d3,a2,a3],16).
  */
 .section .text,"ax"
 .global tone_endpoints

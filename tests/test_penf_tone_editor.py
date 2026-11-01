@@ -1,4 +1,3 @@
-"""Native placed tone-editor contracts; no camera or flash access."""
 import sys
 import tempfile
 import unittest

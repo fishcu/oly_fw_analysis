@@ -80,10 +80,12 @@ def reference_main(out):
     return bytes(image), names
 
 
-def build_candidate(out):
+def build_candidate(out, *, expanded=False):
     out = Path(out)
     out.mkdir(parents=True, exist_ok=False)
     reference, old = reference_main(out / 'hsl-reference')
+    late_start = 0x6115b014 if expanded else 0x6115b060
+    late_end = 0x6115b800 if expanded else 0x6115b7c0
     layout = out / 'tone.ld'
     layout.write_text('''SECTIONS {
 .tone_early 0x60427e78 : { *(.tone_early) }
@@ -105,7 +107,7 @@ stock_builder_after_entry = 0x604f7c7b;
 tone_source_uncached = tone_source + 0x40000000;
 tone_rows_uncached = tone_rows + 0x40000000;
 tone_compact_rows = tone_rows_uncached + 160;
-''' + f'hl_owner_row = {old["hl_owner_row"]:#x};\nhl_return = {old["hl_no_owner"] + 2:#x};\n')
+'''.replace('0x6115b060', hex(late_start)) + f'hl_owner_row = {old["hl_owner_row"]:#x};\nhl_return = {old["hl_no_owner"] + 2:#x};\n')
     elf = assemble(out / 'tone', [*SOURCES, ROOT / 'patches/tone/pen-f/src/transport.s'], layout)
     current = symbols(elf)
     image, manifest = bytearray(reference), []
@@ -126,13 +128,13 @@ tone_compact_rows = tone_rows_uncached + 160;
                    'tone_job_gate': (0x60427fa8, 0x60427fc0),
                    'tone_source_gate': (0x6069b580, 0x6069b590),
                    'tone_job_bridge': (0x6069b7ac, 0x6069b7b8),
-                   'text': (0x6115b060, 0x6115b7c0)}
+                   'text': (late_start, late_end)}
     for name, (start, end) in allocations.items():
         data = extract(elf, name)
         assert start + len(data) <= end, (name, len(data), end - start)
         install(name, start, data)
     rows = extract(elf, 'tone_rows')
-    assert len(rows) == 180 and current['tone_rows'] + len(rows) <= 0x6115b7c0
+    assert len(rows) == 180 and current['tone_rows'] + len(rows) <= late_end
     install('tone_rows', current['tone_rows'], rows)
 
     def jump(name, at, target, short=False, expected=None):

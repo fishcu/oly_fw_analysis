@@ -421,7 +421,6 @@ tone_input_cancel:
  add 532,sp
  ret [d2,d3,a2,a3],16
 
-/* Native held-OK reset event, in the existing event-handler frame. */
 tone_reset:
  mov (4,sp),a0
  call tone_profile,[d2],8

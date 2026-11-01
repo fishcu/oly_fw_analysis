@@ -6,9 +6,8 @@ The two existing axis bindings remain native property IDs; their stride, table
 count and ordinary getter/default behavior are unchanged. Only the concrete
 endpoint-page input callbacks create endpoint requests.
 
-This unit is executable and placed in the pinned main image. It does not yet
-replace the stock graph or its numeric labels and is not an installable firmware
-container. No camera, firmware upload or flash operation is part of these probes.
+This unit is executable and placed in the pinned main image. The composed graph and labels are documented in [TONE_GRAPH.md](TONE_GRAPH.md).
+This isolated unit does not create an installable firmware container. No camera, firmware upload or flash operation is part of these probes.
 
 ## Endpoint controls
 
@@ -25,8 +24,7 @@ The raw order is `(0,0,H,M,L)`. These current values come from the native public
 getter, not ACTIVE part0. The reference executes the same native conversion,
 signal-anchor prepass and inner overlay as image processing. Its purpose is a
 control graph; it does not claim to reproduce every per-image selected base.
-The forthcoming graph and labels must use this exact reference and these
-coordinate units.
+The composed graph and labels use this exact reference and these coordinate units.
 
 ## Request and lifetime boundaries
 
@@ -66,9 +64,9 @@ other emitted section is compared with the pinned baseline.
 
 | Region | Start | Used / available bytes |
 |---|---:|---:|
-| Late editor |`0x6115b4dc`|586 /740|
+| Late editor |`0x6115b4dc`|573 /740|
 | Native reference and step |`0x610f1ea0`|238 /288|
-| INFO replacement and resident guards |`0x60c87670`|362 /385|
+| INFO replacement and resident guards |`0x60c87670`|384 /385|
 | Resident manager gate |`0x60a4ff8d`|21 /25|
 | Tagged unavailable rejection |`0x6081b8af`|28 /32|
 
@@ -113,7 +111,7 @@ native per-profile callback. These boundaries must not be described as a
 completed physical button-to-LCD transaction.
 
 The existing per-image endpoint transport/kernel contract is documented in
-[TONE_TRANSPORT.md](TONE_TRANSPORT.md). Final graph drawing and whole-receiver
-invalidation are the next integration unit.
+[TONE_TRANSPORT.md](TONE_TRANSPORT.md). The composed graph drawing and whole-receiver invalidation are documented in
+[TONE_GRAPH.md](TONE_GRAPH.md).
 
 The resident unavailable-section fallback recognizes endpoint page2 only with one of the three exact COLOR tables. Other actuator families retain their native page2. A differential fixture uses the stock four-page table `60f4c330`: binding remains property896, all eight arrow/dial request prefixes and held-reset replay match stock with sections6/8 present or individually absent. Rejected non-COLOR tables are never reset by the late binder.
