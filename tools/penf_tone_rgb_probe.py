@@ -10,6 +10,7 @@ from penf_tone_transport_probe import (setup, settings, call, put32, u32, owner,
                                      acquisition, stopped, ACTIVE, WORDS)
 from penf_tone_integration_probe import JOB, REQUEST, CONTEXT, OUTPUT, LUT
 from penf_tone_editor_probe import fixture, actuator, mode, current, ACTUATOR, SERVICE
+from penf_tone_rgb_viewer_probe import NativeToneViewer, VIEWER, UPDATE
 
 NEUTRAL = FivePoints().pack()
 CURVES = (FivePoints(), FivePoints((64,320,544,704,960)),
@@ -189,10 +190,21 @@ def upload_cases(candidate):
     return reports
 
 
+def complete_cycle_boundary(s):
+    if s.regs['pc']==UPDATE:
+        assert s.regs['a0']==VIEWER and u32(s,VIEWER)==0x60f8bca4
+        s.regs['pc']=s.regs['mdr']
+    else:
+        assert s.regs['pc']==0x60d147e8
+        s.return_from_model(0)
+
+
 def cycle_cases(graph):
     controller,event=0x19110000,0x19111000
     s=fixture(graph.base,replace(graph.editor,image=graph.image))
-    s.ram('tone_controller',controller,struct.pack('<2I',ACTUATOR,0x19112000),aliases=False)
+    mode(s,54);current(s,1,(0,0,0));actuator(s,1,0)
+    NativeToneViewer(s)
+    s.ram('tone_controller',controller,struct.pack('<2I',ACTUATOR,VIEWER),aliases=False)
     s.ram('current_controller',0x6161b810,struct.pack('<I',controller))
     s.ram('current_screen',0x6161b81c,struct.pack('<H',897))
     s.ram('trash_event',event,b'\x02\x02',aliases=False)
@@ -208,11 +220,11 @@ def cycle_cases(graph):
                 reenter(s,graph.symbols['tone_cycle'],0xf0,40,dict(PRESERVED,a0=event))
                 calls=[]
                 for _ in range(3):
-                    result=s.run({CALLER+7,0x60c84901,0x60d147e8},limit=100000)
+                    result=s.run({CALLER+7,UPDATE,0x60d147e8},limit=100000)
                     if s.regs['pc']==CALLER+7:break
-                    calls.append(s.regs['pc']);s.return_from_model(0)
+                    calls.append(s.regs['pc']);complete_cycle_boundary(s)
                 stopped(s,result,CALLER+7)
-                assert s.regs['d0']==1 and calls==[0x60c84901,0x60d147e8]
+                assert s.regs['d0']==1 and calls==[UPDATE,0x60d147e8]
                 assert struct.unpack('<H',s.read(ACTUATOR+194,2))[0]==((channel+1)%4)*3+page
                 assert u32(s,0x6161bf84)==0
                 assert s.read(ACTIVE,WORDS*8)==before
@@ -224,7 +236,7 @@ def cycle_cases(graph):
         assert s.regs['d0']==0 and struct.unpack('<H',s.read(ACTUATOR+194,2))[0]==11
         put32(s,address,0)
     return dict(states=cases,setting_writes=0,equal_neutral_draw_requested=True,
-                modeled_functions=['native viewer completion','native draw-request completion'])
+                modeled_functions=['tone vtable method completion after native construction','native draw-request completion'])
 
 
 def native_cycle_cases(graph):
@@ -237,8 +249,8 @@ def native_cycle_cases(graph):
                 mode(s,53+profile);current(s,profile,(0,0,0))
                 s.ram('native_tone_actuator',ACTUATOR,bytes((fill,))*208,aliases=False)
                 s.ram('native_constructor_global',0x61618ec0,bytes(4))
-                s.ram('external_status_service',service,struct.pack('<I',vtable),aliases=False)
-                s.ram('external_status_vtable',vtable,bytes(48),aliases=False)
+                s.ram('actuator_status_service',service,struct.pack('<I',vtable),aliases=False)
+                s.ram('actuator_status_vtable',vtable,bytes(48),aliases=False)
                 models=[]
                 property_calls={0x60c87adf:(906,111),0x60c87af3:(111,53+profile),
                                 0x60c87496:(906,111),0x60c874aa:(111,53+profile)}
@@ -289,7 +301,8 @@ def native_cycle_cases(graph):
                     complete_native()
                     assert u32(s,ACTUATOR+200)==1
                     assert ('timer',500,8000) in models
-                s.ram('tone_controller',controller,struct.pack('<2I',ACTUATOR,0x19112000),aliases=False)
+                NativeToneViewer(s)
+                s.ram('tone_controller',controller,struct.pack('<2I',ACTUATOR,VIEWER),aliases=False)
                 s.ram('current_controller',0x6161b810,struct.pack('<I',controller))
                 s.ram('current_screen',0x6161b81c,struct.pack('<H',897))
                 s.ram('trash_event',event,b'\x02\x02',aliases=False)
@@ -300,17 +313,17 @@ def native_cycle_cases(graph):
                     reenter(s,0x60bcba4d,0,0,dict(PRESERVED,a0=event,d0=0x9016,d1=0,a1=0))
                     calls=[]
                     for _ in range(4):
-                        result=s.run({CALLER+7,0x60bcbbc7,0x60c84901,0x60d147e8},limit=100000)
+                        result=s.run({CALLER+7,0x60bcbbc7,UPDATE,0x60d147e8},limit=100000)
                         pc=s.regs['pc']
                         if pc in (CALLER+7,0x60bcbbc7):break
-                        assert pc in (0x60c84901,0x60d147e8),(result,hex(pc))
-                        calls.append(pc);s.return_from_model(0)
+                        assert pc in (UPDATE,0x60d147e8),(result,hex(pc))
+                        calls.append(pc);complete_cycle_boundary(s)
                     actual=struct.unpack('<H',s.read(ACTUATOR+194,2))[0]
                     assert pc==CALLER+7 and actual==expected,(
                         f'Native-created tone actuator rejects trash: screen=897, '
                         f'offset100={u32(s,ACTUATOR+100):#x}, timeout={u32(s,ACTUATOR+200)}, '
                         f'selection={actual}, expected={expected}, stop={pc:#x}')
-                    assert calls==[0x60c84901,0x60d147e8]
+                    assert calls==[UPDATE,0x60d147e8]
                     assert s.regs['sp']==INITIAL_SP and s.regs['d0']==0
                     assert all(s.regs[k]==v for k,v in PRESERVED.items())
                     assert s.read(ACTIVE,WORDS*8)==before
@@ -320,7 +333,7 @@ def native_cycle_cases(graph):
                 reports.append(dict(profile=profile,allocation_fill=fill,
                     active_timeout=active_timeout,selections=selections,models=models))
     return dict(cases=reports,screen=897,setting_writes=0,
-        scope='Native constructor, binding, eligibility and 9749 handler execute; external property/status/parameter/timer services and viewer/draw completion modeled. No physical camera execution.')
+        scope='Native constructor, binding, eligibility and 9749 handler execute; external property/status/parameter/timer services and tone-vtable/draw completion modeled. Native viewer construction executes; joined updater/publication is checked separately. No physical camera execution.')
 
 
 def channel_display_cases(graph, folder):
@@ -449,8 +462,9 @@ def dispatcher_cases(graph):
         for reference in ((False,) if event_id==0x9016 and loaded and not modal and not unsupported else (False,True)):
             image=graph.base.reference if reference else graph.image
             s=fixture(graph.base,replace(graph.editor,image=image))
-            actuator(s,1,0);mode(s,54)
-            s.ram('tone_controller',controller,struct.pack('<2I',ACTUATOR,0x19112000),aliases=False)
+            actuator(s,1,0);mode(s,54);current(s,1,(0,0,0))
+            NativeToneViewer(s)
+            s.ram('tone_controller',controller,struct.pack('<2I',ACTUATOR,VIEWER),aliases=False)
             s.ram('current_controller',0x6161b810,struct.pack('<I',controller))
             s.ram('current_screen',0x6161b81c,struct.pack('<H',897))
             s.ram('fsm_event',event,b'\x02\x02',aliases=False)
@@ -463,15 +477,15 @@ def dispatcher_cases(graph):
             reenter(s,0x60bcba4d,0,0,dict(PRESERVED,a0=event,d0=event_id,d1=0x1234,a1=0x4321))
             calls=[]
             for _ in range(4):
-                result=s.run({CALLER+7,0x60bcbbc7,0x60c84901,0x60d147e8},limit=100000)
+                result=s.run({CALLER+7,0x60bcbbc7,UPDATE,0x60d147e8},limit=100000)
                 if s.regs['pc'] in (CALLER+7,0x60bcbbc7):break
-                calls.append(s.regs['pc']);s.return_from_model(0)
+                calls.append(s.regs['pc']);complete_cycle_boundary(s)
             target=CALLER+7 if event_id==0x9016 and loaded and not modal and not unsupported else 0x60bcbbc7
             stopped(s,result,target)
             if target==CALLER+7:
                 assert s.regs['sp']==INITIAL_SP and s.regs['d0']==0
                 assert all(s.regs[k]==v for k,v in PRESERVED.items())
-                assert calls==[0x60c84901,0x60d147e8]
+                assert calls==[UPDATE,0x60d147e8]
                 assert struct.unpack('<H',s.read(ACTUATOR+194,2))[0]==3
             else:
                 pairs.append((dict(s.regs),s.read(s.regs['sp'],32)))

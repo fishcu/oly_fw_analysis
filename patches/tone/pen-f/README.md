@@ -92,8 +92,8 @@ its stock restore container. Producing these files performs no device access.
 |---|---|
 | Required full stock | `77398610b379f80238117f31a6d5bbf65d608b49ec563666c64d84367e969f2c` |
 | Pinned HSL package | `4f9a36e6742728ded3d9b443915355f1d1eea0371e1da673f322de970994f717` |
-| RGB five-point main | `0c5194663691e9c51aa74dd94de46dc0428d33d0e5195ec330beb09c6dd18b39` |
-| RGB five-point container,44433408 bytes | `3c7ea08309c880e18f1781248b2a52946c7aa877760b5f36fd775ff01b2cdb6d` |
+| RGB five-point main | `eab1448dd516303168aa30455a1a1a10f3124a9fd739668846e80cc0f59af4ed` |
+| RGB five-point container,44433408 bytes | `cf3c34352d16928240d823882b0dab3e91954383c72d7353e789a7f0a03c9e4c` |
 | Retained HSL OSD | `f713df2a2d7d57a511e55cabb0f84ac4d612f99c58df4502a89b32bd8580084c` |
 
 The candidate main and container hashes for each build are recorded in `build.json`.
@@ -109,14 +109,25 @@ offline candidate; LCD timing, silicon stage order and saved JPEG color output
 remain unqualified. The earlier white-only delay is not claimed fixed.
 
 
-The earlier candidate passed 90 distinct offline tests, but its trash fixtures
-fabricated a matching screen field and missed a native-constructor regression.
-That count is historical and does not qualify the current build. The trash fix
-has a separate audit under `generated/rgb-tone-trash-fix/audit`, including the
-failing regression, test-only patch, focused test logs and current build hashes.
-The current build passes 27 distinct focused tests, all 15 RGB tests and 12 native
-editor tests including INFO publication. An independent run also passes the
-native trash regression on the main payload decoded from the delivered BIN.
+The earlier 90-test and 27-test results are historical and do not qualify this
+build. The 27 tests modeled the complete viewer update, hiding an HSL method
+called against the tone viewer's incompatible 120-byte layout. The joined
+regression now executes DEL dispatch, native tone/helper construction, the real
+tone updater, both callbacks, footer publication, native parameter 118/92-byte
+and 209/12-byte copies, helper refresh and the native draw-request wrapper to
+its ABI return. The old HSL target fails at viewer offset 120 in the same fixture.
+
+`tone_cycle` uses the viewer's first virtual method, matching the native
+controller convention. The audit is under `generated/rgb-tone-del-viewer-fix/audit`.
+It retains the failing test, test-only patch, focused logs and exact build hashes.
+The new candidate is `generated/rgb-tone-del-viewer-fix/install/DCOLYMP/E1229999.BIN`.
+The previous candidate remains in its original output directory.
+
+The fixture models exact allocator returns, camera context properties, status,
+logs, timer and GUI notification services. The helper executes its native
+status-zero path. The display store has a native empty observer list. Lower
+queue/lock services are modeled while the draw wrapper itself returns natively.
+These checks do not execute the queue worker, LCD, or physical camera.
 
 The core probe executes canonical decode, legacy migration, selected-axis edits
 and all1024 transfer inputs for48 representative states. It checks neutral exact
@@ -130,6 +141,7 @@ PYTHONPATH=tools python3 tools/penf_tone_points_probe.py --out /tmp/tone-points
 PYTHONPATH=tools python3 tools/penf_tone_integration_probe.py --out /tmp/tone-image
 PYTHONPATH=tools python3 tools/penf_tone_graph_probe.py --out /tmp/tone-graph
 PYTHONPATH=tools python3 tools/penf_tone_viewer_probe.py --out /tmp/tone-viewer
+PYTHONPATH=tools python3 tools/penf_tone_rgb_viewer_probe.py --out /tmp/tone-rgb-viewer
 PENF_STOCK_CONTAINER=/path/to/OLY_E_122_3101_0000_0000.BIN \
   python3 -m unittest discover -s tests -p 'test_penf_tone*.py' -v
 ```

@@ -62,7 +62,7 @@ def build_editor(folder, candidate):
         tone_resolve=names['tone_resolve'],tone_decode=names['tone_decode'],
         tone_edit=names['tone_edit'],tone_apply=names['tone_apply'],
         tone_storage_ids=names['tone_storage_ids'],hsl_dispatch=names['hsl_dispatch'],
-        stock_viewer=0x60c84901,stock_draw_request=0x60d147e8)
+        stock_draw_request=0x60d147e8)
     external.update({f'stock_input_{name}_resume': at for name, at in
                      (('up',0x60c8720b), ('down',0x60c8726d), ('left',0x60c872d1),
                       ('right',0x60c87335), ('rear',0x60c873b2), ('front',0x60c8742e))})

@@ -70,16 +70,57 @@ checks. It retains the FSM 2/2 requirement, modal globals, controller and viewer
 checks, exact supported profile table, current COLOR mode, busy fields 16 and
 44, and selection range. It does not add a screen whitelist or alter the timer.
 
-`native_cycle_cases` executes the constructor, binding and axis eligibility on
-zero and sentinel allocations for all three COLOR profiles. It then drives the
-real `0x9016` common dispatcher through ALL, R, G, B and ALL, both before and
-after executing native `0x9749`. The regression checks unchanged settings and
-retention of the native timeout flag. The 36-state matrix checks page retention.
-Unloaded, modal and unsupported-actuator cases retain the stock fallback ABI.
-External property, status, parameter and timer services are modeled. Viewer and
-draw completion are modeled as in the existing dispatcher probe. The initial
-failing log and test-only patch precede the production fix in the generated
-audit. These checks do not execute event queue delivery or a physical LCD.
+`native_cycle_cases` executes the actuator constructor, binding and axis
+eligibility on zero and sentinel allocations for all three COLOR profiles. It
+then drives the real `0x9016` dispatcher through ALL, R, G, B and ALL, before and
+after native `0x9749`. Its viewer now comes from the actual native factory and
+constructor. This bounded selection test models the tone virtual method and
+draw completion. Unloaded, modal and unsupported-actuator cases retain the
+stock fallback ABI.
+
+The former 27-test result missed a second defect because the complete viewer
+update was modeled. `tone_cycle` called HSL updater `0x60c84901` against a tone
+viewer. The native tone factory allocates 120 bytes, installs vtable
+`0x60f8bca4`, stores a helper object at +4 and an owner at +112. The HSL updater
+clears 96 bytes from +36, corrupts the owner and writes beyond +120. Its +4
+field also has a different meaning. Removing actuator guards exposed this
+existing incompatible call.
+
+The correction loads the saved viewer, its vtable and slot zero, then executes
+`calls (a1)`. Native controller `0x60cd04b7` uses this convention. The tone
+vtable selects updater `0x60cf9b6d`; selection, eligibility and redraw logic are
+unchanged. The obsolete HSL `stock_viewer` binding is removed.
+
+`penf_tone_rgb_viewer_probe.py` joins the real DEL dispatcher to both native
+factories and constructors, the tone updater, callbacks `0x60cf9c27` and
+`0x60cfa658`, patched footer, native parameter getter/setter wrappers and helper
+refresh. The callback table is initialized by native `0x60cfa6f5`. Parameter
+118 publishes 92 bytes from viewer+8 to `0x619b5f80`; parameter 209 publishes
+12 bytes from viewer+100 to `0x619c0b30`. The real draw wrapper `0x60d147e8`,
+including its native 65516 mapping, executes to its ABI return.
+
+The joined matrix runs four successive DEL presses on each of three profiles
+and three pages with all twelve curves set to canonical neutral. It checks the
+published channel/page footer, both first-entry family states, exact-size
+read-only canaries around the 120-byte viewer and 1492-byte helper, vtables and
+owners, unchanged ACTIVE/BANKS/LIVE settings, consumed events and restored SP
+and saved registers. Six rejected-event cases make no viewer, publication or
+draw calls. Injecting the old HSL method into the same viewer's slot zero fails
+at a write to viewer+120 and corrupts owner+112, proving sensitivity to the bug.
+
+Explicit models supply exact allocator objects, camera context properties
+26/28/44/683/762/906, status, logging, timer, first-entry GUI notification and
+lower draw queue/lock services. Other GUI property queries execute the bounded
+getter envelope and native raw getter. The helper takes its explicit status-zero
+path and returns natively; the display store has its native empty observer
+list. Queue delivery, LCD timing and physical camera execution remain outside
+this fixture. The earlier 27 passing tests do not establish viewer correctness.
+
+The new output is `generated/rgb-tone-del-viewer-fix`. Its container SHA-256 is
+`cf3c34352d16928240d823882b0dab3e91954383c72d7353e789a7f0a03c9e4c` and main SHA-256 is
+`eab1448dd516303168aa30455a1a1a10f3124a9fd739668846e80cc0f59af4ed`.
+The `audit` directory records the failing log and test-only patch before the
+production change, the final regression logs, and reproducible commands.
 
 ## Image processing and channel naming limit
 

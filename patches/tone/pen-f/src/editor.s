@@ -743,7 +743,9 @@ tone_cycle_commit:
  clr d0
  mov d0,(0x6161bf84)
  mov (16,sp),a0
- call stock_viewer,[],0
+ mov (a0),a1
+ mov (a1),a1
+ calls (a1)
  mov 65516,d0
  mov 1,d1
  mov 0,a0
