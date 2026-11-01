@@ -9,7 +9,10 @@ release and Value OSD. Building performs no camera access or flashing.
 This revision replaces the earlier endpoint-only design. A first equal-quarter
 candidate froze before the tone screen appeared on a camera. The current build
 corrects unaligned native lookup tables and UTF-16 stores; its correction has
-bounded offline verification and needs a physical retest.
+bounded offline verification. A subsequent camera report confirmed that the
+screen opens, but a white-only realtime-update delay remains unresolved.
+This build corrects the physical front/rear dial assignment; it does not claim
+to resolve that delay.
 
 ## Body controls
 
@@ -18,11 +21,11 @@ shadow/highlight → middle → black/white → shadow/highlight.
 
 | Page | Left/right | Down/up | Front dial | Rear dial | Held OK |
 |---|---|---|---|---|---|
-| Shadow/highlight | Lower/raise shadow | Lower/raise highlight | Shadow | Highlight | Reset S/H toward256/768 within unchanged neighbors |
+| Shadow/highlight | Lower/raise shadow | Lower/raise highlight | Highlight | Shadow | Reset S/H toward256/768 within unchanged neighbors |
 | Middle | Adjust middle | Adjust middle | Middle | Middle | Reset M toward0 within S/H |
 | Black/white | Lower/raise black | Lower/raise white | White | Black | Reset B/W to0/1023 |
 
-The front dial's positive native event lowers its selected point; the rear
+The rear dial's positive native event lowers its selected point; the front
 dial's positive event raises its selected point. Arrow directions in the table
 are literal camera directions. Middle uses−7..+7, with height512+32×M.
 The other four coordinates use16-code increments, with a final31-code interval
@@ -87,8 +90,8 @@ its stock restore container. Producing these files performs no device access.
 |---|---|
 | Required full stock | `77398610b379f80238117f31a6d5bbf65d608b49ec563666c64d84367e969f2c` |
 | Pinned HSL package | `4f9a36e6742728ded3d9b443915355f1d1eea0371e1da673f322de970994f717` |
-| Five-point main | `5e2c519088aebcee27d5fa92a5aca1bf19464cdf27208da274aa7439bb867b6a` |
-| Five-point container,44433408 bytes | `4c027d1eb5b1d3ead05fa05dcbd8b2c17fea2e0169714c885834fa2ee969010a` |
+| Five-point main | `fa57eea840b6c79cf1298d734449c412f14cd2897d7154a0d471b0922925af59` |
+| Five-point container,44433408 bytes | `5c67b2db82c1d2a7d415e95438c1743e90574424fb36affb381aa8e077ff061a` |
 | Retained HSL OSD | `f713df2a2d7d57a511e55cabb0f84ac4d612f99c58df4502a89b32bd8580084c` |
 
 The candidate main and container hashes for each build are recorded in `build.json`.

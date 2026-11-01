@@ -126,11 +126,6 @@ tone_bind_pair:
  mov d0,(160,a3)
  mov d0,(164,a3)
  mov d2,(168,a3)
- cmp 2,d1
- bne tone_bind_dials
- add -2,d0
- add 2,d2
-tone_bind_dials:
  mov d0,(180,a3)
  mov d2,(184,a3)
  mov 2000,d0

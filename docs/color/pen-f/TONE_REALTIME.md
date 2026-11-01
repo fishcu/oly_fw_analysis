@@ -21,3 +21,32 @@ using the same inline descriptor format. The former custom numeric paint row
 is removed. Publication, native query compaction and formatting contracts are
 in [TONE_GRAPH.md](TONE_GRAPH.md). This meaningful-payload change has bounded
 native verification but no physical LCD or async-delivery qualification.
+
+## Later white-only report
+
+After candidate6ebce6d, the user reported that white edits appeared only after
+changing highlight, while black edits worked immediately. The current change
+restores the physical front dial to white and rear dial to black; it does not
+claim a fix for the white-only refresh report.
+
+The bounded comparison has not reproduced a black/white asymmetry. Actual
+binding and all eight native input continuations across COLOR1–3 commit the
+canonical word, publish the source, set the changed flag, return1 and enter the
+outer viewer. Eight COLOR1 cases continue through the whole native viewer:
+parameter118 contains the changed B/W text with notify1, the native store copies
+92 bytes, the observer pending bit is set and event6400 is prepared. These cases
+bypass the unchanged GUI logging/busy-check envelope and model profile-refresh,
+application-state and settings-notification completion; event-queue submission
+and delivery remain outside the fixture. They do not prove visible refresh.
+
+Independent strict probes retain all32 source bits through white-only changes
+and acquisition. The native builder and both upload banks also accept white-only
+changes with unchanged native controls. Upload locks are modeled. These separate
+fixtures do not establish the scheduling of a real camera transaction.
+
+The recorded evidence is under `generated/tone-curve/white-refresh/`:
+`callback-continuation.json`, `viewer-publication.json`,
+`review-publication.json`, `review-refresh-prefix.json`,
+`image-isolation-v2/audit.json` and `image-sequence.json`, with the corresponding
+rerunnable scripts. Physical display/liveview behavior remains unverified here;
+no additional refresh flag or invalidation was added without a reproduced cause.

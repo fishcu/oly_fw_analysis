@@ -63,7 +63,7 @@ def build_editor(folder, candidate):
         tone_edit=names['tone_edit'],tone_apply=names['tone_apply'])
     external.update({f'stock_input_{name}_resume': at for name, at in
                      (('up',0x60c8720b), ('down',0x60c8726d), ('left',0x60c872d1),
-                      ('right',0x60c87335), ('front',0x60c873b2), ('rear',0x60c8742e))})
+                      ('right',0x60c87335), ('rear',0x60c873b2), ('front',0x60c8742e))})
     slots = {'tone_editor': (names['tone_rows']+180,0x6115b800),
              'tone_reference': (0x610f1e54,0x610f1fca),
              'tone_selected': (0x610f1fd8,0x610f1ff6),

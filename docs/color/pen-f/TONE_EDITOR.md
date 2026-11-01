@@ -12,8 +12,13 @@ ID967/970/973 and the full word. No global proxy flag crosses a setter wait.
 The native busy guards and async envelope remain unchanged.
 
 On the black/white page, the front dial selects white and the rear dial selects
-black. The binder exchanges only the two dial property fields at offsets 180
-and 184. Arrow bindings and the other pages retain their existing mapping.
+black. The native rear callback60c8736f uses the low binding at offset180;
+the front callback60c873ec uses the high binding at offset184. The same bindings
+select shadow/highlight on the first page. This physical identity follows the
+[official PEN-F manual, page44](https://learning.omsystem.com/PEN-F/zz_pdf/pen-f_eng.pdf),
+which assigns rear to shadows and front to highlights. The previous revision
+misnamed those callbacks and incorrectly exchanged the endpoint bindings.
+Arrow bindings and rotation directions are unchanged.
 
 The manager validates canonical state, writes native ACTIVE part1, publishes
 all three source words and invokes the correct profile refresh. It retains the

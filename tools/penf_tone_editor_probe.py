@@ -155,8 +155,6 @@ def binding_cases(candidate, editor):
             for offset, value in ((160, high + 2), (164, high + 2), (168, high),
                                   (180, high + 2), (184, high)):
                 struct.pack_into('<I', expected, offset, high + 1 if page == 1 else value)
-            if page == 2:
-                struct.pack_into('<II', expected, 180, high, high + 2)
             assert s.read(ACTUATOR, 208) == expected
     return dict(cases=9, endpoint_front='white', endpoint_rear='black', no_table_stride_change=True)
 
@@ -184,14 +182,15 @@ def input_cases(candidate, editor):
                 before = s.read(ACTUATOR,208)
                 reenter(s, entry, 0, 0, dict(PRESERVED, a0=ACTUATOR, d1=delta & 0xffffffff))
                 report = stopped(s, s.run({0x607363b3}, limit=200000), 0x607363b3)
-                selected = 1-axis if page==2 and delta else axis
-                index = (1 if selected==0 else 3) if page==0 else (2 if page==1 else (0 if selected==0 else 4))
+                index = (1 if axis==0 else 3) if page==0 else (2 if page==1 else (0 if axis==0 else 4))
                 expected = (SERVICE, high, 0, points.edit(index,1 if change>0 else -1).pack())
                 actual = tuple(s.regs[r] for r in ('a0', 'd0', 'd1', 'a1'))
                 assert actual == expected, (profile, page, hex(entry), actual, expected)
                 assert s.read(ACTUATOR, 208) == before
                 reports.append(dict(profile=profile, page=page, entry=hex(entry),
-                                    direction=delta, point=('black','shadow','middle','highlight','white')[index],
+                                    direction=delta,
+                                    control={0x60c8736f:'rear_dial',0x60c873ec:'front_dial'}.get(entry,'arrow'),
+                                    point=('black','shadow','middle','highlight','white')[index],
                                     change=1 if change>0 else -1,
                                     payload=hex(s.regs['a1']), **report))
     return dict(callbacks=reports, scope='Patched native binding then real callbacks to unchanged GUI setter, including public-mode and current-control getters; unchanged service completion excluded')
