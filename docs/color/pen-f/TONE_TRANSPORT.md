@@ -1,6 +1,6 @@
 # PEN-F endpoint transport candidate
 
-This offline candidate joins the verified tone adapter to committed settings, acquired owners and image jobs. It composes over the exact released HSL main payload. It is not an installation image or a complete camera editor. No camera or nonvolatile storage is accessed by these probes.
+This offline candidate joins the verified tone adapter to committed settings, acquired owners and image jobs. It composes over the exact released HSL main payload. This document covers the transport unit; the [feature README](../../../patches/tone/pen-f/README.md) describes the composed editor, graph and container build. No camera or nonvolatile storage is accessed by these probes.
 
 ## Ownership and native hooks
 

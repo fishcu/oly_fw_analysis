@@ -19,10 +19,10 @@ class GraphCandidate:
     chunks: dict
 
 
-def build_graph(folder):
+def build_graph(folder, *, stock_main=None):
     folder = Path(folder)
     folder.mkdir(parents=True, exist_ok=False)
-    base = build_candidate(folder/'transport', expanded=True)
+    base = build_candidate(folder/'transport', expanded=True, stock_main=stock_main)
     editor = build_editor(folder/'editor', base, graph=True)
     names = dict(editor.symbols)
     names.update(native_tone_paint=0x60bbe8b6, native_tone_update=0x60c58464,

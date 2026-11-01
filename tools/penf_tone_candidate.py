@@ -10,11 +10,15 @@ import struct
 import subprocess
 
 from penf_emulator import BASE, ROOT, firmware
+from penf_landmarks import MAIN_SHA256
 from penf_tone_endpoints import TOOLCHAIN
 from penf_tone_integration_probe import SOURCES
 from penf_tone_probe import sha
 
 HSL = ROOT / 'patches/hsl/pen-f'
+TOOLS = {name: TOOLCHAIN / path for name, path in (
+    ('assembler','gas/as-new'),('linker','ld/ld-new'),('objcopy','binutils/objcopy'),
+    ('objdump','binutils/objdump'),('nm','binutils/nm-new'))}
 
 
 @dataclass(frozen=True)
@@ -31,7 +35,7 @@ def run(*args):
 
 def symbols(elf):
     return {name: int(address, 16) for address, kind, name in
-            (line.split() for line in run(TOOLCHAIN / 'binutils/nm-new', '-n', elf).splitlines())}
+            (line.split() for line in run(TOOLS['nm'], '-n', elf).splitlines())}
 
 
 def assemble(folder, sources, layout):
@@ -39,23 +43,24 @@ def assemble(folder, sources, layout):
     objects = []
     for i, source in enumerate(sources):
         obj = folder / f'{i}.o'
-        run(TOOLCHAIN / 'gas/as-new', '-o', obj, source)
+        run(TOOLS['assembler'], '-o', obj, source)
         objects.append(obj)
     elf = folder / 'patch.elf'
-    run(TOOLCHAIN / 'ld/ld-new', '--no-relax', '-T', layout, '-o', elf, *objects)
-    (folder / 'patch.asm').write_text(run(TOOLCHAIN / 'binutils/objdump', '-d', elf))
+    run(TOOLS['linker'], '--no-relax', '-T', layout, '-o', elf, *objects)
+    (folder / 'patch.asm').write_text(run(TOOLS['objdump'], '-d', elf))
     return elf
 
 
 def extract(elf, section):
     path = elf.parent / (section + '.bytes')
-    run(TOOLCHAIN / 'binutils/objcopy', '-O', 'binary', '--only-section=.' + section, elf, path)
+    run(TOOLS['objcopy'], '-O', 'binary', '--only-section=.' + section, elf, path)
     return path.read_bytes()
 
 
-def reference_main(out):
+def reference_main(out, stock_main=None):
     spec = json.loads((HSL / 'patch.json').read_text())
-    image = bytearray(firmware())
+    image = bytearray(firmware() if stock_main is None else stock_main)
+    assert sha(image) == MAIN_SHA256, 'Wrong stock main hash'
     expected = {(r['name'], int(r['address'], 16)): r for r in spec['main_ranges']}
     written, names = set(), {}
 
@@ -80,10 +85,10 @@ def reference_main(out):
     return bytes(image), names
 
 
-def build_candidate(out, *, expanded=False):
+def build_candidate(out, *, expanded=False, stock_main=None):
     out = Path(out)
     out.mkdir(parents=True, exist_ok=False)
-    reference, old = reference_main(out / 'hsl-reference')
+    reference, old = reference_main(out / 'hsl-reference', stock_main)
     late_start = 0x6115b014 if expanded else 0x6115b060
     late_end = 0x6115b800 if expanded else 0x6115b7c0
     layout = out / 'tone.ld'

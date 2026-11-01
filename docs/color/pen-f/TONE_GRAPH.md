@@ -1,8 +1,8 @@
 # Native five-point control graph
 
 `tools/penf_tone_graph_candidate.py` composes the graph with the endpoint editor,
-profile storage and per-image adapter. It produces a main-image candidate; the
-container build and physical camera qualification are separate steps.
+profile storage and per-image adapter. The [feature README](../../../patches/tone/pen-f/README.md) documents the
+composed container builder. Physical camera qualification remains separate.
 
 The graph uses the current COLOR1–3 native high/middle/low values, the native
 identity LUT, and zero legacy contrast inputs. The same native conversion,

@@ -1,4 +1,3 @@
-"""Boundary checks for the offline tone graph native drawing prerequisite."""
 from pathlib import Path
 import struct
 import subprocess

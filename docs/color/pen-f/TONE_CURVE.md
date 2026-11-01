@@ -1,6 +1,6 @@
 # PEN-F tone curve work
 
-The requested feature adds vertically movable black and white endpoints to the PEN-F body tone editor. The existing shadow, middle, and highlight heights must remain fixed when either endpoint moves. This is unfinished firmware work. The native baseline below does not add a body control.
+The requested feature adds vertically movable black and white endpoints to the PEN-F body tone editor. The existing shadow, middle, and highlight heights must remain fixed when either endpoint moves. The composed body editor, graph and reproducible container build are documented in the [feature README](../../../patches/tone/pen-f/README.md). The baseline below is the isolated native math unit.
 
 ## Reproduce the native baseline
 
@@ -32,7 +32,7 @@ The probe also varies each opaque slot independently through -7 and +7. It tests
 
 ## Probe the endpoint kernel
 
-`patches/tone/pen-f/src/endpoints.s` is a 140-byte MN103 kernel linked only at synthetic test address `0x19080000`. This address is not a firmware placement. The host oracle is `endpoint_oracle` in `tools/penf_tone_endpoints.py`.
+`patches/tone/pen-f/src/endpoints.s` is a 140-byte MN103 kernel. This isolated probe links it at synthetic test address `0x19080000`. This address is not a firmware placement. The host oracle is `endpoint_oracle` in `tools/penf_tone_endpoints.py`.
 
 ```sh
 python3 tools/penf_tone_endpoints.py --out generated/tone-endpoints \
