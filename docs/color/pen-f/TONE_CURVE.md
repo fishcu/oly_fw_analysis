@@ -1,6 +1,10 @@
 # PEN-F tone curve work
 
-The requested feature adds vertically movable black and white endpoints to the PEN-F body tone editor. The existing shadow, middle, and highlight heights must remain fixed when either endpoint moves. The composed body editor, graph and reproducible container build are documented in the [feature README](../../../patches/tone/pen-f/README.md). The baseline below is the isolated native math unit.
+This is historical native-math and endpoint-only groundwork. The current feature
+uses equal-quarter points and a shared canonical state, documented in
+[TONE_POINTS.md](TONE_POINTS.md) and the [feature README](../../../patches/tone/pen-f/README.md).
+The old endpoint/signal kernels below remain isolated probes and are not linked
+into the current candidate.
 
 ## Reproduce the native baseline
 

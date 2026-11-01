@@ -23,15 +23,23 @@ def build_graph(folder, *, stock_main=None):
     folder = Path(folder)
     folder.mkdir(parents=True, exist_ok=False)
     base = build_candidate(folder/'transport', expanded=True, stock_main=stock_main)
-    editor = build_editor(folder/'editor', base, graph=True)
+    editor = build_editor(folder/'editor', base)
     names = dict(editor.symbols)
     names.update(native_tone_paint=0x60bbe8b6, native_tone_update=0x60c58464,
                  native_filter_resume=0x60bf7c47, native_filter_skip=0x60bf80cf,
                  stock_gui_service=0x607355e9, stock_variant=0x60c89710,
                  stock_string=0x60bcb228, stock_viewer_tail=0x60cfa572,
-                 stock_middle_mono=0x60cfa28a)
+                 stock_middle_mono=0x60cfa28a,stock_viewer_pair_hint=0x60cfa4dd,
+                 stock_viewer_publish_resume=0x60cf9bec,stock_pair_mono=0x60cf9f2e,
+                 stock_viewer_log=0x60d10726)
     slots = {
-        'tone_viewer_middle': (0x60cfa110,0x60cfa28a),
+        'tone_viewer_pair': (0x60cf9d81,0x60cf9e39),
+        'tone_footer': (0x60cf9e39,0x60cf9f2e),
+        'tone_viewer_middle': (0x60cfa110,0x60cfa1ad),
+        'tone_viewer_gate': (0x60cfa1ad,0x60cfa1da),
+        'tone_footer_strings': (0x60cfa1da,0x60cfa250),
+        'tone_footer_tail': (0x60cfa250,0x60cfa28a),
+        'tone_footer_small_strings': (0x610f1fb4,0x610f1fca),
         'tone_display_filter': (0x60a4fe6c,0x60a4feb0),
         'tone_display_active': (0x60a4ffb4,0x60a4ffe8),
         'tone_display_digits': (0x60a4ffe8,0x60a50000),
@@ -39,7 +47,6 @@ def build_graph(folder, *, stock_main=None):
         'tone_display_brush': (0x60fdc2ce,0x60fdc2e0),
         'tone_display_filter_gate': (0x60fdc7b4,0x60fdc7d4),
         'tone_display_update': (0x60fdc7d4,0x60fdc800),
-        'tone_display_text': (0x610f1f42,0x610f1fca),
         'tone_display_rectangle': (0x610f1fca,0x610f1fd8),
         'tone_display_paint': (names['tone_manager']+len(editor.chunks['tone_editor']),0x6115b800),
     }
@@ -49,21 +56,26 @@ def build_graph(folder, *, stock_main=None):
     elf=assemble(folder/'assembly',[ROOT/'patches/tone/pen-f/src'/name for name in ('display.s','viewer.s')],layout)
     names.update(symbols(elf))
     image=bytearray(editor.image)
+    replaced = ((0x60cf9d81,0x60cf9f2e,'7cfbc8bd1d503dfb9b13806bfb32ccba1cf2e8a46b502b3e1f6175c94b83b9f5'),
+                (0x60cfa110,0x60cfa28a,'a8ce9e71dbca9ec709d7db300fd0aefbfffe45ccbeb330cf44438a941d2e04a6'))
+    for start,end,digest in replaced:
+        assert sha(image[start-BASE:end-BASE]) == digest
+        image[start-BASE:end-BASE] = b'\xcb' * (end-start)
     chunks={}
     for section,(start,end) in slots.items():
         data=extract(elf,section)
         assert start+len(data)<=end,(section,len(data),end-start)
-        if section=='tone_viewer_middle':
-            assert sha(image[start-BASE:end-BASE])=='a8ce9e71dbca9ec709d7db300fd0aefbfffe45ccbeb330cf44438a941d2e04a6'
-            image[start-BASE:end-BASE]=data+b'\xcb'*(end-start-len(data))
-        else:
-            assert image[start-BASE:start-BASE+len(data)]==b'\xff'*len(data),section
-            image[start-BASE:start-BASE+len(data)]=data
+        padding = b'\xcb' if any(lo <= start and end <= hi for lo,hi,_ in replaced) else b'\xff'
+        assert image[start-BASE:start-BASE+len(data)] == padding*len(data),section
+        image[start-BASE:start-BASE+len(data)] = data
         chunks[section]=data
     for address,expected,target in ((0x60ec4d4c,0x60bbe8b6,'tone_paint_gate'),
                                     (0x60ec4e3c,0x60c58464,'tone_update_gate')):
         assert image[address-BASE:address-BASE+4]==struct.pack('<I',expected)
         image[address-BASE:address-BASE+4]=struct.pack('<I',names[target])
+    address=0x60cf9be6
+    assert image[address-BASE:address-BASE+6] == bytes.fromhex('8e1a5c04f1e9')
+    image[address-BASE:address-BASE+6] = b'\xdc'+struct.pack('<i',names['tone_viewer_publish']-address)+b'\xcb'
     address=0x60bf7c40
     assert image[address-BASE:address-BASE+7]==bytes.fromhex('5cccf004f82550')
     image[address-BASE:address-BASE+7]=b'\xdc'+struct.pack('<i',names['tone_filter_gate']-address)+b'\xcb\xcb'

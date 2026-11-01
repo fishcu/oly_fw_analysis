@@ -1,8 +1,8 @@
-/* Tagged endpoint requests retain the registered high ID throughout the
+/* Tagged five-point requests retain the registered high ID throughout the
  * native GUI transaction. Legal stock -7..7 values cannot match this tag. */
 .section .tone_manager_gate,"ax"
 .global tone_manager_gate, tone_manager, tone_profile, tone_bind
-.global tone_info, tone_reference, tone_step
+.global tone_info, tone_reference
 
 tone_manager_gate:
  movbu (0xa1c58404),d2
@@ -14,8 +14,8 @@ tone_manager_loaded:
 .section .tone_manager_unavailable,"ax"
 tone_manager_unavailable:
  mov d1,d2
- lsr 20,d2
- cmp 0xa5d,d2
+ lsr 28,d2
+ cmp 11,d2
  bne tone_unavailable_stock
  mov d0,d2
  add -967,d2
@@ -28,8 +28,8 @@ tone_unavailable_stock:
 .section .tone_editor,"ax"
 tone_manager:
  mov d1,d2
- lsr 20,d2
- cmp 0xa5d,d2
+ lsr 28,d2
+ cmp 11,d2
  bne tone_manager_stock
  cmp 967,d0
  beq tone_manager_commit
@@ -38,9 +38,17 @@ tone_manager:
  cmp 973,d0
  bne tone_manager_stock
 tone_manager_commit:
+ add -16,sp
  mov d0,d2
  mov a0,a2
- mov d1,a0
+ mov d1,d0
+ mov sp,a0
+ add 4,a0
+ call tone_decode,[d2,d3,a2,a3],16
+ cmp 0,d0
+ beq tone_manager_reject
+ mov d0,a0
+ mov d2,d0
  mov 1,d1
  call stock_active_set,[d2],8
  call hl_publish,[],4
@@ -56,12 +64,17 @@ tone_refresh1:
 tone_refresh2:
  call stock_color2_refresh,[],0
 tone_manager_finish:
+ add 16,sp
  jmp stock_manager_finish
+tone_manager_reject:
+ add 16,sp
+ ret [d2,d3,a2],16
 tone_manager_stock:
  jmp stock_manager
 
 /* a0:208-byte native tone actuator. d0:high ID or0. CALL([d2],8).
  * The immutable native table is the profile identity, independently of page. */
+.section .tone_reference,"ax"
 tone_profile:
  cmp 0,a0
  beq tone_profile_no
@@ -87,6 +100,7 @@ tone_profile_no:
 
 /* Exact COLOR records need no property24 branch: their first ID is never904
  * and their optional property is2000. Keep the two original records/stride. */
+.section .tone_editor,"ax"
 tone_bind:
  mov a0,a3
  call tone_profile,[d2],8
@@ -96,8 +110,6 @@ tone_bind:
  cmp 2,d1
  bhi tone_bind_stock
  mov d0,d2
- cmp 2,d1
- bne tone_bind_selected
  call tone_selected_id,[d2],8
  cmp 0,d0
  bne tone_bind_selected
@@ -218,141 +230,62 @@ tone_pair_ids:
  .short 897,969,972,975,1004,1007,1010
 
 .section .tone_reference,"ax"
-/* Current H/M/L, identity input and zero legacy contrast. Caller owns512B.
- * d0:profile high ID,a0:LUT. Return d0:signal bounds,d1:S|H<<10, or0.
- * CALL([d2,d3,a2,a3],16);48 local bytes, including raw12 and coefficients16. */
-tone_reference:
- add -48,sp
+.global tone_current
+tone_current:
+ add -12,sp
  mov a0,a2
  mov d0,d2
  clr d3
- clr d0
- mov d0,(4,sp)
-tone_reference_controls:
+point_current_raw:
  mov d2,d0
  call stock_raw_get,[],4
- cmp -7,d0
- blt tone_reference_no
- cmp 7,d0
- bgt tone_reference_no
  mov sp,a0
- add 8,a0
+ add 4,a0
  movhu d0,(d3,a0)
  add 2,d3
  inc d2
  cmp 6,d3
- bcs tone_reference_controls
+ bcs point_current_raw
+ mov d2,d0
+ add -3,d0
+ mov 1,d1
+ call stock_active_get,[d2],8
  mov sp,a0
  add 4,a0
- mov sp,a1
- add 16,a1
- call stock_convert,[],16
+ mov a2,a1
+ call tone_resolve,[d2,d3,a2,a3],16
+ add 12,sp
+ ret [d2,d3,a2,a3],16
+
+tone_reference:
+ add -16,sp
+ mov a0,a2
+ mov sp,a0
+ add 4,a0
+ call tone_current,[d2,d3,a2,a3],16
+ mov d0,d3
  mov 0x605fdd38,a0
  mov a2,a1
  mov 256,d1
-tone_reference_copy:
+point_reference_copy:
  movhu (a0),d0
  movhu d0,(a1)
  add 2,a0
  add 2,a1
  add -1,d1
- bne tone_reference_copy
+ bne point_reference_copy
  mov a2,a0
- mov sp,a1
- add 16,a1
- call tone_signal_bounds,[d2,d3,a2,a3],16
- mov d0,(36,sp)
- mov sp,a0
- add 4,a0
- call stock_tone_gate,[],0
- extbu d0
- cmp 0,d0
- beq tone_reference_done
- clr d0
- mov a2,a0
- mov sp,a1
- add 16,a1
- call stock_tone_apply,[d2,d3,a2,a3],16
-tone_reference_done:
- mov (36,sp),d0
- mov d0,d1
- lsr 8,d1
- add d1,d1
- movhu (d1,a2),d1
- asl 10,d1
- and 255,d0
- add d0,d0
- movhu (d0,a2),d0
- or d0,d1
- mov (36,sp),d0
- bra tone_reference_return
-tone_reference_no:
- clr d0
-tone_reference_return:
- add 48,sp
+ mov d3,d0
+ call tone_apply,[d2,d3,a2,a3],16
+ mov d3,d0
+ add 16,sp
  ret [d2,d3,a2,a3],16
 
-/* d0:stored word,d1:signed code delta,a0:axis(0black/1white),a1:S|H<<10.
- * Clamp both effective heights before one relative edit. CALL(f0,16). */
-tone_step:
- mov d1,a3
- mov a1,d2
- and 1023,d2
- mov a1,d3
- lsr 10,d3
- mov d0,d1
- lsr 20,d1
- cmp 0xa5d,d1
- beq tone_step_tagged
- mov 0xa5dffc00,d0
-tone_step_tagged:
- mov d0,d1
- and 1023,d0
- lsr 10,d1
- and 1023,d1
- cmp d2,d0
- bls tone_step_black
- mov d2,d0
-tone_step_black:
- cmp d3,d1
- bcc tone_step_white
- mov d3,d1
-tone_step_white:
- cmp 0,a0
- bne tone_step_w
- add a3,d0
- cmp 0,d0
- bge tone_step_b_nonnegative
- clr d0
-tone_step_b_nonnegative:
- cmp d2,d0
- bls tone_step_pack
- mov d2,d0
- bra tone_step_pack
-tone_step_w:
- add a3,d1
- cmp 1023,d1
- ble tone_step_w_upper
- mov 1023,d1
-tone_step_w_upper:
- cmp d3,d1
- bge tone_step_pack
- mov d3,d1
-tone_step_pack:
- asl 10,d1
- or d1,d0
- or 0xa5d00000,d0
- ret [d2,d3,a2,a3],16
-
-.section .tone_editor,"ax"
-
-/* Concrete input callback adapter; a1 is its actuator, a2 native setter.
- * CALL([],0), self-saves. Tail to the unchanged setter with either the
- * original relative operation or an explicit tagged endpoint request. */
-.global tone_input, tone_reset
+.section .tone_reference,"ax"
+.global tone_input,tone_reset
 tone_input:
  movm [d2,d3,a2,a3],(sp)
- add -532,sp
+ add -32,sp
  mov d0,(12,sp)
  mov d1,(8,sp)
  mov a1,a2
@@ -361,45 +294,48 @@ tone_input:
  call tone_profile,[d2],8
  cmp 0,d0
  beq tone_input_stock
+ mov d0,d2
  movhu (194,a2),d1
  cmp 2,d1
- bne tone_input_stock
- mov d0,d2
+ bhi tone_input_stock
  call tone_selected_id,[d2],8
  cmp 0,d0
  beq tone_input_stale
+ movhu (194,a2),d1
+ cmp 1,d1
+ beq tone_input_middle
+ clr d3
+ cmp 0,d1
+ bne tone_input_outer
+ mov 1,d3
+tone_input_outer:
  mov (12,sp),d0
  sub d2,d0
- cmp 0,d0
- beq tone_input_white
  cmp 2,d0
+ beq tone_input_state
+ cmp 0,d0
  bne tone_input_cancel
- clr d3
- bra tone_input_curve
-tone_input_white:
- mov 1,d3
-tone_input_curve:
+ mov 4,d0
+ sub d3,d0
+ mov d0,d3
+ bra tone_input_state
+tone_input_middle:
+ mov 2,d3
+tone_input_state:
  mov d2,d0
  mov sp,a0
  add 16,a0
- call tone_reference,[d2,d3,a2,a3],16
- cmp 0,d0
- beq tone_input_cancel
- mov d1,(4,sp)
- mov d2,d0
- mov 1,d1
- call stock_active_get,[d2],8
+ call tone_current,[d2,d3,a2,a3],16
  mov d3,a0
- mov (4,sp),a1
  mov (8,sp),d1
  cmp 1,d1
  beq tone_input_increase
- mov -16,d1
+ mov -1,d1
  bra tone_input_step
 tone_input_increase:
- mov 16,d1
+ mov 1,d1
 tone_input_step:
- call tone_step,[d2,d3,a2,a3],16
+ call tone_edit,[d2,d3,a2,a3],16
  mov d0,a1
  mov d2,d0
  clr d1
@@ -410,7 +346,7 @@ tone_input_stock:
  mov 0,a1
 tone_input_submit:
  mov a3,a0
- add 532,sp
+ add 32,sp
  movm (sp),[d2,d3,a2,a3]
  jmp stock_gui_set
 tone_input_stale:
@@ -418,9 +354,10 @@ tone_input_stale:
  movhu d0,(194,a2)
 tone_input_cancel:
  clr d0
- add 532,sp
+ add 32,sp
  ret [d2,d3,a2,a3],16
 
+.section .tone_editor,"ax"
 tone_reset:
  mov (4,sp),a0
  call tone_profile,[d2],8
@@ -428,9 +365,9 @@ tone_reset:
  beq tone_reset_stock
  mov d0,d2
  mov (4,sp),a0
- movhu (194,a0),d0
- cmp 2,d0
- bne tone_reset_stock
+ movhu (194,a0),d3
+ cmp 2,d3
+ bhi tone_reset_stock
  mov (20,sp),d0
  add -54,d0
  cmp 3,d0
@@ -441,11 +378,38 @@ tone_reset:
  add 967,d0
  cmp d2,d0
  bne tone_reset_stale
+ add -20,sp
+ mov d2,d0
+ mov sp,a0
+ add 8,a0
+ call tone_current,[d2,d3,a2,a3],16
+ mov 2,a0
+ cmp 1,d3
+ beq tone_reset_axis
+ mov 1,a0
+ cmp 0,d3
+ beq tone_reset_axis
+ mov 0,a0
+tone_reset_axis:
+ clr d1
+ call tone_edit,[d2,d3,a2,a3],16
+ cmp 1,d3
+ beq tone_reset_submit
+ mov 3,a0
+ cmp 0,d3
+ beq tone_reset_second
+ mov 4,a0
+tone_reset_second:
+ clr d1
+ call tone_edit,[d2,d3,a2,a3],16
+tone_reset_submit:
+ mov d0,(4,sp)
  call stock_gui_service,[],4
  mov d2,d0
  clr d1
- mov 0xa5dffc00,a1
+ mov (4,sp),a1
  call stock_gui_set,[],0
+ add 20,sp
  mov (4,sp),a0
  mov (200,a0),d0
  cmp 1,d0
@@ -475,7 +439,7 @@ tone_input_gate:
  add -4,sp
  call tone_late_available,[],4
  beq tone_input_loaded
- call tone_color_endpoint_page,[],4
+ call tone_color_page,[],4
  beq tone_input_unavailable
  mov (a3),d0
  exthu d0
@@ -496,7 +460,7 @@ tone_bind_gate:
  call tone_late_available,[],4
  beq tone_bind_loaded
  mov a0,a1
- call tone_color_endpoint_page,[],4
+ call tone_color_page,[],4
  bne tone_bind_original
  clr d0
  movhu d0,(194,a0)
@@ -513,7 +477,7 @@ tone_reset_gate:
  beq tone_reset_loaded
  mov (4,sp),a0
  mov a0,a1
- call tone_color_endpoint_page,[],4
+ call tone_color_page,[],4
  beq tone_reset_unavailable
  mov (4,sp),a0
  clr d0
@@ -538,7 +502,7 @@ tone_input_dial:
  mov (8,sp),a0
  ret [],4
 
-.section .tone_editor,"ax"
+.section .tone_reference,"ax"
 tone_next_page:
  mov (8,sp),a0
  call tone_profile,[d2],8
@@ -566,6 +530,7 @@ tone_next_native:
 tone_next_return:
  ret [],4
 
+.section .tone_selected,"ax"
 .global tone_selected_id
 tone_selected_id:
  mov d0,d2
@@ -592,10 +557,10 @@ tone_late_available:
  and 160,d0
  cmp 160,d0
  ret [],4
-tone_color_endpoint_page:
+tone_color_page:
  movhu (194,a1),d0
  cmp 2,d0
- bne tone_color_page_return
+ bhi tone_color_page_return
  mov (188,a1),d0
  add -0x60f4cd08,d0
  beq tone_color_page_return

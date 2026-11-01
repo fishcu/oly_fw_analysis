@@ -106,6 +106,7 @@ stock_tone_builder = tone_stock_builder;
 stock_tone_select = 0x604f7c18;
 stock_tone_gate = 0x604bdd21;
 stock_tone_apply = 0x604be08d;
+stock_convert = 0x604bddcc;
 stock_tone_resume = 0x604f85ef;
 stock_active_get = 0x602f06e7;
 stock_builder_after_entry = 0x604f7c7b;

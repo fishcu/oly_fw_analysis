@@ -23,10 +23,10 @@ class ToneEditorTests(unittest.TestCase):
     def test_tagged_native_gui_request_updates_selected_profile_only(self):
         editor.manager_cases(self.candidate, self.editor)
 
-    def test_reference_curve_uses_current_native_controls(self):
+    def test_reference_resolves_current_canonical_or_legacy_state(self):
         editor.reference_cases(self.candidate, self.editor, self.adapter)
 
-    def test_relative_steps_keep_exact_clipped_heights(self):
+    def test_relative_steps_move_only_the_chosen_coordinate(self):
         editor.step_cases(self.candidate, self.editor)
 
     def test_three_pages_reuse_native_color_bindings(self):
@@ -38,7 +38,7 @@ class ToneEditorTests(unittest.TestCase):
     def test_info_cycles_all_three_color_pages(self):
         editor.page_cases(self.candidate, self.editor)
 
-    def test_held_reset_requests_neutral_endpoints(self):
+    def test_held_reset_changes_only_current_page_points(self):
         editor.reset_cases(self.candidate, self.editor)
 
     def test_unavailable_late_sections_do_not_edit_inner_controls(self):

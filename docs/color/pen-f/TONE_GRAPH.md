@@ -1,109 +1,88 @@
-# Native five-point control graph
+# Five-point graph and native readout
 
-`tools/penf_tone_graph_candidate.py` composes the graph with the endpoint editor,
-profile storage and per-image adapter. The [feature README](../../../patches/tone/pen-f/README.md) documents the
-composed container builder. Physical camera qualification remains separate.
+The graph applies the same canonical transfer as image processing to the native
+identity LUT. It is an explicit control reference with zero legacy contrast,
+not a live image-job view. Its quarter markers use exact anchor heights at
+rounded screen indices0,64,128,191,255. Geometry follows native child31's current
+rectangle: layout1 shifts70px from layout0. The graph maps10-bit heights onto256
+vertical pixels.
 
-The graph uses the current COLOR1–3 native high/middle/low values, the native
-identity LUT, and zero legacy contrast inputs. The same native conversion,
-inner overlay and endpoint kernel drive its line and five markers. It is a
-**control reference**, not the selected per-image ISP base. Image processing
-computes its own signal bounds and effective endpoint limits. The entire inner
-interval remains unchanged in both paths.
+## Ownership and rendering
 
-On all three pages, the custom curve replaces native graph bitmap children
-26–31. On the endpoint page it also filters children5–21 and24–25, including
-stale page hints and native inner-value labels. The other pages retain their
-native labels. The endpoint row reads `B+dddd W-dddd`: exact effective black
-lift and white reduction in 10-bit output codes, after clamping against the
-reference inner heights. It does not round a partial final step to a different
-setting.
+The callback first invokes the entire original paint method. Its new drawing
+uses a private684-byte context copy and512-byte LUT. Caller context after native
+paint, shared backend, receiver, return value and callee registers are preserved.
+The graph receiver vtable, current actuator vtable/COLOR table and public picture
+mode must agree. No image-buffer pointer is retained.
 
-## Native ownership and lifecycle
+The native visibility join60bf7c40 filters children5–9,13–21 and26–31 on all
+custom pages. These are old H/M/L widgets and graph artwork. Native RESET10–12
+and footer24–25 remain available. Every other child replays all displaced loads;
+no visibility bits are mutated, so renderer reuse cannot retain hidden state.
+Resident paint/update/filter gates require sections6/8 and preserve stock paths
+when unavailable. The update wrapper retains whole-receiver invalidation.
 
-The paint callback first calls the whole original tone paint method. The new
-part then owns a 684-byte context copy and a 512-byte reference LUT in its stack
-frame. Drawing changes only the private context; the caller's context after
-native paint, shared backend and receiver are preserved. The current controller
-provides its actuator at offset0. Exact actuator vtable, immutable COLOR table,
-public picture mode54–56, and graph receiver vtable must agree. This access is
-within the native GUI callback; no cross-task reference-counted lifetime is
-claimed.
+The painter no longer draws or allocates numeric text. Its complete-return
+fixture models only rectangle raster submission; native clipping and backend
+paths execute. The original paint fixture has an explicitly empty child list;
+the actual traversal join is separately checked for all33 children, all pages
+and profiles. These are raster requests, not physical pixels.
 
-Filtering occurs at the native children traversal visibility join
-`0x60bf7c40`. The hook uses the original frame's parent and current-child
-pointers. Eligible selected children take the native hidden-child branch.
-Every other child replays all three displaced loads and resumes the original
-visibility call. No visibility bit or child object is changed, so leaving COLOR
-or reusing the renderer cannot retain hidden graph children.
+## Published values and INFO hint
 
-Paint, update and traversal entry gates remain in resident sections4/5. They
-require the section6/8 loaded mask before entering late code, and retain native
-fallback when the late ranges are unavailable. The class update wrapper calls
-the original update and then invalidates the entire eligible receiver. This is
-needed because an identical parameter118 publication can invalidate only the
-native bottom label.
+A wrapper at60cf9be6 runs after native viewer construction and before its118
+publication. It preserves d2/d3/a2/a3, SP and the first-publication notification
+flag. It resolves the canonical state and fills the existing74-byte label
+variant at parameter118+10 with format5 and an inline string at+18.
+Selected S/H or B/W are absolute four-digit heights; M is the signed−7..+7 step.
+The next-page destination and native `@A028@` INFO token share this one row.
+Japanese is identified through the actual resource2778 lookup; other languages
+use short ASCII destinations. All six JP/EN variants fit33UTF16 code units,
+including terminator, and the native footer font/layout fixture.
 
-The geometry derives from native child31's current rectangle. Layout0 starts
-at x351; layout1 shifts by70. The graph covers256 signal indices and maps
-10-bit heights onto256 vertical pixels. Five 5×5 markers indicate endpoints and
-reference indices30,118,210. The numeric row spans y400–431 in the measured
-native layouts. Native font parsing, metrics and clipping are exercised with
-the stock English resources.
+Parameter118 byte3 reflects canonical state differing from neutral. Bytes4/6/7
+remain native bitmap enum indices; expanded heights are never placed in them.
+Actuator page2 remains the endpoint input page. For that page only, the published
+display-layout byte5 is1, selecting the native pair footer layout; native page3
+would skip the inline formatter. This is a display-layout remap, not a change to
+input page state. Middle publishes layout2, pair layout1.
 
-## Placement
+Actual edits now change meaningful published text. Native observer/event and
+whole-receiver invalidation boundaries remain as before. This does not establish
+physical queue completion or claim a camera LCD timing fix.
 
-The complete display source occupies756 bytes across the qualified section
-4/5/6/8 tails. Graph composition relocates the reference to `0x610f1e54`, the
-selected-mode helper to `0x610f1fd8`, and the late core to `0x6115b014`. The
-candidate builder records every linked display chunk and capacity. The full FF
-tail boundaries are `60a4fe6c..60a50000`, `60fdc29c..60fdc800`,
-`610f1e54..610f2000`, and `6115b014..6115b800`. Neighboring initializer extents,
-native section end getters and exact loader ranges were checked. Marker code
-at both ends loaded, executed and reloaded. Classified literal/branch matches
-in added margins do not identify executable references into those bytes.
-These bounded checks do not prove the absence of every later computed or DMA
-write. Physical execution permissions and camera boot remain unqualified.
+## Space and evidence
 
-## Reproduce the contracts
+Two bounded native COLOR query regions are compressed without deleting queries:
+pair60cf9d81..60cf9f2e and middle60cfa110..60cfa28a. Their exact preimage hashes
+are checked. Shared queries preserve order, destination slots, raw temporaries,
+variant conversion, diagnostic call/line and non-COLOR continuation. Reclaimed
+bytes hold the footer publisher and strings. No native MONO branch is rewritten.
+The full manifest records every section4/5/6/8 range and the two replacements.
+A scan of the pinned main and known relocated section found no qualified direct
+transfer or literal reference into the replaced pair interior. Two raw branch
+matches were operand bytes in continuous native disassembly. Computed targets,
+split addresses and unknown relocations remain outside that bounded scan.
 
-Use the existing MN103 emulator/toolchain, decoded pinned firmware and a Python
-runtime with Pillow for the font resource fixture:
+Core/graph tests compare each new rectangle with an independent integer oracle,
+including exact anchor height versus rounded LUT index. Native footer tests
+cover all profiles/pages/languages, neutral/negative-middle migration, first
+publication, wrong profile/actuator/page and physically unmapped late sections.
+Pair/middle differentials use a declared GUI getter-envelope adapter around
+actual602b9f84; pair logging return is modeled with exact arguments checked.
+Footer construction and formatter-to-text-setter prefixes model no functions.
+Native footer font parsing, metrics/clipping/backend use explicit line-storage
+allocation/free and raster models. Update invalidation reaches the real event
+queue boundary; queue delivery and full camera boot are not simulated.
 
 ```sh
-PYTHONPATH=tools python3 tools/penf_tone_graph_probe.py --out /tmp/tone-graph-audit
-PYTHONPATH=tools python3 -m unittest discover -s tests -p test_penf_tone_graph.py -v
+PYTHONPATH=tools python3 tools/penf_tone_graph_probe.py --out /tmp/tone-graph
+PYTHONPATH=tools python3 tools/penf_tone_viewer_probe.py --out /tmp/tone-viewer
 ```
 
-The output directory must be new. `--only paint`, `filter`, `fallback`,
-`update`, `allocator`, or `composed` runs one contract group. The optional
-`--full-reference-domain` exhausts all3375 legal high/middle/low triples through
-the actual native reference function, checking endpoints, range, monotonicity
-and bounds30/210. It is deliberately outside the default unit suite.
-
-The paint fixtures execute the placed callbacks, native reference and endpoint
-math, context copy, rectangle path, font setup/release, text parsing, metrics,
-clipping and backend. The whole original paint uses an explicitly empty child
-list; the actual traversal join is tested separately for all33 child pointers,
-three profiles and three pages. Legal current settings are−7..7. If an internal
-current record is invalid, the reference rejects it; graph filtering may still
-apply and no claim of preserving stock graph artwork is made for corrupted
-records. The tests compare every new rectangle against
-an independent integer oracle and check the complete numeric glyph request
-string and row bounds.
-
-The full paint-return fixture declares models at rectangle raster submission,
-12-byte line-storage allocation/free, and glyph raster submission. It records
-requests, not physical pixels. A separate fixture permits the real allocator
-and stops at its unmapped pool descriptor `61a8e884`, instruction `60bd0ca7`.
-The update-wrapper fixture treats the unchanged original update return as an
-explicit boundary; its new tail invokes real native invalidation. An attached
-receiver sets the root dirty flag and full rectangle before the real event
-queue guard at `60bca69c`. Queue delivery and a full button-to-LCD boot session
-are not simulated.
-
-The measured conditional paint path reaches a 2000-byte peak below its caller
-SP, including native drawing/text nesting under the declared models. The GUI
-worker descriptor allocates8704 bytes, but the caller's preexisting stack use
-and full-boot high-water mark remain unknown. This measurement is not a
-physical stack-safety certification.
+The GUI worker allocates8704 stack bytes. The complete-return graph fixture
+reached1840 bytes below its callback caller while executing the private context,
+LUT, native clipping and backend paths. Only rectangle raster submission was
+modeled. This is conditional path usage, not full-boot stack safety.
+Tail ownership evidence establishes native boundaries and bounded load/reload,
+not every possible later computed/DMA write or physical permission.

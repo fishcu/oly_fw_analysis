@@ -7,7 +7,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tools'))
 
 from penf_tone_candidate import build_candidate
 from penf_tone_transport_probe import (acquisition_abi, alternative_path, constructor, compact_postcall, entry_compatibility,
-                                       hooks, owner_matrix, pipeline, publication, raw_acquisition)
+                                       hooks, owner_matrix, pipeline, publication, raw_acquisition, source_normalization)
 
 
 class NativeToneTransportTests(unittest.TestCase):
@@ -29,6 +29,9 @@ class NativeToneTransportTests(unittest.TestCase):
         result = owner_matrix(self.candidate)
         self.assertEqual(len(result['owners']), 45)
         self.assertEqual(result['rejected_owners'], 8)
+
+    def test_first_color_acquisition_normalizes_invalid_state_only(self):
+        self.assertEqual(len(source_normalization(self.candidate)),30)
 
     def test_job_hooks_preserve_native_context(self):
         self.assertEqual(len(acquisition_abi(self.candidate)), 2)

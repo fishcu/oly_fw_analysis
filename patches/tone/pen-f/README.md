@@ -1,49 +1,60 @@
 # PEN-F five-point tone candidate
 
-This composes body-controlled black and white endpoints with the existing
-COLOR1–3 shadow, middle and highlight controls, on top of the pinned PEN-F HSL
-release. It includes native profile/bank storage, capture-owner snapshots,
-per-image tone processing, a five-point control graph and exact endpoint labels.
-The main image and update container build reproducibly. Verification of this revision is offline and bounded. The earlier candidate boots and accepts controls in the user's camera test, but endpoint-only edits needed a subsequent shadow edit to affect the image. This revision corrects that native rebuild decision; it still needs physical retesting. No camera was flashed by these build/probe tools.
+COLOR1–3 have five vertically adjustable points at **0%,25%,50%,75%,100%**.
+Black, shadow, middle, highlight and white form one nondecreasing piecewise
+linear transfer. The camera controls, graph, native profile/bank storage and
+per-image processing use the same state. The candidate retains the pinned HSL
+release and Value OSD. Building performs no camera access or flashing.
+
+This revision replaces the earlier endpoint-only design. That earlier design
+was tested on a camera; this new curve and UI revision has only bounded offline
+verification and needs a physical retest.
 
 ## Body controls
 
-Open the native COLOR1, COLOR2 or COLOR3 tone editor. INFO cycles through
-shadow/highlight, middle, then endpoints. The first two pages retain their
-native controls. The middle page's INFO hint names the next page: `黒点・白点` for Japanese and `BLACK / WHITE` otherwise, with the native INFO icon. On the endpoint page:
+Open the native COLOR1, COLOR2 or COLOR3 tone editor. INFO cycles
+shadow/highlight → middle → black/white → shadow/highlight.
 
-| Input | Effect |
-|---|---|
-| Right / left | Raise / lower the black endpoint |
-| Up / down | Raise / lower the white endpoint |
-| Front dial | Adjust black |
-| Rear dial | Adjust white |
-| Held OK | Reset this profile's endpoints to black0 / white1023 |
-| INFO | Return to the shadow/highlight page |
+| Page | Left/right or front dial | Down/up or rear dial | Held OK |
+|---|---|---|---|
+| Shadow/highlight | Lower/raise shadow | Lower/raise highlight | Reset S/H toward256/768 within unchanged neighbors |
+| Middle | Adjust middle | Adjust middle | Reset M toward0 within S/H |
+| Black/white | Lower/raise black | Lower/raise white | Reset B/W to0/1023 |
 
-Each relative input moves16 output codes, bounded by the current reference
-shadow/highlight height. A final partial step keeps its exact value. The label
-`B+0064 W-0063`, for example, means black64 and white960. It shows effective
-reference coordinates, including clamping. Moving an endpoint preserves the
-entire interval containing the three inner controls; it does not raise or lower
-those inner heights. Switching profile or exiting cannot reinterpret an
-unrelated native property request as an endpoint edit.
+The front dial's positive native event lowers its selected point; the rear
+dial's positive event raises its selected point. Arrow directions in the table
+are literal camera directions. Middle uses−7..+7, with height512+32×M.
+The other four coordinates use16-code increments, with a final31-code interval
+from992 to1023. Only the selected coordinate moves; adjacent points bound it.
+Equal neighboring heights are allowed.
 
-The graph is a control reference generated from the native identity LUT, zero
-legacy contrast, and the current three inner settings. Actual image processing
-uses the selected native image base and computes its own bounds and clamping.
-The graph therefore does not promise to reproduce every image-processing effect.
-Neutral endpoints preserve native output exactly, including the original
-zero-inner-control gate. Valid endpoint requests rebuild even when the native change mask reports no inner-control changes; neutral reset also rebuilds so a previous endpoint curve cannot remain cached. Unsupported or null selected LUTs preserve stock processing. The endpoint adapter
-targets the ordinary COLOR builder; native mask/creative bypasses and separate
-alternative-effect paths retain stock processing. MONO and other picture modes
-retain their ordinary behavior.
+The native footer shows the selected values and the next INFO destination.
+Examples are `中間部 S0256 H0768`, `黒点・白点 M+0`, and
+`明部・暗部 B0000 W1023`, followed by the native INFO icon. Non-Japanese languages
+use short ASCII destinations. S/H/B/W are absolute output codes0..1023, not
+signed native tone settings. Native RESET controls remain visible.
 
-Endpoints use native COLOR profile storage and custom-bank recall. Full native
-settings reset clears them; held OK resets just the current endpoint page.
-Existing HSL behavior and its Value OSD are retained. Endpoint extension records
-for external settings backup/export and ORF metadata are not implemented. Those
-formats must not be relied on to transfer endpoint state.
+The graph shows the exact five-point transfer using an identity input. Image
+processing applies it after the selected native base and the native legacy-only
+contrast stage. It therefore need not match every image effect. Neutral five-point
+state is exact identity for all1024 integer inputs. The original native H/M/L
+overlay is replaced for these custom COLOR requests; its former heights and
+sample positions are intentionally not preserved.
+
+All five coordinates occupy one atomic native part1 profile word. Existing
+endpoint words and native H/M/L settings migrate consistently on first use;
+[the state contract](../../../docs/color/pen-f/TONE_POINTS.md) defines rounding,
+projection and invalid-data behavior. Native bank recall and full reset use the
+existing settings machinery. External settings export/backup and ORF extension
+records do not carry this new word.
+
+Supported tagged requests always rebuild, including neutral reset, even when
+the stock comparator sees unchanged native controls. The earlier endpoint cache
+fix is retained. Invalid producer relationships, absent late sections, null or
+unsupported selected LUTs and native mask/creative bypasses keep their stock
+processing paths. The separate alternative-effect path is outside this feature.
+MONO, other picture modes and unrelated native editor families retain their
+ordinary behavior.
 
 ## Reproducible build
 
@@ -75,61 +86,58 @@ its stock restore container. Producing these files performs no device access.
 |---|---|
 | Required full stock | `77398610b379f80238117f31a6d5bbf65d608b49ec563666c64d84367e969f2c` |
 | Pinned HSL package | `4f9a36e6742728ded3d9b443915355f1d1eea0371e1da673f322de970994f717` |
-| Five-point main | `231c2b8d17d5aa15f2b3a1e246f3a2abbbc09b4f8f7b4cf4b4d14ad6b1f4381d` |
-| Five-point container,44433408 bytes | `bb9e0a133a4492f2a2587c81037df22309a53dcbf154d38666fc1f9cc41387cc` |
+| Five-point main | `28608af94acb586d2e621bd26ce192d18e2e92aa6559050eed4ac3b796e08b07` |
+| Five-point container,44433408 bytes | `14d56242dd8a5f6bb7636016f308db0541a9ba400b4da48453c64cb317c69ed6` |
 | Retained HSL OSD | `f713df2a2d7d57a511e55cabb0f84ac4d612f99c58df4502a89b32bd8580084c` |
 
 The candidate main and container hashes for each build are recorded in `build.json`.
 
 ## Verification and limits
 
-Run the build integrity tests with the full stock input:
+The core probe executes canonical decode, legacy migration, selected-axis edits
+and all1024 transfer inputs for48 representative states. It checks neutral exact
+identity, monotonicity, quantization edges and callee/stack preservation against
+an independent integer specification. The native image matrix covers selected
+and override bases, both variants and legacy-only processing. Sequential cached
+changes/reset use the actual stock retained updater and comparator.
 
 ```sh
+PYTHONPATH=tools python3 tools/penf_tone_points_probe.py --out /tmp/tone-points
+PYTHONPATH=tools python3 tools/penf_tone_integration_probe.py --out /tmp/tone-image
+PYTHONPATH=tools python3 tools/penf_tone_graph_probe.py --out /tmp/tone-graph
+PYTHONPATH=tools python3 tools/penf_tone_viewer_probe.py --out /tmp/tone-viewer
 PENF_STOCK_CONTAINER=/path/to/OLY_E_122_3101_0000_0000.BIN \
-  python3 -m unittest discover -s tests -p test_penf_tone_build.py -v
+  python3 -m unittest discover -s tests -p 'test_penf_tone*.py' -v
 ```
 
-Native probes additionally require the existing strict MN103 engine and pinned
-decoded firmware. Graph/font probes require Pillow. Run the graph contracts,
-including the relocated input and image paths, with:
+Native probes require the pinned decoded firmware and strict MN103 engine;
+viewer/font fixtures additionally require Pillow. Build integrity checks cover
+wrong-stock rejection, optimized-Python rejection, exact round trips, range
+checks, unchanged metadata and retained HSL OSD. The optional graph
+`--full-reference-domain` exhausts all3375 legal legacy H/M/L migration tuples;
+it is outside the default suite.
 
-```sh
-PYTHONPATH=tools python3 tools/penf_tone_graph_probe.py --out /tmp/tone-graph-check
-```
+All three pages send explicit canonical words through the unchanged GUI setter.
+The native viewer publication wrapper adds the actual selected values to
+parameter118, preserves the first-publication flag, and keeps the existing
+whole-receiver invalidation tail. Twenty-seven earlier native joins establish
+the successful input→controller→outer-viewer publication route after setter
+completion. The new footer changes real displayed content rather than spare
+payload bytes. Async setter completion, event queue delivery and physical LCD
+refresh timing remain outside these fixtures; this is not a claim that the
+reported camera display delay has been physically resolved.
 
-The optional `--full-reference-domain` checks all3375 legal inner-control
-triples. That native domain has been exhausted with exact endpoints, range,
-monotonicity and fixed reference bounds30/210. The default graph audit covers
-all33 children on all three pages/profiles, both measured layouts, independently
-computed rectangle geometry, exact numeric glyph requests, register/context
-preservation, missing-section fallbacks and whole-receiver invalidation.
+The painter owns its context copy and LUT. Its native drawing paths are executed
+up to declared raster-submission models, without a custom text allocator.
+The native footer uses actual parsing, metrics and clipping with explicit
+line-storage/raster models. No physical pixels or ISP pixel engine are simulated.
+The GUI worker allocates8704 stack bytes, but full-boot stack usage is unknown.
+Loaded-tail bounds and load/execute/reload fixtures do not prove absence of all
+later computed/DMA writes or establish physical execution permissions.
 
-Body redraw has a direct native path after setter completion: the arrow/dial
-or held-OK continuation returns1; the ordinary controller dispatcher calls its
-outer viewer, which publishes parameters118 and209 even when inner values are
-unchanged. Twenty-seven native join cases establish these return, dispatch and
-publication boundaries without function models. Identical118 publication still
-marks observers. The new receiver update then requests full graph invalidation.
-These are explicit native joins after unchanged setter/refresh prerequisites;
-physical button delivery, asynchronous completion and LCD delivery are not
-claimed. The reported delay in graph/BW-number updates has not been reproduced at these bounded joins. This revision leaves the display callbacks unchanged and does not claim to fix that separate symptom.
-
-The graph's complete return fixture models line-storage allocation/free and
-raster submission; native parsing, metrics, clipping and backend paths execute.
-A separate probe reaches the real allocator stop without supplying that
-allocation. The measured conditional paint path uses2000 stack bytes below its
-caller. The GUI worker allocates8704 bytes, but its preexisting stack usage and
-full-boot high-water mark are unknown. Loaded-tail placement checks establish
-native boundaries and bounded load/execute/reload behavior, not every possible
-computed write or physical permission. No ISP pixel engine or complete camera
-boot is simulated.
-
-The bounded units and their exact APIs are documented in
-[TONE_INTEGRATION.md](../../../docs/color/pen-f/TONE_INTEGRATION.md),
-[TONE_TRANSPORT.md](../../../docs/color/pen-f/TONE_TRANSPORT.md),
-[TONE_EDITOR.md](../../../docs/color/pen-f/TONE_EDITOR.md), and
-[TONE_GRAPH.md](../../../docs/color/pen-f/TONE_GRAPH.md).
-
-The endpoint-only cache regression and localized INFO hint are documented in
-[TONE_REALTIME.md](../../../docs/color/pen-f/TONE_REALTIME.md).
+Details: [state](../../../docs/color/pen-f/TONE_POINTS.md),
+[image adapter](../../../docs/color/pen-f/TONE_INTEGRATION.md),
+[transport](../../../docs/color/pen-f/TONE_TRANSPORT.md),
+[editor](../../../docs/color/pen-f/TONE_EDITOR.md),
+[graph and publication](../../../docs/color/pen-f/TONE_GRAPH.md),
+[earlier cache defect](../../../docs/color/pen-f/TONE_REALTIME.md).

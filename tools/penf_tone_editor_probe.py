@@ -16,7 +16,8 @@ from penf_recovery_isolation_probe import without_ranges
 from penf_diagnostic_lifetime_probe import parser_state
 from penf_tone_candidate import build_candidate
 from penf_tone_editor_candidate import build_editor
-from penf_tone_integration_probe import packed, stock_signal, run_builder, build_adapter
+from penf_tone_integration_probe import packed, build_adapter
+from penf_tone_points import FivePoints, resolve
 from penf_tone_probe import identity_lut, PRESERVED, INITIAL_SP
 from penf_tone_transport_probe import setup, settings, set_words, call, stopped, u32, put32, ACTIVE, WORDS
 
@@ -84,7 +85,7 @@ def manager_cases(candidate, editor):
         s = fixture(candidate, editor)
         initial = (packed(1, 1000), packed(2, 999), packed(3, 998))
         set_words(s, initial)
-        high, word = 967 + 3 * (profile - 1), packed(64, 960)
+        high, word = 967 + 3 * (profile - 1), FivePoints((64,320,544,704,960)).pack()
         before = s.read(ACTIVE, WORDS * 8)
         s.regs = dict(PRESERVED, pc=0x60736556, sp=INITIAL_SP, psw=0,
                       a0=0, a1=0, a2=1, a3=SERVICE, d0=0, d1=0, d2=high)
@@ -114,41 +115,32 @@ def manager_cases(candidate, editor):
                 scope='Actual part1 write/publication through native per-profile callback entry; completion excluded')
 
 
-def reference_cases(candidate, editor, adapter):
+def reference_cases(candidate, editor, adapter=None):
     s = fixture(candidate, editor)
     reports = []
-    for profile, controls in ((1, (0, 0, 0)), (1, (-7, -7, -7)), (2, (7, 7, 7)),
-                              (2, (4, -2, -3)), (3, (-7, 7, -7)), (3, (7, -7, 7))):
-        current(s, profile, controls)
-        report = call(s, editor.symbols['tone_reference'], 0xf0, 16,
-                      d0=967 + 3 * (profile - 1), a0=CURVE)
-        raw = (0, 0, *controls)
-        expected = run_builder(adapter, identity_lut(), raw, native=True)['lut']
-        actual = struct.unpack('<256H', s.read(CURVE, 512))
-        assert actual == expected
-        bounds = stock_signal(identity_lut(), raw)[1]
-        assert s.regs['d0'] == bounds[0] | bounds[1] << 8
-        assert s.regs['d1'] == expected[bounds[0]] | expected[bounds[1]] << 10
-        reports.append(dict(profile=profile, controls=controls, bounds=bounds,
-                            inner_heights=[expected[bounds[0]], expected[bounds[1]]], **report))
+    for profile in (1,2,3):
+        for controls in ((0,0,0),(-7,-7,-7),(7,7,7),(4,-2,-3),(8,0,0)):
+            current(s, profile, controls)
+            for word in (0,packed(80,944),FivePoints((64,320,544,704,960)).pack()):
+                set_words(s,(word,)*3)
+                report=call(s,editor.symbols['tone_reference'],0xf0,16,d0=967+3*(profile-1),a0=CURVE)
+                expected=resolve(word,controls)
+                assert struct.unpack('<256H',s.read(CURVE,512)) == expected.apply(identity_lut())
+                assert s.regs['d0'] == expected.pack()
+                reports.append(dict(profile=profile,controls=controls,word=hex(word),heights=expected.heights,**report))
     return reports
 
 
 def step_cases(candidate, editor):
-    s = fixture(candidate, editor)
-    total = 0
-    for black, white in ((0, 1023), (64, 960), (1023, 0), (119, 901)):
-        for shadow, highlight in ((120, 900), (0, 1023), (400, 401)):
-            for axis in (0, 1):
-                for delta in (-16, 16):
-                    call(s, editor.symbols['tone_step'], 0xf0, 16, d0=packed(black, white),
-                         d1=delta & 0xffffffff, a0=axis, a1=shadow | highlight << 10)
-                    expected = [min(black, shadow), max(white, highlight)]
-                    expected[axis] = (max(0, min(shadow, expected[0] + delta)) if axis == 0 else
-                                      max(highlight, min(1023, expected[1] + delta)))
-                    assert s.regs['d0'] == packed(*expected), (black, white, shadow, highlight, axis, delta)
-                    total += 1
-    return dict(cases=total, preserves_exact_clipped_height=True)
+    s=fixture(candidate,editor)
+    total=0
+    for points in (FivePoints(),FivePoints((0,0,288,288,288)),FivePoints((736,736,736,1023,1023))):
+        for axis in range(5):
+            for command in (-1,0,1):
+                call(s,editor.symbols['tone_edit'],0xf0,16,d0=points.pack(),a0=axis,d1=command&0xffffffff)
+                assert s.regs['d0']==points.edit(axis,command).pack()
+                total+=1
+    return dict(cases=total,only_selected_axis_changes=True)
 
 
 def binding_cases(candidate, editor):
@@ -180,22 +172,14 @@ def input_cases(candidate, editor):
         current(s, profile, (4, -2, -3))
         high = 967 + 3 * (profile - 1)
         set_words(s, (packed(32, 991),) * 3)
-        call(s, editor.symbols['tone_reference'], 0xf0, 16, d0=high, a0=CURVE)
-        bounds = s.regs['d1']
-        shadow, highlight = bounds & 1023, bounds >> 10
+        points = resolve(packed(32,991),(4,-2,-3))
         for page in (0, 1, 2):
             for entry, delta, axis, change in callbacks:
                 before = actuator(s, profile, page)
                 reenter(s, entry, 0, 0, dict(PRESERVED, a0=ACTUATOR, d1=delta & 0xffffffff))
                 report = stopped(s, s.run({0x607363b3}, limit=200000), 0x607363b3)
-                if page == 2:
-                    values = [min(32, shadow), max(991, highlight)]
-                    values[axis] = (max(0, min(shadow, values[0] + change)) if axis == 0 else
-                                    max(highlight, min(1023, values[1] + change)))
-                    expected = (SERVICE, high, 0, packed(*values))
-                else:
-                    prop = high + 1 if page == 1 else high + (2 if axis == 0 else 0)
-                    expected = (SERVICE, prop, 1 if change > 0 else 2, 0)
+                index = (1 if axis==0 else 3) if page==0 else (2 if page==1 else (0 if axis==0 else 4))
+                expected = (SERVICE, high, 0, points.edit(index,1 if change>0 else -1).pack())
                 actual = tuple(s.regs[r] for r in ('a0', 'd0', 'd1', 'a1'))
                 assert actual == expected, (profile, page, hex(entry), actual, expected)
                 assert s.read(ACTUATOR, 208) == before
@@ -226,20 +210,22 @@ def page_cases(candidate, editor):
 
 
 def reset_cases(candidate, editor):
-    s = fixture(candidate, editor)
-    reports = []
-    for profile in (1, 2, 3):
-        actuator(s, profile, 2)
-        put32(s, INITIAL_SP + 4, ACTUATOR)
-        put32(s, INITIAL_SP + 20, 53 + profile)
-        s.regs = dict(PRESERVED, pc=0x60c875e4, sp=INITIAL_SP, d0=0, d1=0,
-                      a0=0, a1=0, a3=0, psw=0)
-        report = stopped(s, s.run({0x607363b3}, limit=10000), 0x607363b3)
-        assert tuple(s.regs[r] for r in ('a0', 'd0', 'd1', 'a1')) == (
-            SERVICE, 967 + 3 * (profile - 1), 0, packed(0, 1023))
-        reports.append(dict(profile=profile, **report))
+    s=fixture(candidate,editor)
+    reports=[]
+    points=FivePoints((64,320,544,704,960))
+    set_words(s,(points.pack(),)*3)
+    for profile in (1,2,3):
+        mode(s,53+profile)
+        for page,axes in enumerate(((1,3),(2,),(0,4))):
+            actuator(s,profile,page)
+            put32(s,INITIAL_SP+4,ACTUATOR);put32(s,INITIAL_SP+20,53+profile)
+            s.regs=dict(PRESERVED,pc=0x60c875e4,sp=INITIAL_SP,d0=0,d1=0,a0=0,a1=0,a3=0,psw=0)
+            report=stopped(s,s.run({0x607363b3},limit=100000),0x607363b3)
+            expected=points
+            for axis in axes:expected=expected.edit(axis,0)
+            assert tuple(s.regs[r] for r in ('a0','d0','d1','a1'))==(SERVICE,967+3*(profile-1),0,expected.pack())
+            reports.append(dict(profile=profile,page=page,heights=expected.heights,**report))
     return reports
-
 
 
 def unavailable_cases(candidate, editor):
@@ -251,9 +237,9 @@ def unavailable_cases(candidate, editor):
         s.write(0x61c58404, bytes((mask,)))
         absent = []
         if not mask & 0x20:
-            absent.append((0x610f1ea0, 0x610f1fc0))
+            absent.append((0x610f1e54, 0x610f2000))
         if not mask & 0x80:
-            absent.append((0x6115b060, 0x6115b7c0))
+            absent.append((0x6115b014, 0x6115b800))
         absent += [(lo+0x40000000,hi+0x40000000) for lo,hi in absent]
         s.regions = [r for r in s.regions if not any(lo <= r.address and r.address+len(r.data) <= hi for lo,hi in absent)]
         s.regions = without_ranges(s.regions, absent)
@@ -261,16 +247,16 @@ def unavailable_cases(candidate, editor):
             for key in (967, 970, 973):
                 before = s.read(ACTIVE, WORDS * 8)
                 call(s, editor.symbols['tone_manager_gate'], 0xe0, 16,
-                     a0=MANAGER, d0=key, d1=packed(64, 960))
+                     a0=MANAGER, d0=key, d1=FivePoints((64,320,544,704,960)).pack())
                 assert s.regs['d0'] == 0 and s.read(ACTIVE, WORDS * 8) == before
         for entry, delta in ((0x60c871e3, 0), (0x60c8736f, 1)):
-            for page in (0, 2):
+            for page in (0,1,2):
                 before = actuator(s, 1, page)
                 reenter(s, entry, 0, 0, dict(PRESERVED, a0=ACTUATOR, d1=delta))
-                target = 0x607363b3 if page == 0 else 0x60c87a02
+                target = 0x60c87a02
                 report = stopped(s, s.run({target, 0x607363b3}, limit=20000), target)
                 assert s.read(ACTUATOR, 208) == before
-                if page == 2:
+                if page in (0,1,2):
                     assert s.regs['a0'] == ACTUATOR
                     expected_sp = INITIAL_SP - (20 if entry == 0x60c871e3 else 24) - 16
                     assert s.regs['sp'] == expected_sp, (hex(s.regs['sp']),hex(expected_sp))
@@ -281,7 +267,7 @@ def unavailable_cases(candidate, editor):
                       a0=0, a1=0, a3=0, psw=0)
         stopped(s, s.run({0x60c878dd},limit=1000),0x60c878dd)
     return dict(inputs=reports, tagged_requests_rejected_when_section8_absent=True,
-                absent_code_unmapped=True, endpoint_page_does_not_edit_inner_controls=True)
+                absent_code_unmapped=True, all_custom_pages_do_not_edit_native_controls=True)
 
 
 def stock_info_cases(candidate, editor):
@@ -377,9 +363,9 @@ def other_family_cases(candidate, editor):
             state.write(0x61c58404, bytes((mask,)))
             absent = []
             if not mask & 0x20:
-                absent.append((0x610f1ea0, 0x610f1fc0))
+                absent.append((0x610f1e54, 0x610f2000))
             if not mask & 0x80:
-                absent.append((0x6115b060, 0x6115b7c0))
+                absent.append((0x6115b014, 0x6115b800))
             absent += [(lo+0x40000000,hi+0x40000000) for lo,hi in absent]
             state.regions = [r for r in state.regions if not any(lo <= r.address and r.address+len(r.data) <= hi for lo,hi in absent)]
             state.regions = without_ranges(state.regions, absent)

@@ -14,7 +14,7 @@ class EditorCandidate:
     chunks: dict
 
 
-def build_editor(folder, candidate, *, graph=False):
+def build_editor(folder, candidate):
     folder.mkdir(parents=True, exist_ok=False)
     spec = json.loads((HSL / 'patch.json').read_text())
     group = next(g for g in spec['groups'] if g['name'] == 'editor_storage')
@@ -47,11 +47,6 @@ def build_editor(folder, candidate, *, graph=False):
     assert len(extract(compact_elf, 'hsl_ui')) == 221
     assert extract(compact_elf, 'hsl_wheel')[-32:] == b'\xcb' * 32
     tone_source = ROOT / 'patches/tone/pen-f/src/editor.s'
-    if graph:
-        generated = folder / 'editor.s'
-        source = tone_source.read_text().replace('.global tone_selected_id', '.section .tone_selected,"ax"\n.global tone_selected_id')
-        generated.write_text(source)
-        tone_source = generated
     layout = folder / 'editor.ld'
     external = dict(stock_active_set=0x602f0710, stock_active_get=0x602f06e7,
         hl_publish=names['hl_publish'], stock_manager=0x6075fbed, stock_manager_finish=0x6075fc45,
@@ -64,19 +59,17 @@ def build_editor(folder, candidate, *, graph=False):
         stock_tone_apply=0x604be08d, stock_gui_set=0x607363b3,
         stock_gui_service=0x607355e9, stock_timer=0x60d13bbb,
         stock_event_changed=0x60c878dd, stock_reset_resume=0x60c875ec,
-        tone_signal_bounds=names['tone_signal_bounds'])
+        tone_resolve=names['tone_resolve'],tone_decode=names['tone_decode'],
+        tone_edit=names['tone_edit'],tone_apply=names['tone_apply'])
     external.update({f'stock_input_{name}_resume': at for name, at in
                      (('up',0x60c8720b), ('down',0x60c8726d), ('left',0x60c872d1),
                       ('right',0x60c87335), ('front',0x60c873b2), ('rear',0x60c8742e))})
-    slots = {'tone_editor': (names['tone_rows'] + 180, 0x6115b7c0),
-             'tone_reference': (0x610f1ea0, 0x610f1fc0),
-             'tone_resident': (0x60c87670, 0x60c877f1),
-             'tone_manager_gate': (0x60a4ff8d, 0x60a4ffa6),
-             'tone_manager_unavailable': (0x6081b8af, 0x6081b8cf)}
-    if graph:
-        slots['tone_editor'] = (names['tone_rows']+180, 0x6115b800)
-        slots['tone_reference'] = (0x610f1e54, 0x610f1f42)
-        slots['tone_selected'] = (0x610f1fd8, 0x610f1ff6)
+    slots = {'tone_editor': (names['tone_rows']+180,0x6115b800),
+             'tone_reference': (0x610f1e54,0x610f1fca),
+             'tone_selected': (0x610f1fd8,0x610f1ff6),
+             'tone_resident': (0x60c87670,0x60c877f1),
+             'tone_manager_gate': (0x60a4ff8d,0x60a4ffa6),
+             'tone_manager_unavailable': (0x6081b8af,0x6081b8cf)}
     layout.write_text('SECTIONS {\n' + ''.join(f'.{k} {a:#x} : {{ *(.{k}) }}\n' for k,(a,b) in slots.items()) +
                       '}\n' + ''.join(f'{key} = {value:#x};\n' for key,value in external.items()))
     elf = assemble(folder / 'assembly', [tone_source], layout)

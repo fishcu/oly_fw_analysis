@@ -31,6 +31,10 @@ word_record_found:
  bne word_invalid
  mov (14944,a0),d0
  mov d0,d1
+ lsr 28,d1
+ cmp 11,d1
+ beq word_return
+ mov d0,d1
  and 0xfff00000,d1
  cmp 0xa5d00000,d1
  beq word_return

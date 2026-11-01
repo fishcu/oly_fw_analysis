@@ -1,56 +1,58 @@
-# PEN-F ordinary tone adapter
+# Native five-point image adapter
 
-This offline unit connects the endpoint kernel to the native ordinary COLOR tone builder. It does not add camera controls, persistent endpoint acquisition, or an installable image.
+The composed ordinary COLOR builder applies the shared equal-quarter transfer
+after native selected-base and legacy-only processing. The state and migration
+rules are in [TONE_POINTS.md](TONE_POINTS.md). The previous signal-bracketing and
+endpoint-only kernels remain historical probes; they are not linked into this
+candidate.
 
-The composed feature lets the user move black and white vertically while the native shadow, middle, and highlight heights remain unchanged. This adapter preserves the entire final LUT interval around those inner controls. It clamps each requested endpoint independently when an inner control reduces the available range.
+## Boundary and ownership
 
-## Native boundary
+The production hook replaces five bytes at604f7c76 and preserves its CALL frame.
+The early stock fallback replays those bytes and resumes604f7c7b. The ordinary
+outer604f8543 retains its native bypass decisions. Separate604f7d22 does not
+enter this builder and remains unchanged.
 
-The five-byte call at `0x604f85ea` invokes the ordinary builder `0x604f7c76`. The probe checks those original bytes before substituting a jump to `tone_ordinary_call`. That trampoline invokes `tone_native_builder` with the original saved-register mask and 28-byte frame, then resumes at `0x604f85ef`. The ordinary outer builder `0x604f8543` still makes its native bypass decision. The separate paths through `0x604f7d22` remain outside this unit.
+Before reading job+14944, `tone_job_word` requires exact COLOR header000b0000,
+callback604c4011, an exact one-of16 operation-record pointer, and matching
+parent job. It accepts canonical0xb and migration0xa5d tags. Invalid producer or
+unrecognized tag tails stock. The producer independently qualifies COLOR1–3.
 
-The new builder reads an endpoint word only for the exact ordinary COLOR request header `0x000b0000` at request+8. It requires callback `0x604c4011`, an exact pointer to one of the 16 native 52-byte operation records, and the matching parent job. These checks establish the native layout relationship before reading job+14944. They are not general validation of an arbitrary pointer.
+The selected source must be nonnull, monotone, bounded0..1023, with exact0/1023
+endpoints; all256 samples are checked. Unsupported sources and native selection
+early returns follow stock. The adapter owns a68-byte local frame. It copies
+native raw slots as `(raw0,raw1,0,0,0)` and converts them into private coefficients.
+Original request raw values and context coefficients remain unchanged.
 
-A word is valid when its upper 12 bits equal `0xa5d`. Bits 0..9 hold black and bits 10..19 hold white. Zero and every other tag are invalid. Invalid words tail-call the unchanged stock builder. Every supported valid word, including the neutral pair0/1023, selects and rebuilds the curve. The producer must qualify COLOR1, COLOR2, or COLOR3 when it acquires the image. That producer is not implemented in this unit.
+Native604bdd21 gates that legacy-only tuple. When nonzero, the full native
+convert/apply sequence runs, including its27-sample reconstruction and variant
+bit. Isolating only the first spline would drop part of raw1's native behavior.
+When both legacy slots are zero the overlay is skipped; forcing a zero overlay
+would change eight identity samples by one code.
 
-For a valid word, the adapter retains stock base selection and the stock inner-overlay gate. It does not use the native retained-request change mask to skip the rebuild: the native comparator does not compare the new endpoint trailer. A selection that requests an early native return retains that return. Endpoint-only edits run even when all five native raw fields are zero. The original raw fields and coefficient record remain unchanged. Rebuilding neutral requests is necessary to replace a previously nonneutral cached curve; neutral output still has the same active LUT, pointer and return value as a fresh native build.
+The resolved five-point transfer then maps all256 resulting values. A neutral
+canonical state skips this final mapping but still selects/rebuilds the base,
+so reset cannot retain a previously edited LUT. Any needed writable copy belongs
+to output+4660, with pointer output+4656. Shared source memory is unchanged.
+All supported tagged requests rebuild irrespective of the stock change mask;
+no padding, retained cache state or forged dirty flag is introduced.
 
-## Signal bounds and lifetime
+## Verification
 
-The native pre-control table contains 27 values at indices 0, 10, through 250, and 255. These values follow the first native contrast spline. The inner transfer coordinates 130 and 832 bracket the shadow and highlight controls. They are not fixed indices in a 256-entry LUT.
+`penf_tone_integration_probe.py` compares the adapter with an independent shared
+state oracle applied to a fresh native legacy-only baseline. Coverage includes
+identity/square/square-root inputs, selected native bases, both variants,
+zero/nonzero legacy values, migration tuples, all16 records, null/unsupported
+sources, malformed producer relationships and outer bypasses.
 
-`tone_signal_bounds` repeats that prepass through native spline functions `0x604bdea7` and `0x604bdfe1`. Its temporary knots and coefficients belong to its stack frame. It rejects out-of-range or decreasing samples and missing crossings. The returned lower shadow neighbor and upper highlight neighbor stay in the builder's private stack until the final LUT is complete. No code reads a released native frame or an undocumented context field.
+The retained-request regression executes604b3034 and604b2d78, changes all-five
+canonical state twice, then resets to neutral while the native mask contains no
+tone-change bits. It checks24 sequential transitions over zero/nonzero captured
+H/M/L, selected/override bases and both variants, including the placed entry.
+Neutral state equals a fresh native legacy-only build in LUT, pointer and return.
+These builder cases model no functions.
 
-Two designs were compared. A hook at `0x604be107` could copy the native samples, but it would need a caller-frame contract and would not execute for neutral inner controls. The selected-base adapter gives every supported request the same synchronous prepass and keeps the ownership boundary explicit. This follows the Model the Domain principle by representing the endpoint pair and its bounds as one local parameter block.
-
-The prepass deliberately retains whole 27-knot brackets. A steep source can produce shadow index zero, in which case black clamps to zero. Narrower inferred bounds would claim precision not established by the native interpolation evidence.
-
-## Validation and output ownership
-
-Before it calls the endpoint kernel, the adapter checks all 256 final samples. Every value must be at most 1023, samples must be monotone, and endpoints must equal 0 and 1023. The shadow index must be lower than the highlight index. Unsupported values leave the stock result and selected pointer unchanged.
-
-Black becomes `min(requested_black, final_shadow_height)`. White becomes `max(requested_white, final_highlight_height)`. The two clamps are independent. If both effective endpoints are neutral, the adapter keeps the native pointer and bytes. Otherwise it copies a shared curve into output+4660 before editing, or reuses that scratch when the native builder already owns it. The pointer at output+4656 then names that context-owned scratch.
-
-The UI distinguishes requested coordinates from effective height and keeps an exact partial final step. This unit stores the requested 10-bit coordinates and calculates the effective endpoints per curve. The graph must show those effective values.
-
-## Reproduction and evidence
-
-Run the audit with the exact firmware and toolchain used by the native baseline.
-
-```sh
-python3 tools/penf_tone_integration_probe.py --out generated/tone-integration
-python3 -m unittest discover -s tests -p 'test_penf_tone*.py' -v
-```
-
-The output directory must be new. The assembly is linked at synthetic address `0x19080000`. The audit records the compiled size, native symbols, tool hashes, firmware and engine hashes, complete pre-control samples, signal bounds, output hashes, and ABI checks. It creates no firmware container.
-
-The audit compares 27 source/contrast fixtures against native pre-control samples. Identity, square, and square-root curves are synthetic input fixtures. The first two raw slots use -7, 0, and 7 as stress values, not established UI settings. It compares endpoint output with the independent integer oracle for all 27 tested inner-control triples and each of the 16 operation records. Additional cases execute native-selected bases, variant mode, the actual ordinary call-site trampoline, unsupported sources, invalid job relationships, and native bypasses.
-
-The cached-request regression first executes native retained updater604b3034, then comparator604b2d78. Endpoint-only changes and neutral reset produce no bits in the native tone-change mask0x02e8063e. The adapter must nevertheless update the active LUT. It checks24 sequential transitions across zero/nonzero inner controls, native/override bases and both variants, including the production-linked entry. No function is modeled in these cases.
-
-Four native uploader calls cover both banks with the same cache tag and dirty zero. Each call checks all 256 expanded 32-bit tone entries. The two cache-lock helpers use the existing single-thread model. These are separate bounded upload fixtures. They do not simulate concurrent jobs, cache scheduling, ISP pixels, or a camera.
-
-## Composition
-
-The packed endpoint source, 45 owner snapshots, constructor extension, acquisition and conversion hooks, and native reset scopes are implemented in the transport unit. External backup and ORF metadata support are outside this first feature and do not preserve endpoint settings through new extension records. The body page cycle, setter, reset and graph are documented in [TONE_EDITOR.md](TONE_EDITOR.md) and [TONE_GRAPH.md](TONE_GRAPH.md). No firmware cavity or loaded-section lifetime is assigned by this synthetic unit.
-
-The composed source/owner/job candidate and residency guards are documented in [TONE_TRANSPORT.md](TONE_TRANSPORT.md). A null selected LUT now returns to the stock builder before the signal prepass; the native neutral-inner null-pointer result is covered by a differential regression.
+Native upload fixtures check every expanded32-bit LUT entry in both banks with
+a warm tag and dirty0. Only the two established cache-lock helpers use a
+single-thread model. This verifies the upload boundary, not ISP pixel execution.
+The source/owner/job lifecycle is in [TONE_TRANSPORT.md](TONE_TRANSPORT.md).

@@ -6,7 +6,7 @@ import unittest
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tools'))
 
 from penf_tone_integration_probe import (JOB, build_adapter, check_case, identity_lut,
-                                         packed, run_builder, signal_case, upload_result,
+                                         packed, run_builder, upload_result,
                                          cached_endpoint_cases)
 
 
@@ -23,23 +23,14 @@ class NativeToneIntegrationTests(unittest.TestCase):
     def test_cached_endpoint_changes_and_neutral_reset_rebuild_without_inner_changes(self):
         self.assertEqual(len(cached_endpoint_cases(self.adapter)), 24)
 
-    def test_missing_upper_crossing_is_rejected(self):
-        case = signal_case(self.adapter, tuple([0] * 256), (0, 0, 0, 0, 0))
-        self.assertIsNone(case['bounds'])
-
-    def test_upper_crossing_at_last_sample_is_valid(self):
-        curve = tuple([0] * 255 + [1023])
-        case = signal_case(self.adapter, curve, (0, 0, 0, 0, 0))
-        self.assertEqual(case['bounds'], (250, 255))
-
     def test_endpoint_only_ordinary_native_route(self):
         case = check_case(self.adapter, identity_lut(), (0, 0, 0, 0, 0), 70, 950, outer=True)
-        self.assertEqual(case['endpoints'], [70, 950])
+        self.assertEqual(case['endpoints'], [64, 944])
 
-    def test_inner_height_clamps_endpoint_independently(self):
+    def test_legacy_migration_quantizes_and_bounds_endpoints(self):
         case = check_case(self.adapter, identity_lut(), (0, 0, 4, -2, -3), 1023, 950)
         self.assertLess(case['endpoints'][0], 1023)
-        self.assertEqual(case['endpoints'][1], 950)
+        self.assertEqual(case['endpoints'][1], 944)
 
     def test_unsupported_source_retains_native_pointer(self):
         curve = tuple([700] * 256)

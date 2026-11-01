@@ -16,8 +16,8 @@ from penf_hsl_context_probe import reenter
 from penf_recovery_isolation_probe import without_ranges
 from penf_tone_candidate import build_candidate
 from penf_tone_integration_probe import (JOB, OUTPUT, CONTEXT, LUT, prepare, packed,
-                                         stock_signal, upload_result)
-from penf_tone_endpoints import ToneEndpoints, endpoint_oracle
+                                         upload_result)
+from penf_tone_points import FivePoints, resolve, LEGACY_NEUTRAL
 from penf_tone_probe import (INITIAL_SP, PRESERVED, GUARD, identity_lut, _finish,
                              _check_guards, sha)
 
@@ -27,7 +27,7 @@ REFERENCE_REGS = dict(d0=0x01234567, d1=0x89abcdef, **PRESERVED,
                       a0=0x23456789, a1=0xabcdef01,
                       mdr=0x91827364, lir=0x10203040, lar=0x50607080)
 HL_PACKED = bytes((i % 8) | ((7 - i % 8) << 4) for i in range(36))
-SOURCE_WORDS = (packed(50, 950), packed(80, 920), packed(100, 900))
+SOURCE_WORDS = tuple(FivePoints(y).pack() for y in ((48,256,512,768,944),(80,320,544,704,928),(96,352,480,672,896)))
 
 
 def u32(s, address):
@@ -190,6 +190,21 @@ def owner_matrix(candidate):
     return dict(owners=reports, neutral_profiles=6, rejected_owners=8)
 
 
+def source_normalization(candidate):
+    state=setup(candidate)
+    rows=[]
+    for word in (0,0xffffffff,0x12345678,packed(64,960),FivePoints().pack(),0xbfffffff):
+        state.write(candidate.symbols['tone_source'],struct.pack('<3I',word,word,word))
+        for profile in (0,1,2,3,4):
+            address=owner(state,0,profile)
+            acquisition(state,address)
+            actual=u32(state,candidate.symbols['tone_rows'])
+            expected=0 if profile not in (1,2,3) else (word if word>>28==11 or word>>20==0xa5d else LEGACY_NEUTRAL)
+            assert actual==expected,(word,profile,actual,expected)
+            rows.append(dict(profile=profile,source_word=hex(word),owner_word=hex(actual),models=[]))
+    return rows
+
+
 def hooks(candidate):
     reports = []
     for route in ('preview', 'recording'):
@@ -285,17 +300,14 @@ def pipeline(candidate, *, loaded=True, raw=(0, 0, 4, -2, -3), record=0, route='
     output = s.read(OUTPUT, 5212)
     pointer = struct.unpack_from('<I', output, 4656)[0]
     actual = struct.unpack('<256H', s.read(pointer, 512))
-    stock = setup(candidate, reference=True, processing=True, raw=raw, record=record)
+    stock = setup(candidate, reference=True, processing=True, raw=(*raw[:2],0,0,0) if loaded else raw, record=record)
     helpers(stock)
     reenter(stock, 0x604f8543, 0xf0, 40, dict(PRESERVED, a0=CONTEXT))
     _finish(stock, stock.run({CALLER + 7}, limit=300000))
     old_pointer = u32(stock, OUTPUT + 4656)
     old = struct.unpack('<256H', stock.read(old_pointer, 512))
     if loaded:
-        _, (lo, hi) = stock_signal(identity_lut(), raw)
-        black, white = word & 1023, word >> 10 & 1023
-        expected = endpoint_oracle(old, ToneEndpoints(min(black, old[lo]), max(white, old[hi]), lo, hi))
-        assert actual == expected and actual[lo:hi + 1] == old[lo:hi + 1]
+        assert actual == resolve(word,raw[2:]).apply(old)
     else:
         assert output == stock.read(OUTPUT, 5212)
     assert s.regs['d0'] == stock.regs['d0']
@@ -309,7 +321,7 @@ def pipeline(candidate, *, loaded=True, raw=(0, 0, 4, -2, -3), record=0, route='
 
 
 def entry_compatibility(candidate):
-    cases = [dict(endpoint_word=word) for word in (0, 0xffffffff, packed(0, 1023))]
+    cases = [dict(endpoint_word=word) for word in (0, 0xffffffff, 0x12345678)]
     cases += [dict(endpoint_word=packed(70, 950), **kw) for kw in
               (dict(callback=0), dict(parent=JOB + 4), dict(mode_prefix=1),
                dict(record_offset=1849), dict(bypass=True),
@@ -365,7 +377,7 @@ def alternative_path(candidate):
 
 
 def audit(candidate):
-    return dict(publication=publication(candidate), owners=owner_matrix(candidate),
+    return dict(publication=publication(candidate), owners=owner_matrix(candidate), normalization=source_normalization(candidate),
                 hooks=hooks(candidate), acquisition_abi=acquisition_abi(candidate),
                 compatibility=entry_compatibility(candidate), alternative_path=alternative_path(candidate),
                 compact=compact_postcall(candidate),
@@ -375,7 +387,7 @@ def audit(candidate):
                 engine_sha256=sha(ENGINE.read_bytes()),
                 limits=['Synthetic RAM and single-thread execution; no camera or flash access.',
                         'Full constructor and compact setter unavailable: bounded native blocks are explicit.',
-                        'UI/default/reset routing and nonvolatile commit are not yet integrated.'])
+                        'UI and firmware container checks are separate probes.'])
 
 
 def main():

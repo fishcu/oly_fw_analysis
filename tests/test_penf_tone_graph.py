@@ -32,11 +32,10 @@ class ToneGraphTests(unittest.TestCase):
     def test_relocated_editor_and_image_pipeline_still_join_native_paths(self):
         graph.composed_cases(self.candidate,Path(self.temporary.name))
 
-    def test_unmodeled_text_allocator_stops_at_the_real_pool_boundary(self):
-        result = graph.paint(graph.fixture(self.candidate, word=graph.packed(64, 960)),
-                             self.candidate, model_text=False)
-        self.assertFalse(result['complete_return'])
-        self.assertEqual(result['allocator_stop']['address'], 0x61a8e884)
+    def test_graph_painter_uses_no_numeric_text_allocator(self):
+        result = graph.paint(graph.fixture(self.candidate),self.candidate)
+        self.assertTrue(result['complete_return'])
+        self.assertEqual(result['models'],['rectangle raster submission'])
 
 
 if __name__ == '__main__':

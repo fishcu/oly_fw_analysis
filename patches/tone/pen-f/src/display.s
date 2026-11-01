@@ -77,11 +77,7 @@ tone_filter:
  mov (116,sp),a0
  call tone_display_active,[d2,d3,a2,a3],20
  beq tone_filter_original
- cmp 2,d1
- mov 0xfc000000,d1
- bne tone_filter_mask
- mov 0xff3fffe0,d1
-tone_filter_mask:
+ mov 0xfc3fe3e0,d1
  mov (116,sp),a1
  add 792,a1
  mov (204,sp),d0
@@ -159,38 +155,16 @@ tone_paint_done:
  add 1280,sp
  ret [d2,d3,a2,a3],16
 tone_paint_reference_ready:
- mov d0,(32,sp)
- mov d1,d3
- mov d2,d0
- mov 1,d1
- call stock_active_get,[d2],8
- mov d3,a1
- clr d1
- mov 0,a0
- call tone_step,[d2,d3,a2,a3],16
- mov d0,(28,sp)
- mov d0,d1
- and 1023,d0
- movhu d0,(1272,sp)
- lsr 10,d1
- and 1023,d1
- movhu d1,(1274,sp)
- mov (32,sp),d0
- mov d0,d1
- and 255,d0
- movhu d0,(1276,sp)
- lsr 8,d1
- movhu d1,(1278,sp)
- mov a2,a0
- mov sp,a1
- add 1272,a1
- call tone_endpoints,[d2,d3,a2,a3],16
+ mov sp,a0
+ add 1264,a0
+ call tone_decode,[d2,d3,a2,a3],16
  mov a3,a0
  mov -1,d0
  call stock_pen,[d2,d3,a2,a3],16
  mov 5,a1
  call tone_brush,[],4
  clr d2
+ mov d2,(32,sp)
  movhu (a2),d0
  lsr 2,d0
  mov (8,sp),d3
@@ -209,23 +183,29 @@ tone_curve_loop:
  sub d0,d3
  movhu d3,(42,sp)
  call tone_rectangle,[],4
- cmp 0,d2
- beq tone_curve_marker
- cmp 30,d2
- beq tone_curve_marker
- cmp 118,d2
- beq tone_curve_marker
- cmp 210,d2
- beq tone_curve_marker
- cmp 255,d2
+ mov (32,sp),d0
+ mov 255,d1
+ mul d1,d0
+ add 4,d0
+ lsr 3,d0
+ cmp d0,d2
  bne tone_curve_next
 tone_curve_marker:
+ mov (32,sp),d1
+ mov sp,a0
+ add 1264,a0
+ movhu (d1,a0),d0
+ add 2,d1
+ mov d1,(32,sp)
+ lsr 2,d0
+ mov (8,sp),d1
+ sub d0,d1
  movhu (40,sp),d0
  add -2,d0
  movhu d0,(40,sp)
  add 4,d0
  movhu d0,(44,sp)
- mov d3,d0
+ mov d1,d0
  add -2,d0
  movhu d0,(42,sp)
  add 4,d0
@@ -235,54 +215,6 @@ tone_curve_next:
  inc d2
  cmp 256,d2
  bcs tone_curve_loop
- jmp tone_paint_text
-
-.section .tone_display_text,"ax"
-tone_paint_text:
- mov a3,a0
- mov 1,d0
- call stock_font,[a2],8
- cmp 0,a0
- beq tone_paint_text_done
- mov a0,(24,sp)
- mov 2,d0
- movhu d0,(52,a3)
- mov sp,a0
- add 1244,a0
- mov 0x002b0042,d0
- mov d0,(a0)
- mov 0x00570020,d0
- mov d0,(12,a0)
- mov 45,d0
- movhu d0,(16,a0)
- clr d0
- movhu d0,(26,a0)
- movhu (1272,sp),d0
- mov a0,a1
- add 10,a1
- call tone_digits,[],4
- mov 1023,d0
- movhu (1274,sp),d1
- sub d1,d0
- mov a0,a1
- add 24,a1
- call tone_digits,[],4
- mov (4,sp),d0
- movhu d0,(40,sp)
- add 255,d0
- movhu d0,(44,sp)
- mov (8,sp),d0
- add 33,d0
- movhu d0,(42,sp)
- add 31,d0
- movhu d0,(46,sp)
- mov sp,a1
- mov a1,d1
- add 1244,d1
- call hsl_text,[],4
- mov (24,sp),a0
- call stock_font_release,[],4
-tone_paint_text_done:
  jmp tone_paint_done
 
 .section .tone_display_brush,"ax"
@@ -300,6 +232,7 @@ tone_rectangle:
  call stock_rectangle,[d2,a2,a3],52
  ret [],4
 .section .tone_display_digits,"ax"
+.global tone_digits
 tone_digits:
  mov 4,d1
 tone_digit_loop:

@@ -12,7 +12,7 @@ import struct
 from penf_emulator import BASE, Region, execute, firmware
 from penf_probe import ProbeState, CALLER
 from penf_hsl_context_probe import reenter
-from penf_color_text_probe import fixture as font_fixture, glyph_boundary, GLYPH, CONTEXT, BACKEND
+from penf_color_text_probe import fixture as font_fixture, CONTEXT, BACKEND
 from penf_profile_context_probe import resume
 from penf_profile_lifecycle_probe import returned
 from penf_tone_editor_probe import fixture as editor_fixture, actuator, current, mode, ACTUATOR
@@ -20,7 +20,7 @@ from penf_tone_graph_candidate import build_graph
 from penf_tone_transport_probe import put32, set_words, stopped
 from penf_tone_integration_probe import packed
 from penf_tone_probe import PRESERVED, INITIAL_SP, NativeToneParameters, native_tone, identity_lut, sha
-from penf_tone_endpoints import ToneEndpoints, endpoint_oracle
+from penf_tone_points import FivePoints, resolve
 from penf_recovery_isolation_probe import without_ranges
 
 RECEIVER, CHILDREN, ROOT_OBJECT, JOB, CONTROLLER = 0x19600000,0x19700000,0x19800000,0x19801000,0x19804000
@@ -80,7 +80,7 @@ def fixture(graph,profile=1,page=0,controls=(0,0,0),word=None,layout=0,layer=2,m
         s.ram('display_child_'+str(i),CHILDREN+320*i,child,aliases=False)
     s.ram('native_paint_job',JOB,struct.pack('<3I',0,layer,CONTEXT),aliases=False)
     actuator(s,profile,page);mode(s,53+profile);current(s,profile,controls)
-    word=packed(0,1023) if word is None else word
+    word=FivePoints().pack() if word is None else word
     set_words(s,[word]*3)
     controller=bytearray(180)
     struct.pack_into('<I',controller,0,ACTUATOR)
@@ -92,12 +92,12 @@ def fixture(graph,profile=1,page=0,controls=(0,0,0),word=None,layout=0,layer=2,m
     return s
 
 
-def paint(s,graph,*,model_text=True):
+def paint(s,graph):
     context=s.read(CONTEXT,684);backend=s.read(BACKEND,160)
     receiver=s.read(RECEIVER,1040)
-    rectangles=[];glyphs=[];text_call=None;native_return=None;native_context=None
+    rectangles=[];native_return=None;native_context=None
     after_native=graph.symbols['tone_paint_after_native']
-    stops=(after_native,RASTER,*GLYPH,0x60bcb01b,0x60bcb025,0x60bc1fbf,CALLER+7)
+    stops=(after_native,RASTER,CALLER+7)
     reenter(s,graph.symbols['tone_paint_gate'],0,0,dict(PRESERVED,a0=RECEIVER,a1=JOB))
     r=s.run(set(stops),limit=100000)
     while s.regs['pc']!=CALLER+7:
@@ -113,27 +113,6 @@ def paint(s,graph,*,model_text=True):
             x,y,w,h=struct.unpack_from('<4h',raw,8)
             rectangles.append(dict(x=x,y=y,width=w,height=h,palette=raw[20]))
             s.return_from_model(0)
-        elif pc==0x60bc1fbf:
-            text_call=dict(text=s.read(s.regs['d1'],28).decode('utf-16le').rstrip('\0'),
-                           rectangle=list(struct.unpack('<4h',s.read(s.regs['a1'],8))),
-                           context=hex(s.regs['a0']),style=hex(s.regs['d0']))
-            r=resume(s,tuple(x for x in stops if x!=pc),limit=100000)
-            continue
-        elif pc==0x60bcb01b:
-            assert s.regs['a0']==12
-            if not model_text:
-                r=resume(s,(RASTER,CALLER+7),limit=100000)
-                assert r['status']=='memory_fault' and s.regs['pc']==0x60bd0ca7
-                assert r['fault']['address']==0x61a8e884
-                return dict(rectangles=rectangles,text_call=text_call,allocator_stop=r['fault'],
-                            peak_stack_bytes=INITIAL_SP-s.minimum_sp if s.measure_stack else None,
-                            models=['rectangle raster submission'],complete_return=False)
-            s.return_from_model(0);s.regs['a0']=0x19504000
-        elif pc==0x60bcb025:
-            assert s.regs['a0']==0x19504000
-            s.return_from_model(0)
-        elif pc in GLYPH:
-            glyphs.append(glyph_boundary(s))
         else:raise AssertionError(hex(pc))
         r=resume(s,stops,limit=100000)
     returned(s,r)
@@ -143,46 +122,36 @@ def paint(s,graph,*,model_text=True):
     assert s.read(RECEIVER,1040)==receiver
     assert s.regs['sp']==INITIAL_SP
     assert all(s.regs[k]==v for k,v in PRESERVED.items()),s.regs
-    return dict(rectangles=rectangles,glyphs=glyphs,text_call=text_call,
+    return dict(rectangles=rectangles,
                 peak_stack_bytes=INITIAL_SP-s.minimum_sp if s.measure_stack else None,complete_return=True,
                 context_matches_native_paint=True,native_paint_return_preserved=True,
                 native_context_changed_bytes=sum(a!=b for a,b in zip(context,native_context)),
                 backend_unchanged=True,receiver_unchanged=True,
                 callee_saved_unchanged=True,stack_restored=True,
-                models=['rectangle raster submission','line-storage allocation/free','glyph raster submission'])
+                models=['rectangle raster submission'])
 
 
 def assert_geometry(result,inputs):
-    source=(native_tone(NativeToneParameters((0,0,*inputs['controls']))).lut
-            if any(inputs['controls']) else identity_lut())
-    word=inputs['word']
-    requested=(word&1023,(word>>10)&1023) if word>>20==0xa5d else (0,1023)
-    black,white=min(requested[0],source[30]),max(requested[1],source[210])
-    curve=endpoint_oracle(source,ToneEndpoints(black,white,30,210))
+    points=resolve(inputs['word'],inputs['controls'])
+    curve=points.apply(identity_lut())
     x0=351+70*inputs['layout'];bottom=367
     rectangles=[];previous=bottom-(curve[0]>>2)
+    markers=dict(zip((0,64,128,191,255),points.heights))
     for index,value in enumerate(curve):
         y=bottom-(value>>2)
         rectangles.append(dict(x=x0+index,y=min(y,previous),width=1,height=abs(y-previous)+1,palette=5))
-        if index in (0,30,118,210,255):
-            rectangles.append(dict(x=x0+index-2,y=y-2,width=5,height=5,palette=5))
+        if index in markers:
+            rectangles.append(dict(x=x0+index-2,y=bottom-(markers[index]>>2)-2,width=5,height=5,palette=5))
         previous=y
     assert result['rectangles']==rectangles,[(i,a,b) for i,(a,b) in enumerate(zip(result['rectangles'],rectangles)) if a!=b][:5]
-    assert result['text_call']['text']==f'B+{black:04d} W-{1023-white:04d}'
-    assert result['text_call']['rectangle']==[x0,400,x0+255,431]
-    assert ''.join(chr(int(g['code'],16)) for g in result['glyphs'])==result['text_call']['text']
-    for glyph in result['glyphs']:
-        width,height=struct.unpack_from('<2H',bytes.fromhex(glyph['request']),8)
-        x,y=glyph['origin']
-        assert x0<=x and x+width<=x0+256 and 400<=y and y+height<=432,(glyph,width,height)
-    result.update(inputs=inputs,effective_endpoints=[black,white],curve_sha256=sha(struct.pack('<256H',*curve)),
-                  oracle_rectangles_equal=True,all_numeric_glyph_requests_inside_row=True,
-                  interior_samples_unchanged=curve[30:211]==source[30:211])
+    result.update(inputs=inputs,heights=points.heights,curve_sha256=sha(struct.pack('<256H',*curve)),
+                  oracle_rectangles_equal=True,exact_quarter_anchor_heights=True,
+                  text_owned_by_native_footer=True)
 
 
 def paint_cases(graph):
     cases=[]
-    for options in (dict(profile=1,page=0,word=packed(64,960),measure_stack=True),
+    for options in (dict(profile=1,page=0,word=FivePoints((64,320,544,704,960)).pack(),measure_stack=True),
                     dict(profile=2,page=2,controls=(-7,7,-7),word=packed(1023,0),layout=1),
                     dict(profile=3,page=1,controls=(4,-2,-3),word=0)):
         state=fixture(graph,**options)
@@ -225,7 +194,7 @@ def filter_cases(graph):
         mode(state,53+profile)
         for page in (0,1,2):
             actuator(state,profile,page)
-            hidden=set(range(26,32)) if page<2 else set(range(5,22))|set(range(24,32))
+            hidden=set(range(5,10))|set(range(13,22))|set(range(26,32))
             for index in range(33):run(index,index in hidden)
     actuator(state,1,2)
     for public in (1,55,57,59):
@@ -324,19 +293,19 @@ def full_reference_domain(graph):
         assert curve[0]==0 and curve[-1]==1023 and max(curve)<=1023
         delta=min(b-a for a,b in zip(curve,curve[1:]));assert delta>=0
         minimum_delta=min(minimum_delta,delta)
-        assert state.regs['d0']==30|(210<<8)
+        expected=resolve(0,controls)
+        assert state.regs['d0']==expected.pack() and curve==expected.apply(identity_lut())
         if count%225==0:print(json.dumps(dict(reference_cases=count)),flush=True)
-    return dict(cases=count,minimum_adjacent_delta=minimum_delta,bounds=[30,210],models=[])
+    return dict(cases=count,minimum_adjacent_delta=minimum_delta,fixed_abscissae=[0,0.25,0.5,0.75,1],models=[])
 
 
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--out',type=Path,required=True)
     p.add_argument('--full-reference-domain',action='store_true')
-    p.add_argument('--only',choices=('paint','filter','fallback','update','allocator','composed'))
+    p.add_argument('--only',choices=('paint','filter','fallback','update','composed'))
     a=p.parse_args();g=build_graph(a.out/'candidate');result={}
     audits={'paint':lambda:paint_cases(g),'filter':lambda:filter_cases(g),
             'fallback':lambda:paint_fallback_cases(g),'update':lambda:update_cases(g),
-            'allocator':lambda:paint(fixture(g,word=packed(64,960)),g,model_text=False),
             'composed':lambda:composed_cases(g,a.out)}
     for name,audit in audits.items():
         if a.only and name!=a.only:continue

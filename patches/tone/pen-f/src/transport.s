@@ -79,6 +79,15 @@ tone_source_profile:
  asl 2,d0
  mov tone_source_uncached,a0
  mov (d0,a0),d0
+ mov d0,d1
+ lsr 28,d1
+ cmp 11,d1
+ beq tone_source_store
+ mov d0,d1
+ lsr 20,d1
+ cmp 0xa5d,d1
+ beq tone_source_store
+ mov 0xa5dffc00,d0
  bra tone_source_store
 tone_source_neutral:
  clr d0
