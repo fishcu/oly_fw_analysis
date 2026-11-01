@@ -114,6 +114,7 @@ tone_paint_after_native:
  call tone_display_active,[d2,d3,a2,a3],20
  beq tone_paint_done
  mov d0,d2
+ mov d1,(36,sp)
  mov (20,sp),a0
  cmp 0,a0
  beq tone_paint_done
@@ -146,8 +147,10 @@ tone_paint_copy:
  mov sp,a2
  add 732,a2
  mov a2,a0
+ mov (36,sp),d0
+ call tone_decode_selection,[],4
  mov d2,d0
- call tone_reference,[d2,d3,a2,a3],16
+ call tone_channel_reference,[d2,d3,a2,a3],16
  cmp 0,d0
  bne tone_paint_reference_ready
 tone_paint_done:

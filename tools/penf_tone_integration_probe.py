@@ -87,7 +87,7 @@ def prepare(curve, raw, *, endpoint_word=0, record=0, mode=11, custom=True,
             bypass=False, selection_stop=False, base_selection=0, mode_prefix=0, null_lut=False):
     s = ProbeState(CONVERT, 0, 16, bytes(16),
                    dict(PRESERVED, a0=RAW, a1=COEFFICIENTS))
-    job = bytearray(14948)
+    job = bytearray(14960)
     struct.pack_into('<5h', job, 5568, *raw)
     struct.pack_into('<II', job, 12228, callback,
                      REQUEST + 1848 + 52 * record if record_offset is None else REQUEST + record_offset)
@@ -126,7 +126,7 @@ def prepare(curve, raw, *, endpoint_word=0, record=0, mode=11, custom=True,
 def run_builder(adapter, curve, raw, *, native=False, outer=False, **kwargs):
     s = prepare(curve, raw, **kwargs)
     before = {name: s.read(address, size) for name, address, size in
-              (('job', JOB, 14948), ('context', CONTEXT, 192),
+              (('job', JOB, 14960), ('context', CONTEXT, 192),
                ('descriptor', DESCRIPTOR, 12), ('base', LUT, 512))}
     s.regions.append(Region('tone_adapter', CODE, adapter.code, 'rx'))
     entry = 0x604f7c76 if native else adapter.symbols['tone_native_builder']
@@ -144,7 +144,7 @@ def run_builder(adapter, curve, raw, *, native=False, outer=False, **kwargs):
     reenter(s, entry, 0xf0, 40 if outer else 28, dict(PRESERVED, a0=CONTEXT))
     result = s.run({CALLER + 7}, limit=300000)
     checks = _finish(s, result)
-    for name, address, size in (('job', JOB, 14948), ('context', CONTEXT, 192),
+    for name, address, size in (('job', JOB, 14960), ('context', CONTEXT, 192),
                                 ('descriptor', DESCRIPTOR, 12), ('base', LUT, 512)):
         if not (outer and name == 'context'):
             assert s.read(address, size) == before[name], name
@@ -240,7 +240,7 @@ def cached_endpoint_cases(adapter, *, image=None, entry=None):
             assert state.read(RAW, 10) == struct.pack('<5h', *raw)
             if points == FivePoints():
                 assert pointer == fresh['pointer'] and actual == fresh['lut']
-            for address, size in ((JOB, 14948), (CONTEXT, 192), (OUTPUT, 5212)):
+            for address, size in ((JOB, 14960), (CONTEXT, 192), (OUTPUT, 5212)):
                 _check_guards(state, address, size)
             rows.append(dict(raw=raw, custom=custom, variant=variant, requested=list(points.heights),
                 endpoints=list(actual[::255]), change_mask=hex(change_mask),

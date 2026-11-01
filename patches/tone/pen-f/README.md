@@ -1,23 +1,23 @@
-# PEN-F five-point tone candidate
+# PEN-F ALL/R/G/B five-point tone candidate
 
-COLOR1–3 have five vertically adjustable points at **0%,25%,50%,75%,100%**.
+COLOR1–3 each have independent ALL, R, G and B curves with five vertically adjustable points at **0%,25%,50%,75%,100%**.
 Black, shadow, middle, highlight and white form one nondecreasing piecewise
 linear transfer. The camera controls, graph, native profile/bank storage and
 per-image processing use the same state. The candidate retains the pinned HSL
 release and Value OSD. Building performs no camera access or flashing.
 
-This revision replaces the earlier endpoint-only design. A first equal-quarter
-candidate froze before the tone screen appeared on a camera. The current build
-corrects unaligned native lookup tables and UTF-16 stores; its correction has
-bounded offline verification. A subsequent camera report confirmed that the
-screen opens, but a white-only realtime-update delay remains unresolved.
-This build corrects the physical front/rear dial assignment; it does not claim
-to resolve that delay.
+The underlying equal-quarter ALL editor includes the earlier alignment and
+physical dial corrections. The camera screen has been reported to open, while
+a white-only realtime-update delay remains unresolved. This RGB extension has
+bounded offline verification; its physical channel order and saved JPEG output
+still require camera qualification.
 
 ## Body controls
 
 Open the native COLOR1, COLOR2 or COLOR3 tone editor. INFO cycles
 shadow/highlight → middle → black/white → shadow/highlight.
+Trash cycles ALL → R → G → B while retaining the page. Held OK resets that
+page of the selected channel. The footer and graph follow the selected channel.
 
 | Page | Left/right | Down/up | Front dial | Rear dial | Held OK |
 |---|---|---|---|---|---|
@@ -33,24 +33,26 @@ from992 to1023. Only the selected coordinate moves; adjacent points bound it.
 Equal neighboring heights are allowed.
 
 The native footer names the current page and shows its selected values.
-Examples are `明部・暗部 S0256 H0768`, `中間部 M+0`, and
-`黒点・白点 B0000 W1023`, followed by the native INFO icon. Non-Japanese languages
+Examples are `ALL 明部・暗部 S0256 H0768`, `R 中間部 M+0`, and
+`B 黒点・白点 B0000 W1023`, followed by the native INFO icon and DEL hint. Non-Japanese languages
 use short ASCII page names. S/H/B/W are absolute output codes0..1023, not
 signed native tone settings. Native RESET controls remain visible.
 
-The graph shows the exact five-point transfer using an identity input. Image
-processing applies it after the selected native base and the native legacy-only
-contrast stage. It therefore need not match every image effect. Neutral five-point
+The graph shows the exact five-point transfer using an identity input. ALL image processing applies it after the selected native base and native
+legacy-only contrast stage. RGB applies each channel transfer to its native
+packed gamma lane, then uses the native hardware upload path. It therefore need not match every image effect. Neutral five-point
 state is exact identity for all1024 integer inputs. The original native H/M/L
 overlay is replaced for these custom COLOR requests; its former heights and
 sample positions are intentionally not preserved.
 
-All five coordinates occupy one atomic native part1 profile word. Existing
-endpoint words and native H/M/L settings migrate consistently on first use;
+All five coordinates of one channel occupy one atomic native part1 word.
+The twelve cells, explicit channel requests and16-byte acquired snapshots are
+documented in [the RGB contract](../../../docs/color/pen-f/TONE_RGB.md). Existing
+endpoint words and native H/M/L migrate into ALL on first use; RGB starts neutral;
 [the state contract](../../../docs/color/pen-f/TONE_POINTS.md) defines rounding,
 projection and invalid-data behavior. Native bank recall and full reset use the
 existing settings machinery. External settings export/backup and ORF extension
-records do not carry this new word.
+records do not carry these words.
 
 Supported tagged requests always rebuild, including neutral reset, even when
 the stock comparator sees unchanged native controls. The earlier endpoint cache
@@ -90,13 +92,27 @@ its stock restore container. Producing these files performs no device access.
 |---|---|
 | Required full stock | `77398610b379f80238117f31a6d5bbf65d608b49ec563666c64d84367e969f2c` |
 | Pinned HSL package | `4f9a36e6742728ded3d9b443915355f1d1eea0371e1da673f322de970994f717` |
-| Five-point main | `3c4c065fc0c4d6c4a8d3f39d6f45505853fd2efc8d6b42e934c465aab3c5982f` |
-| Five-point container,44433408 bytes | `b5799d614d49d9478e4a92ec80913585192bb20d440f3afcb360b8a9c451dc3a` |
+| RGB five-point main | `2980da55912e53ca948a5b3494e61cb522393c39a083872d330dde47b9c977af` |
+| RGB five-point container,44433408 bytes | `838960996cddf2d7fcb1d59c98601e990281d01cfeefc9aef349634828f8d8ce` |
 | Retained HSL OSD | `f713df2a2d7d57a511e55cabb0f84ac4d612f99c58df4502a89b32bd8580084c` |
 
 The candidate main and container hashes for each build are recorded in `build.json`.
 
 ## Verification and limits
+
+Physical R/G/B lane naming is inferred from low/middle/high packed lanes and
+has not been confirmed with a named native calibration or camera measurement.
+Native execution verifies each lane independently, selects the actual native
+gamma bank once and submits the edited words. The single lane-shift table is
+the correction point if physical testing establishes another order. This is an
+offline candidate; LCD timing, silicon stage order and saved JPEG color output
+remain unqualified. The earlier white-only delay is not claimed fixed.
+
+
+The final offline run passes90 distinct tests: RGB14, viewer/graph13, and
+other tone/native-bank63. Focused modal-dispatch and INFO publication rechecks
+also pass; they are not counted twice. The generated audit records the exact
+package/main hashes, per-test logs and four fixture previews.
 
 The core probe executes canonical decode, legacy migration, selected-axis edits
 and all1024 transfer inputs for48 representative states. It checks neutral exact
@@ -130,6 +146,14 @@ completion. The new footer changes real displayed content rather than spare
 payload bytes. Async setter completion, event queue delivery and physical LCD
 refresh timing remain outside these fixtures; this is not a claim that the
 reported camera display delay has been physically resolved.
+
+The RGB native probes cover all36 profile/channel/page states, explicit async
+requests, held reset, guarded trash dispatch, equal-neutral redraw, all45
+four-word owner snapshots, all nine native banks and default reset, real
+section1/2/8 load/reload, invalid/unloaded fallback, all256 packed gamma words,
+sequential warm-cache edits/reset, source immutability and both hardware upload
+banks. `PENF_RGB_AUDIT_DIR=/path/to/new/audit` retains the RGB suite JSON and
+synthetic native-rectangle previews. They are fixture renders, not camera captures.
 
 The painter owns its context copy and LUT. Its native drawing paths are executed
 up to declared raster-submission models, without a custom text allocator.

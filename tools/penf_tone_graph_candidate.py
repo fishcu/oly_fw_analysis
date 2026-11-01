@@ -35,13 +35,8 @@ def build_graph(folder, *, stock_main=None):
     slots = {
         'tone_viewer_pair': (0x60cf9d81,0x60cf9e34),
         'tone_pair_lines': (0x60cf9e34,0x60cf9e3a),
-        'tone_footer': (0x60cf9e3a,0x60cf9f2e),
         'tone_viewer_middle': (0x60cfa110,0x60cfa1ad),
         'tone_viewer_gate': (0x60cfa1ad,0x60cfa1dc),
-        'tone_footer_tables': (0x60cfa1dc,0x60cfa1f4),
-        'tone_footer_strings': (0x60cfa1f4,0x60cfa252),
-        'tone_footer_tail': (0x60cfa252,0x60cfa28a),
-        'tone_footer_small_strings': (0x610f1fb4,0x610f1fca),
         'tone_display_filter': (0x60a4fe6c,0x60a4feb0),
         'tone_display_active': (0x60a4ffb4,0x60a4ffe8),
         'tone_display_digits': (0x60a4ffe8,0x60a50000),
@@ -50,10 +45,10 @@ def build_graph(folder, *, stock_main=None):
         'tone_display_filter_gate': (0x60fdc7b4,0x60fdc7d4),
         'tone_display_update': (0x60fdc7d4,0x60fdc800),
         'tone_display_rectangle': (0x610f1fca,0x610f1fd8),
-        'tone_display_paint': (names['tone_manager']+len(editor.chunks['tone_editor']),0x6115b800),
+        'tone_display_paint': (names['tone_manager']+len(editor.chunks['tone_editor']),0x6115c800),
     }
     layout=folder/'display.ld'
-    layout.write_text('SECTIONS {\n'+''.join(f'.{name} {start:#x} : {{ *(.{name}) }}\n' for name,(start,end) in slots.items())+'}\n'+
+    layout.write_text('SECTIONS {\n'+''.join(f'.{name} {start:#x} : {{ *(.{name})' + (' *(.tone_footer) *(.tone_footer_tail) *(.tone_footer_tables) *(.tone_footer_strings) *(.tone_footer_small_strings)' if name == 'tone_display_paint' else '') + ' }\n' for name,(start,end) in slots.items())+'}\n'+
                       ''.join(f'{key} = {value:#x};\n' for key,value in names.items() if key.isidentifier()))
     elf=assemble(folder/'assembly',[ROOT/'patches/tone/pen-f/src'/name for name in ('display.s','viewer.s')],layout)
     names.update(symbols(elf))

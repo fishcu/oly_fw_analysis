@@ -44,8 +44,8 @@ class NativeToneTransportTests(unittest.TestCase):
 
     def test_constructor_clears_entire_trailer(self):
         result = constructor(self.candidate)
-        self.assertEqual(result['allocation_request'], 14948)
-        self.assertEqual(result['zero_start'] + result['zero_bytes'], 14948)
+        self.assertEqual(result['allocation_request'], 14960)
+        self.assertEqual(result['zero_start'] + result['zero_bytes'], 14960)
 
     def test_real_entry_preserves_stock_neutral_and_bypass_results(self):
         self.assertEqual(len(entry_compatibility(self.candidate)), 10)

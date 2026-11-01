@@ -17,7 +17,7 @@ from penf_recovery_isolation_probe import without_ranges
 from penf_tone_candidate import build_candidate
 from penf_tone_integration_probe import (JOB, OUTPUT, CONTEXT, LUT, prepare, packed,
                                          upload_result)
-from penf_tone_points import FivePoints, resolve, LEGACY_NEUTRAL
+from penf_tone_points import FivePoints, resolve, LEGACY_NEUTRAL, STORAGE_IDS
 from penf_tone_probe import (INITIAL_SP, PRESERVED, GUARD, identity_lut, _finish,
                              _check_guards, sha)
 
@@ -65,17 +65,17 @@ def setup(candidate, *, reference=False, loaded=True, processing=False, raw=(0, 
         s = prepare(identity_lut(), raw, record=record, **processing_options)
     else:
         s = ProbeState(CALLER + 7, 0, 0, bytes(16), {})
-        s.ram('job', JOB - 32, GUARD + b'\xa7' * 14948 + GUARD, aliases=False)
+        s.ram('job', JOB - 32, GUARD + b'\xa7' * 14960 + GUARD, aliases=False)
     image = candidate.reference if reference else candidate.image
     s.regions = [replace(r, data=image) if r.name == 'main' else r for r in s.regions]
     s.ram('loaded_sections', 0x61c58404, struct.pack('<I', 0x84 if loaded else 4))
     s.ram('hl_source', candidate.symbols['hl_profile_source'], HL_PACKED)
-    s.ram('tone_source', candidate.symbols['tone_source'], struct.pack('<3I', *SOURCE_WORDS))
+    s.ram('tone_source', candidate.symbols['tone_source'], source_bytes(SOURCE_WORDS))
     s.ram('hl_rows', HL_ROWS, bytes(540))
     if loaded:
-        s.ram('tone_rows', candidate.symbols['tone_rows'], b'\xc7' * 180)
+        s.ram('tone_rows', candidate.symbols['tone_rows'], b'\xc7' * 720)
     else:
-        s.regions = without_ranges(s.regions, [(0x6115b060, 0x6115b7c0)])
+        s.regions = without_ranges(s.regions, [(0x6115b014, 0x6115c800)])
     s.write(INITIAL_SP - 0x1000, GUARD)
     return s
 
@@ -126,9 +126,14 @@ def settings(s):
     s.ram('live', LIVE, bytes(WORDS * 4))
 
 
+def source_bytes(words):
+    return struct.pack('<12I', *(value for word in words for value in (word, *([FivePoints().pack()] * 3))))
+
+
 def set_words(s, words):
-    for setting, word in zip((967, 970, 973), words):
-        call(s, 0x602f0710, 0x80, 8, d0=setting, d1=1, a0=word)
+    for ids, word in zip(STORAGE_IDS, words):
+        for setting, value in zip(ids, (word, *([FivePoints().pack()] * 3))):
+            call(s, 0x602f0710, 0x80, 8, d0=setting, d1=1, a0=value)
 
 
 def publication(candidate):
@@ -142,12 +147,12 @@ def publication(candidate):
         set_words(s, (0xffffffff,) * 3)
         loaded = call(s, 0x602f063e, 0xc0, 12, d0=bank)
         published = call(s, candidate.symbols['hl_publish'])
-        assert s.read(candidate.symbols['tone_source'], 12) == struct.pack('<3I', *words)
+        assert s.read(candidate.symbols['tone_source'], 48) == source_bytes(words)
         reports.append(dict(bank=bank, words=list(words), store=stored, load=loaded, publish=published))
     for words in ((0, 0xffffffff, 0x12345678), (packed(0, 1023),) * 3):
         set_words(s, words)
         call(s, candidate.symbols['hl_publish'])
-        assert s.read(candidate.symbols['tone_source'], 12) == struct.pack('<3I', *words)
+        assert s.read(candidate.symbols['tone_source'], 48) == source_bytes(words)
     return dict(banks=reports, publication_without_section8=True,
                 invalid_words_copied_opaquely=True)
 
@@ -158,15 +163,15 @@ def owner_matrix(candidate):
     for slot in range(45):
         profile = slot % 3 + 1
         address = owner(s, slot, profile, alias=bool(slot % 2))
-        before = s.read(candidate.symbols['tone_rows'], 180)
+        before = s.read(candidate.symbols['tone_rows'], 720)
         acquired = acquisition(s, address, slot >= 40)
-        row = candidate.symbols['tone_rows'] + 4 * slot
+        row = candidate.symbols['tone_rows'] + 16 * slot
         assert u32(s, row) == SOURCE_WORDS[profile - 1]
         expected = bytearray(before)
-        struct.pack_into('<I', expected, slot * 4, SOURCE_WORDS[profile - 1])
-        assert s.read(candidate.symbols['tone_rows'], 180) == bytes(expected)
-        source = s.read(candidate.symbols['tone_source'], 12)
-        s.write(candidate.symbols['tone_source'], bytes(12))
+        struct.pack_into('<4I', expected, slot * 16, SOURCE_WORDS[profile - 1], *([FivePoints().pack()]*3))
+        assert s.read(candidate.symbols['tone_rows'], 720) == bytes(expected)
+        source = s.read(candidate.symbols['tone_source'], 48)
+        s.write(candidate.symbols['tone_source'], bytes(48))
         copied = call(s, candidate.symbols['hl_owner_to_job'], a0=address, a2=JOB + 14920)
         assert u32(s, JOB + 14944) == SOURCE_WORDS[profile - 1]
         source_hl = HL_PACKED[(profile - 1) * 12:profile * 12]
@@ -178,15 +183,15 @@ def owner_matrix(candidate):
         for slot in (0, 40):
             address = owner(s, slot, profile)
             acquisition(s, address, slot >= 40)
-            assert u32(s, candidate.symbols['tone_rows'] + slot * 4) == 0
+            assert u32(s, candidate.symbols['tone_rows'] + slot * 16) == 0
     for address in (LARGE - 1, LARGE + 1, LARGE + 40 * 41984,
                     COMPACT - 1, COMPACT + 1, COMPACT + 5 * 632, 0, 0x2dafa3c0):
-        before = s.read(candidate.symbols['tone_rows'], 180)
+        before = s.read(candidate.symbols['tone_rows'], 720)
         call(s, candidate.symbols['hl_source_to_owner'], a0=address)
-        assert s.read(candidate.symbols['tone_rows'], 180) == before
+        assert s.read(candidate.symbols['tone_rows'], 720) == before
         call(s, candidate.symbols['hl_owner_to_job'], a0=address, a2=JOB + 14920)
         assert u32(s, JOB + 14944) == 0
-    _check_guards(s, JOB, 14948)
+    _check_guards(s, JOB, 14960)
     return dict(owners=reports, neutral_profiles=6, rejected_owners=8)
 
 
@@ -194,7 +199,7 @@ def source_normalization(candidate):
     state=setup(candidate)
     rows=[]
     for word in (0,0xffffffff,0x12345678,packed(64,960),FivePoints().pack(),0xbfffffff):
-        state.write(candidate.symbols['tone_source'],struct.pack('<3I',word,word,word))
+        state.write(candidate.symbols['tone_source'],source_bytes((word,)*3))
         for profile in (0,1,2,3,4):
             address=owner(state,0,profile)
             acquisition(state,address)
@@ -215,7 +220,7 @@ def hooks(candidate):
             acquisition(s, address)
             acquired_regs = dict(s.regs)
             expected = SOURCE_WORDS[1]
-            s.write(candidate.symbols['tone_source'], bytes(12))
+            s.write(candidate.symbols['tone_source'], bytes(48))
             report = to_job(s, address, route)
             assert u32(s, JOB + 14944) == (0xa7a7a7a7 if reference else expected)
             states.append((s, acquired_regs))
@@ -223,7 +228,7 @@ def hooks(candidate):
         assert old[1] == new[1]
         assert old[0].regs == new[0].regs
         assert old[0].read(JOB, 14944) == new[0].read(JOB, 14944)
-        _check_guards(new[0], JOB, 14948)
+        _check_guards(new[0], JOB, 14960)
         reports.append(dict(route=route, native_registers_equal=True, **report))
     return reports
 
@@ -260,7 +265,7 @@ def raw_acquisition(candidate):
                 s.ram('raw_owner_pointer', pointer, struct.pack('<I', address), aliases=False)
                 report = block(s, 0x60af2f56, 0x60af2f5c, a2=pointer)
                 if loaded and not reference:
-                    assert u32(s, candidate.symbols['tone_rows'] + 12) == (SOURCE_WORDS[1] if mode == 11 else 0)
+                    assert u32(s, candidate.symbols['tone_rows'] + 48) == (SOURCE_WORDS[1] if mode == 11 else 0)
                 states.append(s)
             assert states[0].regs == states[1].regs
             assert states[0].read(HL_ROWS, 540) == states[1].read(HL_ROWS, 540)
@@ -271,14 +276,14 @@ def raw_acquisition(candidate):
 def constructor(candidate):
     s = setup(candidate)
     report = block(s, 0x604c1c0a, 0x604c1c12)
-    assert s.regs['d0'] == 14948
+    assert s.regs['d0'] == 14960
     helpers(s)
     zero = block(s, 0x604c1d19, 0x604c1d28, a3=JOB)
     assert s.read(JOB, 14908) == b'\xa7' * 14908
-    assert s.read(JOB + 14908, 40) == bytes(40)
-    _check_guards(s, JOB, 14948)
-    return dict(allocation_request=14948, allocation_prefix=report,
-                zero_start=14908, zero_bytes=40, native_zero=zero,
+    assert s.read(JOB + 14908, 52) == bytes(52)
+    _check_guards(s, JOB, 14960)
+    return dict(allocation_request=14960, allocation_prefix=report,
+                zero_start=14908, zero_bytes=52, native_zero=zero,
                 limitation='full constructor unavailable without saved boot/heap checkpoint; allocator not modeled')
 
 
@@ -311,7 +316,7 @@ def pipeline(candidate, *, loaded=True, raw=(0, 0, 4, -2, -3), record=0, route='
     else:
         assert output == stock.read(OUTPUT, 5212)
     assert s.regs['d0'] == stock.regs['d0']
-    _check_guards(s, JOB, 14948)
+    _check_guards(s, JOB, 14960)
     _check_guards(s, OUTPUT, 5212)
     assert s.read(LUT, 512) == struct.pack('<256H', *identity_lut())
     uploaded = upload_result(dict(state=s, lut=actual), record % 2)

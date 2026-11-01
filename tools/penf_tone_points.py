@@ -85,3 +85,9 @@ def resolve(word, raw_hml):
     b, w = ((word & 1023, (word >> 10) & 1023)
             if word >> 20 == 0xa5d else (0, 1023))
     return FivePoints((min(quantize(b), s), s, m, h, max(quantize(w), h)))
+
+
+CHANNEL_NAMES = ('ALL', 'R', 'G', 'B')
+STORAGE_IDS = ((967, 968, 969, 919), (970, 971, 972, 920), (973, 974, 975, 921))
+ROW_BYTES = 16
+JOB_BYTES = 14960

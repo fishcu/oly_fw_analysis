@@ -60,18 +60,20 @@ def build_editor(folder, candidate):
         stock_gui_service=0x607355e9, stock_timer=0x60d13bbb,
         stock_event_changed=0x60c878dd, stock_reset_resume=0x60c875ec,
         tone_resolve=names['tone_resolve'],tone_decode=names['tone_decode'],
-        tone_edit=names['tone_edit'],tone_apply=names['tone_apply'])
+        tone_edit=names['tone_edit'],tone_apply=names['tone_apply'],
+        tone_storage_ids=names['tone_storage_ids'],hsl_dispatch=names['hsl_dispatch'],
+        stock_viewer=0x60c84901,stock_draw_request=0x60d147e8)
     external.update({f'stock_input_{name}_resume': at for name, at in
                      (('up',0x60c8720b), ('down',0x60c8726d), ('left',0x60c872d1),
                       ('right',0x60c87335), ('rear',0x60c873b2), ('front',0x60c8742e))})
-    slots = {'tone_editor': (names['tone_rows']+180,0x6115b800),
-             'tone_reference': (0x610f1e54,0x610f1fca),
-             'tone_selected': (0x610f1fd8,0x610f1ff6),
+    slots = {'tone_editor': (names['tone_rows']+720,0x6115c800),
              'tone_resident': (0x60c87670,0x60c877e2),
              'tone_pair_ids': (0x60c877e2,0x60c877f0),
+             'tone_page': (0x60427fd8,0x60427fe8),
+             'tone_dispatch_gate': (0x601cafc0,0x601cafe0),
              'tone_manager_gate': (0x60a4ff8d,0x60a4ffa6),
              'tone_manager_unavailable': (0x6081b8af,0x6081b8cf)}
-    layout.write_text('SECTIONS {\n' + ''.join(f'.{k} {a:#x} : {{ *(.{k}) }}\n' for k,(a,b) in slots.items()) +
+    layout.write_text('SECTIONS {\n' + ''.join(f'.{k} {a:#x} : {{ *(.{k})' + (' *(.tone_reference) *(.tone_selected)' if k == 'tone_editor' else '') + ' }\n' for k,(a,b) in slots.items()) +
                       '}\n' + ''.join(f'{key} = {value:#x};\n' for key,value in external.items()))
     elf = assemble(folder / 'assembly', [tone_source], layout)
     names.update(symbols(elf))
@@ -80,7 +82,7 @@ def build_editor(folder, candidate):
         data = extract(elf, section)
         chunks[section] = data
         assert address + len(data) <= end, (section, len(data), end-address)
-        if section in ('tone_editor','tone_reference','tone_selected'):
+        if section in ('tone_editor','tone_reference','tone_selected','tone_dispatch_gate','tone_page'):
             assert image[address-BASE:address-BASE+len(data)] == b'\xff' * len(data)
         image[address-BASE:address-BASE+len(data)] = data
     expected = {0x60c878ec: 'f1d39fbcf16f', 0x60c875e4: '5c040082fa20b400',
@@ -91,7 +93,9 @@ def build_editor(folder, candidate):
         assert image[address-BASE:address-BASE+len(bytes.fromhex(value))] == bytes.fromhex(value)
     gate = names['hsl_stock_set']
     assert image[gate-BASE:gate-BASE+5] == b'\xdc'+struct.pack('<i',0x6075fbed-gate)
-    hooks = [(names['hsl_stock_set'], 5, names['tone_manager_gate']),
+    dispatch=0x60bcba63
+    assert image[dispatch-BASE:dispatch-BASE+5] == b'\xdc'+struct.pack('<i',names['hsl_dispatch']-dispatch)
+    hooks = [(0x60bcba63,5,names['tone_dispatch_gate']), (names['hsl_stock_set'], 5, names['tone_manager_gate']),
         (0x60c878ec, 6, names['tone_bind_gate']), (0x60c875e4, 8, names['tone_reset_gate'])]
     for address, size, target in hooks:
         image[address-BASE:address-BASE+size] = b'\xdc' + struct.pack('<i',target-address) + b'\xcb'*(size-5)

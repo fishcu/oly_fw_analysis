@@ -19,7 +19,7 @@ from penf_tone_editor_candidate import build_editor
 from penf_tone_integration_probe import packed, build_adapter
 from penf_tone_points import FivePoints, resolve
 from penf_tone_probe import identity_lut, PRESERVED, INITIAL_SP
-from penf_tone_transport_probe import setup, settings, set_words, call, stopped, u32, put32, ACTIVE, WORDS
+from penf_tone_transport_probe import setup, settings, set_words, call, stopped, u32, put32, ACTIVE, WORDS, source_bytes
 
 CODE, ACTUATOR, SERVICE, MANAGER, CURVE = (0x19080000, 0x19100000, 0x19101000,
                                            0x19102000, 0x19103000)
@@ -97,7 +97,7 @@ def manager_cases(candidate, editor):
         struct.pack_into('<I', expected, (WORDS + high) * 4, word)
         assert s.read(ACTIVE, WORDS * 8) == expected
         words = list(initial); words[profile - 1] = word
-        assert s.read(candidate.symbols['tone_source'], 12) == struct.pack('<3I', *words)
+        assert s.read(candidate.symbols['tone_source'], 48) == source_bytes(words)
         assert s.regs['d2'] == high and s.regs['a2'] == MANAGER
         results.append(dict(profile=profile, full_word=hex(word), **report))
     for high, word, loaded in ((967, 7, True), (970, 0xfffffff9, True),
@@ -247,7 +247,7 @@ def unavailable_cases(candidate, editor):
         if not mask & 0x20:
             absent.append((0x610f1e54, 0x610f2000))
         if not mask & 0x80:
-            absent.append((0x6115b014, 0x6115b800))
+            absent.append((0x6115b014, 0x6115c800))
         absent += [(lo+0x40000000,hi+0x40000000) for lo,hi in absent]
         s.regions = [r for r in s.regions if not any(lo <= r.address and r.address+len(r.data) <= hi for lo,hi in absent)]
         s.regions = without_ranges(s.regions, absent)
@@ -317,15 +317,17 @@ def publication_cases(candidate, editor):
     call(s,0x60bbaa1b,0x20,8,a0=store)
     call(s,0x60bbaa75,0xf0,24,a0=store,a1=table,d0=211)
     reports=[]
-    for page in (0,1,2):
-        actuator(s,1,page);put32(s,INITIAL_SP+4,ACTUATOR)
+    for encoded in range(12):
+        page=encoded%3
+        actuator(s,1,encoded);put32(s,INITIAL_SP+4,ACTUATOR)
         s.regs=dict(PRESERVED,pc=editor.symbols['tone_info_publish'],sp=INITIAL_SP,
                     psw=0,d0=0,d1=0,a0=0,a1=0,a3=0)
         report=stopped(s,s.run({0x60c878e3},limit=20000),0x60c878e3)
         expected=bytearray(payload);expected[5]=page+1
         assert s.read(destination,92)==expected
+        assert struct.unpack('<H',s.read(ACTUATOR+194,2))[0]==encoded
         assert s.regs['a3']==0
-        reports.append(dict(page=page,published_page_byte=page+1,**report))
+        reports.append(dict(state=encoded,page=page,published_page_byte=page+1,**report))
     return dict(pages=reports, scope='New INFO publication suffix after unchanged eligibility, actual native92-byte get/set and no-observer store; queue delivery excluded')
 
 
@@ -373,7 +375,7 @@ def other_family_cases(candidate, editor):
             if not mask & 0x20:
                 absent.append((0x610f1e54, 0x610f2000))
             if not mask & 0x80:
-                absent.append((0x6115b014, 0x6115b800))
+                absent.append((0x6115b014, 0x6115c800))
             absent += [(lo+0x40000000,hi+0x40000000) for lo,hi in absent]
             state.regions = [r for r in state.regions if not any(lo <= r.address and r.address+len(r.data) <= hi for lo,hi in absent)]
             state.regions = without_ranges(state.regions, absent)

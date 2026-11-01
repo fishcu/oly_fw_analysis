@@ -107,15 +107,21 @@ tone_footer:
  cmp 0,d0
  beq tone_footer_reject
  movhu (194,a2),d3
- cmp 2,d3
+ cmp 11,d3
  bls tone_footer_ready
 tone_footer_reject:
  add 24,sp
  ret [],0
 tone_footer_ready:
+ mov d0,d2
+ mov d3,d0
+ call tone_decode_selection,[],4
+ mov d0,d3
+ mov d1,(16,sp)
+ mov d2,d0
  mov sp,a0
  add 4,a0
- call tone_current,[d2,d3,a2,a3],16
+ call tone_channel_current,[d2,d3,a2,a3],16
  mov 1,d1
  cmp 0xb7ff0400,d0
  bne tone_footer_modified
@@ -146,6 +152,21 @@ tone_footer_language:
  mov (d0,a1),a0
  mov a3,a2
  add 18,a2
+ mov a0,(20,sp)
+ mov (16,sp),d0
+ asl 2,d0
+ mov tone_channel_labels,a1
+ mov (d0,a1),a0
+tone_footer_channel:
+ movhu (a0),d0
+ cmp 0,d0
+ beq tone_footer_channel_done
+ movhu d0,(a2)
+ add 2,a0
+ add 2,a2
+ bra tone_footer_channel
+tone_footer_channel_done:
+ mov (20,sp),a0
 tone_footer_copy:
  movhu (a0),d0
  cmp 0,d0
@@ -229,12 +250,14 @@ tone_footer_japanese:
  .long footer_pair_jp,footer_middle_jp,footer_endpoints_jp
  .section .tone_footer_small_strings,"ax"
 footer_middle_en:
- .short 77,73,68,68,76,69,0
+ .balign 2
+ .short 77,73,68,0
  .section .tone_footer_strings,"ax"
 footer_endpoints_en:
- .short 66,76,65,67,75,47,87,72,73,84,69,0
+ .balign 2
+ .short 66,47,87,0
 footer_pair_en:
- .short 83,72,65,68,79,87,47,72,73,71,72,0
+ .short 83,47,72,0
 footer_middle_jp:
  .short 0x4e2d,0x9593,0x90e8,0
 footer_endpoints_jp:
@@ -242,4 +265,15 @@ footer_endpoints_jp:
 footer_pair_jp:
  .short 0x660e,0x90e8,0x30fb,0x6697,0x90e8,0
 tone_footer_info:
- .short 64,65,48,50,56,64,0
+ .short 64,65,48,50,56,64,32,68,69,76,0
+
+.section .tone_footer_tables,"ax"
+.balign 4
+tone_channel_labels:
+ .long tone_label_all,tone_label_r,tone_label_g,tone_label_b
+.section .tone_footer_strings,"ax"
+.balign 2
+tone_label_all: .short 65,76,76,32,0
+tone_label_r: .short 82,32,0
+tone_label_g: .short 71,32,0
+tone_label_b: .short 66,32,0

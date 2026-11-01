@@ -90,16 +90,22 @@ def build_candidate(out, *, expanded=False, stock_main=None):
     out.mkdir(parents=True, exist_ok=False)
     reference, old = reference_main(out / 'hsl-reference', stock_main)
     late_start = 0x6115b014 if expanded else 0x6115b060
-    late_end = 0x6115b800 if expanded else 0x6115b7c0
+    late_end = 0x6115c800
     layout = out / 'tone.ld'
     layout.write_text('''SECTIONS {
 .tone_early 0x60427e78 : { *(.tone_early) }
+.tone_source 0x60427c30 : { *(.tone_source) }
+.tone_storage_ids 0x60427fc0 : { *(.tone_storage_ids) }
+.tone_rgb_gate 0x60427fe8 : { *(.tone_rgb_gate) }
+.tone_rgb_stock 0x60427c60 : { *(.tone_rgb_stock) }
 .tone_job_gate 0x60427fa8 : { *(.tone_job_gate) }
 .tone_source_gate 0x6069b580 : { *(.tone_source_gate) }
 .tone_job_bridge 0x6069b7ac : { *(.tone_job_bridge) }
 .text 0x6115b060 : { *(.text) }
 .tone_rows : { *(.tone_rows) }
 }
+stock_rgb_builder = 0x604f6083;
+stock_rgb_resume = 0x604f858d;
 stock_spline_coefficients = 0x604bdea7;
 stock_spline_evaluate = 0x604bdfe1;
 stock_tone_builder = tone_stock_builder;
@@ -112,9 +118,9 @@ stock_active_get = 0x602f06e7;
 stock_builder_after_entry = 0x604f7c7b;
 tone_source_uncached = tone_source + 0x40000000;
 tone_rows_uncached = tone_rows + 0x40000000;
-tone_compact_rows = tone_rows_uncached + 160;
+tone_compact_rows = tone_rows_uncached + 640;
 '''.replace('0x6115b060', hex(late_start)) + f'hl_owner_row = {old["hl_owner_row"]:#x};\nhl_return = {old["hl_no_owner"] + 2:#x};\n')
-    elf = assemble(out / 'tone', [*SOURCES, ROOT / 'patches/tone/pen-f/src/transport.s'], layout)
+    elf = assemble(out / 'tone', [*SOURCES, ROOT / 'patches/tone/pen-f/src/transport.s', ROOT / 'patches/tone/pen-f/src/rgb.s'], layout)
     current = symbols(elf)
     image, manifest = bytearray(reference), []
 
@@ -131,6 +137,10 @@ tone_compact_rows = tone_rows_uncached + 160;
                              before_sha256=sha(before), after_sha256=sha(data)))
 
     allocations = {'tone_early': (0x60427e78, 0x60427ed0),
+                   'tone_source': (0x60427c30, 0x60427c60),
+                   'tone_rgb_gate': (0x60427fe8, 0x60428000),
+                   'tone_rgb_stock': (0x60427c60, 0x60427c70),
+                   'tone_storage_ids': (0x60427fc0, 0x60427fd8),
                    'tone_job_gate': (0x60427fa8, 0x60427fc0),
                    'tone_source_gate': (0x6069b580, 0x6069b590),
                    'tone_job_bridge': (0x6069b7ac, 0x6069b7b8),
@@ -138,9 +148,9 @@ tone_compact_rows = tone_rows_uncached + 160;
     for name, (start, end) in allocations.items():
         data = extract(elf, name)
         assert start + len(data) <= end, (name, len(data), end - start)
-        install(name, start, data)
+        install(name, start, data, b'\xff'*len(data) if name in ('tone_source','tone_storage_ids','tone_rgb_gate','tone_rgb_stock') else None)
     rows = extract(elf, 'tone_rows')
-    assert len(rows) == 180 and current['tone_rows'] + len(rows) <= late_end
+    assert len(rows) == 720 and current['tone_rows'] + len(rows) <= late_end
     install('tone_rows', current['tone_rows'], rows)
 
     def jump(name, at, target, short=False, expected=None):
@@ -152,9 +162,11 @@ tone_compact_rows = tone_rows_uncached + 160;
     jump('publish_tail', old['hl_boot_publish'] - 3, current['tone_publish'], True, bytes.fromhex('df0004'))
     jump('source_tail', old['hl_source_done'], current['tone_source_gate'], True, bytes.fromhex('df0004'))
     jump('job_tail', old['hl_owner_row'] - 3, current['tone_job_bridge'], True, bytes.fromhex('df0004'))
+    jump('native_rgb_call', 0x604f8588, current['tone_rgb_gate'], expected=bytes.fromhex('cdfbdaf0d8'))
     jump('native_tone_entry', 0x604f7c76, current['tone_build_gate'], expected=bytes.fromhex('f80404f1d3'))
-    install('job_allocation', 0x604c1c0f, bytes.fromhex('2c643a'), bytes.fromhex('2c603a'))
-    install('job_zero_count', 0x604c1d1f, bytes.fromhex('8528'), bytes.fromhex('8524'))
+    install('section8_load_end', 0x6004211d, struct.pack('<I', 0x6115c800), struct.pack('<I', 0x6115b800))
+    install('job_allocation', 0x604c1c0f, bytes.fromhex('2c703a'), bytes.fromhex('2c603a'))
+    install('job_zero_count', 0x604c1d1f, bytes.fromhex('8534'), bytes.fromhex('8524'))
 
     raw_source = (HSL / 'src/raw_development/raw_development.s').read_text()
     needle = ' .endr\nhl_raw_done:'

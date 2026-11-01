@@ -15,8 +15,9 @@ tone_manager_loaded:
 tone_manager_unavailable:
  mov d1,d2
  lsr 28,d2
- cmp 11,d2
- bne tone_unavailable_stock
+ add -11,d2
+ cmp 4,d2
+ bcc tone_unavailable_stock
  mov d0,d2
  add -967,d2
  cmp 9,d2
@@ -29,8 +30,9 @@ tone_unavailable_stock:
 tone_manager:
  mov d1,d2
  lsr 28,d2
- cmp 11,d2
- bne tone_manager_stock
+ add -11,d2
+ cmp 4,d2
+ bcc tone_manager_stock
  cmp 967,d0
  beq tone_manager_commit
  cmp 970,d0
@@ -39,16 +41,22 @@ tone_manager:
  bne tone_manager_stock
 tone_manager_commit:
  add -16,sp
+ mov d2,d3
  mov d0,d2
  mov a0,a2
  mov d1,d0
+ and 0x0fffffff,d0
+ or 0xb0000000,d0
  mov sp,a0
  add 4,a0
  call tone_decode,[d2,d3,a2,a3],16
  cmp 0,d0
  beq tone_manager_reject
- mov d0,a0
+ mov d0,(4,sp)
  mov d2,d0
+ mov d3,d1
+ call tone_storage_id,[d2],8
+ mov (4,sp),a0
  mov 1,d1
  call stock_active_set,[d2],8
  call hl_publish,[],4
@@ -107,15 +115,20 @@ tone_bind:
  cmp 0,d0
  beq tone_bind_stock
  movhu (194,a3),d1
- cmp 2,d1
- bhi tone_bind_stock
+ cmp 11,d1
+ bls tone_bind_valid
+ clr d1
+ movhu d1,(194,a3)
+tone_bind_valid:
  mov d0,d2
  call tone_selected_id,[d2],8
  cmp 0,d0
  bne tone_bind_selected
  movhu d0,(194,a3)
 tone_bind_selected:
- movhu (194,a3),d1
+ movhu (194,a3),d0
+ call tone_page_only,[],4
+ mov d0,d1
  mov d2,d0
  add 2,d0
  cmp 1,d1
@@ -195,6 +208,7 @@ tone_info_publish:
  call stock_parameter_get,[],4
  mov (4,sp),a0
  movhu (194,a0),d0
+ call tone_page_only,[],4
  inc d0
  movbu d0,(177,sp)
  mov a2,a0
@@ -232,9 +246,13 @@ tone_pair_ids:
  .short 897,969,972,975,1004,1007,1010
 
 .section .tone_reference,"ax"
-.global tone_current
+.global tone_current,tone_channel_current,tone_channel_reference,tone_storage_id,tone_decode_selection
 tone_current:
+ clr d1
+tone_channel_current:
  add -12,sp
+ cmp 0,d1
+ bne tone_current_rgb
  mov a0,a2
  mov d0,d2
  clr d3
@@ -259,12 +277,58 @@ point_current_raw:
  add 12,sp
  ret [d2,d3,a2,a3],16
 
+tone_current_rgb:
+ mov a0,a2
+ call tone_storage_id,[d2],8
+ mov 1,d1
+ call stock_active_get,[d2],8
+ mov a2,a0
+ call tone_decode,[d2,d3,a2,a3],16
+ cmp 0,d0
+ bne tone_current_rgb_done
+ mov 0xb7ff0400,d0
+ mov a2,a0
+ call tone_decode,[d2,d3,a2,a3],16
+tone_current_rgb_done:
+ add 12,sp
+ ret [d2,d3,a2,a3],16
+
+tone_storage_id:
+ mov d1,a0
+ add -967,d0
+ clr d1
+ mov d1,mdr
+ mov 3,d2
+ divu d2,d0
+ asl 3,d0
+ mov a0,d1
+ add d1,d1
+ add d1,d0
+ mov tone_storage_ids,a0
+ movhu (d0,a0),d0
+ ret [d2],8
+
+tone_decode_selection:
+ cmp 12,d0
+ bcs tone_selection_valid
+ clr d0
+tone_selection_valid:
+ clr d1
+ mov d1,mdr
+ mov 3,d1
+ divu d1,d0
+ mov d0,d1
+ mov mdr,d0
+ ret [],4
+
 tone_reference:
+ clr d1
+tone_channel_reference:
  add -16,sp
  mov a0,a2
  mov sp,a0
  add 4,a0
- call tone_current,[d2,d3,a2,a3],16
+ call tone_channel_current,[d2,d3,a2,a3],16
  mov d0,d3
  mov 0x605fdd38,a0
  mov a2,a1
@@ -298,12 +362,15 @@ tone_input:
  beq tone_input_stock
  mov d0,d2
  movhu (194,a2),d1
- cmp 2,d1
- bhi tone_input_stock
+ cmp 11,d1
+ bhi tone_input_stale
  call tone_selected_id,[d2],8
  cmp 0,d0
  beq tone_input_stale
- movhu (194,a2),d1
+ movhu (194,a2),d0
+ call tone_decode_selection,[],4
+ mov d1,(28,sp)
+ mov d0,d1
  cmp 1,d1
  beq tone_input_middle
  clr d3
@@ -324,10 +391,11 @@ tone_input_outer:
 tone_input_middle:
  mov 2,d3
 tone_input_state:
+ mov (28,sp),d1
  mov d2,d0
  mov sp,a0
  add 16,a0
- call tone_current,[d2,d3,a2,a3],16
+ call tone_channel_current,[d2,d3,a2,a3],16
  mov d3,a0
  mov (8,sp),d1
  cmp 1,d1
@@ -338,6 +406,9 @@ tone_input_increase:
  mov 1,d1
 tone_input_step:
  call tone_edit,[d2,d3,a2,a3],16
+ mov (28,sp),d1
+ asl 28,d1
+ add d1,d0
  mov d0,a1
  mov d2,d0
  clr d1
@@ -368,8 +439,8 @@ tone_reset:
  mov d0,d2
  mov (4,sp),a0
  movhu (194,a0),d3
- cmp 2,d3
- bhi tone_reset_stock
+ cmp 11,d3
+ bhi tone_reset_stale
  mov (20,sp),d0
  add -54,d0
  cmp 3,d0
@@ -381,10 +452,14 @@ tone_reset:
  cmp d2,d0
  bne tone_reset_stale
  add -20,sp
+ mov d3,d0
+ call tone_decode_selection,[],4
+ mov d0,d3
+ mov d1,(4,sp)
  mov d2,d0
  mov sp,a0
  add 8,a0
- call tone_current,[d2,d3,a2,a3],16
+ call tone_channel_current,[d2,d3,a2,a3],16
  mov 2,a0
  cmp 1,d3
  beq tone_reset_axis
@@ -405,6 +480,9 @@ tone_reset_second:
  clr d1
  call tone_edit,[d2,d3,a2,a3],16
 tone_reset_submit:
+ mov (4,sp),d1
+ asl 28,d1
+ add d1,d0
  mov d0,(4,sp)
  call stock_gui_service,[],4
  mov d2,d0
@@ -522,10 +600,16 @@ tone_next_page:
  bne tone_next_native
  mov (8,sp),a0
  movhu (194,a0),d0
+ call tone_decode_selection,[],4
  inc d0
  cmp 3,d0
- bcs tone_next_return
+ bcs tone_next_recombine
  clr d0
+tone_next_recombine:
+ mov d1,d2
+ add d1,d1
+ add d2,d1
+ add d1,d0
  bra tone_next_return
 tone_next_native:
  mov -1,d0
@@ -560,9 +644,6 @@ tone_late_available:
  cmp 160,d0
  ret [],4
 tone_color_page:
- movhu (194,a1),d0
- cmp 2,d0
- bhi tone_color_page_return
  mov (188,a1),d0
  add -0x60f4cd08,d0
  beq tone_color_page_return
@@ -571,3 +652,109 @@ tone_color_page:
  cmp 112,d0
 tone_color_page_return:
  ret [],4
+
+.section .tone_page,"ax"
+.global tone_page_only
+tone_page_only:
+ cmp 12,d0
+ bcs tone_page_reduce
+ clr d0
+tone_page_reduce:
+ cmp 3,d0
+ bcs tone_page_done
+ add -3,d0
+ bra tone_page_reduce
+tone_page_done:
+ ret [],4
+
+.section .tone_dispatch_gate,"ax"
+.global tone_dispatch_gate
+tone_dispatch_gate:
+ movbu (0xa1c58404),d0
+ and 160,d0
+ cmp 160,d0
+ bne tone_dispatch_stock
+ jmp tone_dispatch
+tone_dispatch_stock:
+ jmp hsl_dispatch
+
+.section .tone_editor,"ax"
+tone_dispatch:
+ mov (16,sp),d0
+ cmp 0x9016,d0
+ beq tone_dispatch_tone
+ jmp hsl_dispatch
+tone_dispatch_tone:
+ add -4,sp
+ mov a0,(sp)
+ call tone_cycle,[d2,d3,a2,a3],40
+ mov (sp),a0
+ add 4,sp
+ cmp 0,d0
+ bne tone_dispatch_done
+ jmp hsl_dispatch
+tone_dispatch_done:
+ clr d0
+ ret [d2,d3,a2,a3],48
+.global tone_cycle
+tone_cycle:
+ cmp 0,a0
+ beq tone_cycle_no
+ movbu (a0),d0
+ cmp 2,d0
+ bne tone_cycle_no
+ movbu (1,a0),d0
+ cmp 2,d0
+ bne tone_cycle_no
+ .irp address,0x61618eb0,0x6161ad04
+ mov (\address),d0
+ cmp 0,d0
+ bne tone_cycle_no
+ .endr
+ mov (0x6161b810),a0
+ cmp 0,a0
+ beq tone_cycle_no
+ mov (4,a0),d0
+ cmp 0,d0
+ beq tone_cycle_no
+ mov d0,(16,sp)
+ mov (a0),a2
+ mov a2,a0
+ call tone_profile,[d2],8
+ cmp 0,d0
+ beq tone_cycle_no
+ call tone_selected_id,[d2],8
+ cmp 0,d0
+ beq tone_cycle_no
+ movhu (100,a2),d0
+ movhu (0x6161b81c),d1
+ cmp d1,d0
+ bne tone_cycle_no
+ .irp offset,16,44,200
+ mov (\offset,a2),d0
+ cmp 0,d0
+ bne tone_cycle_no
+ .endr
+ movhu (194,a2),d0
+ cmp 12,d0
+ bcc tone_cycle_no
+ add 3,d0
+ cmp 12,d0
+ bcs tone_cycle_commit
+ add -12,d0
+tone_cycle_commit:
+ movhu d0,(194,a2)
+ clr d0
+ mov d0,(0x6161bf84)
+ mov (16,sp),a0
+ call stock_viewer,[],0
+ mov 65516,d0
+ mov 1,d1
+ mov 0,a0
+ mov 2,a1
+ call stock_draw_request,[d2,d3,a2],16
+ mov 1,d0
+ ret [d2,d3,a2,a3],40
+tone_cycle_no:
+ clr d0
+ ret [d2,d3,a2,a3],40

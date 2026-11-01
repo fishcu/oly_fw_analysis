@@ -18,8 +18,8 @@ from penf_tone_transport_probe import put32, set_words
 from penf_tone_points import FivePoints, resolve
 
 VIEWER, GETTER_TABLE, GETTER = 0x19109000, 0x19108000, 0x190a0000
-PAGE_NAMES={8:('SHADOW/HIGH','MIDDLE','BLACK/WHITE'),17:('明部・暗部','中間部','黒点・白点')}
-LABELS={(language,page):name+(' S0320 H0704',' M+1',' B0064 W0960')[page]+'@A028@'
+PAGE_NAMES={8:('S/H','MID','B/W'),17:('明部・暗部','中間部','黒点・白点')}
+LABELS={(language,page):'ALL '+name+(' S0320 H0704',' M+1',' B0064 W0960')[page]+'@A028@ DEL'
         for language,names in PAGE_NAMES.items() for page,name in enumerate(names)}
 
 
@@ -215,12 +215,12 @@ def footer_cases(graph,getter):
 def footer_fallback_cases(graph,getter):
     from penf_recovery_isolation_probe import without_ranges
     rows=[]
-    for reason in ('mono','stale','page3','null_controller','non_tone','missing6','missing8','missing_both'):
+    for reason in ('mono','stale','page12','null_controller','non_tone','missing6','missing8','missing_both'):
         for first in (0,1):
             state=footer_state(graph,getter,first=first)
             if reason=='mono':mode(state,57)
             elif reason=='stale':mode(state,55)
-            elif reason=='page3':state.write(ACTUATOR+194,b'\x03\0')
+            elif reason=='page12':state.write(ACTUATOR+194,b'\x0c\0')
             elif reason=='null_controller':put32(state,0x6161b810,0)
             elif reason=='non_tone':put32(state,ACTUATOR,0x60de3ff8)
             else:
@@ -228,7 +228,7 @@ def footer_fallback_cases(graph,getter):
                 state.write(0x61c58404,bytes((mask,)))
                 holes=[]
                 if not mask&0x20:holes.append((0x610f1e54,0x610f2000))
-                if not mask&0x80:holes.append((0x6115b014,0x6115b800))
+                if not mask&0x80:holes.append((0x6115b014,0x6115c800))
                 holes += [(lo+0x40000000,hi+0x40000000) for lo,hi in holes]
                 state.regions=[r for r in state.regions if not any(lo<=r.address and r.address+len(r.data)<=hi for lo,hi in holes)]
                 state.regions=without_ranges(state.regions,holes)
@@ -243,7 +243,7 @@ def footer_fallback_cases(graph,getter):
         result=state.run({0x60cf9bec},limit=100000)
         assert result['status']=='breakpoint'
         label=state.read(VIEWER+26,66).decode('utf-16le').split('\0')[0]
-        assert label=='MIDDLE '+text+'@A028@'
+        assert label=='ALL MID '+text+'@A028@ DEL'
         assert state.read(VIEWER+11,1)==bytes((modified,))
         assert state.regs['d3']==state.regs['d2']==state.regs['a1']==0
         rows.append(dict(word=hex(word),controls=controls,label=label,modified=modified,models=[]))

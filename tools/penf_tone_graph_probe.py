@@ -165,7 +165,7 @@ def remove_late(state,mask):
     state.write(0x61c58404,bytes((mask,)))
     holes=[]
     if not mask&0x20:holes.append((0x610f1e54,0x610f2000))
-    if not mask&0x80:holes.append((0x6115b014,0x6115b800))
+    if not mask&0x80:holes.append((0x6115b014,0x6115c800))
     holes += [(lo+0x40000000,hi+0x40000000) for lo,hi in holes]
     state.regions=[r for r in state.regions if not any(lo<=r.address and r.address+len(r.data)<=hi for lo,hi in holes)]
     state.regions=without_ranges(state.regions,holes)

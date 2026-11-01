@@ -17,8 +17,10 @@ neighbor clamps when decoding a canonical word.
 
 Each six-bit codeq0..62 means16q; q63 means1023. Middle code15, a wrong tag or
 unordered heights is invalid. Default `(0,256,512,768,1023)` packs as
-`0xb7ff0400`. The word is committed atomically in native ACTIVE part1 of high
-IDs967/970/973, so middle edits cannot cross separately stored S/H coordinates.
+`0xb7ff0400`. Each ALL/R/G/B word commits atomically in native ACTIVE part1;
+[TONE_RGB.md](TONE_RGB.md) lists the twelve cells. Middle edits cannot cross
+separately stored S/H coordinates. GUI request tags B/C/D/E identify the channel
+and normalize to canonical B before decoding or storage.
 
 `decode` validates only. `edit` changes one chosen axis and clamps that axis
 between unchanged neighbors. B/S/H/W move by one representable code; middle
@@ -35,7 +37,7 @@ by B/W for every canonical state. This is a piecewise linear transfer, not a
 spline. Graph markers use exact Y values at the fractional quarter positions;
 their rounded display indices are0,64,128,191,255.
 
-## Legacy resolution and first use
+## ALL legacy resolution and first use
 
 A valid canonical word ignores legacy H/M/L. Otherwise, a valid old0xa5d word
 supplies its10-bit endpoints; any other word starts with B0/W1023. If any legacy
@@ -63,3 +65,7 @@ actual edit commits canonical state; migration itself does not rewrite settings.
 all1024 input samples per state, and44 legacy/invalid-state cases with actual
 MN103 execution and no function models. The default state is also checked at
 all1024 inputs by the host regression.
+
+RGB never migrates native H/M/L. A valid canonical RGB word uses the same
+integer transfer; every other value resolves to canonical neutral. Acquisition
+snapshots all four channels together so later UI edits cannot change a job.
