@@ -4,14 +4,13 @@ This composes body-controlled black and white endpoints with the existing
 COLOR1–3 shadow, middle and highlight controls, on top of the pinned PEN-F HSL
 release. It includes native profile/bank storage, capture-owner snapshots,
 per-image tone processing, a five-point control graph and exact endpoint labels.
-The main image and update container build reproducibly. Verification is offline
-and bounded; no camera was flashed and physical operation remains unqualified.
+The main image and update container build reproducibly. Verification of this revision is offline and bounded. The earlier candidate boots and accepts controls in the user's camera test, but endpoint-only edits needed a subsequent shadow edit to affect the image. This revision corrects that native rebuild decision; it still needs physical retesting. No camera was flashed by these build/probe tools.
 
 ## Body controls
 
 Open the native COLOR1, COLOR2 or COLOR3 tone editor. INFO cycles through
 shadow/highlight, middle, then endpoints. The first two pages retain their
-native controls. On the endpoint page:
+native controls. The middle page's INFO hint names the next page: `黒点・白点` for Japanese and `BLACK / WHITE` otherwise, with the native INFO icon. On the endpoint page:
 
 | Input | Effect |
 |---|---|
@@ -35,7 +34,7 @@ legacy contrast, and the current three inner settings. Actual image processing
 uses the selected native image base and computes its own bounds and clamping.
 The graph therefore does not promise to reproduce every image-processing effect.
 Neutral endpoints preserve native output exactly, including the original
-zero-inner-control gate. Unsupported or null selected LUTs preserve stock processing. The endpoint adapter
+zero-inner-control gate. Valid endpoint requests rebuild even when the native change mask reports no inner-control changes; neutral reset also rebuilds so a previous endpoint curve cannot remain cached. Unsupported or null selected LUTs preserve stock processing. The endpoint adapter
 targets the ordinary COLOR builder; native mask/creative bypasses and separate
 alternative-effect paths retain stock processing. MONO and other picture modes
 retain their ordinary behavior.
@@ -76,9 +75,11 @@ its stock restore container. Producing these files performs no device access.
 |---|---|
 | Required full stock | `77398610b379f80238117f31a6d5bbf65d608b49ec563666c64d84367e969f2c` |
 | Pinned HSL package | `4f9a36e6742728ded3d9b443915355f1d1eea0371e1da673f322de970994f717` |
-| Five-point main | `fbb6d8bf4b793d6ae4061bbd5eb8749bb8302a757bd06b167eb95ce89b494aca` |
-| Five-point container,44433408 bytes | `c53ecf80967cf347f2cab17a6a9ee3dcd7f1c0af907843ab7c424d43f899bc4b` |
+| Five-point main | `231c2b8d17d5aa15f2b3a1e246f3a2abbbc09b4f8f7b4cf4b4d14ad6b1f4381d` |
+| Five-point container,44433408 bytes | `bb9e0a133a4492f2a2587c81037df22309a53dcbf154d38666fc1f9cc41387cc` |
 | Retained HSL OSD | `f713df2a2d7d57a511e55cabb0f84ac4d612f99c58df4502a89b32bd8580084c` |
+
+The candidate main and container hashes for each build are recorded in `build.json`.
 
 ## Verification and limits
 
@@ -112,7 +113,7 @@ publication boundaries without function models. Identical118 publication still
 marks observers. The new receiver update then requests full graph invalidation.
 These are explicit native joins after unchanged setter/refresh prerequisites;
 physical button delivery, asynchronous completion and LCD delivery are not
-claimed.
+claimed. The reported delay in graph/BW-number updates has not been reproduced at these bounded joins. This revision leaves the display callbacks unchanged and does not claim to fix that separate symptom.
 
 The graph's complete return fixture models line-storage allocation/free and
 raster submission; native parsing, metrics, clipping and backend paths execute.
@@ -129,3 +130,6 @@ The bounded units and their exact APIs are documented in
 [TONE_TRANSPORT.md](../../../docs/color/pen-f/TONE_TRANSPORT.md),
 [TONE_EDITOR.md](../../../docs/color/pen-f/TONE_EDITOR.md), and
 [TONE_GRAPH.md](../../../docs/color/pen-f/TONE_GRAPH.md).
+
+The endpoint-only cache regression and localized INFO hint are documented in
+[TONE_REALTIME.md](../../../docs/color/pen-f/TONE_REALTIME.md).

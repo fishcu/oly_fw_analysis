@@ -13,8 +13,6 @@ tone_native_builder:
  call tone_job_word,[d2],4
  cmp 0,d0
  beq builder_stock
- cmp 0xa5dffc00,d0
- beq builder_stock
  mov d0,(16,sp)
  mov (12,sp),a0
  mov (4,a0),d1
@@ -34,10 +32,6 @@ builder_stock:
  add 32,sp
  jmp stock_tone_builder
 builder_select:
- mov (12,sp),a0
- mov (56,a0),d1
- btst 0x02e8063e,d1
- beq builder_return
  movbu d0,(8,sp)
  mov (4,sp),a0
  mov sp,a1

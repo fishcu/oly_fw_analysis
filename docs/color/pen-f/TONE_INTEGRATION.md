@@ -10,9 +10,9 @@ The five-byte call at `0x604f85ea` invokes the ordinary builder `0x604f7c76`. Th
 
 The new builder reads an endpoint word only for the exact ordinary COLOR request header `0x000b0000` at request+8. It requires callback `0x604c4011`, an exact pointer to one of the 16 native 52-byte operation records, and the matching parent job. These checks establish the native layout relationship before reading job+14944. They are not general validation of an arbitrary pointer.
 
-A word is valid when its upper 12 bits equal `0xa5d`. Bits 0..9 hold black and bits 10..19 hold white. Zero and every other tag are invalid. Invalid words and the valid neutral pair 0/1023 tail-call the unchanged stock builder. The producer must qualify COLOR1, COLOR2, or COLOR3 when it acquires the image. That producer is not implemented in this unit.
+A word is valid when its upper 12 bits equal `0xa5d`. Bits 0..9 hold black and bits 10..19 hold white. Zero and every other tag are invalid. Invalid words tail-call the unchanged stock builder. Every supported valid word, including the neutral pair0/1023, selects and rebuilds the curve. The producer must qualify COLOR1, COLOR2, or COLOR3 when it acquires the image. That producer is not implemented in this unit.
 
-For a nonneutral word, the adapter retains stock base selection and the stock inner-overlay gate. A selection that requests an early native return retains that return. Endpoint-only edits run even when all five native raw fields are zero. The original raw fields and coefficient record remain unchanged.
+For a valid word, the adapter retains stock base selection and the stock inner-overlay gate. It does not use the native retained-request change mask to skip the rebuild: the native comparator does not compare the new endpoint trailer. A selection that requests an early native return retains that return. Endpoint-only edits run even when all five native raw fields are zero. The original raw fields and coefficient record remain unchanged. Rebuilding neutral requests is necessary to replace a previously nonneutral cached curve; neutral output still has the same active LUT, pointer and return value as a fresh native build.
 
 ## Signal bounds and lifetime
 
@@ -44,6 +44,8 @@ python3 -m unittest discover -s tests -p 'test_penf_tone*.py' -v
 The output directory must be new. The assembly is linked at synthetic address `0x19080000`. The audit records the compiled size, native symbols, tool hashes, firmware and engine hashes, complete pre-control samples, signal bounds, output hashes, and ABI checks. It creates no firmware container.
 
 The audit compares 27 source/contrast fixtures against native pre-control samples. Identity, square, and square-root curves are synthetic input fixtures. The first two raw slots use -7, 0, and 7 as stress values, not established UI settings. It compares endpoint output with the independent integer oracle for all 27 tested inner-control triples and each of the 16 operation records. Additional cases execute native-selected bases, variant mode, the actual ordinary call-site trampoline, unsupported sources, invalid job relationships, and native bypasses.
+
+The cached-request regression first executes native retained updater604b3034, then comparator604b2d78. Endpoint-only changes and neutral reset produce no bits in the native tone-change mask0x02e8063e. The adapter must nevertheless update the active LUT. It checks24 sequential transitions across zero/nonzero inner controls, native/override bases and both variants, including the production-linked entry. No function is modeled in these cases.
 
 Four native uploader calls cover both banks with the same cache tag and dirty zero. Each call checks all 256 expanded 32-bit tone entries. The two cache-lock helpers use the existing single-thread model. These are separate bounded upload fixtures. They do not simulate concurrent jobs, cache scheduling, ISP pixels, or a camera.
 

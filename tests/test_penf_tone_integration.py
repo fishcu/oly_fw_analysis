@@ -6,7 +6,8 @@ import unittest
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tools'))
 
 from penf_tone_integration_probe import (JOB, build_adapter, check_case, identity_lut,
-                                         packed, run_builder, signal_case, upload_result)
+                                         packed, run_builder, signal_case, upload_result,
+                                         cached_endpoint_cases)
 
 
 class NativeToneIntegrationTests(unittest.TestCase):
@@ -18,6 +19,9 @@ class NativeToneIntegrationTests(unittest.TestCase):
     @classmethod
     def tearDownClass(cls):
         cls.temporary.cleanup()
+
+    def test_cached_endpoint_changes_and_neutral_reset_rebuild_without_inner_changes(self):
+        self.assertEqual(len(cached_endpoint_cases(self.adapter)), 24)
 
     def test_missing_upper_crossing_is_rejected(self):
         case = signal_case(self.adapter, tuple([0] * 256), (0, 0, 0, 0, 0))

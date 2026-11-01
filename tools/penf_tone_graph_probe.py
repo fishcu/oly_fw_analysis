@@ -298,7 +298,7 @@ def update_cases(graph):
 
 def composed_cases(graph,folder):
     from penf_tone_editor_probe import reference_cases,input_cases,page_cases,reset_cases
-    from penf_tone_integration_probe import build_adapter
+    from penf_tone_integration_probe import build_adapter,cached_endpoint_cases
     from penf_tone_transport_probe import pipeline,entry_compatibility
     base=replace(graph.base,image=graph.image)
     editor=replace(graph.editor,image=graph.image)
@@ -306,6 +306,8 @@ def composed_cases(graph,folder):
     return dict(native_reference=reference_cases(base,editor,adapter),
                 body_inputs=input_cases(base,editor),pages=page_cases(base,editor),
                 held_reset=reset_cases(base,editor),native_entry=entry_compatibility(base),
+                cached_endpoints=cached_endpoint_cases(adapter,image=graph.image,
+                    entry=graph.symbols['tone_native_builder']),
                 neutral_inner_pipeline=pipeline(base,raw=(0,0,0,0,0)),
                 changed_inner_pipeline=pipeline(base))
 

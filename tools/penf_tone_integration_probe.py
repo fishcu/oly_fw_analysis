@@ -241,6 +241,62 @@ def check_case(adapter, curve, raw, black, white, **kwargs):
                 checks=actual['checks'])
 
 
+def cached_endpoint_cases(adapter, *, image=None, entry=None):
+    rows = []
+    curve = identity_lut()
+    for raw, custom, variant in product(((0, 0, 0, 0, 0), (0, 0, 4, -2, -3)),
+                                        (False, True), (0, 1)):
+        options = dict(custom=custom, variant=variant)
+        fresh = run_builder(adapter, curve, raw, native=True, **options)
+        source = curve if custom else run_builder(
+            adapter, curve, (0, 0, 0, 0, 0), native=True, **options)['lut']
+        _, bounds = stock_signal(source, raw)
+        assert bounds is not None
+        lo, hi = bounds
+        state = prepare(curve, raw, endpoint_word=packed(0, 1023), **options)
+        if image is None:
+            state.regions.append(Region('tone_adapter', CODE, adapter.code, 'rx'))
+        else:
+            state.regions = [replace(r, data=image) if r.name == 'main' else r
+                             for r in state.regions]
+        target = entry if entry is not None else adapter.symbols['tone_native_builder']
+        retained = 0x1a070020
+        state.ram('retained_native_tone_request', retained, bytes(6000), aliases=False)
+        state.write(CONTEXT + 16, struct.pack('<I', 0x1a060020))
+        state.write(REQUEST + 924, struct.pack('<I', retained))
+
+        def invoke(address, mask, frame, **registers):
+            reenter(state, address, mask, frame, dict(PRESERVED, **registers))
+            return _finish(state, state.run({CALLER + 7}, limit=300000))
+
+        invoke(target, 0xf0, 28, a0=CONTEXT)
+        invoke(0x604b3034, 0x30, 16, a0=retained, a1=CONTEXT)
+        for black, white in ((64, 960), (96, 928), (0, 1023)):
+            state.write(JOB + 14944, struct.pack('<I', packed(black, white)))
+            comparator = invoke(0x604b2d78, 0xf0, 20, a0=retained, a1=REQUEST)
+            change_mask = state.regs['d0']
+            assert change_mask & 0x02e8063e == 0
+            state.write(CONTEXT + 56, struct.pack('<I', change_mask))
+            checks = invoke(target, 0xf0, 28, a0=CONTEXT)
+            pointer = struct.unpack('<I', state.read(OUTPUT + 4656, 4))[0]
+            actual = struct.unpack('<256H', state.read(pointer, 512))
+            effective = ToneEndpoints(min(black, fresh['lut'][lo]),
+                                      max(white, fresh['lut'][hi]), lo, hi)
+            expected = endpoint_oracle(fresh['lut'], effective)
+            assert actual == expected, (custom, variant, black, white, actual[::255])
+            assert actual[lo:hi + 1] == fresh['lut'][lo:hi + 1]
+            assert state.regs['d0'] == fresh['d0']
+            assert state.read(RAW, 10) == struct.pack('<5h', *raw)
+            if (black, white) == (0, 1023):
+                assert pointer == fresh['pointer'] and actual == fresh['lut']
+            for address, size in ((JOB, 14948), (CONTEXT, 192), (OUTPUT, 5212)):
+                _check_guards(state, address, size)
+            rows.append(dict(raw=raw, custom=custom, variant=variant, requested=[black, white],
+                endpoints=list(actual[::255]), change_mask=hex(change_mask),
+                pointer=hex(pointer), comparator=comparator, builder=checks, models=[]))
+    return rows
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--out', type=Path, required=True)
@@ -289,7 +345,7 @@ def main():
         actual = run_builder(adapter, curve, (0, 0, 0, 0, 0), endpoint_word=packed(70, 950))
         stock = run_builder(adapter, curve, (0, 0, 0, 0, 0), native=True)
         assert actual['output'] == stock['output'] and actual['d0'] == stock['d0']
-    for options in ({'flags': 0}, {'selection_stop': True}):
+    for options in ({'selection_stop': True},):
         actual = run_builder(adapter, bases['identity'], (0, 0, 0, 0, 0), custom=False,
                              endpoint_word=packed(70, 950), **options)
         stock = run_builder(adapter, bases['identity'], (0, 0, 0, 0, 0), custom=False, native=True, **options)
@@ -300,6 +356,7 @@ def main():
         stock = run_builder(adapter, bases['identity'], (0, 0, 4, -2, -3), outer=True, native=True, **options)
         assert actual['output'] == stock['output'] and actual['context'] == stock['context']
         neutral.append(dict(outer=True, options=options, exact_native_output=True))
+    cached = cached_endpoint_cases(adapter)
     uploads = []
     for bank, black, white in ((0, 30, 970), (1, 60, 940), (0, 90, 920), (1, 0, 1023)):
         result = run_builder(adapter, bases['identity'], (0, 0, 4, -2, -3), outer=True,
@@ -311,7 +368,7 @@ def main():
                   engine_sha256=sha(ENGINE.read_bytes()), firmware_sha256=sha(firmware()),
                   execution_sources=dict(source_hashes(), integration_probe=sha(Path(__file__).read_bytes())),
                   signal_cases=signals, endpoint_cases=cases, neutral_cases=neutral, extra_cases=extra,
-                  native_upload_cases=uploads, modeled_functions=[], limits='No installation image, camera I/O, owner acquisition, UI or physical ISP.')
+                  native_upload_cases=uploads, cached_endpoint_cases=cached, modeled_functions=[], limits='No installation image, camera I/O, owner acquisition, UI or physical ISP.')
     (args.out / 'audit.json').write_text(json.dumps(report, indent=2) + '\n')
     print(json.dumps(dict(bytes=len(adapter.code), signals=len(signals), endpoints=len(cases),
                           neutral=len(neutral), report=str(args.out / 'audit.json'))))

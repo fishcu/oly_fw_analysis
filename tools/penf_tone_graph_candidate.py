@@ -26,8 +26,12 @@ def build_graph(folder, *, stock_main=None):
     editor = build_editor(folder/'editor', base, graph=True)
     names = dict(editor.symbols)
     names.update(native_tone_paint=0x60bbe8b6, native_tone_update=0x60c58464,
-                 native_filter_resume=0x60bf7c47, native_filter_skip=0x60bf80cf)
+                 native_filter_resume=0x60bf7c47, native_filter_skip=0x60bf80cf,
+                 stock_gui_service=0x607355e9, stock_variant=0x60c89710,
+                 stock_string=0x60bcb228, stock_viewer_tail=0x60cfa572,
+                 stock_middle_mono=0x60cfa28a)
     slots = {
+        'tone_viewer_middle': (0x60cfa110,0x60cfa28a),
         'tone_display_filter': (0x60a4fe6c,0x60a4feb0),
         'tone_display_active': (0x60a4ffb4,0x60a4ffe8),
         'tone_display_digits': (0x60a4ffe8,0x60a50000),
@@ -42,15 +46,19 @@ def build_graph(folder, *, stock_main=None):
     layout=folder/'display.ld'
     layout.write_text('SECTIONS {\n'+''.join(f'.{name} {start:#x} : {{ *(.{name}) }}\n' for name,(start,end) in slots.items())+'}\n'+
                       ''.join(f'{key} = {value:#x};\n' for key,value in names.items() if key.isidentifier()))
-    elf=assemble(folder/'assembly',[ROOT/'patches/tone/pen-f/src/display.s'],layout)
+    elf=assemble(folder/'assembly',[ROOT/'patches/tone/pen-f/src'/name for name in ('display.s','viewer.s')],layout)
     names.update(symbols(elf))
     image=bytearray(editor.image)
     chunks={}
     for section,(start,end) in slots.items():
         data=extract(elf,section)
         assert start+len(data)<=end,(section,len(data),end-start)
-        assert image[start-BASE:start-BASE+len(data)]==b'\xff'*len(data),section
-        image[start-BASE:start-BASE+len(data)]=data
+        if section=='tone_viewer_middle':
+            assert sha(image[start-BASE:end-BASE])=='a8ce9e71dbca9ec709d7db300fd0aefbfffe45ccbeb330cf44438a941d2e04a6'
+            image[start-BASE:end-BASE]=data+b'\xcb'*(end-start-len(data))
+        else:
+            assert image[start-BASE:start-BASE+len(data)]==b'\xff'*len(data),section
+            image[start-BASE:start-BASE+len(data)]=data
         chunks[section]=data
     for address,expected,target in ((0x60ec4d4c,0x60bbe8b6,'tone_paint_gate'),
                                     (0x60ec4e3c,0x60c58464,'tone_update_gate')):
@@ -62,6 +70,7 @@ def build_graph(folder, *, stock_main=None):
     (folder/'main.bin').write_bytes(image)
     (folder/'placement.json').write_text(json.dumps(dict(candidate_sha256=sha(image),
         source_sha256=sha((ROOT/'patches/tone/pen-f/src/display.s').read_bytes()),
+        viewer_source_sha256=sha((ROOT/'patches/tone/pen-f/src/viewer.s').read_bytes()),
         chunks={k:dict(address=hex(slots[k][0]),bytes=len(v),capacity=slots[k][1]-slots[k][0]) for k,v in chunks.items()},
         symbols={k:hex(v) for k,v in names.items()}),indent=2)+'\n')
     return GraphCandidate(base,editor,bytes(image),names,chunks)
