@@ -126,7 +126,10 @@ def fallback_cases(graph, getter):
 def data_alignment_cases(graph):
     rows=[]
     for name,width,count in (('tone_pair_lines',2,3),('tone_pair_ids',2,7),
-                             ('tone_footer_english',4,3),('tone_footer_japanese',4,3)):
+                             ('tone_footer_english',4,3),('tone_footer_japanese',4,3),
+                             ('footer_middle_en',2,1),('footer_endpoints_en',2,1),('footer_pair_en',2,1),
+                             ('footer_middle_jp',2,1),('footer_endpoints_jp',2,1),('footer_pair_jp',2,1),
+                             ('tone_footer_info',2,1)):
         for index in range(count):
             address=graph.symbols[name]+index*width
             rows.append(dict(symbol=name,index=index,address=hex(address),width=width,
@@ -309,7 +312,8 @@ def main():
     args = parser.parse_args()
     graph = build_graph(args.out/'candidate')
     getter = getter_adapter(args.out/'getter')
-    report = dict(middle=middle_cases(graph,getter), pair=pair_cases(graph,getter),
+    report = dict(alignment=data_alignment_cases(graph),
+                  middle=middle_cases(graph,getter), pair=pair_cases(graph,getter),
                   footer=footer_cases(graph,getter), footer_fallback=footer_fallback_cases(graph,getter),
                   fallback=fallback_cases(graph,getter),
                   formatter=formatter_cases(), layout=layout_cases())

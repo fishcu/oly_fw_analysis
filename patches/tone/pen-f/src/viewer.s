@@ -45,6 +45,8 @@ tone_pair_other:
  mov (68,sp),d0
  cmp 56,d0
  jmp stock_pair_mono
+.section .tone_pair_lines,"ax"
+.balign 2
 tone_pair_lines:
  .short 358,369,381
 .section .tone_viewer_middle,"ax"
@@ -173,8 +175,10 @@ tone_footer_second:
  call tone_footer_number,[],4
  jmp tone_footer_icon
 tone_footer_middle:
- mov 0x004d0020,d0
- mov d0,(a2)
+ mov 32,d0
+ movhu d0,(a2)
+ mov 77,d0
+ movhu d0,(2,a2)
  movhu (8,sp),d0
  add -512,d0
  asr 5,d0
@@ -208,16 +212,17 @@ tone_footer_return:
  ret [],0
 
 tone_footer_number:
- asl 16,d1
- or 32,d1
- mov d1,(a2)
+ movhu d1,(2,a2)
+ mov 32,d1
+ movhu d1,(a2)
  mov a2,a1
  add 10,a1
  call tone_digits,[],4
  add 12,a2
  ret [],4
 
-.section .tone_footer_strings,"ax"
+.section .tone_footer_tables,"ax"
+.balign 4
 tone_footer_english:
  .long footer_middle_en,footer_endpoints_en,footer_pair_en
 tone_footer_japanese:

@@ -226,6 +226,8 @@ tone_pair_scan:
 tone_pair_yes:
  mov 1,d0
  ret [],4
+.section .tone_pair_ids,"ax"
+.balign 2
 tone_pair_ids:
  .short 897,969,972,975,1004,1007,1010
 

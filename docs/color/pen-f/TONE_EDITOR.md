@@ -29,7 +29,8 @@ including the four-page table60f4c330. The manager rejects tagged tone requests
 when section8 is absent. Stale selected-profile input/bind/reset clears the page
 without setting mutation.
 
-The INFO replacement remains384/385 bytes at60c87670. Generated HSL UI/wheel
+The INFO replacement uses370 code bytes at60c87670 and a separate14-byte
+halfword table at60c877e2, within the existing385-byte replacement. Generated HSL UI/wheel
 compaction preserves the pinned released recipe. The full candidate emits exact
 placement sizes in `candidate/editor/placement.json`; GUI helpers occupy352
 bytes beginning610f1e54, while the core/owner table and editor use section8.

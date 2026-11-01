@@ -6,9 +6,10 @@ linear transfer. The camera controls, graph, native profile/bank storage and
 per-image processing use the same state. The candidate retains the pinned HSL
 release and Value OSD. Building performs no camera access or flashing.
 
-This revision replaces the earlier endpoint-only design. That earlier design
-was tested on a camera; this new curve and UI revision has only bounded offline
-verification and needs a physical retest.
+This revision replaces the earlier endpoint-only design. A first equal-quarter
+candidate froze before the tone screen appeared on a camera. The current build
+corrects unaligned native lookup tables and UTF-16 stores; its correction has
+bounded offline verification and needs a physical retest.
 
 ## Body controls
 
@@ -86,8 +87,8 @@ its stock restore container. Producing these files performs no device access.
 |---|---|
 | Required full stock | `77398610b379f80238117f31a6d5bbf65d608b49ec563666c64d84367e969f2c` |
 | Pinned HSL package | `4f9a36e6742728ded3d9b443915355f1d1eea0371e1da673f322de970994f717` |
-| Five-point main | `28608af94acb586d2e621bd26ce192d18e2e92aa6559050eed4ac3b796e08b07` |
-| Five-point container,44433408 bytes | `14d56242dd8a5f6bb7636016f308db0541a9ba400b4da48453c64cb317c69ed6` |
+| Five-point main | `fa57eea840b6c79cf1298d734449c412f14cd2897d7154a0d471b0922925af59` |
+| Five-point container,44433408 bytes | `5c67b2db82c1d2a7d415e95438c1743e90574424fb36affb381aa8e077ff061a` |
 | Retained HSL OSD | `f713df2a2d7d57a511e55cabb0f84ac4d612f99c58df4502a89b32bd8580084c` |
 
 The candidate main and container hashes for each build are recorded in `build.json`.
@@ -110,7 +111,7 @@ PENF_STOCK_CONTAINER=/path/to/OLY_E_122_3101_0000_0000.BIN \
   python3 -m unittest discover -s tests -p 'test_penf_tone*.py' -v
 ```
 
-Native probes require the pinned decoded firmware and strict MN103 engine;
+Native probes require the pinned decoded firmware and MN103 execution harness;
 viewer/font fixtures additionally require Pillow. Build integrity checks cover
 wrong-stock rejection, optimized-Python rejection, exact round trips, range
 checks, unchanged metadata and retained HSL OSD. The optional graph
@@ -140,4 +141,5 @@ Details: [state](../../../docs/color/pen-f/TONE_POINTS.md),
 [transport](../../../docs/color/pen-f/TONE_TRANSPORT.md),
 [editor](../../../docs/color/pen-f/TONE_EDITOR.md),
 [graph and publication](../../../docs/color/pen-f/TONE_GRAPH.md),
-[earlier cache defect](../../../docs/color/pen-f/TONE_REALTIME.md).
+[earlier cache defect](../../../docs/color/pen-f/TONE_REALTIME.md),
+[entry alignment regression](../../../docs/color/pen-f/TONE_ENTRY_ALIGNMENT.md).

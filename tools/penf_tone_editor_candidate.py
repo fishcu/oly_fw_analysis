@@ -67,7 +67,8 @@ def build_editor(folder, candidate):
     slots = {'tone_editor': (names['tone_rows']+180,0x6115b800),
              'tone_reference': (0x610f1e54,0x610f1fca),
              'tone_selected': (0x610f1fd8,0x610f1ff6),
-             'tone_resident': (0x60c87670,0x60c877f1),
+             'tone_resident': (0x60c87670,0x60c877e2),
+             'tone_pair_ids': (0x60c877e2,0x60c877f0),
              'tone_manager_gate': (0x60a4ff8d,0x60a4ffa6),
              'tone_manager_unavailable': (0x6081b8af,0x6081b8cf)}
     layout.write_text('SECTIONS {\n' + ''.join(f'.{k} {a:#x} : {{ *(.{k}) }}\n' for k,(a,b) in slots.items()) +

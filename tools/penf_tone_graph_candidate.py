@@ -33,12 +33,14 @@ def build_graph(folder, *, stock_main=None):
                  stock_viewer_publish_resume=0x60cf9bec,stock_pair_mono=0x60cf9f2e,
                  stock_viewer_log=0x60d10726)
     slots = {
-        'tone_viewer_pair': (0x60cf9d81,0x60cf9e39),
-        'tone_footer': (0x60cf9e39,0x60cf9f2e),
+        'tone_viewer_pair': (0x60cf9d81,0x60cf9e34),
+        'tone_pair_lines': (0x60cf9e34,0x60cf9e3a),
+        'tone_footer': (0x60cf9e3a,0x60cf9f2e),
         'tone_viewer_middle': (0x60cfa110,0x60cfa1ad),
-        'tone_viewer_gate': (0x60cfa1ad,0x60cfa1da),
-        'tone_footer_strings': (0x60cfa1da,0x60cfa250),
-        'tone_footer_tail': (0x60cfa250,0x60cfa28a),
+        'tone_viewer_gate': (0x60cfa1ad,0x60cfa1dc),
+        'tone_footer_tables': (0x60cfa1dc,0x60cfa1f4),
+        'tone_footer_strings': (0x60cfa1f4,0x60cfa252),
+        'tone_footer_tail': (0x60cfa252,0x60cfa28a),
         'tone_footer_small_strings': (0x610f1fb4,0x610f1fca),
         'tone_display_filter': (0x60a4fe6c,0x60a4feb0),
         'tone_display_active': (0x60a4ffb4,0x60a4ffe8),
@@ -55,6 +57,16 @@ def build_graph(folder, *, stock_main=None):
                       ''.join(f'{key} = {value:#x};\n' for key,value in names.items() if key.isidentifier()))
     elf=assemble(folder/'assembly',[ROOT/'patches/tone/pen-f/src'/name for name in ('display.s','viewer.s')],layout)
     names.update(symbols(elf))
+    for name,width in (('tone_pair_lines',2),('tone_pair_ids',2),
+                       ('tone_footer_english',4),('tone_footer_japanese',4),
+                       ('footer_middle_en',2),('footer_endpoints_en',2),('footer_pair_en',2),
+                       ('footer_middle_jp',2),('footer_endpoints_jp',2),('footer_pair_jp',2),
+                       ('tone_footer_info',2)):
+        assert names[name]%width==0,(name,hex(names[name]),width)
+    for name,section in (('tone_viewer_pair','tone_viewer_pair'),
+                         ('tone_viewer_middle','tone_viewer_middle'),
+                         ('tone_viewer_publish','tone_viewer_gate')):
+        assert names[name]==slots[section][0],(name,hex(names[name]))
     image=bytearray(editor.image)
     replaced = ((0x60cf9d81,0x60cf9f2e,'7cfbc8bd1d503dfb9b13806bfb32ccba1cf2e8a46b502b3e1f6175c94b83b9f5'),
                 (0x60cfa110,0x60cfa28a,'a8ce9e71dbca9ec709d7db300fd0aefbfffe45ccbeb330cf44438a941d2e04a6'))
