@@ -30,6 +30,7 @@ class RgbToneTests(unittest.TestCase):
     def test_native_gamma_lane_isolation_and_repeated_reset(self):self.check(rgb.gamma_cases,self.graph.base)
     def test_native_gamma_upload_with_warm_cache(self):self.check(rgb.upload_cases,self.graph.base)
     def test_trash_cycles_without_setting_writes(self):self.check(rgb.cycle_cases,self.graph)
+    def test_native_constructor_trash_and_active_timeout(self):self.check(rgb.native_cycle_cases,self.graph)
     def test_channel_footer_and_graph(self):self.check(rgb.channel_display_cases,self.graph,self.audit)
     def test_native_storage_ownership_and_all_bank_reset(self):
         from penf_tone_rgb_ownership_probe import storage_cases

@@ -194,7 +194,7 @@ def cycle_cases(graph):
     s=fixture(graph.base,replace(graph.editor,image=graph.image))
     s.ram('tone_controller',controller,struct.pack('<2I',ACTUATOR,0x19112000),aliases=False)
     s.ram('current_controller',0x6161b810,struct.pack('<I',controller))
-    s.ram('current_screen',0x6161b81c,struct.pack('<H',0x13b8))
+    s.ram('current_screen',0x6161b81c,struct.pack('<H',897))
     s.ram('trash_event',event,b'\x02\x02',aliases=False)
     for address in (0x61618eb0,0x6161ad04,0x6161bf84):s.ram(hex(address),address,bytes(4))
     before=s.read(ACTIVE,WORDS*8)
@@ -204,7 +204,7 @@ def cycle_cases(graph):
         for channel in range(4):
             for page in range(3):
                 actuator(s,profile,channel*3+page)
-                s.write(ACTUATOR+100,struct.pack('<H',0x13b8));put32(s,0x6161bf84,9)
+                put32(s,0x6161bf84,9)
                 reenter(s,graph.symbols['tone_cycle'],0xf0,40,dict(PRESERVED,a0=event))
                 calls=[]
                 for _ in range(3):
@@ -217,14 +217,110 @@ def cycle_cases(graph):
                 assert u32(s,0x6161bf84)==0
                 assert s.read(ACTIVE,WORDS*8)==before
                 cases.append((profile,channel,page))
-    for address in (0x61618eb0,0x6161ad04,ACTUATOR+16,ACTUATOR+44,ACTUATOR+200):
-        actuator(s,3,11);s.write(ACTUATOR+100,struct.pack('<H',0x13b8))
+    for address in (0x61618eb0,0x6161ad04,ACTUATOR+16,ACTUATOR+44):
+        actuator(s,3,11)
         put32(s,address,1)
         call(s,graph.symbols['tone_cycle'],0xf0,40,a0=event)
         assert s.regs['d0']==0 and struct.unpack('<H',s.read(ACTUATOR+194,2))[0]==11
         put32(s,address,0)
     return dict(states=cases,setting_writes=0,equal_neutral_draw_requested=True,
                 modeled_functions=['native viewer completion','native draw-request completion'])
+
+
+def native_cycle_cases(graph):
+    controller,event,service,vtable=0x19110000,0x19111000,0x19113000,0x19114000
+    reports=[]
+    for profile in (1,2,3):
+        for fill in (0,0xa5):
+            for active_timeout in (False,True):
+                s=fixture(graph.base,replace(graph.editor,image=graph.image))
+                mode(s,53+profile);current(s,profile,(0,0,0))
+                s.ram('native_tone_actuator',ACTUATOR,bytes((fill,))*208,aliases=False)
+                s.ram('native_constructor_global',0x61618ec0,bytes(4))
+                s.ram('external_status_service',service,struct.pack('<I',vtable),aliases=False)
+                s.ram('external_status_vtable',vtable,bytes(48),aliases=False)
+                models=[]
+                property_calls={0x60c87adf:(906,111),0x60c87af3:(111,53+profile),
+                                0x60c87496:(906,111),0x60c874aa:(111,53+profile)}
+                hooks={CALLER+7,0x606f9214,0x60c879dc,0x60c879f5,
+                       0x60bba9e5,0x60d13be2,0x60d13bbb,0x60bb5033,
+                       0x60c87482}|set(property_calls)
+                def complete_native():
+                    for _ in range(24):
+                        result=s.run(hooks,limit=100000)
+                        pc=s.regs['pc']
+                        assert result['status']=='breakpoint',(result,hex(pc))
+                        if pc==CALLER+7:return
+                        if pc in property_calls:
+                            key,value=property_calls[pc]
+                            assert s.regs['d0']==key
+                            put32(s,s.regs['a1'],value)
+                            models.append(('property',key,value))
+                            s.regs['pc']=pc+2;s.regs['d0']=0
+                        elif pc in (0x606f9214,0x60bb5033):
+                            s.return_from_model(0);s.regs['a0']=service
+                        elif pc in (0x60c879dc,0x60c879f5):
+                            assert s.regs['d0'] in STORAGE_IDS[profile-1][:3]
+                            models.append(('property availability',s.regs['d0']))
+                            s.regs['pc']=pc+2;s.regs['d0']=1
+                        elif pc==0x60c87482:
+                            s.write(s.regs['a1'],bytes(144))
+                            models.append(('system status',144))
+                            s.regs['pc']=pc+2;s.regs['d0']=0
+                        elif pc==0x60bba9e5:
+                            assert (s.regs['d0'],s.regs['d1'])==(118,92)
+                            s.write(s.regs['a0'],bytes(92))
+                            models.append(('parameter read',118))
+                            s.return_from_model(0)
+                        else:
+                            models.append(('timer',s.regs['d0'],s.regs['d1']))
+                            s.return_from_model(0)
+                    raise AssertionError('Native tone operation did not return')
+                s.write(INITIAL_SP+4,struct.pack('<3H',897,0,0))
+                reenter(s,0x60c87a89,0x30,120,dict(PRESERVED,a0=ACTUATOR))
+                complete_native()
+                assert s.regs['a0']==ACTUATOR and s.regs['sp']==INITIAL_SP
+                assert u32(s,ACTUATOR+188)==0x60f4cd08+56*(profile-1)
+                assert u32(s,ACTUATOR+100)==fill*0x01010101
+                assert s.read(ACTUATOR+194,2)==bytes(2)
+                assert u32(s,ACTUATOR+200)==0
+                if active_timeout:
+                    reenter(s,0x60c87468,0,0,dict(PRESERVED,a0=ACTUATOR,d0=0x9749,d1=0))
+                    complete_native()
+                    assert u32(s,ACTUATOR+200)==1
+                    assert ('timer',500,8000) in models
+                s.ram('tone_controller',controller,struct.pack('<2I',ACTUATOR,0x19112000),aliases=False)
+                s.ram('current_controller',0x6161b810,struct.pack('<I',controller))
+                s.ram('current_screen',0x6161b81c,struct.pack('<H',897))
+                s.ram('trash_event',event,b'\x02\x02',aliases=False)
+                for address in (0x61618eb0,0x6161ad04,0x6161bf84):s.ram(hex(address),address,bytes(4))
+                before=s.read(ACTIVE,WORDS*8)
+                selections=[]
+                for expected in (3,6,9,0):
+                    reenter(s,0x60bcba4d,0,0,dict(PRESERVED,a0=event,d0=0x9016,d1=0,a1=0))
+                    calls=[]
+                    for _ in range(4):
+                        result=s.run({CALLER+7,0x60bcbbc7,0x60c84901,0x60d147e8},limit=100000)
+                        pc=s.regs['pc']
+                        if pc in (CALLER+7,0x60bcbbc7):break
+                        assert pc in (0x60c84901,0x60d147e8),(result,hex(pc))
+                        calls.append(pc);s.return_from_model(0)
+                    actual=struct.unpack('<H',s.read(ACTUATOR+194,2))[0]
+                    assert pc==CALLER+7 and actual==expected,(
+                        f'Native-created tone actuator rejects trash: screen=897, '
+                        f'offset100={u32(s,ACTUATOR+100):#x}, timeout={u32(s,ACTUATOR+200)}, '
+                        f'selection={actual}, expected={expected}, stop={pc:#x}')
+                    assert calls==[0x60c84901,0x60d147e8]
+                    assert s.regs['sp']==INITIAL_SP and s.regs['d0']==0
+                    assert all(s.regs[k]==v for k,v in PRESERVED.items())
+                    assert s.read(ACTIVE,WORDS*8)==before
+                    assert u32(s,ACTUATOR+100)==fill*0x01010101
+                    assert u32(s,ACTUATOR+200)==int(active_timeout)
+                    selections.append(actual)
+                reports.append(dict(profile=profile,allocation_fill=fill,
+                    active_timeout=active_timeout,selections=selections,models=models))
+    return dict(cases=reports,screen=897,setting_writes=0,
+        scope='Native constructor, binding, eligibility and 9749 handler execute; external property/status/parameter/timer services and viewer/draw completion modeled. No physical camera execution.')
 
 
 def channel_display_cases(graph, folder):
@@ -346,20 +442,21 @@ def reset_and_reject_cases(graph):
 def dispatcher_cases(graph):
     controller,event=0x19110000,0x19111000
     reports=[]
-    for event_id,loaded,modal in ((0x9016,True,False),(0x9004,True,False),
-                                  (0x9016,False,False),(0x9016,True,True)):
+    for event_id,loaded,modal,unsupported in ((0x9016,True,False,False),
+            (0x9004,True,False,False),(0x9016,False,False,False),
+            (0x9016,True,True,False),(0x9016,True,False,True)):
         pairs=[]
-        for reference in ((False,) if event_id==0x9016 and loaded and not modal else (False,True)):
+        for reference in ((False,) if event_id==0x9016 and loaded and not modal and not unsupported else (False,True)):
             image=graph.base.reference if reference else graph.image
             s=fixture(graph.base,replace(graph.editor,image=image))
             actuator(s,1,0);mode(s,54)
-            s.write(ACTUATOR+100,struct.pack('<H',0x13b8))
             s.ram('tone_controller',controller,struct.pack('<2I',ACTUATOR,0x19112000),aliases=False)
             s.ram('current_controller',0x6161b810,struct.pack('<I',controller))
-            s.ram('current_screen',0x6161b81c,struct.pack('<H',0x13b8))
+            s.ram('current_screen',0x6161b81c,struct.pack('<H',897))
             s.ram('fsm_event',event,b'\x02\x02',aliases=False)
             for address in (0x61618eb0,0x6161ad04,0x6161bf84):s.ram(hex(address),address,bytes(4))
             if modal:put32(s,0x61618eb0,1)
+            if unsupported:put32(s,ACTUATOR+188,0x60f4ccd0)
             if not loaded:
                 s.write(0x61c58404,b'\x04')
                 unmap(s,[(0x6115b014,0x6115c800),(0xa115b014,0xa115c800)])
@@ -369,7 +466,7 @@ def dispatcher_cases(graph):
                 result=s.run({CALLER+7,0x60bcbbc7,0x60c84901,0x60d147e8},limit=100000)
                 if s.regs['pc'] in (CALLER+7,0x60bcbbc7):break
                 calls.append(s.regs['pc']);s.return_from_model(0)
-            target=CALLER+7 if event_id==0x9016 and loaded and not modal else 0x60bcbbc7
+            target=CALLER+7 if event_id==0x9016 and loaded and not modal and not unsupported else 0x60bcbbc7
             stopped(s,result,target)
             if target==CALLER+7:
                 assert s.regs['sp']==INITIAL_SP and s.regs['d0']==0
@@ -379,7 +476,7 @@ def dispatcher_cases(graph):
             else:
                 pairs.append((dict(s.regs),s.read(s.regs['sp'],32)))
         if pairs:assert pairs[0]==pairs[1]
-        reports.append(dict(event=event_id,loaded=loaded,modal=modal))
+        reports.append(dict(event=event_id,loaded=loaded,modal=modal,unsupported=unsupported))
     return reports
 
 
