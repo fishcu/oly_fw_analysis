@@ -51,6 +51,9 @@ class ToneEditorTests(unittest.TestCase):
     def test_profile_changes_clear_stale_endpoint_routing(self):
         editor.stale_cases(self.candidate, self.editor)
 
+    def test_other_native_family_keeps_four_page_binding_and_input(self):
+        editor.other_family_cases(self.candidate, self.editor)
+
     def test_info_publishes_native_parameter_page(self):
         editor.publication_cases(self.candidate, self.editor)
 

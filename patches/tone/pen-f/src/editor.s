@@ -119,11 +119,6 @@ tone_bind_pair:
  mov 2000,d0
  ret [d2,d3,a2,a3],28
 tone_bind_stock:
- movhu (194,a3),d0
- cmp 2,d0
- bne tone_bind_native
- clr d0
- movhu d0,(194,a3)
 tone_bind_native:
  mov a3,a0
  mov a0,d3
@@ -139,9 +134,7 @@ tone_bind_native:
 .endm
 .section .tone_resident,"ax"
 tone_info:
- movbu (0xa1c58404),d0
- and 160,d0
- cmp 160,d0
+ call tone_late_available,[],4
  bne tone_info_native
  call tone_next_page,[],4
  cmp -1,d0
@@ -480,32 +473,31 @@ tone_reset_original:
 .section .tone_resident,"ax"
 .global tone_input_gate, tone_reset_gate, tone_bind_gate
 tone_input_gate:
- movm [d2],(sp)
- movbu (0xa1c58404),d2
- and 160,d2
- cmp 160,d2
- movm (sp),[d2]
+ add -4,sp
+ call tone_late_available,[],4
  beq tone_input_loaded
- movhu (194,a1),d0
- cmp 2,d0
+ call tone_color_endpoint_page,[],4
  beq tone_input_unavailable
  mov (a3),d0
  exthu d0
  mov 0,a1
+ add 4,sp
  jmp stock_gui_set
 tone_input_unavailable:
  clr d0
+ add 4,sp
  ret [],0
 tone_input_loaded:
+ mov (a3),d0
+ exthu d0
+ add 4,sp
  jmp tone_input
 
 tone_bind_gate:
- movbu (0xa1c58404),d0
- and 160,d0
- cmp 160,d0
+ call tone_late_available,[],4
  beq tone_bind_loaded
- movhu (194,a0),d0
- cmp 2,d0
+ mov a0,a1
+ call tone_color_endpoint_page,[],4
  bne tone_bind_original
  clr d0
  movhu d0,(194,a0)
@@ -518,13 +510,11 @@ tone_bind_loaded:
  jmp tone_bind
 
 tone_reset_gate:
- movbu (0xa1c58404),d0
- and 160,d0
- cmp 160,d0
+ call tone_late_available,[],4
  beq tone_reset_loaded
  mov (4,sp),a0
- movhu (194,a0),d0
- cmp 2,d0
+ mov a0,a1
+ call tone_color_endpoint_page,[],4
  beq tone_reset_unavailable
  mov (4,sp),a0
  clr d0
@@ -595,3 +585,23 @@ tone_selected_no:
  clr d0
 tone_selected_return:
  ret [d2],8
+
+.section .tone_resident,"ax"
+/* Flags-only resident checks; do not consult any unavailable late helper. */
+tone_late_available:
+ movbu (0xa1c58404),d0
+ and 160,d0
+ cmp 160,d0
+ ret [],4
+tone_color_endpoint_page:
+ movhu (194,a1),d0
+ cmp 2,d0
+ bne tone_color_page_return
+ mov (188,a1),d0
+ add -0x60f4cd08,d0
+ beq tone_color_page_return
+ cmp 56,d0
+ beq tone_color_page_return
+ cmp 112,d0
+tone_color_page_return:
+ ret [],4

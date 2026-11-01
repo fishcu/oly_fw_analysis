@@ -115,3 +115,5 @@ completed physical button-to-LCD transaction.
 The existing per-image endpoint transport/kernel contract is documented in
 [TONE_TRANSPORT.md](TONE_TRANSPORT.md). Final graph drawing and whole-receiver
 invalidation are the next integration unit.
+
+The resident unavailable-section fallback recognizes endpoint page2 only with one of the three exact COLOR tables. Other actuator families retain their native page2. A differential fixture uses the stock four-page table `60f4c330`: binding remains property896, all eight arrow/dial request prefixes and held-reset replay match stock with sections6/8 present or individually absent. Rejected non-COLOR tables are never reset by the late binder.

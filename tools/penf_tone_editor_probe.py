@@ -358,6 +358,62 @@ def stale_cases(candidate, editor):
     return dict(cases=12, stale_input_binding_and_reset_clear_endpoint_page=True, no_setting_changes=True)
 
 
+
+def other_family_cases(candidate, editor):
+    reports = []
+    callbacks = ((0x60c871e3, 0), (0x60c87245, 0), (0x60c872a9, 0),
+                 (0x60c8730d, 0), (0x60c8736f, -1), (0x60c8736f, 1),
+                 (0x60c873ec, -1), (0x60c873ec, 1))
+    def family(state):
+        actuator(state, 1, 2)
+        put32(state, ACTUATOR+188, 0x60f4c330)
+        state.write(ACTUATOR+192, struct.pack('<HH', 4, 2))
+        for offset in (160,164,168,180,184):
+            put32(state, ACTUATOR+offset, 896)
+    for mask in (0xa4, 4, 0x24, 0x84):
+        original = fixture(candidate, replace(editor, image=candidate.reference))
+        patched = fixture(candidate, editor)
+        for state in (original, patched):
+            state.write(0x61c58404, bytes((mask,)))
+            absent = []
+            if not mask & 0x20:
+                absent.append((0x610f1ea0, 0x610f1fc0))
+            if not mask & 0x80:
+                absent.append((0x6115b060, 0x6115b7c0))
+            absent += [(lo+0x40000000,hi+0x40000000) for lo,hi in absent]
+            state.regions = [r for r in state.regions if not any(lo <= r.address and r.address+len(r.data) <= hi for lo,hi in absent)]
+            state.regions = without_ranges(state.regions, absent)
+            family(state)
+            reenter(state, 0x60c878ec, 0xf0, 28, dict(PRESERVED,a0=ACTUATOR))
+            stopped(state,state.run({0x607355e9},limit=10000),0x607355e9)
+        expected = original.read(ACTUATOR, 208)
+        assert patched.read(ACTUATOR, 208) == expected
+        assert struct.unpack('<H', expected[194:196])[0] == 2
+        assert u32(patched, ACTUATOR+180) == 896
+        for entry, direction in callbacks:
+            captured = []
+            for state in (original, patched):
+                reenter(state, entry, 0, 0, dict(PRESERVED, a0=ACTUATOR, d1=direction & 0xffffffff))
+                stopped(state, state.run({0x607363b3,0x60c87a02}, limit=20000),0x607363b3)
+                captured.append(tuple(state.regs[k] for k in ('a0','d0','d1','a1','sp')))
+                assert state.read(ACTUATOR,208) == expected
+            assert captured[0][:-1] == captured[1][:-1], (mask,entry,captured)
+            assert captured[1][-1] == captured[0][-1]-4, (mask,entry,captured)
+        captured = []
+        for state in (original,patched):
+            put32(state,INITIAL_SP+4,ACTUATOR)
+            state.regs=dict(PRESERVED,pc=0x60c875e4,sp=INITIAL_SP,psw=0,d0=0,d1=0,a0=0,a1=0,a3=0)
+            stopped(state,state.run({0x60c875ec,0x60c878dd},limit=2000),0x60c875ec)
+            captured.append(tuple(state.regs[k] for k in ('a0','d0','d2','sp')))
+            assert state.read(ACTUATOR,208) == expected
+        assert captured[0] == captured[1], (mask,captured)
+        reports.append(dict(mask=mask,page=2,bound_property=896,input_prefixes=8,
+                            native_reset_prefix_equal=True,receiver_unchanged=True))
+    return dict(four_page_table='0x60f4c330',cases=reports,
+                scope='Binder prefix through unchanged GUI service getter entry; actual input requests and reset replay prefix',
+                missing_late_code_unmapped=True,modeled_functions=[])
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--out', type=Path, required=True)
@@ -371,7 +427,7 @@ def main():
                   steps=step_cases(candidate, editor), bindings=binding_cases(candidate, editor),
                   inputs=input_cases(candidate, editor), pages=page_cases(candidate, editor),
                   reset=reset_cases(candidate, editor), unavailable=unavailable_cases(candidate, editor),
-                  stock_info=stock_info_cases(candidate, editor), publication=publication_cases(candidate, editor), stale=stale_cases(candidate,editor))
+                  stock_info=stock_info_cases(candidate, editor), publication=publication_cases(candidate, editor), stale=stale_cases(candidate,editor), other_family=other_family_cases(candidate,editor))
     (args.out / 'audit.json').write_text(json.dumps(result, indent=2) + '\n')
     print(json.dumps(dict(editor_bytes=sum(map(len, editor.chunks.values())), verified=list(result)[2:])))
 
