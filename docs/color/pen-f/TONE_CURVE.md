@@ -56,6 +56,8 @@ Each CLI run creates a new report directory. The endpoint report includes the co
 
 ## Integration gates remain open
 
+The subsequent [ordinary tone adapter](TONE_INTEGRATION.md) executes native signal bounds, a job-word reader, the actual ordinary call-site trampoline, and native upload in offline fixtures. It still does not provide a body control or persistent owner transport.
+
 The body editor still needs endpoint selection, labels, input routing, drawing, and refresh. Native shadow and highlight anchor indices need evidence before a tail mapping can use them. No property ID, storage offset, or firmware hook is assigned by this baseline.
 
 Persistent settings need a proven versioned representation and reset behavior. Per-image copies must preserve the selected endpoints through capture, compact slots, queued jobs, and RAW development. LUT changes must use a writable buffer owned by that image. The stock output pointer at `output+0x1230` and 512-byte scratch at `output+0x1234` are evidence to trace, not authorization to reuse a buffer without ownership checks.
