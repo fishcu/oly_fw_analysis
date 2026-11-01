@@ -19,6 +19,11 @@ class ToneViewerTests(unittest.TestCase):
     def tearDownClass(cls):
         cls.temporary.cleanup()
 
+    def test_native_data_tables_align_every_halfword_and_word(self):
+        rows=viewer.data_alignment_cases(self.graph)
+        self.assertEqual(len(rows),16)
+        self.assertTrue(all(row['aligned'] for row in rows), rows)
+
     def test_color_middle_queries_preserve_native_control_descriptors(self):
         self.assertEqual(len(viewer.middle_cases(self.graph, self.getter)), 18)
 

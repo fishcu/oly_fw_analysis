@@ -123,6 +123,17 @@ def fallback_cases(graph, getter):
     return rows
 
 
+def data_alignment_cases(graph):
+    rows=[]
+    for name,width,count in (('tone_pair_lines',2,3),('tone_pair_ids',2,7),
+                             ('tone_footer_english',4,3),('tone_footer_japanese',4,3)):
+        for index in range(count):
+            address=graph.symbols[name]+index*width
+            rows.append(dict(symbol=name,index=index,address=hex(address),width=width,
+                             aligned=address%width==0))
+    return rows
+
+
 def pair_cases(graph,getter):
     rows=[]
     for public in (0,1,53,54,55,56,57,58,59,0xffffffff):
