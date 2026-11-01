@@ -81,7 +81,8 @@ def build_adapter(out):
 
 
 def prepare(curve, raw, *, endpoint_word=0, record=0, mode=11, custom=True,
-            callback=0x604c4011, record_offset=None, parent=JOB, flags=2, variant=0, bypass=False, selection_stop=False, base_selection=0, mode_prefix=0):
+            callback=0x604c4011, record_offset=None, parent=JOB, flags=2, variant=0,
+            bypass=False, selection_stop=False, base_selection=0, mode_prefix=0, null_lut=False):
     s = ProbeState(CONVERT, 0, 16, bytes(16),
                    dict(PRESERVED, a0=RAW, a1=COEFFICIENTS))
     job = bytearray(14948)
@@ -111,7 +112,7 @@ def prepare(curve, raw, *, endpoint_word=0, record=0, mode=11, custom=True,
     _guarded(s, 'context', CONTEXT, bytes(context))
     _guarded(s, 'output', OUTPUT, bytes(5212))
     _guarded(s, 'flags', 0x1a060020, bytes(16))
-    _guarded(s, 'descriptor', DESCRIPTOR, struct.pack('<3I', 0, 0, LUT))
+    _guarded(s, 'descriptor', DESCRIPTOR, struct.pack('<3I', 0, 0, 0 if null_lut else LUT))
     s.regions.append(Region('shared_base_lut', LUT - len(GUARD),
                            GUARD + struct.pack('<256H', *curve) + GUARD, 'r'))
     s.write(INITIAL_SP - 0x1000, GUARD)

@@ -1,5 +1,5 @@
-/* Replaces only the ordinary non-bypass builder's call at 604f85ea.
- * a0 is its context. CALL([d2,d3,a2,a3],28), as in stock firmware.
+/* Ordinary non-bypass tone builder; a0 is its context.
+ * CALL([d2,d3,a2,a3],28), as in stock firmware.
  * The native selection and inner-overlay gates retain their original order.
  */
 .section .text,"ax"
@@ -52,6 +52,8 @@ builder_select:
  bne builder_return
 builder_selected:
  mov (4656,a3),a0
+ cmp 0,a0
+ beq builder_stock
  mov (12,sp),a1
  add 60,a1
  call tone_signal_bounds,[d2,d3,a2,a3],16

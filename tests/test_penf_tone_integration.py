@@ -44,6 +44,15 @@ class NativeToneIntegrationTests(unittest.TestCase):
         self.assertEqual(actual['output'], stock['output'])
         self.assertEqual(actual['d0'], stock['d0'])
 
+    def test_null_override_lut_retains_native_null_output(self):
+        options = dict(null_lut=True, endpoint_word=packed(64, 960))
+        stock = run_builder(self.adapter, identity_lut(), (0, 0, 0, 0, 0), native=True, **options)
+        actual = run_builder(self.adapter, identity_lut(), (0, 0, 0, 0, 0), **options)
+        self.assertEqual(actual['output'], stock['output'])
+        self.assertEqual(actual['d0'], stock['d0'])
+        self.assertEqual(actual['pointer'], 0)
+        self.assertIsNone(actual['lut'])
+
     def test_ordinary_bypass_retains_native_output(self):
         options = dict(outer=True, bypass=True, endpoint_word=packed(70, 950))
         stock = run_builder(self.adapter, identity_lut(), (0, 0, 4, -2, -3), native=True, **options)

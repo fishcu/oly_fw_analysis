@@ -50,3 +50,5 @@ Four native uploader calls cover both banks with the same cache tag and dirty ze
 ## Remaining integration
 
 The packed endpoint source, 45 owner snapshots, constructor extension, acquisition and conversion hooks, and native reset scopes remain required. External backup and ORF metadata support are outside this first feature and do not preserve endpoint settings through new extension records. The body page cycle, getter, setter, default action, and graph callback also remain required. No firmware cavity or loaded-section lifetime is assigned by this synthetic unit.
+
+The composed source/owner/job candidate and residency guards are documented in [TONE_TRANSPORT.md](TONE_TRANSPORT.md). A null selected LUT now returns to the stock builder before the signal prepass; the native neutral-inner null-pointer result is covered by a differential regression.
