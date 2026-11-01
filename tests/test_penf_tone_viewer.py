@@ -30,7 +30,7 @@ class ToneViewerTests(unittest.TestCase):
     def test_color_pair_compaction_preserves_queries_logging_and_native_join(self):
         self.assertEqual(len(viewer.pair_cases(self.graph,self.getter)),20)
 
-    def test_all_pages_publish_canonical_values_and_next_info_destination(self):
+    def test_all_pages_publish_canonical_values_and_current_page_name(self):
         self.assertEqual(len(viewer.footer_cases(self.graph,self.getter)),18)
 
     def test_footer_preserves_other_modes_unloaded_state_and_first_publication_flag(self):

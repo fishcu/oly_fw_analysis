@@ -18,9 +18,9 @@ from penf_tone_transport_probe import put32, set_words
 from penf_tone_points import FivePoints, resolve
 
 VIEWER, GETTER_TABLE, GETTER = 0x19109000, 0x19108000, 0x190a0000
-DESTINATIONS={8:('MIDDLE','BLACK/WHITE','SHADOW/HIGH'),17:('中間部','黒点・白点','明部・暗部')}
+PAGE_NAMES={8:('SHADOW/HIGH','MIDDLE','BLACK/WHITE'),17:('明部・暗部','中間部','黒点・白点')}
 LABELS={(language,page):name+(' S0320 H0704',' M+1',' B0064 W0960')[page]+'@A028@'
-        for language,names in DESTINATIONS.items() for page,name in enumerate(names)}
+        for language,names in PAGE_NAMES.items() for page,name in enumerate(names)}
 
 
 def getter_adapter(folder):
@@ -243,7 +243,7 @@ def footer_fallback_cases(graph,getter):
         result=state.run({0x60cf9bec},limit=100000)
         assert result['status']=='breakpoint'
         label=state.read(VIEWER+26,66).decode('utf-16le').split('\0')[0]
-        assert label=='BLACK/WHITE '+text+'@A028@'
+        assert label=='MIDDLE '+text+'@A028@'
         assert state.read(VIEWER+11,1)==bytes((modified,))
         assert state.regs['d3']==state.regs['d2']==state.regs['a1']==0
         rows.append(dict(word=hex(word),controls=controls,label=label,modified=modified,models=[]))

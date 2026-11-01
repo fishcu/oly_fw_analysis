@@ -28,16 +28,16 @@ paths execute. The original paint fixture has an explicitly empty child list;
 the actual traversal join is separately checked for all33 children, all pages
 and profiles. These are raster requests, not physical pixels.
 
-## Published values and INFO hint
+## Current page and published values
 
 A wrapper at60cf9be6 runs after native viewer construction and before its118
 publication. It preserves d2/d3/a2/a3, SP and the first-publication notification
 flag. It resolves the canonical state and fills the existing74-byte label
 variant at parameter118+10 with format5 and an inline string at+18.
 Selected S/H or B/W are absolute four-digit heights; M is the signed−7..+7 step.
-The next-page destination and native `@A028@` INFO token share this one row.
+The current page name and native `@A028@` INFO token share this one row.
 Japanese is identified through the actual resource2778 lookup; other languages
-use short ASCII destinations. All six JP/EN variants fit33UTF16 code units,
+use short ASCII page names. All six JP/EN variants fit33UTF16 code units,
 including terminator, and the native footer font/layout fixture.
 
 Parameter118 byte3 reflects canonical state differing from neutral. Bytes4/6/7

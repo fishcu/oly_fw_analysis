@@ -15,8 +15,8 @@ variants, including the production entry. The full LUT must equal a fresh native
 legacy-only baseline followed by the shared map; neutral pointer/return must
 match that baseline. No function is modeled.
 
-The current native footer publishes real selected values together with the next
-INFO destination. It retains the Japanese endpoint name and native INFO icon,
+The current native footer publishes real selected values together with the
+current page name. It retains the Japanese endpoint name and native INFO icon,
 using the same inline descriptor format. The former custom numeric paint row
 is removed. Publication, native query compaction and formatting contracts are
 in [TONE_GRAPH.md](TONE_GRAPH.md). This meaningful-payload change has bounded
@@ -50,3 +50,25 @@ The recorded evidence is under `generated/tone-curve/white-refresh/`:
 `image-isolation-v2/audit.json` and `image-sequence.json`, with the corresponding
 rerunnable scripts. Physical display/liveview behavior remains unverified here;
 no additional refresh flag or invalidation was added without a reproduced cause.
+
+## Partial curve report
+
+The later camera photo shows an old upper-right curve segment while the white
+value in the footer changes immediately. INFO then refreshes the complete curve.
+This establishes a display defect; the complete curve redraw remains unresolved.
+The current change only names the active page in the footer and does not claim
+to fix this defect or establish liveview scheduling.
+
+Additional bounded native probes run the real background bitmap4153 resource
+and bitmap class body. Both context clips are restored before custom painting;
+only the lower bitmap submission calls are modeled. A native child-list fixture
+also suppresses children26 and31 while allowing the other selected children.
+These checks do not reproduce the camera's dirty-region sequence or establish
+that a full receiver update and repaint run for every endpoint edit.
+
+Child32 is a type8001 histogram control, not another tone bitmap. Its actual
+6146 event invokes the tone parent's histogram routine. With declared low
+histogram data and black/white histogram thresholds, the native routine submits
+a rectangle at(351,306,255,64) and restores both context clips. Histogram data
+acquisition, the two threshold reads and raster submission are modeled; this
+case does not reproduce a real camera histogram or damage sequence.

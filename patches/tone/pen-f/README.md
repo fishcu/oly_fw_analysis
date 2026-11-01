@@ -32,10 +32,10 @@ The other four coordinates use16-code increments, with a final31-code interval
 from992 to1023. Only the selected coordinate moves; adjacent points bound it.
 Equal neighboring heights are allowed.
 
-The native footer shows the selected values and the next INFO destination.
-Examples are `中間部 S0256 H0768`, `黒点・白点 M+0`, and
-`明部・暗部 B0000 W1023`, followed by the native INFO icon. Non-Japanese languages
-use short ASCII destinations. S/H/B/W are absolute output codes0..1023, not
+The native footer names the current page and shows its selected values.
+Examples are `明部・暗部 S0256 H0768`, `中間部 M+0`, and
+`黒点・白点 B0000 W1023`, followed by the native INFO icon. Non-Japanese languages
+use short ASCII page names. S/H/B/W are absolute output codes0..1023, not
 signed native tone settings. Native RESET controls remain visible.
 
 The graph shows the exact five-point transfer using an identity input. Image
@@ -90,8 +90,8 @@ its stock restore container. Producing these files performs no device access.
 |---|---|
 | Required full stock | `77398610b379f80238117f31a6d5bbf65d608b49ec563666c64d84367e969f2c` |
 | Pinned HSL package | `4f9a36e6742728ded3d9b443915355f1d1eea0371e1da673f322de970994f717` |
-| Five-point main | `fa57eea840b6c79cf1298d734449c412f14cd2897d7154a0d471b0922925af59` |
-| Five-point container,44433408 bytes | `5c67b2db82c1d2a7d415e95438c1743e90574424fb36affb381aa8e077ff061a` |
+| Five-point main | `3c4c065fc0c4d6c4a8d3f39d6f45505853fd2efc8d6b42e934c465aab3c5982f` |
+| Five-point container,44433408 bytes | `b5799d614d49d9478e4a92ec80913585192bb20d440f3afcb360b8a9c451dc3a` |
 | Retained HSL OSD | `f713df2a2d7d57a511e55cabb0f84ac4d612f99c58df4502a89b32bd8580084c` |
 
 The candidate main and container hashes for each build are recorded in `build.json`.

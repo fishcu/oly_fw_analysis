@@ -224,9 +224,9 @@ tone_footer_number:
 .section .tone_footer_tables,"ax"
 .balign 4
 tone_footer_english:
- .long footer_middle_en,footer_endpoints_en,footer_pair_en
+ .long footer_pair_en,footer_middle_en,footer_endpoints_en
 tone_footer_japanese:
- .long footer_middle_jp,footer_endpoints_jp,footer_pair_jp
+ .long footer_pair_jp,footer_middle_jp,footer_endpoints_jp
  .section .tone_footer_small_strings,"ax"
 footer_middle_en:
  .short 77,73,68,68,76,69,0
