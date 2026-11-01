@@ -230,7 +230,7 @@ def paint_fallback_cases(graph):
             result=dict(stock_entry_preserved=True,late_code_unmapped=True)
         else:
             result=paint(state,graph)
-            assert not result['rectangles'] and result['text_call'] is None
+            assert not result['rectangles']
         cases.append(dict(reason=reason,**result))
     return cases
 

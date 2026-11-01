@@ -70,6 +70,10 @@ cover all profiles/pages/languages, neutral/negative-middle migration, first
 publication, wrong profile/actuator/page and physically unmapped late sections.
 Pair/middle differentials use a declared GUI getter-envelope adapter around
 actual602b9f84; pair logging return is modeled with exact arguments checked.
+The pair comparison preserves all registers except MDR, which CALL sets to its
+return address. Both MDR values are checked against the actual last variant CALL.
+The unchanged COLOR suffix never reads MDR and returns through the stack PC;
+the parent reaches its next CALL without reading MDR.
 Footer construction and formatter-to-text-setter prefixes model no functions.
 Native footer font parsing, metrics/clipping/backend use explicit line-storage
 allocation/free and raster models. Update invalidation reaches the real event

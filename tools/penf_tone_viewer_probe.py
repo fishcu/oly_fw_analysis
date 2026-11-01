@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 import struct
 
-from penf_emulator import Region
+from penf_emulator import BASE, Region
 from penf_hsl_context_probe import reenter
 from penf_osd_bitmaps import BitmapBank
 from penf_probe import ProbeState
@@ -148,10 +148,21 @@ def pair_cases(graph,getter):
                 pair.append((state,queries,logs))
             old,new=pair
             assert old[1:]==new[1:]
-            assert old[0].regs==new[0].regs
+            relocated_returns={}
+            if 54<=public<=56:
+                for name,(state,_,_),image in zip(('stock','patched'),pair,(graph.editor.image,graph.image)):
+                    address=state.regs['mdr']
+                    call=image[address-7-BASE:address-BASE]
+                    assert len(call)==7 and call[0]==0xdd and call[5:]==b'\xc0\x08'
+                    assert address-7+struct.unpack_from('<i',call,1)[0]==0x60c89710
+                    relocated_returns[name]=hex(address)
+            else:
+                assert old[0].regs['mdr']==new[0].regs['mdr']
+            assert {k:v for k,v in old[0].regs.items() if k!='mdr'}=={k:v for k,v in new[0].regs.items() if k!='mdr'}
             assert old[0].read(VIEWER,120)==new[0].read(VIEWER,120)
             assert old[0].read(INITIAL_SP+16,56)==new[0].read(INITIAL_SP+16,56)
             rows.append(dict(public=public,controls=controls,queries=new[1],log_arguments=new[2],
+                relocated_variant_call_returns=relocated_returns,
                 models=['native logging return','GUI getter envelope with actual602b9f84']))
     return rows
 
