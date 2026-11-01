@@ -149,14 +149,16 @@ def binding_cases(candidate, editor):
         for page in (0, 1, 2):
             before = actuator(s, profile, page)
             mode(s,53+profile)
-            call(s, editor.symbols['tone_bind'], 0xf0, 28, a0=ACTUATOR)
+            call(s, 0x60c878ec, 0xf0, 28, a0=ACTUATOR)
             expected = bytearray(before)
             high = 967 + 3 * (profile - 1)
             for offset, value in ((160, high + 2), (164, high + 2), (168, high),
                                   (180, high + 2), (184, high)):
                 struct.pack_into('<I', expected, offset, high + 1 if page == 1 else value)
+            if page == 2:
+                struct.pack_into('<II', expected, 180, high, high + 2)
             assert s.read(ACTUATOR, 208) == expected
-    return dict(cases=9, page2_uses_pair_fields=True, no_table_stride_change=True)
+    return dict(cases=9, endpoint_front='white', endpoint_rear='black', no_table_stride_change=True)
 
 
 
@@ -175,17 +177,24 @@ def input_cases(candidate, editor):
         points = resolve(packed(32,991),(4,-2,-3))
         for page in (0, 1, 2):
             for entry, delta, axis, change in callbacks:
-                before = actuator(s, profile, page)
+                actuator(s, profile, page)
+                for offset in (160,164,168,180,184):
+                    put32(s,ACTUATOR+offset,2000)
+                call(s,0x60c878ec,0xf0,28,a0=ACTUATOR)
+                before = s.read(ACTUATOR,208)
                 reenter(s, entry, 0, 0, dict(PRESERVED, a0=ACTUATOR, d1=delta & 0xffffffff))
                 report = stopped(s, s.run({0x607363b3}, limit=200000), 0x607363b3)
-                index = (1 if axis==0 else 3) if page==0 else (2 if page==1 else (0 if axis==0 else 4))
+                selected = 1-axis if page==2 and delta else axis
+                index = (1 if selected==0 else 3) if page==0 else (2 if page==1 else (0 if selected==0 else 4))
                 expected = (SERVICE, high, 0, points.edit(index,1 if change>0 else -1).pack())
                 actual = tuple(s.regs[r] for r in ('a0', 'd0', 'd1', 'a1'))
                 assert actual == expected, (profile, page, hex(entry), actual, expected)
                 assert s.read(ACTUATOR, 208) == before
                 reports.append(dict(profile=profile, page=page, entry=hex(entry),
+                                    direction=delta, point=('black','shadow','middle','highlight','white')[index],
+                                    change=1 if change>0 else -1,
                                     payload=hex(s.regs['a1']), **report))
-    return dict(callbacks=reports, scope='Real callbacks to unchanged GUI setter, including public-mode and current-control getters; unchanged service completion excluded')
+    return dict(callbacks=reports, scope='Patched native binding then real callbacks to unchanged GUI setter, including public-mode and current-control getters; unchanged service completion excluded')
 
 
 def page_cases(candidate, editor):

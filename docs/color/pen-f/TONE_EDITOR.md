@@ -11,6 +11,10 @@ explicit operation0 through the unchanged GUI setter, using registered high
 ID967/970/973 and the full word. No global proxy flag crosses a setter wait.
 The native busy guards and async envelope remain unchanged.
 
+On the black/white page, the front dial selects white and the rear dial selects
+black. The binder exchanges only the two dial property fields at offsets 180
+and 184. Arrow bindings and the other pages retain their existing mapping.
+
 The manager validates canonical state, writes native ACTIVE part1, publishes
 all three source words and invokes the correct profile refresh. It retains the
 high ID for native manager completion. Legal native−7..7 requests cannot match
@@ -36,7 +40,8 @@ placement sizes in `candidate/editor/placement.json`; GUI helpers occupy352
 bytes beginning610f1e54, while the core/owner table and editor use section8.
 Native hooks compare every displaced preimage before composition.
 
-The native probes exercise72 arrow/dial prefixes, nine page resets, selected
+The native probes bind each page before exercising 72 arrow/dial prefixes,
+nine page resets, selected
 manager write/publication, current-state references, selected-axis boundaries,
 78 native INFO classifications, actual92-byte parameter read/write, stale mode
 and unmapped-section fallback. No function is modeled in these editor cases.

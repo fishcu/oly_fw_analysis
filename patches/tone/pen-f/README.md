@@ -16,11 +16,11 @@ bounded offline verification and needs a physical retest.
 Open the native COLOR1, COLOR2 or COLOR3 tone editor. INFO cycles
 shadow/highlight → middle → black/white → shadow/highlight.
 
-| Page | Left/right or front dial | Down/up or rear dial | Held OK |
-|---|---|---|---|
-| Shadow/highlight | Lower/raise shadow | Lower/raise highlight | Reset S/H toward256/768 within unchanged neighbors |
-| Middle | Adjust middle | Adjust middle | Reset M toward0 within S/H |
-| Black/white | Lower/raise black | Lower/raise white | Reset B/W to0/1023 |
+| Page | Left/right | Down/up | Front dial | Rear dial | Held OK |
+|---|---|---|---|---|---|
+| Shadow/highlight | Lower/raise shadow | Lower/raise highlight | Shadow | Highlight | Reset S/H toward256/768 within unchanged neighbors |
+| Middle | Adjust middle | Adjust middle | Middle | Middle | Reset M toward0 within S/H |
+| Black/white | Lower/raise black | Lower/raise white | White | Black | Reset B/W to0/1023 |
 
 The front dial's positive native event lowers its selected point; the rear
 dial's positive event raises its selected point. Arrow directions in the table
@@ -87,8 +87,8 @@ its stock restore container. Producing these files performs no device access.
 |---|---|
 | Required full stock | `77398610b379f80238117f31a6d5bbf65d608b49ec563666c64d84367e969f2c` |
 | Pinned HSL package | `4f9a36e6742728ded3d9b443915355f1d1eea0371e1da673f322de970994f717` |
-| Five-point main | `fa57eea840b6c79cf1298d734449c412f14cd2897d7154a0d471b0922925af59` |
-| Five-point container,44433408 bytes | `5c67b2db82c1d2a7d415e95438c1743e90574424fb36affb381aa8e077ff061a` |
+| Five-point main | `5e2c519088aebcee27d5fa92a5aca1bf19464cdf27208da274aa7439bb867b6a` |
+| Five-point container,44433408 bytes | `4c027d1eb5b1d3ead05fa05dcbd8b2c17fea2e0169714c885834fa2ee969010a` |
 | Retained HSL OSD | `f713df2a2d7d57a511e55cabb0f84ac4d612f99c58df4502a89b32bd8580084c` |
 
 The candidate main and container hashes for each build are recorded in `build.json`.
