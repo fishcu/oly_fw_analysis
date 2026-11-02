@@ -209,8 +209,32 @@
     {
       "path": "patches/README.md",
       "origin": "original documentation, fixture or utility",
-      "sha256": "3d918d747084cb00ce26d32539c95b500beb480aa8c3682396f187fd555dc856",
-      "bytes": 2712
+      "sha256": "273ebbc4dac38543fe060f018736678ae67e7d070d4957d3b3f66377f011eeb1",
+      "bytes": 2802
+    },
+    {
+      "path": "patches/hsl/om-3/README.md",
+      "origin": "original documentation, fixture or utility",
+      "sha256": "01b924ca6ebf50ffc79680752f4e933e76e473c1c5785e9c8d215e08d85e9e03",
+      "bytes": 3990
+    },
+    {
+      "path": "patches/hsl/om-3/hsl.s",
+      "origin": "original documentation, fixture or utility",
+      "sha256": "a4be6ec934c862936ae54d4a5a2537b7ea3e9ceac3f298176fd851ae3c8f3736",
+      "bytes": 11162
+    },
+    {
+      "path": "patches/hsl/om-3/layout.ld",
+      "origin": "original documentation, fixture or utility",
+      "sha256": "8e8bb1fb4de45c786667f3f99e4b7691ba0eaa5989c01c452707c45b7ab1c237",
+      "bytes": 1154
+    },
+    {
+      "path": "patches/hsl/om-3/patch.json",
+      "origin": "original documentation, fixture or utility",
+      "sha256": "910337fd95f0492d94fb16fb7532e5816574059a6b5db8c9800554cb03b3c91f",
+      "bytes": 5012
     },
     {
       "path": "patches/hsl/pen-f/README.md",
