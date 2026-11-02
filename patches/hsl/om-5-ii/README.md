@@ -47,9 +47,48 @@ builder preserves both component lengths and writes updated additive checksums.
   image, but did not reach the H/L builder hook in this emulator path.
 - All three COLOR carousel slots render their fallback icons and labels with
   the repacked resource component in a live emulator session.
-- The display hook, axis-title paint wrapper and builder during a real capture
-  have not been exercised. Emulator power-off resets stock settings as well, so
-  it cannot establish persistence across power cycles.
+- The display hook and the builder during a real capture have not been
+  exercised. Emulator power-off resets stock settings as well, so it cannot
+  establish persistence across power cycles.
+
+## Colour wheel and tone-curve pages
+
+The E148 picture-mode direct screen still builds the Color Profile detail
+pages (children 2–5; the colour wheel is child 4, the tone curve child 2), but
+its visibility updater (`0x60dad4eb`) never shows them. E147 does, from its
+screen data (`0x611358eb..0x61135a23`). E148's data still flags the focused
+item: byte +245 for the colour editor, +247 for the tone item.
+
+`pages_hook` (`0x60dad5f5`, the updater's last call) shows child 4 or child 2
+from those flags, for Color Profile 1–3 only. The pages carry the OM-1/OM-3
+900x600 layout; E148's panels are 720x480, exactly 4/5 of it. On first show the
+hook scales the page and its view by 4/5 and moves each label so its centre
+scales, keeping text size. A page at most 720 wide is not scaled again.
+
+In OM-Emu, on both TFT and EVF and without debugger writes:
+
+- focusing the colour item shows the colour page: the axis title, the
+  `Switch [Delete]` hint, the selected-colour swatch, the stock value label
+  (which follows the H/L axis) and the `All / INFO` and reset hints, all inside
+  the screen; the tone item shows Shadow / Mid / Highlight with their hints;
+- the axis-title paint wrapper and the value-label hook now run natively;
+- leaving and re-entering the screen shows the same layout.
+
+The colour wheel itself, and the tone curve, are drawn by the camera's GPU
+(C3D/OpenVG), which OM-Emu does not model. Whether they appear, and where, after
+the 4/5 rescale is untested; it needs a camera. The display hook (wheel values
+for the H/L axes) was still not called with the page visible.
+
+## Native controls on Color Profile 1–3
+
+Restoring the modes also restores their native per-profile controls:
+Sharpness (IDs 904–907), Contrast (908–911), Shading Effect (912–915) and the
+tone curve (Shadow / Mid / Highlight, three IDs per profile from 976; INFO
+switches the part). Sharpness, Contrast and Shading use the stock slider; the
+tone curve uses the restored page above. Whether E148's image processing
+applies them to Color Profile records is not established in OM-Emu. The
+per-profile white balance stores its records in part 1 of 904–907 and 920–923;
+part 0 of 904–907 is native Sharpness and is not touched.
 
 E148 resolves the COLOR picture-mode artwork IDs to a placeholder resource
 record, whereas E147 has dedicated bitmaps. The patch aliases the three

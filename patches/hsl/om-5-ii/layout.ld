@@ -10,6 +10,7 @@ SECTIONS {
  .builder_hook 0x603e7eb0 : { *(.builder_hook) }
  .parent_hook 0x60ea0180 : { *(.parent_hook) }
  .paint_pointer 0x610c1540 : { *(.paint_pointer) }
+ .pages_hook 0x60dad5f5 : { *(.pages_hook) }
  .ext2 0x605af4b0 : { *(.ext2) }
  .ext6 0x60ca7b00 : { *(.ext6) }
  .ext7 0x612a4b98 : { *(.ext7) }
@@ -37,3 +38,7 @@ stock_paint = 0x60d47237;
 stock_font = 0x60d51f07;
 stock_text = 0x60d4b7bc;
 stock_font_release = 0x60d529eb;
+direct_layout = 0x60f05251;
+direct_ret = 0x60dad5fc;
+child_get = 0x60dad302;
+set_visible = 0x60f04d10;

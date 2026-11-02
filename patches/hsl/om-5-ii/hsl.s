@@ -36,6 +36,10 @@
  jmp parent_hook
 .section .paint_pointer,"a"
  .long paint_axis
+.section .pages_hook,"ax"
+ jmp pages_hook
+ nop
+ nop
 
 .section .ext7,"ax"
 /* Action-table entry of the SCP direct-setting screen for the Delete press
@@ -350,7 +354,7 @@ text_hue:
 text_lightness:
  .short 'L','i','g','h','t','n','e','s','s',0
 text_switch:
- .short 'S','w','i','t','c','h',' ','@','A','0','3','3','@',0
+ .short 'S','w','i','t','c','h',' ','@','A','0','3','4','@',0
 
 .section .ext6,"ax"
 read_hook:
@@ -500,6 +504,158 @@ display_signed:
  bne display_loop
  ret [d2,d3,a2,a3],24
 
+
+/* E148 keeps the Color Profile detail pages but no longer shows them: the
+ * picture-mode direct screen creates children 2-5 and its visibility updater
+ * (0x60dad4eb) never touches them. E147 shows them from its data-275 flags
+ * (0x611358eb..0x61135a23). E148's data-277 struct still carries the focus
+ * flags: +245 colour item, +247 tone item (E147 offsets - 32). This replaces
+ * the updater's last call (0x60dad5f5) and then shows child 4 (colour wheel)
+ * or child 2 (tone curve) for Color Profile 1-3 only. Registers: d2 = data
+ * struct, a3 = direct-screen controller; the stock ret restores them. */
+pages_hook:
+ call direct_layout,[d2,d3,a2,a3],160
+ mov 111,d0
+ call stock_get,[],4
+ sub 54,d0
+ cmp 3,d0
+ bcc pages_off
+ mov d2,a0
+ movbu (245,a0),d0
+ mov 4,d1
+ call show_page,[d2,d3,a2,a3],24
+ mov d2,a0
+ movbu (247,a0),d0
+ mov 2,d1
+ call show_page,[d2,d3,a2,a3],24
+ jmp direct_ret
+pages_off:
+ clr d0
+ mov 4,d1
+ call show_page,[d2,d3,a2,a3],24
+ clr d0
+ mov 2,d1
+ call show_page,[d2,d3,a2,a3],24
+ jmp direct_ret
+
+/* d0 = flag byte, d1 = child index, a3 = controller */
+show_page:
+ mov d0,d2
+ cmp 1,d2
+ beq show_on
+ clr d2
+show_on:
+ mov a3,a0
+ mov d1,d0
+ call child_get,[],0
+ cmp 0,a0
+ beq show_done
+ mov a0,a2
+ cmp 0,d2
+ beq show_set
+ call page_layout,[d2,d3,a2,a3],24
+show_set:
+ mov a2,a0
+ mov d2,d0
+ call set_visible,[d2,d3,a2],16
+show_done:
+ ret [d2,d3,a2,a3],24
+
+/* The pages carry the OM-1/OM-3 layout (900x600 content on an 800x600 page).
+ * E148's panels are 720x480, exactly 4/5 of it: scale the page and its view,
+ * and move each label so its centre scales (its size and font stay). Runs once
+ * per page: a scaled page is at most 720 wide. a0 = page. */
+page_layout:
+ mov a0,a2
+ mov (36,a2),a3
+ cmp 0,a3
+ beq layout_done
+ mov 12,d2
+ mov (a3),d0
+ cmp 0x610c14a0,d0
+ beq layout_view
+ mov 18,d2
+ cmp 0x610d6560,d0
+ bne layout_done
+layout_view:
+ movhu (12,a2),d0
+ cmp 720,d0
+ bls layout_done
+ movhu (12,a3),d1
+ cmp d1,d0
+ bcc layout_w
+ mov d1,d0
+layout_w:
+ call scale,[],4
+ movhu d0,(12,a2)
+ movhu (14,a2),d0
+ movhu (14,a3),d1
+ cmp d1,d0
+ bcc layout_h
+ mov d1,d0
+layout_h:
+ call scale,[],4
+ movhu d0,(14,a2)
+ mov a2,a1
+ call scale_pos,[],4
+ mov a3,a1
+ call scale_pos,[],4
+ movhu (12,a3),d0
+ call scale,[],4
+ movhu d0,(12,a3)
+ movhu (14,a3),d0
+ call scale,[],4
+ movhu d0,(14,a3)
+ clr d3
+layout_child:
+ mov a3,a0
+ add 792,a0
+ mov d3,d0
+ asl2 d0
+ mov (d0,a0),a1
+ cmp 0,a1
+ beq layout_next
+ call centre1,[],4
+ add 2,a1
+ call centre1,[],4
+layout_next:
+ inc d3
+ cmp d2,d3
+ bcs layout_child
+layout_done:
+ ret [d2,d3,a2,a3],24
+
+/* a1 = view: scale x, y */
+scale_pos:
+ movhu (8,a1),d0
+ call scale,[],4
+ movhu d0,(8,a1)
+ movhu (10,a1),d0
+ call scale,[],4
+ movhu d0,(10,a1)
+ ret [],4
+
+/* a1 -> position at (8,a1), size at (12,a1): keep size, scale the centre */
+centre1:
+ movhu (8,a1),d0
+ exth d0
+ add d0,d0
+ movhu (12,a1),d1
+ add d1,d0
+ call scale,[],4
+ movhu (12,a1),d1
+ sub d1,d0
+ asr 1,d0
+ movhu d0,(8,a1)
+ ret [],4
+
+/* d0 = d0 * 4/5 (signed halfword in, 0xccd/4096) */
+scale:
+ exth d0
+ mov 0xccd,d1
+ mul d1,d0
+ asr 12,d0
+ ret [],4
 
 .section .ext2,"ax"
 /* Keep stock saturation input. Load current active profile's cells after
