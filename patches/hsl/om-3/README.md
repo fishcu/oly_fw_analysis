@@ -69,6 +69,24 @@ layout. Invalid words decode as neutral. See the
 
 ## Known limits
 
+### Per-profile white balance research
+
+White balance is a candidate extension, not an implemented feature of this
+patch. [The OM-3 research in PR #9](https://github.com/fishcu/oly_fw_analysis/pull/9)
+now identifies the WB mode, custom Kelvin, current A/B and G/M corrections,
+and CWB's stored correction fields. Native GUI observations show that stock
+firmware recalls corrections by WB mode; recall by COLOR profile is not
+established.
+
+A future implementation needs a verified native setter and profile transition
+hook, separate persistent storage, and capture/live-view validation. The HSL
+COLOR builder hook does not establish a WB processing hook. One-touch WB gain
+storage, reset, custom modes and settings backup also remain to be traced.
+This patch's binary, storage layout and build fingerprints are unchanged by
+the WB research.
+
+### Current HSL limitations
+
 - H/L are read from the live settings when the COLOR builder runs, not
   snapshotted at capture. An image still being processed when H/L or the
   picture mode changes may receive the new values; in-camera RAW development
