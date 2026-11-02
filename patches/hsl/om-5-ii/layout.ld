@@ -1,0 +1,39 @@
+/* OM-5 Mark II 1.1 (E148 build 1100) runtime addresses. */
+SECTIONS {
+ .delete_pointer 0x61234464 : { *(.delete_pointer) }
+ .label_hook 0x60e4ade9 : { *(.label_hook) }
+ .container_pointer 0x611a0c54 : { *(.container_pointer) }
+ .reset_hook 0x60e9e0f4 : { *(.reset_hook) }
+ .read_hook 0x6091c66d : { *(.read_hook) }
+ .write_hook 0x6091c6bd : { *(.write_hook) }
+ .display_hook 0x60a33eac : { *(.display_hook) }
+ .builder_hook 0x603e7eb0 : { *(.builder_hook) }
+ .parent_hook 0x60ea0180 : { *(.parent_hook) }
+ .paint_pointer 0x610c1540 : { *(.paint_pointer) }
+ .ext2 0x605af4b0 : { *(.ext2) }
+ .ext6 0x60ca7b00 : { *(.ext6) }
+ .ext7 0x612a4b98 : { *(.ext7) }
+ .state 0x60ca7fc0 : { *(.state) }
+}
+axis = 0xa0ca7fc0;
+screen_forward = 0x60ed5c18;
+stock_delete_action = 0x60ed6476;
+stock_container = 0x60e3ca0a;
+label_resume = 0x60e4adf3;
+label_format = 0x611b5af0;
+reset_resume = 0x60e9e0fa;
+parent_resume = 0x60ea0185;
+read_resume = 0x6091c674;
+write_resume = 0x6091c6c4;
+stock_display_next = 0x6092bbfc;
+display_resume = 0x60a33eb3;
+builder_resume = 0x603e7eb5;
+stock_get = 0x602d000d;
+stock_ui_write = 0x60855cdc;
+active_read = 0x602f50f8;
+active_write = 0x602f5121;
+color_builder = 0x603e7c3f;
+stock_paint = 0x60d47237;
+stock_font = 0x60d51f07;
+stock_text = 0x60d4b7bc;
+stock_font_release = 0x60d529eb;

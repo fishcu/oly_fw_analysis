@@ -30,6 +30,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
 from oly_container import parse, replace_payload, reconstruct  # noqa: E402
+from oly_compress import expand_image, repack_image  # noqa: E402
 
 SCHEMA = 'oly-patch/1'
 
@@ -103,7 +104,10 @@ class Component:
         self.kind, self.block = kind, block
         self.base = int(spec['cpu_base'], 16) if 'cpu_base' in spec else 0
         self.spec = spec
-        self.data = bytearray(block.payload)
+        self.compressed = spec.get('image_transform') == 'olycompress'
+        require(not self.compressed or sha(block.payload) == spec['stored_before_sha256'],
+                f'Unexpected stored component {kind:#x}')
+        self.data = bytearray(expand_image(block.payload) if self.compressed else block.payload)
         require(sha(self.data) == spec['before_sha256'], f'Unexpected stock component {kind:#x}')
         self.declared, self.written, self.after = {}, set(), {}
 
@@ -201,15 +205,22 @@ def build(patch_dir, stock_path, out, tools=None, decoded=False, untested=False)
         original = comp.data[at:at + bitmap['bytes']]
         comp.install(bitmap['name'], at, encode_format3_bitmap(pixels, original[:4], bitmap['width'], bitmap['height'], bitmap['bytes']))
 
-    patched = {kind: comp.finish() for kind, comp in comps.items()}
+    expanded = {kind: comp.finish() for kind, comp in comps.items()}
+    patched = {kind: repack_image(by_kind[kind].payload, data) if comps[kind].compressed else data
+               for kind, data in expanded.items()}
+    for kind, comp in comps.items():
+        if comp.compressed:
+            require(sha(patched[kind]) == comp.spec['stored_after_sha256'],
+                    f'Repacked component {kind:#x} differs from the reference')
     report = {'schema': SCHEMA, 'name': spec['name'], 'model': spec['model'], 'firmware': spec['firmware'],
               'release': spec.get('release'), 'camera_tested': tested, 'stock_sha256': sha(stock),
-              'components': {f'{k:#x}': {'sha256': sha(v), 'changed_bytes': sum(a != b for a, b in zip(v, by_kind[k].payload))}
+              'components': {f'{k:#x}': {'sha256': sha(v), 'expanded_sha256': sha(expanded[k]),
+                                        'changed_bytes': sum(a != b for a, b in zip(v, by_kind[k].payload))}
                              for k, v in patched.items()}}
 
     if decoded:
         (out / 'decoded').mkdir()
-        for kind, data in patched.items():
+        for kind, data in expanded.items():
             (out / 'decoded' / f'{kind:04x}.bin').write_bytes(data)
         report['decoded'] = sorted(f'decoded/{k:04x}.bin' for k in patched)
 
