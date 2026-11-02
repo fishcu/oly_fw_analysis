@@ -3,9 +3,10 @@
 OM-3 firmware 1.1, internal build 1100. Decoded main SHA-256
 `5e8d376e9111a44ac0352f26030d7c1b17026d42c45f3600cfa02a0e8c5b7d59`.
 Addresses are runtime addresses. Evidence: static setting metadata and native
-GUI execution in a modified OM-Emu with the experimental HSL image. The HSL
-image does not intentionally change the WB page. No physical camera, ISP,
-normal capture processing, or one-touch WB measurement was tested.
+GUI execution in OM-Emu. Initial observations used the HSL image without WB
+changes; subsequent integration checks executed the experimental HSL/WB
+extension. No physical camera, ISP, complete capture processing, or one-touch
+WB measurement was tested.
 
 ## Established settings
 
@@ -26,9 +27,11 @@ entries. The native getter used for the observations is `603f039d`
 | 84 | `8e41` / 0 | One-touch slot cursor: 1–4 |
 | 1720 | `8131` / 0 | Changes on WB selection; meaning not established |
 
-These pairs describe observed correspondence, not interchangeable APIs. In
-particular, a write to a backing field alone has not been shown to refresh the
-current field, notify the camera application, or affect the ISP.
+These pairs describe correspondence through the high-level getter, not
+interchangeable raw values or APIs. The raw record for 9 holds a WB category
+(for example 3 for CWB), while its high-level getter presents the combined WB
+choice (9 for CWB). Native UI writes to the backing fields have now been
+verified to propagate into current fields; ISP output remains untested.
 
 ## Reproduced GUI observations
 
@@ -66,36 +69,106 @@ profile. Static metadata contains 13 exposed entries each for records
 `0,18,5,1,7,14,10,12,13,15,16,17,19` in ID order (1580–1592 and
 1593–1605 respectively).
 
-## Feasibility and patch boundary
+## Native setter and profile transition
 
-Per-COLOR WB is plausible as a settings save/recall extension: preserve WB
-selection, custom Kelvin and the correction data for each COLOR1–4 slot;
-on a profile transition, use the native WB update path to restore them.
-This is a proposed design, not a working firmware patch.
+A working experimental settings-recall extension is now included in
+[PR #11](https://github.com/fishcu/oly_fw_analysis/pull/11). It uses the native
+settings path before capture rather than changing the late HSL builder.
 
-The existing HSL builder hook is too late to serve as a demonstrated WB
-hook: it edits COLOR output records, whereas WB belongs to an earlier
-processing stage whose OM-3 parameter handoff has not been mapped here.
-Writing Kelvin into HSL storage would establish neither WB processing nor
-capture timing.
+During GUI profile changes, `60aea1de(id,value,a0=1)` receives 901 with
+54/55/56/64. It acquires the stock UI lock, calls `603f011a`, and converts the
+UI value before entering commit `603f1ea1`. The latter receives the grouped
+901/1111 representation, finishes dependency propagation, and updates editor
+profile 903. This provides an observed commit boundary for native GUI profile
+changes. Direct native calls through this UI path also reproduce profile changes.
 
-An implementation still needs:
+The failed scalar setter experiment used a different interface:
+`60afa3f9` -> `603f015d` -> `603f1ea1`. Groups are listed at `605b49d4`, 34 bytes
+per row, terminated by ID 3200 within each row:
 
-- A traced profile transition covering menu, SCP, creative dial and custom
-  mode recall, with safe ordering relative to stock settings refresh.
-- A verified WB setter ABI and notifications. Direct experimental calls to
-  OM-Emu's mapped API setter (disassembly address `50ad93d9`) with scalar registers faulted in
-  the getter path; no callable setter contract is established by that test.
-- Allocated persistent storage with an ownership audit. HSL already uses
-  part 1 of IDs 928–975; WB must not overwrite those packed H/L words.
-- A policy for entry from and exit to non-COLOR modes, first use, reset,
-  custom-mode assignment/recall and settings backup/restore.
-- A decision whether one-touch slots remain shared references or their
-  measured gains are copied. Selecting slots 1–4 proves no gain storage.
-- Verification of live view, captured JPEG, RAW metadata and RAW development,
-  including a WB/profile edit while an earlier image is still processing.
+| Group | Member IDs | Argument to the raw commit interface |
+| --- | --- | --- |
+| WB, 9 | 9, 1720, 1765, 84 | Pointer to four 32-bit raw values |
+| Picture mode, 901 | 901, 1111 | Pointer to two 32-bit raw values |
 
-The emulator experiments establish editable settings and a native per-WB-mode
-recall mechanism. They do not yet qualify an extension to the installable HSL
-patch. The current result is research for that extension, not a claim that
-the feature is impossible or camera-tested.
+Passing an integer instead of a pointer faults in `603f17d2` when it loads
+array elements at `603f17f1`. Passing displayed values as raw values is also
+incorrect: CWB's displayed choice 9 has raw WB category 3; COLOR's raw picture
+mode is 11 with its profile in 1111. Native UI conversion avoids both mistakes.
+
+For WB recall, verified calls use UI ID 1578 for the selected WB choice, 1632
+for Kelvin, and the backing correction pair below. CWB calls for 9, 5600, +2,
++3 produce matching active 9/107/39/132 and backing 1578/1632/1592/1605 values.
+Changing only current IDs 39/132 fails to update the backing correction table.
+A low-level write and a complete native UI transaction therefore differ.
+
+| Displayed WB | A/B ID | G/M ID |
+| --- | ---: | ---: |
+| Auto (0) | 1580 | 1593 |
+| Underwater (18) | 1581 | 1594 |
+| Fluorescent (3) | 1582 | 1595 |
+| Incandescent (1) | 1583 | 1596 |
+| Sunny (6) | 1584 | 1597 |
+| Flash (17) | 1585 | 1598 |
+| Cloudy (7) | 1586 | 1599 |
+| Shade (8) | 1587 | 1600 |
+| One-touch (13–16) | 1588–1591 | 1601–1604 |
+| CWB (9) | 1592 | 1605 |
+
+The mapping was established by putting distinct signed values in all thirteen
+backing entries through native setters, selecting each WB choice, and reading
+current 39/132. The combined extension's reproducible integration probe recalls
+every choice through actual firmware and verifies the active correction pair.
+
+## Native WB parameter copies
+
+Stock slice `604876ba..60487736` copies WB fields into a compact record:
+
+| Destination | Native source |
+| --- | --- |
+| +33, signed byte | Record `84f9`, index 0: A/B |
+| +34, signed byte | Record `9679`, index 0: G/M |
+| +35, byte | Record `8131`, index 0 |
+| +36, byte | Record `8121`, index 0: raw WB category |
+| +38, halfword | Record `8f22`, index selected by `8a61` |
+
+The integration probe executes this unmodified slice with an explicit scratch
+destination and stop boundary, against OM-Emu's live native settings DB after
+WB recall. Kelvin and both tint bytes match each restored configuration;
+surrounding bytes remain unchanged. This establishes one native parameter-copy
+path, not a complete capture test or the ownership/timing of every live job.
+
+Other static routes matter: `603e8c12` copies raw WB category to snapshot+37644;
+`603e8e8d..603e8e9d` copies Kelvin to snapshot+37642. The processing branch near
+`60457949` selects WB handling using snapshot+37644, while branches including
+`60457979` and `60457c44` read tint records. This mix of snapshot and live-record
+inputs means queued/burst timing must be tested explicitly. A compact-copy
+result alone does not prove the full pipeline locks all WB inputs at shutter time.
+
+## Extension evidence and remaining limits
+
+The extension stores four checked words for each COLOR profile and one
+non-COLOR record in part 1 of IDs 904–923. HSL's part-1 IDs 928–975 are separate.
+All 22 examined native mode tables select part 0 for the WB IDs. This is a
+bounded table audit, not universal storage-ownership proof.
+
+Verified in OM-Emu: four independent COLOR configurations; normal WB dial edits;
+native GUI profile changes; non-COLOR WB restore; simulated power cycle and
+process restart; custom-bank switching; all thirteen WB choices; invalid record
+fallback; HSL coexistence; and the compact native copy above. Native C1 recall
+loads its saved defaults and discards unassigned C1 edits under its default save
+policy. Both native WB and extension records follow that behaviour; returning
+to the ordinary shooting bank restores its separate values.
+
+The isolated emulator harness models the exact section-4 storage read, handles
+the restored SCPU backup marker and omits an unsupported ARGB graphics plane.
+Save/recall is executed by the assembled firmware, not simulated by the harness.
+The source, placement, storage format and repeatable probe are included in
+[PR #11](https://github.com/fishcu/oly_fw_analysis/pull/11).
+
+Still unqualified: real startup and section residency/reload concurrency;
+physical creative-dial transitions; ISP/live-view/JPEG output; RAW metadata and
+development; queued/burst timing; reset; custom-mode assignment/save policies;
+settings backup/restore; and the measured-gain storage behind one-touch slots.
+One-touch choices currently remain references to the four shared camera slots.
+No hardware result or camera-safe installation claim follows from these tests.
