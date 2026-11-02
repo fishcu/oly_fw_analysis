@@ -42,8 +42,7 @@ setting record f6ea (effective, IDs 916–927)
 ```
 
 Executed in sequence on shared synthetic memory, they carry the saturation
-bytes from the effective record to the builder input. The pointer formula is
-proven; identity of the runtime objects is not.
+bytes from the effective record to the builder input. Static tracing of one job-start route also binds the submitted descriptor’s `+4` pointer to this same `P` by construction. This establishes the pointer relationship on that route, not the identity or ordering of live runtime objects.
 
 `P` is a shared scratch descriptor. Five accessor variants (`604b6092`,
 `604b60a6`, `604b60ba`, `604b60ce`, `604b6108`) compute the same `P` but run

@@ -35,3 +35,5 @@ and pixel arithmetic without proving the camera ISP uses the same implementation
 Input identities are in [provenance](../provenance/README.md). The
 [tool guide](../tools/README.md) identifies reproducible entry points and their
 dependencies.
+
+Further comparisons: [OM container inventory](format/OM_COMPARISON.md) · [OM-5 colour processing](color/om-5/PROFILE_PROCESSING.md) · [OM-5 menu compatibility](features/om-5/MENU_COMPATIBILITY.md).
