@@ -10,3 +10,6 @@ stock_get = 0x603f039d;
 stock_ui_write = 0x60aea1de;
 active_read = 0x604197e2;
 active_write = 0x6041980b;
+
+wb_code_words = 123;
+wb_code_xor = 0x764232cb;

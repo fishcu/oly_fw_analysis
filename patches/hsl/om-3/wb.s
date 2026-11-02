@@ -30,11 +30,30 @@ wb_load_section:
  mov 4,d0
  call section_load,[d2,d3,a2,a3],20
 wb_loaded:
+ /* Check the entire WB body through its uncached alias, including padding.
+  * The native loader sets its loaded bit even when the read reports failure. */
+ mov 0xa0a8f100,a0
+ mov wb_code_words,d3
+ clr d2
+wb_verify_loop:
+ mov (a0),d0
+ xor d0,d2
+ inc4 a0
+ add -1,d3
+ bne wb_verify_loop
  mov (4,sp),d0
  mov (8,sp),d1
  mov (12,sp),a0
  mov (16,sp),a1
  add 20,sp
+ cmp wb_code_xor,d2
+ beq wb_verified
+ /* Do not execute a missing/partial body or retain a false loaded flag. */
+ mov (0xa32de590),d2
+ and 0xfffffff7,d2
+ mov d2,(0xa32de590)
+ jmp wb_passthrough
+wb_verified:
  jmp wb_commit
 .section .wb_extension,"ax"
 /* Replaces the first five bytes of the native commit routine. Its caller
@@ -57,7 +76,7 @@ wb_do_commit:
  mov d2,d0
  mov d3,d1
  call wb_original,[d2,d3,a2,a3],20
- mov d0,(sp)
+ mov d0,(4,sp)
  cmp 901,d2
  bne wb_edit
  call wb_current,[d2,d3,a2,a3],20
@@ -80,7 +99,7 @@ wb_store_edit:
 wb_done:
  clr d0
  movbu d0,(busy)
- mov (sp),d0
+ mov (4,sp),d0
  add 8,sp
  ret [d2,d3,a2,a3],20
 wb_original:
@@ -235,3 +254,5 @@ wb_inherit:
  ret [d2,d3,a2,a3],40
 wb_modes:
  .byte 0,18,3,1,6,17,7,8,13,14,15,16,9
+
+ .balign 4,0xcb

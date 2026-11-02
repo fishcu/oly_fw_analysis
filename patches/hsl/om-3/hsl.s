@@ -40,10 +40,10 @@
  * as the same screen already does for INFO. Elsewhere: stock. */
 hsl_delete_action:
  mov d0,(axis+12)
- add -12,sp
- mov d1,(0,sp)
- mov a0,(4,sp)
- mov a1,(8,sp)
+ add -16,sp
+ mov d1,(4,sp)
+ mov a0,(8,sp)
+ mov a1,(12,sp)
  clr d1
  movbu d1,(axis+9)
  movbu (a0),d0
@@ -59,10 +59,10 @@ hsl_delete_action:
  mov 1,d0
  movbu d0,(axis+9)
 delete_restore:
- mov (0,sp),d1
- mov (4,sp),a0
- mov (8,sp),a1
- add 12,sp
+ mov (4,sp),d1
+ mov (8,sp),a0
+ mov (12,sp),a1
+ add 16,sp
  movbu (axis+9),d0
  cmp 0,d0
  beq delete_stock
@@ -141,8 +141,8 @@ label_get:
  sub 916,d0
  cmp 12,d0
  bcc label_get_done
- add -4,sp
- mov d3,(sp)
+ add -8,sp
+ mov d3,(4,sp)
  mov d0,d3
  mov 903,d0
  call stock_get,[],4
@@ -156,10 +156,10 @@ label_get:
  add 928,d0
  add d3,d0
  call ui_read,[d2,d3,a2,a3],24
- mov d0,(36,sp)
+ mov d0,(40,sp)
 label_get_restore:
- mov (sp),d3
- add 4,sp
+ mov (4,sp),d3
+ add 8,sp
 label_get_done:
  jmp label_resume
 
@@ -372,17 +372,17 @@ decode_zero:
 
 /* The stock descriptor points to 12 bytes at d2. */
 display_hook:
- add -16,sp
- mov d1,(0,sp)
- mov a0,(4,sp)
- mov a1,(8,sp)
- mov d0,(12,sp)
+ add -20,sp
+ mov d1,(4,sp)
+ mov a0,(8,sp)
+ mov a1,(12,sp)
+ mov d0,(16,sp)
  call display_values,[d2,d3,a2,a3],24
- mov (0,sp),d1
- mov (4,sp),a0
- mov (8,sp),a1
- mov (12,sp),d0
- add 16,sp
+ mov (4,sp),d1
+ mov (8,sp),a0
+ mov (12,sp),a1
+ mov (16,sp),d0
+ add 20,sp
  mov 5,d0
  jmp display_resume
 display_values:
@@ -431,21 +431,21 @@ display_done:
  * the builder. Per-image ownership remains unqualified. */
 builder_hook:
  call color_builder,[d2,d3,a2,a3],96
- add -24,sp
- mov d0,(0,sp)
- mov d1,(4,sp)
- mov a0,(8,sp)
- mov a1,(12,sp)
- mov a2,(16,sp)
- mov a3,(20,sp)
+ add -28,sp
+ mov d0,(4,sp)
+ mov d1,(8,sp)
+ mov a0,(12,sp)
+ mov a1,(16,sp)
+ mov a2,(20,sp)
+ mov a3,(24,sp)
  call apply_values,[d2,d3,a2,a3],24
- mov (0,sp),d0
- mov (4,sp),d1
- mov (8,sp),a0
- mov (12,sp),a1
- mov (16,sp),a2
- mov (20,sp),a3
- add 24,sp
+ mov (4,sp),d0
+ mov (8,sp),d1
+ mov (12,sp),a0
+ mov (16,sp),a1
+ mov (20,sp),a2
+ mov (24,sp),a3
+ add 28,sp
  jmp builder_resume
 apply_values:
  mov (12,a2),a2

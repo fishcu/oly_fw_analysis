@@ -2,7 +2,7 @@
 
 OM-3 firmware 1.1, build 1100 only. Experimental: no physical camera test.
 The combined decoded main SHA-256 is
-`a29675b70a29d279ec7f1a16431b1cc44cae39a570eb1c36e7982c7153419532`.
+`659f6c517cb30688169acb464ee85eac66e9832460b7bf9a892e5f6bfba02cc5`.
 
 ## Behaviour
 
@@ -24,8 +24,13 @@ pair through the appropriate native backing entries.
 already supplies the register-saving frame. Unrelated IDs replay the prologue
 immediately. WB IDs and picture mode 901 pass through a section-1 dispatcher,
 which checks section 4's loaded bit and, when necessary, calls `60045ed5(4)`.
-The WB body occupies `60a8f100..60a8f2e9`, inside section 4's loaded FF tail.
-The dispatcher occupies `6031ef14..6031ef6b`, after the HSL body and before its
+After either the loaded-bit check or a load attempt, the dispatcher verifies
+the XOR of all 123 body words through the uncached alias. A mismatch clears
+section 4's loaded bit and replays the stock commit without entering the WB
+body. This guards extension execution; it cannot repair other section data or
+qualify hardware cache behaviour. See [hardening tests](HARDENING.md).
+The WB body occupies `60a8f100..60a8f2ec`, inside section 4's loaded FF tail.
+The dispatcher occupies `6031ef14..6031ef9c`, after the HSL body and before its
 state. These placements are separate from the firmware container checks.
 
 The wrapper lets the stock commit finish its dependency callbacks, then saves
@@ -109,6 +114,11 @@ output and stop boundary. It verifies A/B at +33, G/M at +34 and Kelvin at +38,
 plus unchanged surrounding bytes. This proves a compact WB parameter copy sees
 the recalled values. It does not execute a complete shutter-to-JPEG path or
 establish when all WB inputs are locked for queued images.
+
+A controlled native processing-slice test also demonstrates that an earlier
+Kelvin snapshot can be combined with later live tint values. This is a remaining
+capture-timing concern, described in [HARDENING.md](HARDENING.md); a complete
+image-owned WB path has not been established.
 
 No camera was contacted or flashed. Live view, ISP/JPEG output, RAW metadata,
 in-camera development, burst timing, real startup/loading, reset, assigning a

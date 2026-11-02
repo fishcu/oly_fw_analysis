@@ -21,11 +21,11 @@ python3 tools/oly_patch.py patches/hsl/om-3 \
 The stock file must have SHA-256
 `8c133084414533159f587bf46bfb4152714c4074312a47c8d8503e33d605696d`. Outputs:
 
-- `decoded/0100.bin`: patched main component (SHA-256 `2097fee0…6f3f`), e.g.
+- `decoded/0100.bin`: patched main component (SHA-256 `659f6c51...2cc5`), e.g.
   for an emulator.
 - `install/DCOLYMP/E1479999.BIN` (only with `--write-untested-package`): the
   complete update file, all six components, only main changed
-  (SHA-256 `859d32ee…7f3f`).
+  (SHA-256 `27c936e8...7b8e`).
 - `restore-stock/DCOLYMP/E1479999.BIN`: the unmodified stock file.
 
 GNU binutils for `mn10300-elf` are required; 2.43 was used.
@@ -41,7 +41,7 @@ Picture mode COLOR1–4, Color Vivid editor:
 | Sub dial / main dial | Select colour / set −5…+5 |
 | OK held | Reset the current axis only |
 
-White balance: select COLOR1�4, then change WB in the normal WB screen. Each
+White balance: select COLOR1–4, then change WB in the normal WB screen. Each
 profile remembers the selected WB mode, custom Kelvin and the current A/B and
 G/M corrections. Switching profiles recalls these values. First use inherits
 the current WB. Leaving COLOR restores a separate WB record for other picture
@@ -65,7 +65,7 @@ follow custom-mode recall like saturation.
 | `60b1d363` | Wheel values: H/L when that axis is active |
 | `60518615` | After the COLOR builder: H/L output records for COLOR1–4 (setting 901 = 54/55/56/64) only |
 | `603f1ea1` | Native settings commit wrapper: save WB edits and recall on picture-mode changes |
-| `6031ef14..6031ef6b`, `60a8f100..60a8f2e9` | WB dispatcher and extension in loaded section tails; section 4 is loaded through the native loader if needed |
+| `6031ef14..6031ef9c`, `60a8f100..60a8f2ec` | WB dispatcher and extension in loaded section tails; section 4 is loaded through the native loader if needed |
 | `61452290` (pointer) | Paint wrapper: axis title and hint |
 | `6031e920..6031ef14`, `6031efa0..6031efe0` | Code and 64-byte state in the section-1 loaded tail |
 
@@ -79,6 +79,9 @@ layout. Invalid words decode as neutral. See the
 ## Known limits
 
 ### White balance validation limits
+
+See [hardening results](HARDENING.md) for ABI fixes, loader fault tests,
+interrupted records and a reproduced native late-tint read.
 
 WB recall is implemented and tested in OM-Emu, including the native compact WB
 parameter-copy slice. This is not validation of live-view colour, JPEG output,

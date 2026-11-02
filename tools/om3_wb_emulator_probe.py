@@ -40,8 +40,20 @@ def audit_layout(image):
     assert struct.unpack('<HHII',read(0x605f6c7c+22*12,12))[0]==0
     assert struct.unpack('<III',read(0x60029b28+3*12,12))==(0x60828000,0x50807000,0)
     assert 0x6031e920+1524==0x6031ef14
-    assert 0x6031ef14+87<=0x6031efa0
-    assert 0x60a8f100+489<=0x60a8f800
+    spec=json.loads((ROOT/'patches/hsl/om-3/patch.json').read_text())
+    regions={r['name']:r for r in spec['ranges']}
+    assert int(regions['wb_loader']['address'],16)==0x6031ef14
+    assert 0x6031ef14+regions['wb_loader']['bytes']<=0x6031efa0
+    assert int(regions['wb_extension']['address'],16)==0x60a8f100
+    size=regions['wb_extension']['bytes']
+    assert size%4==0 and 0x60a8f100+size<=0x60a8f800
+    import re
+    linker=(ROOT/'patches/hsl/om-3/wb.ld').read_text()
+    words=int(re.search(r'wb_code_words = (\d+);',linker)[1])
+    expected=int(re.search(r'wb_code_xor = (0x[0-9a-f]+);',linker)[1],16)
+    total=0
+    for word in struct.unpack('<'+str(size//4)+'I',read(0x60a8f100,size)):total^=word
+    assert words==size//4 and total==expected
     print('PASS 22 native mode tables select part 0 for WB extension IDs 904..923; code stays within audited loaded tails',flush=True)
 
 def prepare_copy(source,dest,image,spec):
