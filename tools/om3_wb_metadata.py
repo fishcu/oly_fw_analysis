@@ -47,6 +47,11 @@ def main():
     assert read(0x60aea1de,3)==bytes.fromhex('938782')
     copy_sha=hashlib.sha256(read(0x604876ba,0x60487736-0x604876ba)).hexdigest()
     assert copy_sha=='94ad7e55f07eb926a93723d35f4e6fcb3f29428320d0c0f540cf28ff015186a0'
+    assert read(0x60457c44,6)==bytes.fromhex('fcccf9840000')
+    assert read(0x60457c5d,6)==bytes.fromhex('fccc79960000')
+    assert read(0x60457c76,6)==bytes.fromhex('fc600a930000')
+    processing_sha=hashlib.sha256(read(0x60457c44,0x60457c80-0x60457c44)).hexdigest()
+
     for row in range(22):
         group,variant,address,count=struct.unpack('<HHII',read(0x605f6c7c+12*row,12))
         assert group and 0<count<3000
@@ -58,6 +63,7 @@ def main():
     print(json.dumps({'sha256':EXPECTED,'fields':fields,'correction_indices':indices,
                       'raw_argument_groups':groups,'ui_setter':'0x60aea1de',
                       'commit_prologue':'0x603f1ea1','compact_copy_sha256':copy_sha,
+                      'cwb_processing_slice_sha256':processing_sha,
                       'alt_table_audit':{'groups':22,'ids':'904..923','selected_part':0,
                                         'scope':'examined static mode tables only'}},indent=2))
 

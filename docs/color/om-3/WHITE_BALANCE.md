@@ -172,3 +172,45 @@ development; queued/burst timing; reset; custom-mode assignment/save policies;
 settings backup/restore; and the measured-gain storage behind one-touch slots.
 One-touch choices currently remain references to the four shared camera slots.
 No hardware result or camera-safe installation claim follows from these tests.
+
+## Further fault and capture-timing experiments
+
+The hardening work in [PR #11](https://github.com/fishcu/oly_fw_analysis/pull/11)
+adds reproducible native ABI, failed-load and lifecycle probes. The native
+loader sets section 4's loaded bit even after the modeled read reports failure;
+the previous extension could enter missing/partial WB code. A full-body check
+and stock fallback now reject failed, partial, already-marked-invalid and
+single-bit-corrupted WB bodies. This protects extension entry, not the integrity
+of the remainder of section 4 or physical cache behaviour.
+
+The ABI audit also found nested-call stack preservation bugs: SP+0 is a CALL
+return-address slot. A WB return value, HSL display/Delete D1, HSL builder D0,
+and HSL label D3 were stored there across calls. The extension now reserves that
+slot. Isolated WB/display/Delete/builder regressions fail on the previous image
+and pass on the corrected image; the label is covered by inspection and GUI
+regression. Native commit completion is modeled in the isolated ABI cases.
+
+All six boundaries of a five-write WB save were injected as alternate-record
+states. After a simulated power cycle, old/new complete records recalled and
+incomplete records inherited the active WB. This tests RAM record states and a
+clean modeled power cycle, not power loss during physical flash programming.
+A 1,000-switch deterministic run preserved the cleared recursion guard and
+showed no before/after changes outside IDs 904–923 in all 2,256 part-1 cells.
+This is a bounded storage-footprint test, not a global RAM watchpoint or proof
+against concurrent tasks. An eight-state creative-input attempt produced no
+picture-mode transitions in this emulator state, so that route remains unqualified.
+
+The capture concern now has a controlled native reproduction. COLOR1's compact
+parameters held 4000 K with A/B -2 and G/M +2. After selecting COLOR2 at 5000 K
+with A/B -1 and G/M +1, stock CWB processing slice `60457c44..60457c80` was
+entered with the earlier 4000 K snapshot at context+37642. It wrote 4000 K to
+context+5422, but -1/+1 from the live records to context+37734/+37736. Thus this
+branch can combine earlier Kelvin with later tint under controlled scheduling.
+The experiment uses a synthetic processing object and explicit entry/stop;
+whether a real queued capture can encounter that ordering remains unproven.
+
+An image-owned correction source and its lifetime across capture preparation,
+processing, RAW development and metadata are required before changing this
+path. The current extension does not claim queued/burst WB correctness. See
+`patches/hsl/om-3/HARDENING.md` and the three probes in PR #11 for reproduction,
+fault-model boundaries and the remaining reset/backup/hardware checks.
