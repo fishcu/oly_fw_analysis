@@ -71,6 +71,32 @@ reported as creative-dial coverage. The physical path remains open.
 
 ## Capture timing: a remaining limitation
 
+The hash-pinned `tools/om3_wb_capture_route.py` audit checks two identified
+stock preparation callers at `603e37e2` and `603e6325`. Both call `603e8e04`.
+Within that routine, Kelvin is stored at `603e8e9d`, and `603e8f44` calls
+`60454b7c`, which synchronously calls formatter `60456793`. Its CWB branch
+reads live A/B and G/M at `60457c44` and `60457c5d`. This narrows the possible
+interleaving to preemption or a callback within that call chain; it does not
+show that a normal queued capture actually interleaves with a GUI edit.
+
+The two callers have different surrounding event paths. A per-job or burst
+completion signal covering both paths, their start before settings reads, and
+the task allowed to apply pending UI writes have not been established. The
+counter increment at `603e62c5..603e62cd` is insufficient evidence of such a
+signal: its decrement and ownership have not been traced. The current WB
+commit hook is also after UI conversion and entry into settings commit; it
+cannot by itself defer the whole settings transaction. Consequently this
+revision does not add a deferred-request queue or infer safety from the UI
+setter's lock. It leaves the firmware behaviour unchanged while the capture
+route check is made reproducible.
+
+Run the bounded static check on the stock decoded main:
+
+```sh
+python3 tools/om3_wb_capture_route.py \
+  ../../extracted/om3-1100/00_0100_50000020.decoded.bin
+```
+
 The lifecycle probe sets COLOR1 to CWB 4000 K with A/B -2 and G/M +2, copies
 its compact parameters, then selects COLOR2 at 5000 K with A/B -1 and G/M +1.
 It enters unmodified processing slice `60457c44..60457c80` with the earlier
@@ -87,13 +113,12 @@ controlled scheduling. It does not establish whether a real queued capture
 can reach the branch after a profile edit; that ordering remains open. The
 compact WB-copy integration test alone was insufficient to exclude this issue.
 
-A complete fix needs a verified image-owned tint source and its lifetime across
-capture preparation, processing, RAW development and metadata. Writing an
-assumed spare field or suppressing profile changes using an untraced busy flag
-would add unqualified ownership assumptions. The current patch therefore does
-not claim image-owned WB or queued/burst correctness. The next capture task is
-to bind the snapshot owner and processing object on live capture routes, then
-carry or select the captured correction pair on every relevant WB branch.
+A complete fix could use a verified image-owned tint source across capture
+preparation, processing, RAW development and metadata, or defer whole settings
+transactions until all relevant captures have finished reading settings.
+Writing an assumed spare field or suppressing profile changes using an
+untraced busy flag would add unqualified ownership assumptions. The current
+patch therefore does not claim image-owned WB or queued/burst correctness.
 
 ## Reproduce
 
