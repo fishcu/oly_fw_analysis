@@ -1,5 +1,8 @@
 # OM-3 COLOR settings and alternate cells
 
+For the separate white balance fields and the limits of a per-COLOR WB
+extension, see [white balance](WHITE_BALANCE.md).
+
 Model OM-3, displayed firmware 1.1, internal build 1100. Update file SHA-256
 `8c133084414533159f587bf46bfb4152714c4074312a47c8d8503e33d605696d`; decoded main
 SHA-256 `5e8d376e9111a44ac0352f26030d7c1b17026d42c45f3600cfa02a0e8c5b7d59`.
