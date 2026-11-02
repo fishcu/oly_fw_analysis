@@ -70,7 +70,10 @@ The builder does not connect to or flash a camera.
 | `wifi` | Marked remote reads/writes through the existing application setter path |
 
 `patch.json` records section placement, the small instruction/data edits and
-expected hashes. Source groups describe functions, not independently switchable
+expected hashes in the shared [`oly-patch/1` format](../../README.md); `build.py`
+runs the shared builder, [`tools/oly_patch.py`](../../../tools/oly_patch.py), on
+this directory. `python3 tools/oly_patch.py patches/hsl/pen-f --stock … --out …`
+is equivalent, and `--decoded` also writes the patched decoded components. Source groups describe functions, not independently switchable
 features: they share state and entry points. `value-pixels.txt` freezes the
 regular-font artwork as 52×26 palette indices, avoiding font-version differences
 at build time. The format-3 encoder reuses the original four-byte slot header.

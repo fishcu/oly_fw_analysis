@@ -1,0 +1,183 @@
+{
+  "schema": "oly-patch/1",
+  "name": "OM-3 HSL and per-profile white balance (experimental)",
+  "model": "OM-3",
+  "firmware": "1.1 build 1100",
+  "camera_tested": false,
+  "stock": {
+    "sha256": "8c133084414533159f587bf46bfb4152714c4074312a47c8d8503e33d605696d"
+  },
+  "components": {
+    "0x100": {
+      "cpu_base": "0x60021020",
+      "before_sha256": "5e8d376e9111a44ac0352f26030d7c1b17026d42c45f3600cfa02a0e8c5b7d59",
+      "after_sha256": "659f6c517cb30688169acb464ee85eac66e9832460b7bf9a892e5f6bfba02cc5"
+    }
+  },
+  "assembly": [
+    {
+      "name": "hsl",
+      "sources": [
+        "hsl.s"
+      ],
+      "linker": "layout.ld",
+      "component": "0x100",
+      "sections": {
+        "delete_pointer": "0x615d0b64",
+        "container_pointer": "0x615370e8",
+        "label_hook": "0x611d1401",
+        "reset_hook": "0x61225de4",
+        "read_hook": "0x60bb52f8",
+        "write_hook": "0x60bb534c",
+        "display_hook": "0x60b1d363",
+        "builder_hook": "0x60518615",
+        "parent_hook": "0x61228102",
+        "paint_pointer": "0x61452290",
+        "extension": "0x6031e920",
+        "state": "0x6031efa0"
+      }
+    },
+    {
+      "name": "wb",
+      "sources": [
+        "wb.s"
+      ],
+      "linker": "wb.ld",
+      "component": "0x100",
+      "sections": {
+        "wb_hook": "0x603f1ea1",
+        "wb_loader": "0x6031ef14",
+        "wb_extension": "0x60a8f100"
+      }
+    }
+  ],
+  "ranges": [
+    {
+      "component": "0x100",
+      "name": "delete_pointer",
+      "address": "0x615d0b64",
+      "bytes": 4,
+      "before_sha256": "dda79d78975eddcfe5be426c30735683a31561f052ec198d4a41961cb15cec18",
+      "after_sha256": "3404decd2336ca6fd3e06ac7ca51c66bed6a04236745043aac8d1b471d89aa2d"
+    },
+    {
+      "component": "0x100",
+      "name": "container_pointer",
+      "address": "0x615370e8",
+      "bytes": 4,
+      "before_sha256": "e5eb573fa586efd65422b6c488588c9909deea43b828194f2f642a05f740927a",
+      "after_sha256": "524502901d5e30019c805b5f454f1577b561e147195e03a86b577d5ce6424799"
+    },
+    {
+      "component": "0x100",
+      "name": "label_hook",
+      "address": "0x611d1401",
+      "bytes": 21,
+      "before_sha256": "d8d4d091e1b7f2b4a9fb9281e149ac4c1c03221ae53538f9940d4e65e760d855",
+      "after_sha256": "63f262e2ca33ed00762255ec264783cbaf33f75234d2cd17ead39d5c6d18fd70"
+    },
+    {
+      "component": "0x100",
+      "name": "reset_hook",
+      "address": "0x61225de4",
+      "bytes": 6,
+      "before_sha256": "ca65362c087f111161eaed861bc573d1514c7075e4ca3f0e225d72992fc802a3",
+      "after_sha256": "e3ab9c8fd127d8e2efd19ca3e1e4a1dc7de9e2fe0ea22788eb2ef0f96f124507"
+    },
+    {
+      "component": "0x100",
+      "name": "read_hook",
+      "address": "0x60bb52f8",
+      "bytes": 7,
+      "before_sha256": "ede616cb80cad312b29654385cd355feb657a71faa92b01e26e49119419e58f6",
+      "after_sha256": "ea156ffaf3202b33b12896f7d169a94ce77966a72ae32b5f2cdd1f2d0d761189"
+    },
+    {
+      "component": "0x100",
+      "name": "write_hook",
+      "address": "0x60bb534c",
+      "bytes": 7,
+      "before_sha256": "e149bf8880e0f9081e90aa7d0fbbc7fbd0d8e972c97156ebcb8c5858f4cce194",
+      "after_sha256": "b74a3c451340f3c8747909fe503d1f4a4eaa57775d4d045e34c5b0d7926408a7"
+    },
+    {
+      "component": "0x100",
+      "name": "display_hook",
+      "address": "0x60b1d363",
+      "bytes": 5,
+      "before_sha256": "a4a1ab938650b4a6e981bc93534b73062040b7b2c85369676235ae98aecbc1a7",
+      "after_sha256": "40ad2291849df4279fe86e0ea21e5a7a91a10afcaae95145aeaff81959b3840a"
+    },
+    {
+      "component": "0x100",
+      "name": "builder_hook",
+      "address": "0x60518615",
+      "bytes": 5,
+      "before_sha256": "102e3293516f082fb881fc48fa7531bc80a5603ed648858d425da812e9f020df",
+      "after_sha256": "2a1594261733162ed6433c0bd920c4ec6065e5bf118e31115610c2d4316bc7d0"
+    },
+    {
+      "component": "0x100",
+      "name": "parent_hook",
+      "address": "0x61228102",
+      "bytes": 5,
+      "before_sha256": "fe90ddd5789edb62bf46cf8a6603c92063da6d15d42bebfbc05f0b85d485b0f1",
+      "after_sha256": "79cacaead735d03abe1da151b01bb2234d2cc4400348218256884245272508bf"
+    },
+    {
+      "component": "0x100",
+      "name": "paint_pointer",
+      "address": "0x61452290",
+      "bytes": 4,
+      "before_sha256": "b257ed9ca14b6aa7d8f84d34fedc2e3aaae408502065308b35ce863938dec4a0",
+      "after_sha256": "c4d47da7b3c32376ed3bd7061de6ae6d1692c9eae6edf2a1f92b6315a997a10b"
+    },
+    {
+      "component": "0x100",
+      "name": "extension",
+      "address": "0x6031e920",
+      "bytes": 1524,
+      "before_sha256": "93157af2fe61a60c9c084e11aa5595a89689f3b1e69016e9b66656b36ad52e50",
+      "after_sha256": "603cad4d9b24dddd50cf26beda8e0683d15bf5b8a98a3a68c64a6696ca9a3cdd"
+    },
+    {
+      "component": "0x100",
+      "name": "state",
+      "address": "0x6031efa0",
+      "bytes": 64,
+      "before_sha256": "8667e718294e9e0df1d30600ba3eeb201f764aad2dad72748643e4a285e1d1f7",
+      "after_sha256": "f5a5fd42d16a20302798ef6ed309979b43003d2320d9f0e8ea9831a92759fb4b"
+    },
+    {
+      "component": "0x100",
+      "name": "wb_hook",
+      "address": "0x603f1ea1",
+      "bytes": 5,
+      "before_sha256": "e91114dba8b373951ae604d1950d795a07147bde5dae6159904078563428db95",
+      "after_sha256": "5ba4b40808e1f9f551bd00151844afe8a69bc96668c3dd0aca1a0f2c2bbf71f2"
+    },
+    {
+      "component": "0x100",
+      "name": "wb_loader",
+      "address": "0x6031ef14",
+      "bytes": 136,
+      "before_sha256": "b37c47f42e74edc6a9bdfa65206dcda5a80eaaa3c3eee9b361636536d81a1f89",
+      "after_sha256": "631615546daeafce20ff7ba11669e1bb3a8bdb780443ff58eca57cfcf4306e3d"
+    },
+    {
+      "component": "0x100",
+      "name": "wb_extension",
+      "address": "0x60a8f100",
+      "bytes": 492,
+      "before_sha256": "1e129a53e316de73b1c3f207144bde598aeb948a48062d905624507b8923d752",
+      "after_sha256": "9e9e27ce64bae001d0e865e28795e9b2268f1b974dbe3736854b149bb67c7328"
+    }
+  ],
+  "package": {
+    "components": "all",
+    "file": "DCOLYMP/E1479999.BIN",
+    "sha256": "27c936e8bc6fa4c1788b064e49a8ac438050e678c528477f42943de7a4dc7b8e",
+    "bytes": 240517120,
+    "restore_sha256": "8c133084414533159f587bf46bfb4152714c4074312a47c8d8503e33d605696d"
+  }
+}
