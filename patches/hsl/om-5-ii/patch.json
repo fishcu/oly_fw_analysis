@@ -15,6 +15,10 @@
       "stored_after_sha256": "77859ad8c4f24adde1c5d2a48b668b7b8c9d8b1d70f53d3ab314af22545e053e",
       "before_sha256": "7ae7d4c60990cc859c070e0ceb6cbe612f9c5b260713f2f1256e51d137851c61",
       "after_sha256": "bd651ca1e9c8cfb670fc08f3356d223b550315714f04b9cd2c13027933666e7f"
+    },
+    "0x101": {
+      "before_sha256": "0576d786f8f40350ec9f620c7302f95c317c979fed88d9afc678c5b7e6f59fa0",
+      "after_sha256": "18a7086f0cfe7fa2eed146fc9eaa5a6d8ed9c486e3cc507f8512ee0af686bd93"
     }
   },
   "assembly": [
@@ -591,6 +595,14 @@
       "bytes": 4,
       "before_sha256": "08b24e0bfbe2c4a99a610d101e04843fafcbffe33e120cfb9bcc636213e25a96",
       "after_sha256": "07551ffc4f7ebfa8b36fb2e82dd9ba3b604b93bd95df56e8d96240c4d5b7a3b2"
+    },
+    {
+      "component": "0x101",
+      "name": "color_icon_aliases",
+      "offset": "0x0",
+      "bytes": 12582848,
+      "before_sha256": "0576d786f8f40350ec9f620c7302f95c317c979fed88d9afc678c5b7e6f59fa0",
+      "after_sha256": "18a7086f0cfe7fa2eed146fc9eaa5a6d8ed9c486e3cc507f8512ee0af686bd93"
     }
   ],
   "data_edits": [
@@ -904,8 +916,72 @@
   "package": {
     "components": "all",
     "file": "DCOLYMP/E1489999.BIN",
-    "sha256": "e0b3db3e5da2a13afdf49d459555d37834d5b168cf2304f3a165db9428bd004a",
+    "sha256": "6e7a3f8372e8e00c8e92e4fcb7ccac7a43b032cc82e7e418ea0e71fb4095f103",
     "bytes": 90832896,
     "restore_sha256": "9de5d77e1d290fa2ed4ebc7d75cee0ed490befbc89566722467d1d421d66d637"
-  }
+  },
+  "resource_aliases": [
+    {
+      "component": "0x101",
+      "name": "color_icon_aliases",
+      "aliases": [
+        [
+          "0x38bf",
+          "0x190d"
+        ],
+        [
+          "0x38c0",
+          "0x190d"
+        ],
+        [
+          "0x38c1",
+          "0x190d"
+        ],
+        [
+          "0x38c2",
+          "0x190d"
+        ],
+        [
+          "0x38c3",
+          "0x190d"
+        ],
+        [
+          "0x38c4",
+          "0x190d"
+        ],
+        [
+          "0x38c5",
+          "0x190d"
+        ],
+        [
+          "0x38c6",
+          "0x190d"
+        ],
+        [
+          "0x38c7",
+          "0x190d"
+        ],
+        [
+          "0x38c8",
+          "0x190d"
+        ],
+        [
+          "0x38c9",
+          "0x190d"
+        ],
+        [
+          "0x3d62",
+          "0x2bb6"
+        ],
+        [
+          "0x3d63",
+          "0x2bb6"
+        ],
+        [
+          "0x3d64",
+          "0x2bb6"
+        ]
+      ]
+    }
+  ]
 }
