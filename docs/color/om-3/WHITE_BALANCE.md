@@ -209,8 +209,24 @@ branch can combine earlier Kelvin with later tint under controlled scheduling.
 The experiment uses a synthetic processing object and explicit entry/stop;
 whether a real queued capture can encounter that ordering remains unproven.
 
-An image-owned correction source and its lifetime across capture preparation,
-processing, RAW development and metadata are required before changing this
-path. The current extension does not claim queued/burst WB correctness. See
-`patches/hsl/om-3/HARDENING.md` and the three probes in PR #11 for reproduction,
-fault-model boundaries and the remaining reset/backup/hardware checks.
+A new hash-pinned stock route audit (`tools/om3_wb_capture_route.py`) checks two
+identified callers of preparation routine `603e8e04`, at `603e37e2` and
+`603e6325`. Within the routine, `603e8e9d` stores Kelvin in the snapshot and
+`603e8f44` calls `60454b7c`, which synchronously calls formatter `60456793`.
+The CWB formatter reads live A/B and G/M at `60457c44` and `60457c5d`.
+This is static call-order evidence; it does not prove whether preemption or
+callbacks allow a GUI edit between the reads in normal capture.
+
+The two callers have different surrounding event paths. The increment at
+`603e62c5..603e62cd` is not yet tied to a matching decrement, every relevant
+capture, or an apply context. No verified native completion signal currently
+supports a deferred profile/WB transaction. The existing commit hook runs
+after the UI setter has entered settings commit, so it cannot defer the whole
+transaction on its own. The current extension does not claim queued/burst WB
+correctness. A fix requires either a verified image-owned correction source or
+a deferral mechanism covering all relevant settings reads and outstanding
+captures. See `patches/hsl/om-3/HARDENING.md` in PR #11 for the implementation
+status and bounded emulator probes.
+
+Run the static audit on the stock decoded main with
+`python3 tools/om3_wb_capture_route.py ../../extracted/om3-1100/00_0100_50000020.decoded.bin`.
