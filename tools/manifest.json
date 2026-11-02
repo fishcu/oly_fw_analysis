@@ -12,6 +12,7 @@
     "tools/ida/prepare.py",
     "tools/ida/wine.py",
     "tools/oly_container.py",
+    "tools/oly_patch.py",
     "tools/om3_code_space_audit.py",
     "tools/om5_image_pool_probe.py",
     "tools/om_firmware_catalog.py",
@@ -206,10 +207,16 @@
       "adapted": true
     },
     {
+      "path": "patches/README.md",
+      "origin": "original documentation, fixture or utility",
+      "sha256": "3d918d747084cb00ce26d32539c95b500beb480aa8c3682396f187fd555dc856",
+      "bytes": 2712
+    },
+    {
       "path": "patches/hsl/pen-f/README.md",
       "origin": "original documentation, fixture or utility",
-      "sha256": "f563c9246b8f8851fa380755c5e028b1da20646084b9184d90ca64f5c4a5b11b",
-      "bytes": 5080
+      "sha256": "aba1cea79405d90b21c8b32c58762d7508139ad60b95e7ce702d186cc95f8629",
+      "bytes": 5386
     },
     {
       "path": "patches/hsl/pen-f/SOURCES.json",
@@ -220,8 +227,8 @@
     {
       "path": "patches/hsl/pen-f/build.py",
       "origin": "original documentation, fixture or utility",
-      "sha256": "f41ed8535ea02513e211c45fbb13fb0eaca0fd120334b8d1ca350fc4f4cfcd50",
-      "bytes": 9467
+      "sha256": "dcb1482f73d85e3ee915145bef6929f86e6ffc28ba90ec32934082b00aa74c39",
+      "bytes": 580
     },
     {
       "path": "patches/hsl/pen-f/patch.json",
@@ -229,8 +236,8 @@
         "path": "analysis/penf_wifi_linked_20261015/assembly/edits.json",
         "sha256": "2dc73d8ede2aed0385d4e707187fc230e7f25766efec0eed23249917b9d6c8d7"
       },
-      "sha256": "954d4004dfc6f57a3ca938a7e1b6c91c6d41af449c6ede73a9ecdbf5ccd32749",
-      "bytes": 61059,
+      "sha256": "3be777ac2c7002a2a7984521cd98be39af920583a3d16bb35572413a7b6e3e78",
+      "bytes": 68876,
       "adapted": true
     },
     {
@@ -448,6 +455,12 @@
         "sha256": "e4e80ada8514fc7e0d80e97ea9686830c6b41f055a14d8c0463b045f2144c26d"
       },
       "adapted": false
+    },
+    {
+      "path": "tests/test_oly_patch.py",
+      "origin": "original documentation, fixture or utility",
+      "sha256": "35654fbc21d0d7a24e60b0fa92bed2dff794e9b4d4fa5731f63b0030730beccf",
+      "bytes": 4944
     },
     {
       "path": "tests/test_penf_alex_bulk_model.py",
@@ -971,8 +984,8 @@
     },
     {
       "path": "tools/README.md",
-      "sha256": "0231e59b89b9940fd89a8959e44ed8540f6064da184d7a7e40195609389e39af",
-      "bytes": 8267,
+      "sha256": "3a90cf0b10c9a35597acd0ef18b6853571e49d1856126b81d2d1aea8dcfceb45",
+      "bytes": 8399,
       "original_source": {
         "path": "tools/README.md",
         "sha256": "424400d690dd53e89cf48e325bd662f7f41d02f6814b97a02b5b1c1c5b0b7f96"
@@ -1163,6 +1176,12 @@
       "adapted": false,
       "local_imports": [],
       "entry_point": true
+    },
+    {
+      "path": "tools/oly_patch.py",
+      "origin": "original documentation, fixture or utility",
+      "sha256": "b35c4076be6eda0c79cd0bbd4fcad7b33a3a083ae50db8ab8914df7dc7b2c529",
+      "bytes": 13844
     },
     {
       "path": "tools/oly_sd_selector_comparison.py",
@@ -3007,8 +3026,8 @@
     },
     {
       "path": "tools/run_checks.py",
-      "sha256": "095fd72b9bf725e2013dbc4032707ee973c19459aec1b655866b8227082e8955",
-      "bytes": 2177,
+      "sha256": "112f935e1d9c0955d0cffb6f8f6cd21d455327fe8bb1c0cc8114eae670bd06f2",
+      "bytes": 2218,
       "origin": "original documentation, fixture or utility",
       "local_imports": [
         "penf_emulator"
