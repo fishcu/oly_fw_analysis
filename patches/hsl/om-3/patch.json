@@ -1,6 +1,6 @@
 {
   "schema": "oly-patch/1",
-  "name": "OM-3 HSL (experimental)",
+  "name": "OM-3 HSL and per-profile white balance (experimental)",
   "model": "OM-3",
   "firmware": "1.1 build 1100",
   "camera_tested": false,
@@ -11,7 +11,7 @@
     "0x100": {
       "cpu_base": "0x60021020",
       "before_sha256": "5e8d376e9111a44ac0352f26030d7c1b17026d42c45f3600cfa02a0e8c5b7d59",
-      "after_sha256": "2097fee09efc5c1c933f57ca2232f94bacbb3319748282b0bb265b0b493b6f3f"
+      "after_sha256": "a29675b70a29d279ec7f1a16431b1cc44cae39a570eb1c36e7982c7153419532"
     }
   },
   "assembly": [
@@ -35,6 +35,19 @@
         "paint_pointer": "0x61452290",
         "extension": "0x6031e920",
         "state": "0x6031efa0"
+      }
+    },
+    {
+      "name": "wb",
+      "sources": [
+        "wb.s"
+      ],
+      "linker": "wb.ld",
+      "component": "0x100",
+      "sections": {
+        "wb_hook": "0x603f1ea1",
+        "wb_loader": "0x6031ef14",
+        "wb_extension": "0x60a8f100"
       }
     }
   ],
@@ -134,12 +147,36 @@
       "bytes": 64,
       "before_sha256": "8667e718294e9e0df1d30600ba3eeb201f764aad2dad72748643e4a285e1d1f7",
       "after_sha256": "f5a5fd42d16a20302798ef6ed309979b43003d2320d9f0e8ea9831a92759fb4b"
+    },
+    {
+      "component": "0x100",
+      "name": "wb_hook",
+      "address": "0x603f1ea1",
+      "bytes": 5,
+      "before_sha256": "e91114dba8b373951ae604d1950d795a07147bde5dae6159904078563428db95",
+      "after_sha256": "5ba4b40808e1f9f551bd00151844afe8a69bc96668c3dd0aca1a0f2c2bbf71f2"
+    },
+    {
+      "component": "0x100",
+      "name": "wb_loader",
+      "address": "0x6031ef14",
+      "bytes": 87,
+      "before_sha256": "8dd81634146ea4c2c199bdc3b5bafb5a456758e7b2ab2836550e51ea1c626568",
+      "after_sha256": "f1f4150631a6cf90b3d8decb0938bb69efa647652cf4b81200cff2934d04de24"
+    },
+    {
+      "component": "0x100",
+      "name": "wb_extension",
+      "address": "0x60a8f100",
+      "bytes": 489,
+      "before_sha256": "e567f85f493594c3effa1275d478d3b8adfbe686070cf4648494d04d0b912a02",
+      "after_sha256": "19728530e4f87abc6db4c3fd3ba618558fa8609efae1bc6909e9bdc50d294852"
     }
   ],
   "package": {
     "components": "all",
     "file": "DCOLYMP/E1479999.BIN",
-    "sha256": "859d32ee6e317cc6d7fafdf6073403dbe4081a975c7aedce2598b13aee777f3f",
+    "sha256": "984df7edf0ceb09b18887b13a2753e7157841b69c63c5ab7324b581297d78155",
     "bytes": 240517120,
     "restore_sha256": "8c133084414533159f587bf46bfb4152714c4074312a47c8d8503e33d605696d"
   }

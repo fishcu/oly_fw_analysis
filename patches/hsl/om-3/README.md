@@ -1,7 +1,7 @@
-# OM-3 HSL patch source (experimental)
+# OM-3 HSL and per-profile WB patch (experimental)
 
-Adds Hue and Lightness alongside the stock per-colour saturation of the OM-3
-COLOR profiles, following the [PEN-F HSL patch](../pen-f/README.md). Built from
+Adds Hue and Lightness alongside stock saturation, plus independent white
+balance recall for the four OM-3 COLOR profiles, following the [PEN-F HSL patch](../pen-f/README.md). Built from
 official OM-3 firmware 1.1 (internal build 1100) by the shared
 [patch builder](../../README.md).
 
@@ -41,6 +41,13 @@ Picture mode COLOR1–4, Color Vivid editor:
 | Sub dial / main dial | Select colour / set −5…+5 |
 | OK held | Reset the current axis only |
 
+White balance: select COLOR1�4, then change WB in the normal WB screen. Each
+profile remembers the selected WB mode, custom Kelvin and the current A/B and
+G/M corrections. Switching profiles recalls these values. First use inherits
+the current WB. Leaving COLOR restores a separate WB record for other picture
+modes. One-touch WB remembers the selected shared slot; it does not create a
+separate measurement for each COLOR profile. See [implementation and tests](WHITE_BALANCE.md).
+
 The title above the wheel shows the axis and a "Switch [trash]" hint; the stock
 value label follows the current axis. H/L values persist with the settings and
 follow custom-mode recall like saturation.
@@ -57,6 +64,8 @@ follow custom-mode recall like saturation.
 | `61228102` | Record the colour editor parent |
 | `60b1d363` | Wheel values: H/L when that axis is active |
 | `60518615` | After the COLOR builder: H/L output records for COLOR1–4 (setting 901 = 54/55/56/64) only |
+| `603f1ea1` | Native settings commit wrapper: save WB edits and recall on picture-mode changes |
+| `6031ef14..6031ef6b`, `60a8f100..60a8f2e9` | WB dispatcher and extension in loaded section tails; section 4 is loaded through the native loader if needed |
 | `61452290` (pointer) | Paint wrapper: axis title and hint |
 | `6031e920..6031ef14`, `6031efa0..6031efe0` | Code and 64-byte state in the section-1 loaded tail |
 
@@ -69,21 +78,15 @@ layout. Invalid words decode as neutral. See the
 
 ## Known limits
 
-### Per-profile white balance research
+### White balance validation limits
 
-White balance is a candidate extension, not an implemented feature of this
-patch. [The OM-3 research in PR #9](https://github.com/fishcu/oly_fw_analysis/pull/9)
-now identifies the WB mode, custom Kelvin, current A/B and G/M corrections,
-and CWB's stored correction fields. Native GUI observations show that stock
-firmware recalls corrections by WB mode; recall by COLOR profile is not
-established.
-
-A future implementation needs a verified native setter and profile transition
-hook, separate persistent storage, and capture/live-view validation. The HSL
-COLOR builder hook does not establish a WB processing hook. One-touch WB gain
-storage, reset, custom modes and settings backup also remain to be traced.
-This patch's binary, storage layout and build fingerprints are unchanged by
-the WB research.
+WB recall is implemented and tested in OM-Emu, including the native compact WB
+parameter-copy slice. This is not validation of live-view colour, JPEG output,
+RAW metadata/development, queued captures, camera startup, or concurrent section
+reloads. Reset, assigning a custom mode, and settings backup/restore are also
+unqualified. Native bank recall and process-restart persistence were exercised.
+The extension's storage and code-placement assumptions are described in
+[WHITE_BALANCE.md](WHITE_BALANCE.md).
 
 ### Current HSL limitations
 
