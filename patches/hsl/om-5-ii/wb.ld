@@ -1,7 +1,7 @@
 SECTIONS {
  .wb_hook 0x602d19b6 : { *(.wb_hook) }
  .wb_extension 0x605af5cc : { *(.wb_extension) }
- .wb_profile 0x613f2f40 : { *(.wb_profile) }
+ .wb_profile 0x613f2e00 : { *(.wb_profile) }
 }
 PM_ID = 111;
 loaded_bits = 0xa26e2698;

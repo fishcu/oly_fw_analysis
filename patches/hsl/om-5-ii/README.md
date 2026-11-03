@@ -253,6 +253,20 @@ OM-Emu does not run E148's section loader, so its loaded bits stay 0 there
 and every guarded path takes the stock route. The checks above set the bits
 (sections 1–10) to model a booted camera.
 
+## Monochrome Profile 1–3
+
+The same build also restores Monochrome Profile 1–3 (picture modes 57–59, family 12, profile number in
+setting 989), which E148 keeps but hides as it did Color Profile. They appear in the carousel after
+Color Profile 3. Rule masks follow Monotone, except E147's Focus Stacking rule, which sends them to Natural as
+E147 does. 989 is copied with 111 in custom modes, like 903. The refresh tail writes each profile's sharpness,
+contrast, filter, toning, level, shading, grain and tone (SET1–3 of 990–1029). Edits refresh at once, and the
+detail pages use children 5 and 3. `MONO=0 python3 color_profiles.py` builds the Color Profile edits alone.
+
+Emulator (3 Nov 2026): selection and refresh for 57–59; live edits of every field, with no change from another
+profile's edits; C-mode matrix 6/6 including CP↔MONO; snapshot carries the mono number and filter/toning per
+profile; stock modes unchanged across a full picture-mode cycle; section guards hold. Whether filter, toning and
+grain reach the JPEG is not proven (OM-Emu has no image pipeline). Not tried on a camera.
+
 ## Source layout
 
 `color_profiles.py` documents the 54 data edits that restore the picture-mode

@@ -1,6 +1,7 @@
-"""Build the data edits that restore Color Profile 1-3 picture modes on OM-5 II (E148 1.1).
+"""Build the data edits that restore Color Profile 1-3 and Monochrome Profile 1-3 picture modes on
+OM-5 II (E148 1.1). Set MONO=0 in the environment for the Color Profile edits alone.
 Emits {runtime_addr_hex: hex_bytes} for OM_LAB_IMAGE_PATCH. Emulator research only."""
-import json, struct, sys
+import json, os, struct, sys
 B=0x60021020
 img=open(sys.argv[1],'rb').read()
 R=lambda a,n: img[a-B:a-B+n]
@@ -8,7 +9,16 @@ DESC={111:0x6050de44, 504:0x6050e04c, 505:0x6050e060}
 OLD_REC, OLD_VAL, N = 0x604eeae0, 0x604e1a6c, 41
 INSERT_AFTER = 40           # append after the last entry, so existing indices are unchanged
 CAROUSEL_AFTER = 9          # but list them after Color Creator in the SCP carousel
-NEW = [(54,(0xb,0,1,0)),(55,(0xb,0,2,0)),(56,(0xb,0,3,0))]
+CP = [(54,(0xb,0,1,0)),(55,(0xb,0,2,0)),(56,(0xb,0,3,0))]
+# E147 records 38..40: MONO1..3 = 57..59, major 12, profile number in word 3 (setting 989)
+MONO = [(57,(0xc,0,0,1)),(58,(0xc,0,0,2)),(59,(0xc,0,0,3))] if os.environ.get('MONO','1')!='0' else []
+NEW = CP + MONO
+IS_MONO = {v for v,_ in MONO}
+# E147 rule 15227 maps CP and MONO to Natural (1) when Focus Stacking (1356) is on, while Vivid and
+# Monotone stay. The original CP port follows Vivid there; MONO follows E147. Set to True to make CP
+# follow E147 as well (changes existing CP behaviour, so off until decided).
+CP_FOCUS_STACKING_E147 = False
+FOCUS_STACKING = [(1356,1)]
 FREE_LO, FREE_HI = 0x604f1160, 0x604f25e0   # the 504/505 record copies, identical to 111's, freed by sharing
 RULES, NRULES = 0x60493710, 340
 for sid,d in DESC.items():
@@ -19,8 +29,12 @@ vals=list(struct.unpack('<%dI'%N,R(OLD_VAL,4*N)))
 assert vals[9]==21 and vals[40]==63
 recs=[R(OLD_REC+64*i,64) for i in range(N)]
 order=list(range(N)); ins=INSERT_AFTER+1
-new_vals=vals[:ins]+[v for v,_ in NEW]+vals[ins:]
-new_recs=recs[:ins]+[struct.pack('<4I',*r)+bytes(48) for _,r in NEW]+recs[ins:]
+# A record that matches no entry resolves to the LAST index (0x602e1797). Settings context 1 reads 111 that
+# way (stock: 63, ART16), so the new entries must not become the last one, or every context-1 refresh would
+# apply CP3/MONO3. Keep a copy of the stock last entry at the end; lookups by value still find index 40.
+TAIL_COPY = True
+new_vals=vals[:ins]+[v for v,_ in NEW]+vals[ins:]+(vals[-1:] if TAIL_COPY else [])
+new_recs=recs[:ins]+[struct.pack('<4I',*r)+bytes(48) for _,r in NEW]+recs[ins:]+(recs[-1:] if TAIL_COPY else [])
 M=len(new_vals)
 edits={}
 # Free space once all three descriptors share one extended copy: the 504/505 record copies and 111's old record table
@@ -47,16 +61,24 @@ for k in range(NRULES):
         pairs=[struct.unpack('<HH',R(ma+4*i,4)) for i in range(N)]
         if [p[0] for p in pairs]!=vals: continue
         clauses.append((rid,ptr+16*j,ma)); masks.setdefault(ma,pairs)
-new_mask={}
-for ma,pairs in masks.items():
-    to_vivid=dict(pairs)[0]                      # COLOR follows Vivid: kept where Vivid is kept, else Vivid's fallback
-    add=[(v, v if to_vivid==0 else to_vivid) for v,_ in NEW]
-    newp=pairs[:ins]+add+pairs[ins:]
-    new_mask[ma]=put(b''.join(struct.pack('<HH',*p) for p in newp))
+def conds(cl):
+    ca,cn=struct.unpack('<II',R(cl,8))
+    return [struct.unpack('<HH',R(ca+4*i,4)) for i in range(cn)]
+def mapping(pairs,fs):
+    d=dict(pairs); out=[]
+    for v,_ in NEW:
+        if fs and (v in IS_MONO or CP_FOCUS_STACKING_E147): out.append((v,1)); continue
+        ref=3 if v in IS_MONO else 0             # MONO follows Monotone, COLOR follows Vivid
+        out.append((v, v if d[ref]==ref else d[ref]))
+    return out
+new_mask={}                                      # identical extended masks are shared
 for rid,cl,ma in clauses:
-    edits[hex(cl+8)]=struct.pack('<IH',new_mask[ma],M).hex()
+    fs=rid==15227 and conds(cl)==FOCUS_STACKING
+    data=b''.join(struct.pack('<HH',*p) for p in masks[ma][:ins]+mapping(masks[ma],fs)+masks[ma][ins:]+(masks[ma][-1:] if TAIL_COPY else []))
+    if data not in new_mask: new_mask[data]=(put(data),'%x%s'%(ma,'/fs' if fs else ''))
+    edits[hex(cl+8)]=struct.pack('<IH',new_mask[data][0],M).hex()
 json.dump(edits,open(sys.argv[2],'w'),indent=0)
-print('records',hex(rec_addr),'values',hex(val_addr),'masks',{hex(k):hex(v) for k,v in new_mask.items()},'clauses',len(clauses),'free',[(hex(a),b-a) for a,b in REGIONS])
+print('records',hex(rec_addr),'values',hex(val_addr),'masks',{n:hex(a) for a,n in new_mask.values()},'clauses',len(clauses),'free',[(hex(a),b-a) for a,b in REGIONS])
 
 # --- group membership: E147 groups 111/504/505 also carry the COLOR/MONO profile selectors (record words 2 and 3)
 GROUPS, NGROUPS = 1615274328, 151
@@ -70,17 +92,17 @@ for k in range(NGROUPS):
 CAR, CAR_DESC = 0x61199464, 0x61199b5c
 rows=[R(CAR+20*k,20) for k in range(N)]
 assert struct.unpack('<I',R(CAR_DESC-4,4))[0]==111 and struct.unpack('<II',R(CAR_DESC,8))==(N,CAR)
-labels={54:0x430,55:0x431,56:0x432}
+labels={54:0x430,55:0x431,56:0x432,57:0x434,58:0x435,59:0x436}   # E147 text/availability IDs
 c=CAROUSEL_AFTER+1
 car=rows[:c]+[struct.pack('<5I',v,labels[v],v,0,0) for v,_ in NEW]+rows[c:]
-car_addr=put(b''.join(car)); edits[hex(CAR_DESC)]=struct.pack('<II',M,car_addr).hex()
+car_addr=put(b''.join(car)); edits[hex(CAR_DESC)]=struct.pack('<II',len(car),car_addr).hex()   # display list: no tail copy
 LBL, LBL_DESC = 0x611a1734, 0x611a1a00
 assert struct.unpack('<I',R(LBL_DESC-4,4))[0]==111 and struct.unpack('<I',R(LBL_DESC,4))[0]==N and struct.unpack('<I',R(LBL_DESC+8,4))[0]==LBL
 # rows 41.. of this table already hold 54..56 (labels 0x430..); the count alone hides them
 extra=[struct.unpack('<II',R(LBL+8*k,8)) for k in range(N,N+8)]
 pass
 lrows=[R(LBL+8*k,8) for k in range(N)]+[struct.pack('<II',v,labels[v]) for v,_ in NEW]
-lbl_addr=put(b''.join(lrows)); edits[hex(LBL_DESC)]=struct.pack('<I',M).hex(); edits[hex(LBL_DESC+8)]=struct.pack('<I',lbl_addr).hex()
+lbl_addr=put(b''.join(lrows)); edits[hex(LBL_DESC)]=struct.pack('<I',len(lrows)).hex(); edits[hex(LBL_DESC+8)]=struct.pack('<I',lbl_addr).hex()
 json.dump(edits,open(sys.argv[2],'w'),indent=0)
 print('groups, carousel',hex(car_addr),'labels',hex(lbl_addr),'free',[(hex(a),b-a) for a,b in REGIONS])
 
@@ -91,8 +113,8 @@ print('groups, carousel',hex(car_addr),'labels',hex(lbl_addr),'free',[(hex(a),b-
 AV, AV_N, AV_ADD, AV_CMP = 0x604991f8, 53, 0x602ddb89, 0x602ddb9b
 assert struct.unpack('<I',R(AV_ADD,4))[0]==AV and R(AV_CMP-1,2)==bytes([0xaf,AV_N])
 av_rows=[R(AV+8*k,8) for k in range(AV_N)]
-assert all(struct.unpack('<I',r[:4])[0] not in (54,55,56) for r in av_rows)
-av_rows+= [struct.pack('<IHH',v,i,0) for v,i in ((54,1072),(55,1073),(56,1074))]
+assert all(struct.unpack('<I',r[:4])[0] not in (54,55,56,57,58,59) for r in av_rows)
+av_rows+= [struct.pack('<IHH',v,labels[v],0) for v,_ in NEW]     # MONO 1076..1078 as E147 0x605dfef4
 av_addr=put(b''.join(av_rows))
 edits[hex(AV_ADD)]=struct.pack('<I',av_addr).hex(); edits[hex(AV_CMP)]=bytes([len(av_rows)]).hex()
 json.dump(edits,open(sys.argv[2],'w'),indent=0)

@@ -519,11 +519,21 @@ pages_hook:
  mov 111,d0
  call stock_get,[],4
  sub 54,d0
- cmp 3,d0
+ cmp 6,d0
  bcc pages_off
+ /* E147 shows child 5/4/3/2 from +276..+279 (E148 +244..+247); the
+  * Monochrome Profile items use 5 and 3, Color Profile 4 and 2. */
+ mov d2,a0
+ movbu (244,a0),d0
+ mov 5,d1
+ call show_page,[d2,d3,a2,a3],24
  mov d2,a0
  movbu (245,a0),d0
  mov 4,d1
+ call show_page,[d2,d3,a2,a3],24
+ mov d2,a0
+ movbu (246,a0),d0
+ mov 3,d1
  call show_page,[d2,d3,a2,a3],24
  mov d2,a0
  movbu (247,a0),d0
@@ -532,7 +542,13 @@ pages_hook:
  jmp direct_ret
 pages_off:
  clr d0
+ mov 5,d1
+ call show_page,[d2,d3,a2,a3],24
+ clr d0
  mov 4,d1
+ call show_page,[d2,d3,a2,a3],24
+ clr d0
+ mov 3,d1
  call show_page,[d2,d3,a2,a3],24
  clr d0
  mov 2,d1
@@ -577,6 +593,14 @@ page_layout:
  beq layout_view
  mov 18,d2
  cmp 0x610d6560,d0
+ beq layout_view
+ /* Monochrome Profile pages: child 3 (colour filter, labels 1..9) and
+  * child 5 (labels 1..2); same 900x600 OM-1/OM-3 layout */
+ mov 10,d2
+ cmp 0x610d9b20,d0
+ beq layout_view
+ mov 3,d2
+ cmp 0x610dd9f8,d0
  bne layout_done
 layout_view:
  movhu (12,a2),d0
@@ -901,10 +925,11 @@ creset_orig:
 
 /* Mode store: E148's mode-recall lists (0x604daf4c) carry 111 but not 903,
  * the Color Profile number that turns 111's stored family 11 into 54..56
- * (E147's lists carry 903 in the same row as 111). Without it a custom-mode
- * recall restores the family with whatever 903 holds. At the four per-entry
- * copies of the list routines, copy 903 with 111 in the same row, as E147
- * does (0 = not a profile; the DB reset writes its default to both rows).
+ * (E147's lists carry 903 in the same row as 111), nor 989, the Monochrome
+ * Profile number that turns family 12 into 57..59. Without them a custom-mode
+ * recall restores the family with whatever 903/989 hold. At the four per-entry
+ * copies of the list routines, copy 903 and 989 with 111 in the same row, as
+ * E147 does (0 = not a profile; the DB reset writes its default to both rows).
  * rows -> working copy (0x602e0f40 entry in a3, 0x602e1071 entry in a2);
  * a row value above 3 is not copied. */
 pm_set_a3:
@@ -917,15 +942,22 @@ pm_set:
  call wc_set,[],4
  cmp 111,d2
  bne pm_set_done
+ mov 903,d2
+pm_set_loop:
  mov d3,a0
  movbu (2,a0),d1
- mov 903,d0
+ mov d2,d0
  call active_read,[d2],8
  mov d0,d1
  cmp 4,d0
- bcc pm_set_done
- mov 903,d0
+ bcc pm_set_next
+ mov d2,d0
  call wc_set,[],4
+pm_set_next:
+ cmp 989,d2
+ beq pm_set_done
+ mov 989,d2
+ bra pm_set_loop
 pm_set_done:
  ret [d2,d3],12
 /* working copy -> rows (0x602e0fa5, 0x602e1153): d0 id, d1 row, a0 value */
@@ -935,12 +967,18 @@ pm_put:
  call active_write,[d2],8
  cmp 111,d2
  bne pm_put_done
- mov 903,d0
+ mov 903,d2
+pm_put_loop:
+ mov d2,d0
  call wc_get,[],4
  mov d0,a0
- mov 903,d0
+ mov d2,d0
  mov d3,d1
  call active_write,[d2],8
+ cmp 989,d2
+ beq pm_put_done
+ mov 989,d2
+ bra pm_put_loop
 pm_put_done:
  ret [d2,d3],12
 

@@ -14,7 +14,7 @@ wb_load:
  beq wb_original
  mov d0,d2
  add -904,d2
- cmp 81,d2
+ cmp 126,d2
  bcc wb_not_profile
  jmp wb_profile
 wb_not_profile:
@@ -224,8 +224,9 @@ wb_inherit:
 wb_modes:
  .byte 0,18,3,1,6,17,7,8,13,14,15,16,9
 
-/* Color Profile settings (E147 descriptors 0x605b905c..: 904-906, 908-910,
- * 912-914, 928-963, 976-984 carry refresh handlers 0x60400fc0 / 0x6040466d..).
+/* Color and Monochrome Profile settings (E147 descriptors 0x605b905c..:
+ * 904-906, 908-910, 912-914, 928-963, 976-984 and SET1-3 of 990-1029 carry
+ * refresh handlers 0x60400fc0 / 0x6040466d..).
  * E148 has no such handlers, so a profile edit would not reach the effective
  * settings until the next picture-mode change. After the stock commit, refresh
  * each context (0 and 1) whose picture mode is that profile, as E147 does. */
@@ -233,6 +234,17 @@ wb_modes:
 wb_profile:
  mov d0,d2
  mov d1,d3
+ /* Monochrome Profile settings 990..1029 -> 3 + profile (0xff: none) */
+ add -985,d0
+ cmp 45,d0
+ bcc wb_profile_color
+ mov wb_mono_map,a0
+ movbu (d0,a0),d0
+ cmp 0xff,d0
+ beq wb_profile_none
+ bra wb_profile_have
+wb_profile_color:
+ mov d2,d0
  add -904,d0
  cmp 12,d0
  bcc wb_profile_sectors
@@ -295,3 +307,10 @@ wb_profile_none:
  mov d2,d0
  mov d3,d1
  jmp wb_original
+/* 985..1029: E147 SET1-3 of sharpness 990, contrast 994, grain 999, toning
+ * 1003, filter 1007, level 1012, shading 1017, tone 1021 (three per profile);
+ * SET4 and 985..989, 998, 1011, 1016 are not profile settings here. */
+wb_mono_map:
+ .byte 0xff,0xff,0xff,0xff,0xff, 3,4,5,0xff, 3,4,5,0xff, 0xff, 3,4,5,0xff
+ .byte 3,4,5,0xff, 3,4,5,0xff, 0xff, 3,4,5,0xff, 0xff, 3,4,5,0xff
+ .byte 3,3,3,4,4,4,5,5,5
