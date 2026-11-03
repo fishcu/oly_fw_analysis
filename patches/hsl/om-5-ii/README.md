@@ -10,6 +10,21 @@ settings IDs.
 install package withheld by default. The COLOR carousel slots use an existing
 stock picture-mode icon as a fallback, with their own text labels.
 
+The update package contains only `0x100` (USR/main) and `0x101` (OSD/resources).
+The main image uses opt-in `"repack": "split"` for its two LZ4 sections. This
+keeps their longest literal runs at stock lengths, avoiding the former 93 KB
+and 650 KB runs. The expanded main is unchanged; the stored main and package
+hashes in `patch.json` changed. Other camera patches do not enable this repack.
+
+The [brick-risk review](BRICK-RISK.md) gives a conditional **GO for stock
+reflash and Probe A**, with Probe B and the full mod only after the preceding
+steps succeed. `om-5-ii-probe-a` changes three inert bytes outside LZ4;
+`om-5-ii-probe-b` changes inert padding in LZ4 sections 6 and 7. Both are
+invisible and need the updater LED sequence and a clean reboot for confirmation.
+The E148 OK+power entry, off-CPU LZ4 decoder, boot with saved Color Profile
+settings, and real capture pipeline remain camera-only tests. A failed early
+boot may prevent the in-main card updater from running.
+
 ## Build from your official BIN
 
 ```sh
@@ -27,7 +42,7 @@ so use the emulator's normal image-patch interface for a live session. No
 firmware binary belongs in the source tree.
 
 The builder checks the source BIN, every edited range, the expanded main image,
-both recompressed `olycompress` spans, the stored component, and the complete
+both split-repacked `olycompress` spans, the stored component, and the partial
 update container against the recorded hashes. The resource block's compressed
 record is also repacked with LZ4 HC and checked to fit its fixed span. The
 builder preserves both component lengths and writes updated additive checksums.
