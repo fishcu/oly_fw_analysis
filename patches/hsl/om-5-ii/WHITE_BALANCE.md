@@ -15,7 +15,12 @@ current WB configuration. Native tint tables and one-touch measurements remain
 shared.
 
 The extension occupies the loaded section-2 tail at `0x605af5cc`. The busy
-guard uses `0xa0ca7ff8`. In OM-Emu the 9/9 recall test covered first-use
+guard uses `0xa0ca7ff8`. Both it and the UI writer are in section 6, which
+boot loads after section 2, so the wrapper takes the stock path until
+section 6's loaded bit (`0x20` of `0xa26e2698`) is set. The same commit hook
+also refreshes the effective settings after a Color Profile setting changes
+(see the README). The refresh writes effective IDs 916–927 in part 0; the WB
+records stay in part 1. In OM-Emu the 9/9 recall test covered first-use
 inheritance, switching Profiles 1 and 2, custom Kelvin, and returning to a
 non-COLOR picture mode. The part-1 ownership diff found no changes outside the
 declared WB and H/L ranges during the exercised flow. It does not cover reset,

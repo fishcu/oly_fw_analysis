@@ -83,3 +83,17 @@ lrows=[R(LBL+8*k,8) for k in range(N)]+[struct.pack('<II',v,labels[v]) for v,_ i
 lbl_addr=put(b''.join(lrows)); edits[hex(LBL_DESC)]=struct.pack('<I',M).hex(); edits[hex(LBL_DESC+8)]=struct.pack('<I',lbl_addr).hex()
 json.dump(edits,open(sys.argv[2],'w'),indent=0)
 print('groups, carousel',hex(car_addr),'labels',hex(lbl_addr),'free',[(hex(a),b-a) for a,b in REGIONS])
+
+# --- picture-mode availability lookup (0x602ddb79): mode -> availability ID, 53 rows at 0x604991f8.
+# E148 has no rows for 54..56, so the lookup returns 3200 and 0x602df14f may reset 111 to i-Enhance.
+# E147 maps them to 1072..1074 (0x60400b6d / 0x605dfe04); E148 still keeps those IDs (set beside
+# 584/586/1076.. at 0x6162dab4). Copy the table with the three rows appended and repoint the lookup.
+AV, AV_N, AV_ADD, AV_CMP = 0x604991f8, 53, 0x602ddb89, 0x602ddb9b
+assert struct.unpack('<I',R(AV_ADD,4))[0]==AV and R(AV_CMP-1,2)==bytes([0xaf,AV_N])
+av_rows=[R(AV+8*k,8) for k in range(AV_N)]
+assert all(struct.unpack('<I',r[:4])[0] not in (54,55,56) for r in av_rows)
+av_rows+= [struct.pack('<IHH',v,i,0) for v,i in ((54,1072),(55,1073),(56,1074))]
+av_addr=put(b''.join(av_rows))
+edits[hex(AV_ADD)]=struct.pack('<I',av_addr).hex(); edits[hex(AV_CMP)]=bytes([len(av_rows)]).hex()
+json.dump(edits,open(sys.argv[2],'w'),indent=0)
+print('availability',hex(av_addr),len(av_rows),'free',[(hex(a),b-a) for a,b in REGIONS])

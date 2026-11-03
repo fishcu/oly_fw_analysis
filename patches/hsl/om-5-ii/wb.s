@@ -1,12 +1,23 @@
 /* OM-5 Mark II 1.1 (E148 build 1100) per-profile white balance, ported from
  * the OM-3 patch. NOT tested on a camera; exercised in OM-Emu only.
- * The hook (native commit 0x602d19b1) and this body are both in section 2,
- * which E148 loads once at boot, so no loader or loaded-bit check is needed. */
+ * The hook (native commit 0x602d19b1) and this body are both in section 2.
+ * Section 6 (stock_ui_write, `busy`) is checked via the loader's bits. */
 .section .wb_hook,"ax"
  jmp wb_load
 .section .wb_extension,"ax"
 /* Only picture-mode (111) and WB edits enter the wrapper; others replay. */
 wb_load:
+ /* The wrapper calls stock_ui_write and uses `busy`, both in section 6, which
+  * boot loads after section 2: take the stock path until it is loaded. */
+ movbu (loaded_bits),d2
+ btst 0x20,d2
+ beq wb_original
+ mov d0,d2
+ add -904,d2
+ cmp 81,d2
+ bcc wb_not_profile
+ jmp wb_profile
+wb_not_profile:
  cmp PM_ID,d0
  beq wb_commit
  cmp 1578,d0
@@ -212,3 +223,75 @@ wb_inherit:
  ret [d2,d3,a2,a3],40
 wb_modes:
  .byte 0,18,3,1,6,17,7,8,13,14,15,16,9
+
+/* Color Profile settings (E147 descriptors 0x605b905c..: 904-906, 908-910,
+ * 912-914, 928-963, 976-984 carry refresh handlers 0x60400fc0 / 0x6040466d..).
+ * E148 has no such handlers, so a profile edit would not reach the effective
+ * settings until the next picture-mode change. After the stock commit, refresh
+ * each context (0 and 1) whose picture mode is that profile, as E147 does. */
+.section .wb_profile,"ax"
+wb_profile:
+ mov d0,d2
+ mov d1,d3
+ add -904,d0
+ cmp 12,d0
+ bcc wb_profile_sectors
+ and 3,d0
+ cmp 3,d0
+ beq wb_profile_none
+ bra wb_profile_have
+wb_profile_sectors:
+ mov d2,d0
+ add -928,d0
+ cmp 36,d0
+ bcc wb_profile_tone
+ mov 12,d1
+ bra wb_profile_div
+wb_profile_tone:
+ mov d2,d0
+ add -976,d0
+ cmp 9,d0
+ bcc wb_profile_none
+ mov 3,d1
+wb_profile_div:
+ mov 0,a2
+wb_profile_div_loop:
+ cmp d1,d0
+ bcs wb_profile_divided
+ sub d1,d0
+ inc a2
+ bra wb_profile_div_loop
+wb_profile_divided:
+ mov a2,d0
+wb_profile_have:
+ mov d0,a2
+ mov d2,d0
+ mov d3,d1
+ call wb_original,[d2,d3,a2,a3],20
+ mov d0,a3
+ mov PM_ID,d0
+ call stock_get,[],4
+ mov a2,d1
+ add 54,d1
+ cmp d1,d0
+ bne wb_profile_ctx1
+ clr d0
+ call pm_refresh,[d2],88
+wb_profile_ctx1:
+ mov 1,d0
+ mov 2,d1
+ mov PM_ID,a0
+ call ctx_get,[d2],8
+ mov a2,d1
+ add 54,d1
+ cmp d1,d0
+ bne wb_profile_done
+ mov 1,d0
+ call pm_refresh,[d2],88
+wb_profile_done:
+ mov a3,d0
+ ret [d2,d3,a2,a3],20
+wb_profile_none:
+ mov d2,d0
+ mov d3,d1
+ jmp wb_original

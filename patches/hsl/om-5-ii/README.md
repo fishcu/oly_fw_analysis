@@ -36,8 +36,15 @@ builder preserves both component lengths and writes updated additive checksums.
 
 - Color Profile 1–3 are selectable and their native sector editor works.
 - Delete cycles Saturation → Hue → Lightness; a main-dial edit wrote a valid
-  part-1 H/L word for ID 928. The H/L builder output was exercised by a direct
-  firmware call.
+  part-1 H/L word for ID 928. A direct call of the H/L builder output with a
+  distinct H/L per sector put every sector on its builder record (12/12).
+- Picture-mode refresh: entering Color Profile 1 wrote the profile's
+  Sharpness and Contrast to 7 and 8, its 12 sectors to 916–927, Shading to
+  1016 and the tone curve to 383/690/382; a direct native call of the refresh
+  (context 0, mode 54) rewrote them from the profile after they were
+  overwritten. Editing a profile setting while in that profile updated them at
+  once; editing another profile's did not. Leaving COLOR restored the stock
+  zeros.
 - White balance recall passed 9/9 scripted emulator checks. A part-1 diff over
   all 2265 IDs found changes only in the intended WB cells (904–907, 920–923)
   and H/L cell 928 during the exercised flow.
@@ -85,10 +92,9 @@ Restoring the modes also restores their native per-profile controls:
 Sharpness (IDs 904–907), Contrast (908–911), Shading Effect (912–915) and the
 tone curve (Shadow / Mid / Highlight, three IDs per profile from 976; INFO
 switches the part). Sharpness, Contrast and Shading use the stock slider; the
-tone curve uses the restored page above. Whether E148's image processing
-applies them to Color Profile records is not established in OM-Emu. The
-per-profile white balance stores its records in part 1 of 904–907 and 920–923;
-part 0 of 904–907 is native Sharpness and is not touched.
+tone curve uses the restored page above. The per-profile white balance stores
+its records in part 1 of 904–907 and 920–923; part 0 of 904–907 is native
+Sharpness and is not touched.
 
 E148 resolves the COLOR picture-mode artwork IDs to a placeholder resource
 record, whereas E147 has dedicated bitmaps. The patch aliases the three
@@ -96,11 +102,72 @@ profiles' carousel IDs to E148's existing Color Vivid icon and their compact
 display IDs to existing Color Vivid artwork. The profile names in the interface
 still distinguish COLOR1–3. No E147 artwork or firmware binary is distributed.
 
+## Profile settings reach the image (picture-mode refresh)
+
+On E148 nothing applied a Color Profile's own settings. Its picture-mode
+refresh (`0x602e00bf`, jump table `0x60499718`) sends 54–56 to the neutral
+default, and its caller (`0x602e082f`) never writes the effective IDs the image
+pipeline reads. The patch replays OM-3 (E147) refresh cases 54–56
+(`0x604032a4`) and its caller (`0x604040ff`):
+
+- jump-table entries 54–56 note the profile and take the stock default path;
+- at the end of the refresh (`0x602e0826`) the profile's Contrast (908+p) and
+  Sharpness (904+p) go to effective IDs 8 and 7, with 59 = 0, 105 = 1 and
+  1806 = 0; the 12 sectors (928+12p…) go to effective saturation 916–927 in
+  sector order; Shading (912+p) to 1016, 1011 = 998 = 0; and the tone curve
+  (976+3p…, read from store 2 as E147 does) to 383, 690 and 382;
+- other picture modes get E147's zeros for those extra IDs, written only after
+  a Color Profile may have set them;
+- E147 also refreshes when a profile setting changes (descriptor handlers
+  `0x60400fc0` / `0x6040466d`… on 904–906, 908–910, 912–914, 928–963 and
+  976–984). E148 has no such descriptors, so the patch does this after the
+  stock commit (`0x602d19b1`) for contexts 0 and 1.
+
+The refresh code sits in section 8's loaded tail (`0x613f2b80`): section 2,
+where the hook is, has 36 free bytes, and boot loads section 8 before section
+2. A short guard in section 2 still checks section 8's loaded bit.
+
+## Picture-mode availability
+
+The availability lookup `0x602ddb79` (table `0x604991f8`, 53 rows) had no
+rows for 54–56 and returned ID 3200 (0). With setting 24 at 3, 4, 5, 6, 76,
+77, 89, 90 or 115, `0x602df14f` then resets setting 111 to 1 (i-Enhance).
+In OM-Emu, with setting 24 = 3, calling `0x602df14f` in Color Profile 1
+dropped to i-Enhance with the stock table. The patch copies the table with
+E147's rows (54 → 1072, 55 → 1073, 56 → 1074; E148 keeps those IDs and sets
+them beside the other modes' at `0x6162dab4`) and repoints the lookup. The
+same call then keeps 54. E147's nine-entry Creative-dial list
+(`0x605e0238`) has no E148 counterpart and is not needed (E148 has no
+Creative dial).
+
+## Other robustness fixes
+
+- **Custom-mode reset.** `0x602db531` clears both parts of the live cells and
+  reloads them only for the current mode. Resetting another mode wiped the
+  live H/L and WB (part 1 of 904–975). The patch keeps that part when the
+  reset mode is not current. OM-Emu: stock wiped the test values, patched kept
+  them.
+- **WB before section 6 loads.** The WB wrapper uses section-6 code and state,
+  so it takes the stock path until section 6's loaded bit (`0x20` of
+  `0xa26e2698`) is set.
+- **Axis title paint.** `paint_axis` draws with the caller's context in place
+  and restores the two fields it changes (+52 style, +76 font set by
+  `stock_font` at `0x60d51fa2`), instead of copying 684 bytes of context to
+  the stack. Its frame drops from 748 to 80 bytes.
+- **Delete forward.** `hsl_delete_action` passes command `0x9016` explicitly.
+- **Sector order.** The builder's record r holds sector 2·(r mod 6) + ⌊r/6⌋
+  (`0x603e7ca6`). `apply_values` now reads the H/L cell of that sector; before,
+  10 of 12 sectors were off.
+
+OM-Emu does not run E148's section loader, so its loaded bits stay 0 there
+and every guarded path takes the stock route. The checks above set the bits
+(sections 1–10) to model a booted camera.
+
 ## Source layout
 
-`color_profiles.py` documents the 51 data edits that restore the picture-mode
-tables, rule masks, group membership, carousel and labels. `hsl.s` and `wb.s`
-contain the 16 assembled E148 sections. `patch.json` declares the exact ranges
+`color_profiles.py` documents the 54 data edits that restore the picture-mode
+tables, rule masks, group membership, carousel, labels and availability rows.
+`hsl.s` and `wb.s` contain the 23 assembled E148 sections. `patch.json` declares the exact ranges
 and hashes, including the 0x101 resource aliases. Sections 6 and 7 are stored
 in LZ4 `olycompress` spans; the shared builder repacks them while keeping each
 section's original file span.

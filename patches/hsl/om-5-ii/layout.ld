@@ -15,6 +15,11 @@ SECTIONS {
  .ext6 0x60ca7b00 : { *(.ext6) }
  .ext7 0x612a4b98 : { *(.ext7) }
  .state 0x60ca7fc0 : { *(.state) }
+ .refresh_hook 0x602e0826 : { *(.refresh_hook) }
+ .creset_hook 0x602db531 : { *(.creset_hook) }
+ .refresh_cases 0x604997f0 : { *(.refresh_cases) }
+ .refresh_guard 0x605af560 : { *(.refresh_guard) }
+ .ext8 0x613f2b80 : { *(.ext8) }
 }
 axis = 0xa0ca7fc0;
 screen_forward = 0x60ed5c18;
@@ -42,3 +47,9 @@ direct_layout = 0x60f05251;
 direct_ret = 0x60dad5fc;
 child_get = 0x60dad302;
 set_visible = 0x60f04d10;
+refresh_get = 0x602d2fc2;
+refresh_set = 0x602d2fdb;
+raw_get = 0x602f4c5b;
+refresh_default = 0x602e06ca;
+creset_resume = 0x602db536;
+loaded_bits = 0xa26e2698;
