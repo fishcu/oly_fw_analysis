@@ -887,18 +887,17 @@ refresh_zero_ids:
 refresh_dirty:
  .byte 1
 
-/* Builder output: H/L of the active Color Profile (moved from section 2 for space). */
+/* Builder output: H/L of the profile recorded in this image job. */
 apply_values:
- mov (12,a2),a2
- add 706,a2
- /* Only the restored Color Profile picture modes carry H/L: setting 111 is
-  * 54, 55, 56 for Color Profile 1..3 (the E148 build has no Creative dial, so
-  * 901 stays 54). Every other picture mode keeps the stock builder output. */
- mov 111,d0
- call stock_get,[],4
- sub 54,d0
+ mov (4,a2),a0
+ movbu (10,a0),d0
+ sub 1,d0
  cmp 3,d0
  bcc apply_done
+ mov (12,a2),a2
+ add 706,a2
+ /* Record +10 is profile 1..3 for major 0xb. The caller dispatches on that
+  * record, so a later change to setting 111 cannot change this job's H/L. */
  mov d0,d1
  asl 1,d0
  add d1,d0

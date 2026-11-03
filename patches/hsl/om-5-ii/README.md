@@ -47,6 +47,13 @@ update container against the recorded hashes. The resource block's compressed
 record is also repacked with LZ4 HC and checked to fit its fixed span. The
 builder preserves both component lengths and writes updated additive checksums.
 
+The offline functional-assurance review traces the job dispatch and the
+emulator's JPEG shortcut. The H/L builder hook
+now selects CP1–3 from the image job's COLOR record, so a later picture-mode
+change cannot select a different profile's H/L. A full native job and the real
+ISP/JPEG result remain untested. The current package SHA-256 is
+`3cc2c7c598ec2ca647412d4d2d2d04e8a979d97c7cab28ff0728d201c9046512`.
+
 ## Emulator result
 
 - Color Profile 1–3 are selectable and their native sector editor works.
