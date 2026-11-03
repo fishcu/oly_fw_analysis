@@ -19,6 +19,10 @@ SECTIONS {
  .creset_hook 0x602db531 : { *(.creset_hook) }
  .refresh_cases 0x604997f0 : { *(.refresh_cases) }
  .refresh_guard 0x605af560 : { *(.refresh_guard) }
+ .pm_s1 0x602e0f82 : { *(.pm_s1) }
+ .pm_s2 0x602e1119 : { *(.pm_s2) }
+ .pm_s4 0x602e0fe8 : { *(.pm_s4) }
+ .pm_s5 0x602e11fc : { *(.pm_s5) }
  .ext8 0x613f2b80 : { *(.ext8) }
 }
 axis = 0xa0ca7fc0;
@@ -54,3 +58,10 @@ refresh_default = 0x602e06ca;
 creset_resume = 0x602db536;
 loaded_bits = 0xa26e2698;
 prop_byte = 0x602bbed5;
+wc_set = 0x602f5173;
+wc_get = 0x602f514d;
+/* creset scratch in section 6's free tail (stock ff, unreferenced; uncached alias like axis) */
+creset_kind = 0xa0ca7e70;
+creset_ptr = 0xa0ca7e74;
+creset_ret = 0xa0ca7e78;
+creset_buf = 0xa0ca7e80;

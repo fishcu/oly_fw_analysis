@@ -9,9 +9,10 @@ settings IDs.
 **Emulator only.** Nothing has been installed on a camera. The builder keeps
 the install package withheld by default. The COLOR carousel slots use an
 existing stock picture-mode icon as a fallback, with their own text labels.
-`apply_values` now takes the profile from the picture-mode properties the
-capture snapshot reads (see "H/L profile selection"); the normal capture caller,
-ISP request and JPEG result remain untested. See
+`apply_values` takes the profile from the picture-mode properties the capture
+snapshot reads (see "H/L profile selection"), and the Color Profile number now
+travels with the picture mode through custom modes (see "Custom modes"). The
+ISP request and JPEG pixels remain untested. See
 `phase4-om5ii-hsl/FUNCTIONAL-ASSURANCE.md` before any trial.
 
 The update package contains only `0x100` (USR/main) and `0x101` (OSD/resources).
@@ -58,7 +59,7 @@ emulator's JPEG shortcut. Commit `bab4641` read the dispatch key (job record
 applied. That is fixed (see "H/L profile selection"). A bounded synthetic
 dispatcher/builder/writer fixture now applies H/L; a normal capture job and
 the real ISP/JPEG result remain untested. The current package SHA-256 is
-`dc3a0a01bc7c781e91cbc924d99f903a2a14ce9ba5237644fdece138384a82a3`.
+`817131a81bd309bc55fe3f12d8a77bf4a02574180eec33ca3443d3d008f2e05e`.
 
 ## H/L profile selection
 
@@ -70,8 +71,32 @@ accessor (`0x602bbed5`) and applies H/L only when they are 11 and 1–3. OM-Emu
 gave 11/1, 11/2, 11/3 for Color Profile 1–3; every other picture mode it
 accepted gave a mode other than 11 and `0xf6b` = 0. Like the H/L cells, these are read
 when the COLOR block is built, not at the snapshot, so a profile change between
-the two is not covered. `wb_profile` moved from `0x613f2f20` to `0x613f2f40`
-to make room (section 8 ends at `0x613f3000`).
+the two is not covered. `wb_profile` sits at `0x613f2f40` (section 8 ends at
+`0x613f3000`).
+
+## Custom modes (setting 903)
+
+Setting 111 stores Color Profile 1–3 as picture-mode family 11; setting 903
+holds the profile number. E147's mode-recall lists (`0x605f6c7c`) carry 903 in
+the same row as 111; E148's (`0x604daf4c`) do not, because E148 hides the
+profiles. Without 903, a custom-mode recall restores family 11 with whatever 903
+holds. OM-Emu, previous build: Color Profile 2 assigned to C1 came back as
+Color Profile 3 with Color Profile 3's effective settings, and a Vivid C1
+recalled from a Color Profile in P read back as 111 = 56 with a stale profile
+number and wrong effective saturation.
+
+The patch replaces the per-entry copy call in the four list routines
+(`0x602e0f82` in `0x602e0f40`, `0x602e1119` in `0x602e1071`: rows → working copy;
+`0x602e0fe8` in `0x602e0fa5`, `0x602e11fc` in `0x602e1153`: working copy →
+rows). The wrappers (section 8) make the stock call and, for 111 only, copy 903
+in the same row (values above 3 are not copied). Section 8 loads before
+section 2, so the hooks can run at any time. The routines that write defaults
+into the rows are unchanged.
+
+To make room in section 8, the custom-reset scratch (`creset_kind/ptr/ret/buf`,
+300 bytes) moved to section 6's unused tail (`0xa0ca7e70–0xa0ca7fa0`, stock
+`ff`, unreferenced; uncached alias as for `axis`), and that hook now takes
+the stock path until section 6 is loaded.
 
 ## Emulator result
 
@@ -99,9 +124,30 @@ to make room (section 8 ends at `0x613f3000`).
   image, but did not reach the H/L builder hook in this emulator path.
 - All three COLOR carousel slots render their fallback icons and labels with
   the repacked resource component in a live emulator session.
-- The display hook and the builder during a real capture have not been
-  exercised. Emulator power-off resets stock settings as well, so it cannot
-  establish persistence across power cycles.
+- **Near-native capture chain** (`phase4-om5ii-hsl/scripts/chain.py`): live
+  settings → native capture snapshot `0x602c8139` → native snapshot-to-job copy
+  `0x6041eeea` → the whole native job-record filler `0x6038aac0` → dispatcher,
+  builder and H/L hook → writer. Only the job source buffer (zeroed apart from
+  the block key) and the dispatcher object are fabricated. Color Profile 2:
+  the record carries the profile's 12 saturations and the block carries its
+  hue and lightness; Vivid with the same H/L cells stored gives the stock
+  block.
+- Sharpness, contrast, shading and the tone curve's highlight and shadow
+  reach the capture snapshot (`+28694`, `+28700`, `+28768`, `+29469/29470`) as
+  they do for stock modes; midtone (690) is not in the snapshot in either.
+- **Custom modes** (stock mode dial C1, native assign `0x602db235`): Color
+  Profile 2 → C1 → P changed → C1: profile, saturation, H/L cells, WB and WB
+  records, effective settings and the capture snapshot all restored (7/7).
+  Color Profile 3 in C1 while P holds Color Profile 1: 5/5. Vivid in C1 while
+  P holds a profile: Vivid, no profile, stock block (3/3).
+- **Custom-mode reset** of C1 (kinds 1 and 2) from P keeps P's H/L, WB
+  records, profile and effective saturation (6/6).
+- **Power cycle (approximation):** the whole settings store
+  (`0x62428d80–0x62468d80`, which holds the rows, banks, working copy and
+  properties) copied into a fresh session, then a mode-dial recall: Color
+  Profile 1, 2 and 3 each came back with the same profile, cells, WB,
+  effective settings and capture snapshot (5/5 each). The real NAND save and
+  boot restore were not run.
 
 ## Colour wheel and tone-curve pages
 
@@ -190,8 +236,8 @@ Creative dial).
 - **Custom-mode reset.** `0x602db531` clears both parts of the live cells and
   reloads them only for the current mode. Resetting another mode wiped the
   live H/L and WB (part 1 of 904–975). The patch keeps that part when the
-  reset mode is not current. OM-Emu: stock wiped the test values, patched kept
-  them.
+  reset mode is not current (after section 6 has loaded). OM-Emu: stock wiped
+  the test values, patched kept them.
 - **WB before section 6 loads.** The WB wrapper uses section-6 code and state,
   so it takes the stock path until section 6's loaded bit (`0x20` of
   `0xa26e2698`) is set.

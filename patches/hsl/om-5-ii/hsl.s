@@ -762,6 +762,14 @@ refresh_stock:
  ret [d2,d3,a2,a3],96
 .section .creset_hook,"ax"
  jmp creset
+.section .pm_s1,"ax"
+ call pm_set_a3,[d2,d3],12
+.section .pm_s2,"ax"
+ call pm_set_a2,[d2,d3],12
+.section .pm_s4,"ax"
+ call pm_put,[d2,d3],12
+.section .pm_s5,"ax"
+ call pm_put,[d2,d3],12
 .section .ext8,"ax"
 refresh_tail:
  mov (12,sp),a0
@@ -961,6 +969,10 @@ sector_of_record:
 creset:
  mov d0,d2
  mov d1,d3
+ /* The save buffer is in section 6's free tail: stock path until loaded. */
+ movbu (loaded_bits),d0
+ btst 0x20,d0
+ beq creset_stock
  mov d1,(creset_kind)
  mov 41,d0
  call raw_get,[],4
@@ -1009,12 +1021,48 @@ creset_orig:
  extbu d3
  cmp 1,d3
  jmp creset_resume
-.align 4
-creset_kind:
- .long 0
-creset_ptr:
- .long 0
-creset_ret:
- .long 0
-creset_buf:
- .space 288,0
+
+/* Mode store: E148's mode-recall lists (0x604daf4c) carry 111 but not 903,
+ * the Color Profile number that turns 111's stored family 11 into 54..56
+ * (E147's lists carry 903 in the same row as 111). Without it a custom-mode
+ * recall restores the family with whatever 903 holds. At the four per-entry
+ * copies of the list routines, copy 903 with 111 in the same row, as E147
+ * does (0 = not a profile; the DB reset writes its default to both rows).
+ * rows -> working copy (0x602e0f40 entry in a3, 0x602e1071 entry in a2);
+ * a row value above 3 is not copied. */
+pm_set_a3:
+ mov a3,d3
+ bra pm_set
+pm_set_a2:
+ mov a2,d3
+pm_set:
+ mov d0,d2
+ call wc_set,[],4
+ cmp 111,d2
+ bne pm_set_done
+ mov d3,a0
+ movbu (2,a0),d1
+ mov 903,d0
+ call active_read,[d2],8
+ mov d0,d1
+ cmp 4,d0
+ bcc pm_set_done
+ mov 903,d0
+ call wc_set,[],4
+pm_set_done:
+ ret [d2,d3],12
+/* working copy -> rows (0x602e0fa5, 0x602e1153): d0 id, d1 row, a0 value */
+pm_put:
+ mov d0,d2
+ mov d1,d3
+ call active_write,[d2],8
+ cmp 111,d2
+ bne pm_put_done
+ mov 903,d0
+ call wc_get,[],4
+ mov d0,a0
+ mov 903,d0
+ mov d3,d1
+ call active_write,[d2],8
+pm_put_done:
+ ret [d2,d3],12

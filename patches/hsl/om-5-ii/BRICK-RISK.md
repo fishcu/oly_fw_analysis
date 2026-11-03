@@ -32,7 +32,8 @@
 | `0x602d19b6` WB commit | 2 | Setting commit | Yes, stock path observed | Section 6 loaded; busy at `0x60ca7ff8`; WB part-1 cells; may call profile refresh |
 | `0x602e0826` refresh tail | 2 → 8 | Picture-mode refresh | Not observed | Section 8 loaded; `refresh_profile`, `refresh_dirty`; effective setting IDs |
 | `0x604997f0` cases 54–56 | 2 | Refresh jump table | Not observed | Mode 54–56; `refresh_profile` at `0x605af575` |
-| `0x602db531` custom reset | 2 → 8 | Reset another C-mode | No | Reset mode differs from current; ext8 `creset_kind/ptr/ret/buf`; restored part-1 cells |
+| `0x602db531` custom reset | 2 → 8 | Reset another C-mode | No | Section 6 loaded; reset mode differs from current; scratch at `0xa0ca7e70–0xa0ca7fa0` (section 6 tail); restored part-1 cells |
+| `0x602e0f82`, `0x602e1119`, `0x602e0fe8`, `0x602e11fc` mode-store copies | 2 → 8 | Mode change, custom-mode assign/recall | Possible | None needed (section 8 loads before 2); for ID 111 only, copies setting 903 between working copy and the same row |
 | `0x6091c66d` read | 4 | Editor setting read | Yes, stock path observed | COLOR/H/L ID checks; no persistent store |
 | `0x6091c6bd` write | 4 | Editor setting write | Yes, stock path observed | COLOR/H/L ID checks; part-1 H/L cell writes |
 | `0x603e7eb0` builder | 2 → 8 | Capture record major `0xb` | No | COLOR record; reads 12 H/L cells, writes builder output records |
