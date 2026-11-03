@@ -740,7 +740,7 @@ light_lut:
 /* Jump-table cases 54..56 (stock: the default 0x602e06ca). Note the profile
  * for the tail, then take the stock default path unchanged. */
 .section .refresh_cases,"a"
- .long refresh_case,refresh_case,refresh_case
+ .long refresh_case,refresh_case,refresh_case,refresh_case,refresh_case,refresh_case
 .section .refresh_guard,"ax"
 refresh_case:
  mov d2,d0
@@ -752,9 +752,9 @@ refresh_profile:
  .byte 0xff
 refresh_guard:
  movbu (loaded_bits),d0
- btst 0x80,d0
+ btst 0x10,d0
  beq refresh_stock
- jmp refresh_tail
+ jmp rt_tail
 refresh_stock:
  mov (12,sp),a0
  clr d0
@@ -771,129 +771,6 @@ refresh_stock:
 .section .pm_s5,"ax"
  call pm_put,[d2,d3],12
 .section .ext8,"ax"
-refresh_tail:
- mov (12,sp),a0
- clr d0
- mov d3,(76,a0)
- movbu (refresh_profile),d0
- mov 0xff,d1
- movbu d1,(refresh_profile)
- cmp 3,d0
- bcs refresh_color
- movbu (refresh_dirty),d0
- cmp 0,d0
- beq refresh_ret
- clr d0
- movbu d0,(refresh_dirty)
- mov refresh_zero_ids,a3
-refresh_zero_loop:
- movhu (a3),d0
- cmp 0,d0
- beq refresh_ret
- mov d0,a0
- clr d0
- mov d0,a1
- call refresh_put2,[],4
- add 2,a3
- bra refresh_zero_loop
-refresh_ret:
- ret [d2,d3,a2,a3],96
-
-/* d0 = profile p (0..2) from refresh_case, a2 = settings context */
-refresh_color:
- mov d0,d3
- mov 1,d0
- movbu d0,(refresh_dirty)
- mov (12,sp),a3
- mov 908,d0
- add d3,d0
- mov d0,a0
- call refresh_get1,[],4
- mov d0,(a3)
- mov 904,d0
- add d3,d0
- mov d0,a0
- call refresh_get1,[],4
- mov d0,(4,a3)
- clr d0
- mov d0,(8,a3)
- mov d0,(24,a3)
- mov 1,d0
- mov d0,(20,a3)
- /* 916..927 <- profile sectors, in sector order (E147 caller 0x60404228) */
- mov d3,d0
- asl 1,d0
- add d3,d0
- asl 2,d0
- add 928,d0
- mov d0,d2
- mov 916,a3
-refresh_sector_loop:
- mov d2,a0
- call refresh_get1,[],4
- mov d0,a1
- mov a3,a0
- call refresh_put2,[],4
- inc d2
- inc a3
- cmp 928,a3
- bne refresh_sector_loop
- mov 912,d0
- add d3,d0
- mov d0,a0
- call refresh_get1,[],4
- mov d0,a1
- mov 1016,a0
- call refresh_put2,[],4
- clr d0
- mov d0,a1
- mov 1011,a0
- call refresh_put2,[],4
- clr d0
- mov d0,a1
- mov 998,a0
- call refresh_put2,[],4
- /* tone curve: three values per profile, read from store 2 as E147 does */
- mov d3,d2
- asl 1,d2
- add d3,d2
- add 976,d2
- mov refresh_tone_ids,a3
-refresh_tone_loop:
- mov a2,d0
- mov 2,d1
- mov d2,a0
- call refresh_get,[d2],8
- mov d0,a1
- movhu (a3),d0
- mov d0,a0
- call refresh_put2,[],4
- inc d2
- add 2,a3
- movhu (a3),d0
- cmp 0,d0
- bne refresh_tone_loop
- bra refresh_ret
-
-/* a0 = ID -> d0 = store-1 value of context a2 */
-refresh_get1:
- mov a2,d0
- mov 1,d1
- call refresh_get,[d2],8
- ret [],4
-/* a0 = ID, a1 = value -> effective (store 2) of context a2 */
-refresh_put2:
- mov a2,d0
- mov 2,d1
- call refresh_set,[d2,a2],12
- ret [],4
-.align 2
-refresh_tone_ids:
- .hword 383,690,382,0
-refresh_zero_ids:
- .hword 916,917,918,919,920,921,922,923,924,925,926,927,1011,1016,998,383,690,382,0
-refresh_dirty:
- .byte 1
 
 /* Builder output: H/L of the profile recorded in this image job. */
 apply_values:
@@ -1066,3 +943,243 @@ pm_put:
  call active_write,[d2],8
 pm_put_done:
  ret [d2,d3],12
+
+/* Picture-mode refresh tail for Color Profile 1-3 and Monochrome Profile 1-3
+ * (section 5 free tail, entered from refresh_guard once section 5 is loaded).
+ * refresh_profile holds the jump-table case: 0..2 = CP1..3 (111 = 54..56),
+ * 3..5 = MONO1..3 (111 = 57..59), 0xff = any other mode.
+ *
+ * E148's stock refresh never writes 916..927, 1011, 1016, 998 or the tone IDs
+ * 383/691/382 (the last three are the user's own Highlight/Shadow/Mid), so a
+ * profile's values must be undone on leaving it, and E147's "zero them in
+ * stock modes" rule does not fit E148. On entering a profile from a stock
+ * mode the user's three tone values are saved in a persistent record, part 1
+ * of IDs 964..967 (context 0) or 968..971 (context 1): unused fourth-profile
+ * H/L cells that are saved at power-off and travel with custom modes like the
+ * rest of part 1. Word 0 is TONE_SAVED while a save is held. On leaving, the
+ * tone is restored from it and the other IDs get their stock values (916..927
+ * = 0, 1011 = 2, 1016 = 0, 998 = 0; no stock mode changes them).
+ *
+ * Profile values (E147 refresh 0x604032a4, caller 0x604040ff; E148 caller
+ * 0x602e082f writes struct +0 -> 8, +4 -> 7, +8 -> 59, +12 -> 130,
+ * +16 -> 131, +20 -> 105, +24 -> 1806):
+ *   CP p:   +0 contrast 908+p, +4 sharpness 904+p, +8 0, +20 1, +24 0,
+ *           916..927 = 928+12p.., 1016 = 912+p, 1011 = 0, 998 = 0,
+ *           tone 976+3p.. (store 2) -> 383/691/382
+ *   MONO p: +0 994+p, +4 990+p, +8 0, +12 filter 1007+p, +16 toning 1003+p,
+ *           +20 1, +24 0, 916..927 = 0, 1011 = level 1012+p,
+ *           1016 = shading 1017+p, 998 = grain 999+p, tone 1021+3p.. */
+TONE_SAVED = 0x544f4e45
+.section .ext5,"ax"
+rt_tail:
+ mov (12,sp),a0
+ clr d0
+ mov d3,(76,a0)
+ movbu (refresh_profile),d3
+ mov 0xff,d0
+ movbu d0,(refresh_profile)
+ /* d2 = tone record ID for this context, 0 = none */
+ clr d2
+ mov a2,d0
+ cmp 2,d0
+ bcc rt_have
+ asl 2,d0
+ add 964,d0
+ mov d0,d2
+rt_have:
+ cmp 6,d3
+ bcs rt_profile
+ /* stock mode: undo a profile only if a save is held */
+ cmp 0,d2
+ beq rt_ret
+ mov d2,d0
+ mov 1,d1
+ call active_read,[d2],8
+ cmp TONE_SAVED,d0
+ bne rt_ret
+ clr d0
+ mov d0,a0
+ mov d2,d0
+ mov 1,d1
+ call active_write,[d2],8
+ mov rs_tone_ids,a3
+rt_restore_loop:
+ inc d2
+ mov d2,d0
+ mov 1,d1
+ call active_read,[d2],8
+ mov d0,a1
+ movhu (a3),d0
+ mov d0,a0
+ call rt_put2,[],4
+ add 2,a3
+ movhu (a3),d0
+ cmp 0,d0
+ bne rt_restore_loop
+ mov rs_stock,a3
+rt_stock_loop:
+ movhu (2,a3),d0
+ mov d0,a1
+ movhu (a3),d0
+ mov d0,a0
+ call rt_put2,[],4
+ add 4,a3
+ movhu (a3),d0
+ cmp 0,d0
+ bne rt_stock_loop
+rt_ret:
+ ret [d2,d3,a2,a3],96
+
+rt_profile:
+ cmp 0,d2
+ beq rt_write
+ mov d2,d0
+ mov 1,d1
+ call active_read,[d2],8
+ cmp TONE_SAVED,d0
+ beq rt_write
+ mov rs_tone_ids,a3
+rt_save_loop:
+ movhu (a3),d0
+ mov d0,a0
+ call rt_get2,[],4
+ mov d0,a0
+ inc d2
+ mov d2,d0
+ mov 1,d1
+ call active_write,[d2],8
+ add 2,a3
+ movhu (a3),d0
+ cmp 0,d0
+ bne rt_save_loop
+ add -3,d2
+ mov TONE_SAVED,a0
+ mov d2,d0
+ mov 1,d1
+ call active_write,[d2],8
+rt_write:
+ /* d3 = kind 0..5 */
+ mov rs_cp_table,a3
+ cmp 3,d3
+ bcs rt_tab_loop
+ mov rs_mono_table,a3
+rt_tab_loop:
+ movhu (2,a3),d0
+ cmp 2,d0
+ bcs rt_tab_value
+ call rt_p,[],4
+ add d1,d0
+ mov d0,a0
+ call rt_get1,[],4
+rt_tab_value:
+ movhu (a3),d1
+ btst 0x8000,d1
+ beq rt_tab_id
+ and 0xff,d1
+ mov (12,sp),a0
+ add d1,a0
+ mov d0,(a0)
+ bra rt_tab_next
+rt_tab_id:
+ mov d0,a1
+ mov d1,a0
+ call rt_put2,[],4
+rt_tab_next:
+ add 4,a3
+ movhu (a3),d0
+ cmp 0,d0
+ bne rt_tab_loop
+ /* 916..927: CP sectors (store 1, sector order), MONO zeros */
+ movhu (2,a3),d0
+ cmp 0,d0
+ beq rt_sec_base
+ call rt_p,[],4
+ asl 2,d1
+ add d1,d0
+ add d1,d0
+ add d1,d0
+rt_sec_base:
+ mov d0,a3
+ mov 916,d2
+rt_sec_loop:
+ clr d0
+ mov a3,d1
+ cmp 0,d1
+ beq rt_sec_put
+ mov d2,d0
+ add -916,d0
+ add d1,d0
+ mov d0,a0
+ call rt_get1,[],4
+rt_sec_put:
+ mov d0,a1
+ mov d2,a0
+ call rt_put2,[],4
+ inc d2
+ cmp 928,d2
+ bne rt_sec_loop
+ /* tone curve: three values per profile, store 2, as E147 */
+ call rt_p,[],4
+ mov d1,d2
+ add d1,d2
+ add d1,d2
+ add 976,d2
+ cmp 3,d3
+ bcs rt_tone
+ add 45,d2
+rt_tone:
+ mov rs_tone_ids,a3
+rt_tone_loop:
+ mov d2,a0
+ call rt_get2,[],4
+ mov d0,a1
+ movhu (a3),d0
+ mov d0,a0
+ call rt_put2,[],4
+ inc d2
+ add 2,a3
+ movhu (a3),d0
+ cmp 0,d0
+ bne rt_tone_loop
+ bra rt_ret
+
+/* d3 = kind -> d1 = profile p (0..2); d0 kept */
+rt_p:
+ mov d3,d1
+ cmp 3,d1
+ bcs rt_p_done
+ add -3,d1
+rt_p_done:
+ ret [],4
+/* a0 = ID -> d0 = store-1 / store-2 value of context a2 */
+rt_get1:
+ mov a2,d0
+ mov 1,d1
+ call refresh_get,[d2],8
+ ret [],4
+rt_get2:
+ mov a2,d0
+ mov 2,d1
+ call refresh_get,[d2],8
+ ret [],4
+/* a0 = ID, a1 = value -> effective (store 2) of context a2 */
+rt_put2:
+ mov a2,d0
+ mov 2,d1
+ call refresh_set,[d2,a2],12
+ ret [],4
+.align 2
+/* {dst, src}: dst 0x80nn = refresh struct +nn, else an ID; src 0/1 = that
+ * value, else src + p (store 1). Then 0, then the 916..927 source (0 = zeros). */
+rs_cp_table:
+ .hword 0x8000,908, 0x8004,904, 0x8008,0, 0x8014,1, 0x8018,0
+ .hword 1016,912, 1011,0, 998,0, 0, 928
+rs_mono_table:
+ .hword 0x8000,994, 0x8004,990, 0x8008,0, 0x800c,1007, 0x8010,1003
+ .hword 0x8014,1, 0x8018,0, 1011,1012, 1016,1017, 998,999, 0, 0
+rs_tone_ids:
+ .hword 383,691,382,0
+/* {ID, stock value} written when leaving a profile; then 0 */
+rs_stock:
+ .hword 916,0, 917,0, 918,0, 919,0, 920,0, 921,0, 922,0, 923,0
+ .hword 924,0, 925,0, 926,0, 927,0, 1011,2, 1016,0, 998,0, 0

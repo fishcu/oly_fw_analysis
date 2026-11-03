@@ -24,6 +24,7 @@ SECTIONS {
  .pm_s4 0x602e0fe8 : { *(.pm_s4) }
  .pm_s5 0x602e11fc : { *(.pm_s5) }
  .ext8 0x613f2b80 : { *(.ext8) }
+ .ext5 0x60845a00 : { *(.ext5) }
 }
 axis = 0xa0ca7fc0;
 screen_forward = 0x60ed5c18;
