@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Live ND32/ND64 for OM-5 Mark II (E148 1.1): build and statically check the edits.
 
-Separate from the HSL/Monochrome patch and applied to stock on its own, so that
-it can be tried (and undone) as one feature. Emulator/static research only.
+Built into the HSL/Monochrome patch (patches/hsl/om-5-ii, via check()); this
+directory's patch.json also applies it to stock on its own. Static research only.
 
   nd64.py EXPANDED_E148.bin [EDITS_OUT.json]     check, print, optionally write lab edits
   nd64.py --spec STOCK.BIN                        (re)write patch.json next to this file

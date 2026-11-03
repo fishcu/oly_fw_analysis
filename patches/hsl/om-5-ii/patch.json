@@ -1,6 +1,6 @@
 {
   "schema": "oly-patch/1",
-  "name": "OM-5 Mark II HSL and per-profile white balance (experimental)",
+  "name": "OM-5 Mark II HSL, per-profile white balance, Monochrome Profiles and Live ND32/ND64 (experimental)",
   "model": "OM-5 Mark II",
   "firmware": "1.1 build 1100",
   "camera_tested": false,
@@ -12,9 +12,9 @@
       "cpu_base": "0x60021020",
       "image_transform": "olycompress",
       "stored_before_sha256": "f9c6b0bb37675a2b031ccf09292796ab5793994b8ce2053dcfd7f9fe68035cd8",
-      "stored_after_sha256": "c3380058e94e037a791e29bdee418f6e6a413d465aea8bdf0eb474003a4df083",
+      "stored_after_sha256": "4f5c6d1f534475147d2cdd1bb1825a0a84fda98653d5ace30bd83ffc69a9b1a0",
       "before_sha256": "7ae7d4c60990cc859c070e0ceb6cbe612f9c5b260713f2f1256e51d137851c61",
-      "after_sha256": "cbe242896ac82d2f352cf5b83ab2ef91f16f50037578d0f439518ed40a6d30b0",
+      "after_sha256": "5b272ba59acf73d3828232ca46363e6d2797ca6cb6dc774c36e4f1f24f487124",
       "repack": "split"
     },
     "0x101": {
@@ -738,12 +738,36 @@
       "after_sha256": "b058a3d7660851438d78aedfcf2383b89de7f5af216fc6bdffc0afca7784bc38"
     },
     {
+      "component": "0x100",
+      "name": "nd_step_selector",
+      "address": "0x6023c850",
+      "bytes": 37,
+      "before_sha256": "78444e9b12e21902e7e648b5a24891b35e88d308001fefbba147dc5098d92b39",
+      "after_sha256": "792213949b1144226b19728f9b32353dad9bbbb0e7f4f8d9f4fec3ba91f812be"
+    },
+    {
+      "component": "0x100",
+      "name": "nd_1710_allowed_list",
+      "address": "0x60514860",
+      "bytes": 4,
+      "before_sha256": "15d6269326b2af35e20790d41905a3fb9b4a6c3761d80a3826aa748388f960e8",
+      "after_sha256": "d6da632c11b7c226cf36fcd95226db22fea32bf1bcf1c70e60ba22c0b32e5a93"
+    },
+    {
+      "component": "0x100",
+      "name": "nd_1710_allowed_count",
+      "address": "0x60514868",
+      "bytes": 2,
+      "before_sha256": "c0ba8a33ac67f44abff5984dfbb6f56c46b880ac2b86e1f23e7fa9c402c53ae7",
+      "after_sha256": "ceb827ad3d3884fd4d50ae6099d6d50c09a21e72ebd309708e8b69d93df19e55"
+    },
+    {
       "component": "0x101",
-      "name": "color_icon_aliases",
+      "name": "profile_icon_aliases",
       "offset": "0x0",
       "bytes": 12582848,
       "before_sha256": "0576d786f8f40350ec9f620c7302f95c317c979fed88d9afc678c5b7e6f59fa0",
-      "after_sha256": "18a7086f0cfe7fa2eed146fc9eaa5a6d8ed9c486e3cc507f8512ee0af686bd93"
+      "after_sha256": "6b93ba2171e8ad5627cfa29d198bc07a01ff49173307bafde3b37fd412707a22"
     }
   ],
   "data_edits": [
@@ -1076,6 +1100,24 @@
       "name": "color_profile_55",
       "address": "0x611a1a08",
       "after": "60234f60"
+    },
+    {
+      "component": "0x100",
+      "name": "nd_step_selector",
+      "address": "0x6023c850",
+      "after": "a001c029a006c125128100e829ffc9fd82ca14cbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcb"
+    },
+    {
+      "component": "0x100",
+      "name": "nd_1710_allowed_list",
+      "address": "0x60514860",
+      "after": "d3c35060"
+    },
+    {
+      "component": "0x100",
+      "name": "nd_1710_allowed_count",
+      "address": "0x60514868",
+      "after": "0600"
     }
   ],
   "package": {
@@ -1084,8 +1126,8 @@
       "0x101"
     ],
     "file": "DCOLYMP/E1489999.BIN",
-    "sha256": "7fb12006bf20bd951ef707d8b86bcff9615c43778f2df8d6f8134527ad7bbb53",
-    "bytes": 90832896,
+    "sha256": "d4f335622aa6048ce512c9bdbc17644f14a2db7021c5c98ca3d6c138c88e9c33",
+    "bytes": 37486592,
     "restore_sha256": "1e0d38f87b367c92023e8b827910fa94a9d9ec511ebec286406ca36d20066fde"
   },
   "resource_aliases": [

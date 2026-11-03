@@ -1,4 +1,4 @@
-# OM-5 Mark II HSL and per-profile white balance (experimental)
+# OM-5 Mark II HSL, per-profile white balance, Monochrome Profiles and Live ND32/ND64 (experimental)
 
 This port targets the official E148 firmware 1.1 build 1100. It restores Color
 Profile 1–3 in the picture-mode selector and adds Hue and Lightness beside the
@@ -266,6 +266,13 @@ Emulator (3 Nov 2026): selection and refresh for 57–59; live edits of every fi
 profile's edits; C-mode matrix 6/6 including CP↔MONO; snapshot carries the mono number and filter/toning per
 profile; stock modes unchanged across a full picture-mode cycle; section guards hold. Whether filter, toning and
 grain reach the JPEG is not proven (OM-Emu has no image pipeline). Not tried on a camera.
+
+## Live ND32/ND64
+
+The build also carries the three Live ND edits from [`live-nd/om-5-ii`](../../live-nd/om-5-ii/nd64.py). Setting 1710
+allows ND2–ND64, and the ND step selector handles steps 1–6 with E147's values. `nd64.py` checks 768 selector cases
+on every build. Live ND doesn't run in OM-Emu, so whether the camera completes 32- and 64-frame shots is unproven.
+ND2–16 run the same values as stock. Regenerate with `ND=0` to leave it out.
 
 ## Source layout
 
