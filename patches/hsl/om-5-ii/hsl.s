@@ -889,15 +889,28 @@ refresh_dirty:
 
 /* Builder output: H/L of the profile recorded in this image job. */
 apply_values:
- mov (4,a2),a0
- movbu (10,a0),d0
+ /* Profile 1..3 from the properties the capture snapshot itself reads
+  * (0x602c8821/0x602c8855): picture-mode property 0x948 is 11 for Color
+  * Profile 1-3 and property 0xf6b is then the profile number (stored at
+  * snapshot +28735 / +28765). Job record +10 is the dispatcher's block
+  * key (always 11 here), not a profile. These are read when the block is
+  * built, like the H/L cells, so a profile change between the snapshot
+  * and the build is not covered. */
+ mov 38017,d0
+ clr d1
+ mov 0,a0
+ call prop_byte,[d2,d3,a2],32
+ cmp 11,d0
+ bne apply_done
+ mov 63153,d0
+ clr d1
+ mov 0,a0
+ call prop_byte,[d2,d3,a2],32
  sub 1,d0
  cmp 3,d0
  bcc apply_done
  mov (12,a2),a2
  add 706,a2
- /* Record +10 is profile 1..3 for major 0xb. The caller dispatches on that
-  * record, so a later change to setting 111 cannot change this job's H/L. */
  mov d0,d1
  asl 1,d0
  add d1,d0

@@ -53,3 +53,4 @@ raw_get = 0x602f4c5b;
 refresh_default = 0x602e06ca;
 creset_resume = 0x602db536;
 loaded_bits = 0xa26e2698;
+prop_byte = 0x602bbed5;

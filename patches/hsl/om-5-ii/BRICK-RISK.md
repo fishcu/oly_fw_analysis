@@ -47,7 +47,7 @@
 | Data: `0x602ddb89/9b`, `0x604eec40`, `0x604997f0` | 2 | Availability lookup / refresh | Table read can occur at boot | Static pointer/count and case table; no runtime code store except case byte above |
 | Data: `0x60472666`, `0x604729da/fc`, `0x6047c348–0x6047c590`, `0x604eeae0`, `0x604f1160–0x604f2130`, `0x6050de48/e050/e064` | 2 | Picture-mode descriptor/rule lookup | Possible | Static tables and pointers; runtime settings changed through stock setters |
 | Data: `0x61199b5c`, `0x611a1a00/08` | 7 | Carousel / label lookup | No observed boot call | Static table/count edits |
-| Extensions/state: `0x605af4b0`, `0x605af560`, `0x605af5cc`, `0x60ca7b00`, `0x60ca7fc0`, `0x612a4b98`, `0x613f2b80`, `0x613f2f20` | 2, 6, 7, 8 | Entered only from sites above | As their caller permits | Section guards as above; section-6 state uses uncached alias; ext8 refresh/reset state |
+| Extensions/state: `0x605af4b0`, `0x605af560`, `0x605af5cc`, `0x60ca7b00`, `0x60ca7fc0`, `0x612a4b98`, `0x613f2b80`, `0x613f2f40` | 2, 6, 7, 8 | Entered only from sites above | As their caller permits | Section guards as above; section-6 state uses uncached alias; ext8 refresh/reset state |
 | Resource record 0 pointer aliases | `0x101` OSD | Artwork lookup | Possible | 42 static dwords; no runtime store |
 
 ## Staged camera checks

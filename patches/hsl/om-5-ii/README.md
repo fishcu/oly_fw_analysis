@@ -6,12 +6,13 @@ stock saturation axis. Each Color Profile also recalls its own white balance.
 It follows the [OM-3 patch](../om-3/README.md) but uses E148-specific hooks and
 settings IDs.
 
-**Emulator only; current H/L builder has a known functional blocker.** Nothing
-has been installed on a camera. The builder keeps the install package withheld
-by default. The COLOR carousel slots use an existing stock picture-mode icon
-as a fallback, with their own text labels. The native key-11 dispatcher forces
-job-record byte `+10` to 11, but `apply_values` treats it as CP1–3 and skips
-all H/L writes. See `phase4-om5ii-hsl/FUNCTIONAL-ASSURANCE.md` before any trial.
+**Emulator only.** Nothing has been installed on a camera. The builder keeps
+the install package withheld by default. The COLOR carousel slots use an
+existing stock picture-mode icon as a fallback, with their own text labels.
+`apply_values` now takes the profile from the picture-mode properties the
+capture snapshot reads (see "H/L profile selection"); the normal capture caller,
+ISP request and JPEG result remain untested. See
+`phase4-om5ii-hsl/FUNCTIONAL-ASSURANCE.md` before any trial.
 
 The update package contains only `0x100` (USR/main) and `0x101` (OSD/resources).
 The main image uses opt-in `"repack": "split"` for its two LZ4 sections. This
@@ -52,21 +53,36 @@ record is also repacked with LZ4 HC and checked to fit its fixed span. The
 builder preserves both component lengths and writes updated additive checksums.
 
 The offline functional-assurance review traces the job dispatch and the
-emulator's JPEG shortcut. The attempted job-owned H/L selection in commit
-`bab4641` reads the dispatch key as a profile number and therefore does not
-apply H/L on the native key-11 path. A bounded synthetic dispatcher/builder/
-writer fixture demonstrates the skip; a normal capture job and the real
-ISP/JPEG result remain untested. The current package SHA-256 is
-`3cc2c7c598ec2ca647412d4d2d2d04e8a979d97c7cab28ff0728d201c9046512`.
+emulator's JPEG shortcut. Commit `bab4641` read the dispatch key (job record
+`+10`, always 11 on the COLOR path) as a profile number, so H/L was never
+applied. That is fixed (see "H/L profile selection"). A bounded synthetic
+dispatcher/builder/writer fixture now applies H/L; a normal capture job and
+the real ISP/JPEG result remain untested. The current package SHA-256 is
+`dc3a0a01bc7c781e91cbc924d99f903a2a14ce9ba5237644fdece138384a82a3`.
+
+## H/L profile selection
+
+The job record carries no profile number. The capture snapshot does: its
+builder reads picture-mode property `0x948` (key 38017) into `+28735` and, when
+that is 11, property `0xf6b` (key 63153) into `+28765` (`0x602c8821`,
+`0x602c8855`). `apply_values` reads the same two properties through the same
+accessor (`0x602bbed5`) and applies H/L only when they are 11 and 1–3. OM-Emu
+gave 11/1, 11/2, 11/3 for Color Profile 1–3; every other picture mode it
+accepted gave a mode other than 11 and `0xf6b` = 0. Like the H/L cells, these are read
+when the COLOR block is built, not at the snapshot, so a profile change between
+the two is not covered. `wb_profile` moved from `0x613f2f20` to `0x613f2f40`
+to make room (section 8 ends at `0x613f3000`).
 
 ## Emulator result
 
 - Color Profile 1–3 are selectable and their native sector editor works.
 - Delete cycles Saturation → Hue → Lightness; a main-dial edit wrote a valid
-  part-1 H/L word for ID 928. An earlier direct H/L call passed 12/12 sectors
-  with a fabricated profile byte incompatible with the native key-11 dispatch.
-  A later native synthetic dispatcher/builder/writer fixture found the current
-  hook skips H/L for a valid key-11 record even with 36 distinct H/L cells.
+  part-1 H/L word for ID 928.
+- Native synthetic key-11 fixture (real dispatcher, builder, hook and writer;
+  fabricated job record): with 36 distinct CP1–3 H/L cells, Color Profile 1, 2
+  and 3 each produced their own 12 sectors' hue and lightness, 36/36 as
+  expected, and the writer copied each block exactly. Picture modes 2, 3 and
+  6 (setting 111) gave the stock block unchanged.
 - Picture-mode refresh: entering Color Profile 1 wrote the profile's
   Sharpness and Contrast to 7 and 8, its 12 sectors to 916–927, Shading to
   1016 and the tone curve to 383/690/382; a direct native call of the refresh
@@ -185,8 +201,7 @@ Creative dial).
   the stack. Its frame drops from 748 to 80 bytes.
 - **Delete forward.** `hsl_delete_action` passes command `0x9016` explicitly.
 - **Sector order.** The builder's record r holds sector 2·(r mod 6) + ⌊r/6⌋
-  (`0x603e7ca6`). `apply_values` contains the corrected mapping, but its
-  current profile guard skips that code on the key-11 path.
+  (`0x603e7ca6`). `apply_values` uses that mapping.
 
 OM-Emu does not run E148's section loader, so its loaded bits stay 0 there
 and every guarded path takes the stock route. The checks above set the bits

@@ -12,9 +12,9 @@
       "cpu_base": "0x60021020",
       "image_transform": "olycompress",
       "stored_before_sha256": "f9c6b0bb37675a2b031ccf09292796ab5793994b8ce2053dcfd7f9fe68035cd8",
-      "stored_after_sha256": "4f75435f52aed9331aa25c665061c962e3ff75e2a91f50fbe9bcaefb0746b644",
+      "stored_after_sha256": "7350d85a781dd2a24daf5b585c2b9dc1425598556cfcc796690f3284c335bb33",
       "before_sha256": "7ae7d4c60990cc859c070e0ceb6cbe612f9c5b260713f2f1256e51d137851c61",
-      "after_sha256": "48a51aa5082d7cca75f324d7ca509cf62f45e13a4262681a9f8b3e7691d3b520",
+      "after_sha256": "95e758802bd78571b39361872be5bf4d59453c9038837a37d131a9b31536c189",
       "repack": "split"
     },
     "0x101": {
@@ -63,7 +63,7 @@
       "sections": {
         "wb_hook": "0x602d19b6",
         "wb_extension": "0x605af5cc",
-        "wb_profile": "0x613f2f20"
+        "wb_profile": "0x613f2f40"
       }
     }
   ],
@@ -202,7 +202,7 @@
       "address": "0x602db531",
       "bytes": 5,
       "before_sha256": "443470b5049654fa1ffce1def139cfddfe398201974c7e03bd8f2bccddfbff2f",
-      "after_sha256": "09a79d2788eb350452ea5ffae41ddd0f4a700f094a491903e370893380a1ef85"
+      "after_sha256": "4d7d9af4c9257b5ac5a02d6cc06c1170c92ae0e456320feb18fa1d70c23ca45a"
     },
     {
       "component": "0x100",
@@ -224,9 +224,9 @@
       "component": "0x100",
       "name": "ext8",
       "address": "0x613f2b80",
-      "bytes": 912,
-      "before_sha256": "a77130ebc21e6e9b1ef2adda4da5e2ce062386f0058352b253edfc8354f898e6",
-      "after_sha256": "74e01a69a52dd63a4c7b4a60305cabedb731b8c2ed0f87f2d86fc28cab0be400"
+      "bytes": 944,
+      "before_sha256": "e81d4e929a6d698c9273f4123a7e145a26960f4a94595952ee3b10fb2213ad1e",
+      "after_sha256": "6518e302d7dea2f7339b39ba392039051f9d8b23798efe630479baef2bf6f549"
     },
     {
       "component": "0x100",
@@ -242,15 +242,15 @@
       "address": "0x605af5cc",
       "bytes": 555,
       "before_sha256": "a54983043a6d0b83855d5c6a0fe6a3534e297b3350269997b236d9399fd983f6",
-      "after_sha256": "5d30fa87b2bb1109060a4e18a7a1fa4a48fcf3c7f3919de387ba92ccc842c7ed"
+      "after_sha256": "4e44fc2d0463062c60f6e93f3bf6e7f6798c82a2f157af566a15799bc7e2f818"
     },
     {
       "component": "0x100",
       "name": "wb_profile",
-      "address": "0x613f2f20",
+      "address": "0x613f2f40",
       "bytes": 141,
       "before_sha256": "064229853940dda58a18598abb2d0e48b46703fd42cbf58765b00c16e06015bc",
-      "after_sha256": "846baea1a38d5d2ea890c11488bef1c387870aefb2ceea39abec444a21079e69"
+      "after_sha256": "895463a38f687de0ff1f8f157f572113b2ce89800a32b0bd7d88a9881585800f"
     },
     {
       "component": "0x100",
@@ -1025,7 +1025,7 @@
       "0x101"
     ],
     "file": "DCOLYMP/E1489999.BIN",
-    "sha256": "3cc2c7c598ec2ca647412d4d2d2d04e8a979d97c7cab28ff0728d201c9046512",
+    "sha256": "dc3a0a01bc7c781e91cbc924d99f903a2a14ce9ba5237644fdece138384a82a3",
     "bytes": 37486592,
     "restore_sha256": "1e0d38f87b367c92023e8b827910fa94a9d9ec511ebec286406ca36d20066fde"
   },
