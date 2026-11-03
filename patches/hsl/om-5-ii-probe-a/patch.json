@@ -1,0 +1,48 @@
+{
+  "schema": "oly-patch/1",
+  "name": "OM-5 Mark II probe A: three inert bytes in section 2 padding (no LZ4 change)",
+  "model": "OM-5 Mark II",
+  "firmware": "1.1 build 1100",
+  "camera_tested": false,
+  "stock": {
+    "sha256": "9de5d77e1d290fa2ed4ebc7d75cee0ed490befbc89566722467d1d421d66d637"
+  },
+  "components": {
+    "0x100": {
+      "cpu_base": "0x60021020",
+      "image_transform": "olycompress",
+      "repack": "split",
+      "stored_before_sha256": "f9c6b0bb37675a2b031ccf09292796ab5793994b8ce2053dcfd7f9fe68035cd8",
+      "stored_after_sha256": "203cdbcbb3e8f545752a6d14701a31ba1ad65424f0163d76775f2fd7bb48f6a5",
+      "before_sha256": "7ae7d4c60990cc859c070e0ceb6cbe612f9c5b260713f2f1256e51d137851c61",
+      "after_sha256": "8387eb2719274193fa448a18b04a5739bf0a3694d96b5708838c266d813f4a45"
+    }
+  },
+  "ranges": [
+    {
+      "component": "0x100",
+      "name": "probe_sec2",
+      "address": "0x605af7fc",
+      "bytes": 3,
+      "before_sha256": "5ae7e6a42304dc6e4176210b83c43024f99a0bce9a870c3b6d2c95fc8ebfb74c",
+      "after_sha256": "c3dea85e7ca8e8056497b3118a2083c7659047d339821d35d4f50b42bc778019"
+    }
+  ],
+  "data_edits": [
+    {
+      "component": "0x100",
+      "name": "probe_sec2",
+      "address": "0x605af7fc",
+      "after": "505242"
+    }
+  ],
+  "package": {
+    "components": [
+      "0x100"
+    ],
+    "file": "DCOLYMP/E1489999.BIN",
+    "sha256": "4fd4fc202c7503ccc2dcdbf605576daa408ac929b104a78d703a57a04e85c844",
+    "bytes": 24903680,
+    "restore_sha256": "d4479ab1b9fa82d39a138087d7046f8d03380c867bad652ebf9b766ec0bfac0a"
+  }
+}

@@ -213,7 +213,12 @@ def build(patch_dir, stock_path, out, tools=None, decoded=False, untested=False)
         comp.install(bitmap['name'], at, encode_format3_bitmap(pixels, original[:4], bitmap['width'], bitmap['height'], bitmap['bytes']))
 
     expanded = {kind: comp.finish() for kind, comp in comps.items()}
-    patched = {kind: repack_image(by_kind[kind].payload, data) if comps[kind].compressed else data
+    # repack "split": a stock match that no longer fits is re-encoded with short literal
+    # runs (never longer than the stock stream's longest) instead of one long literal run.
+    patched = {kind: repack_image(by_kind[kind].payload, data,
+                                  split=comps[kind].spec.get('repack') == 'split',
+                                  literal_limit=0 if comps[kind].spec.get('repack') == 'split' else None)
+               if comps[kind].compressed else data
                for kind, data in expanded.items()}
     for kind, comp in comps.items():
         if comp.compressed:

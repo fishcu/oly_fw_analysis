@@ -68,10 +68,41 @@ def _encode(literals, offset=0, match_len=0):
     return result
 
 
-def _repack(original, target, rows):
+def _split_window(target, start, length, offset, raw):
+    """Encode target[start:start + length] (a stock match whose source no longer
+    matches) as [(literals, offset, match_len)] using the stock offset where the
+    bytes still agree and offset-1 runs elsewhere, so the patched stream keeps
+    short literal runs. Matches stay at least 12 bytes before the end of the
+    span and end at least 5 bytes before it (LZ4 block rules)."""
+    out, lits, i, end = [], bytearray(), start, start + length
+    while i < end:
+        best = None
+        for off in (offset, 1):
+            if not 0 < off <= i:
+                continue
+            n = 0
+            while i + n < end and target[i + n] == target[i + n - off]:
+                n += 1
+            if n >= 16 and (best is None or n > best[1]):
+                best = (off, n)
+        if best and i <= raw - 12:
+            off, n = best
+            n = min(n, raw - 5 - i)
+            if n >= 4:
+                out.append((bytes(lits), off, n))
+                lits.clear()
+                i += n
+                continue
+        lits.append(target[i])
+        i += 1
+    return out, bytes(lits)
+
+
+def _repack(original, target, rows, split=False):
     pending = bytearray()
     packed = bytearray()
     at = 0
+    raw = len(target)
     for literals, offset, match_len, start in rows:
         pending.extend(target[at:start])
         at = start
@@ -81,6 +112,13 @@ def _repack(original, target, rows):
             if target[start:start + match_len] == target[start - offset:start - offset + match_len]:
                 packed.extend(_encode(pending, offset, match_len))
                 pending.clear()
+            elif split:
+                parts, rest = _split_window(target, start, match_len, offset, raw)
+                for lits, off, n in parts:
+                    pending.extend(lits)
+                    packed.extend(_encode(pending, off, n))
+                    pending.clear()
+                pending.extend(rest)
             else:
                 pending.extend(target[start:start + match_len])
             at += match_len
@@ -89,6 +127,12 @@ def _repack(original, target, rows):
     if decoded != target:
         raise ValueError('Repacked LZ4 does not match expanded target')
     return bytes(packed)
+
+
+def max_literal_run(data, raw):
+    """Longest literal run of an LZ4 block (for comparison with the stock stream)."""
+    _, rows = _sequences(data, raw)
+    return max(len(r[0]) for r in rows)
 
 
 def spans(stored):
@@ -113,7 +157,7 @@ def expand_image(stored):
     return bytes(result)
 
 
-def repack_image(stored, target):
+def repack_image(stored, target, split=False, literal_limit=None):
     if len(stored) != len(target):
         raise ValueError('Expanded image size changed')
     original = expand_image(stored)
@@ -123,7 +167,12 @@ def repack_image(stored, target):
         if original[p:p + raw] == target[p:p + raw]:
             continue
         _, rows = _sequences(stored[p + 32:p + 32 + packed], raw)
-        data = _repack(original[p:p + raw], target[p:p + raw], rows)
+        data = _repack(original[p:p + raw], target[p:p + raw], rows, split)
+        if literal_limit is not None:
+            stock_max = max(len(r[0]) for r in rows)
+            if max_literal_run(data, raw) > max(stock_max, literal_limit):
+                raise ValueError(f'olycompress at {p:#x}: literal run {max_literal_run(data, raw)} exceeds '
+                                 f'the stock maximum {stock_max}')
         if len(data) + 32 > raw:
             raise ValueError(f'olycompress at {p:#x} exceeds its {raw} byte span')
         result[p:p + raw] = bytes([255]) * raw

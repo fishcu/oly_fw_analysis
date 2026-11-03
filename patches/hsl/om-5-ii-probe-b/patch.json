@@ -1,0 +1,62 @@
+{
+  "schema": "oly-patch/1",
+  "name": "OM-5 Mark II probe B: inert bytes in the padding of LZ4 sections 6 and 7",
+  "model": "OM-5 Mark II",
+  "firmware": "1.1 build 1100",
+  "camera_tested": false,
+  "stock": {
+    "sha256": "9de5d77e1d290fa2ed4ebc7d75cee0ed490befbc89566722467d1d421d66d637"
+  },
+  "components": {
+    "0x100": {
+      "cpu_base": "0x60021020",
+      "image_transform": "olycompress",
+      "repack": "split",
+      "stored_before_sha256": "f9c6b0bb37675a2b031ccf09292796ab5793994b8ce2053dcfd7f9fe68035cd8",
+      "stored_after_sha256": "e86c6425f94c05de2cbc18bf00b13b402515d25b1d9c5b3df0aa229c8a678b74",
+      "before_sha256": "7ae7d4c60990cc859c070e0ceb6cbe612f9c5b260713f2f1256e51d137851c61",
+      "after_sha256": "ed7a323bee7493c523835dd65f2d440f37e06498da84ae8a1b1aeea330464b16"
+    }
+  },
+  "ranges": [
+    {
+      "component": "0x100",
+      "name": "probe_sec6",
+      "address": "0x60ca7df0",
+      "bytes": 3,
+      "before_sha256": "5ae7e6a42304dc6e4176210b83c43024f99a0bce9a870c3b6d2c95fc8ebfb74c",
+      "after_sha256": "c3dea85e7ca8e8056497b3118a2083c7659047d339821d35d4f50b42bc778019"
+    },
+    {
+      "component": "0x100",
+      "name": "probe_sec7",
+      "address": "0x612a4ff0",
+      "bytes": 3,
+      "before_sha256": "5ae7e6a42304dc6e4176210b83c43024f99a0bce9a870c3b6d2c95fc8ebfb74c",
+      "after_sha256": "c3dea85e7ca8e8056497b3118a2083c7659047d339821d35d4f50b42bc778019"
+    }
+  ],
+  "data_edits": [
+    {
+      "component": "0x100",
+      "name": "probe_sec6",
+      "address": "0x60ca7df0",
+      "after": "505242"
+    },
+    {
+      "component": "0x100",
+      "name": "probe_sec7",
+      "address": "0x612a4ff0",
+      "after": "505242"
+    }
+  ],
+  "package": {
+    "components": [
+      "0x100"
+    ],
+    "file": "DCOLYMP/E1489999.BIN",
+    "sha256": "8f1cf5aef27aa2cbd92eb428434c1bca23711a710c1ae0f0e6807bf1bbb8f7c8",
+    "bytes": 24903680,
+    "restore_sha256": "d4479ab1b9fa82d39a138087d7046f8d03380c867bad652ebf9b766ec0bfac0a"
+  }
+}

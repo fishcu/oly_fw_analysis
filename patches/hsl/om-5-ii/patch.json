@@ -12,9 +12,10 @@
       "cpu_base": "0x60021020",
       "image_transform": "olycompress",
       "stored_before_sha256": "f9c6b0bb37675a2b031ccf09292796ab5793994b8ce2053dcfd7f9fe68035cd8",
-      "stored_after_sha256": "9f81d6000780ed95a3834abc502cc9ae5c985d3d5b394b9a2becce63d81c94bc",
+      "stored_after_sha256": "f6d83c23f5a878a85dd5af2a0b0424937e242b81cc01ccd4c2b0d4c4f53de114",
       "before_sha256": "7ae7d4c60990cc859c070e0ceb6cbe612f9c5b260713f2f1256e51d137851c61",
-      "after_sha256": "0663660dbcdca6e3e46ce0eaa4a64d17f9c6c5d788a97f5d9a6a638bc641173d"
+      "after_sha256": "0663660dbcdca6e3e46ce0eaa4a64d17f9c6c5d788a97f5d9a6a638bc641173d",
+      "repack": "split"
     },
     "0x101": {
       "before_sha256": "0576d786f8f40350ec9f620c7302f95c317c979fed88d9afc678c5b7e6f59fa0",
@@ -1019,11 +1020,14 @@
     }
   ],
   "package": {
-    "components": "all",
+    "components": [
+      "0x100",
+      "0x101"
+    ],
     "file": "DCOLYMP/E1489999.BIN",
-    "sha256": "ab972cd289d82e60c54e17cb4047865432f701b8d58078d3fae25e0538437b89",
-    "bytes": 90832896,
-    "restore_sha256": "9de5d77e1d290fa2ed4ebc7d75cee0ed490befbc89566722467d1d421d66d637"
+    "sha256": "50f61e0cd5957941cf51c22d546af16aa6db0ace7260dc146e1b6478465545bf",
+    "bytes": 37486592,
+    "restore_sha256": "1e0d38f87b367c92023e8b827910fa94a9d9ec511ebec286406ca36d20066fde"
   },
   "resource_aliases": [
     {
