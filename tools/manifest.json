@@ -13,6 +13,7 @@
     "tools/ida/wine.py",
     "tools/oly_container.py",
     "tools/om3_code_space_audit.py",
+    "tools/om3_preview_probe.py",
     "tools/om3_tethering_probe.py",
     "tools/om5_image_pool_probe.py",
     "tools/om_firmware_catalog.py",
@@ -972,8 +973,8 @@
     },
     {
       "path": "tools/README.md",
-      "sha256": "0476dc2c109b7daa71a9e120d61cb3d7d7daeb9b4838862d65d2065bbb0e9ec9",
-      "bytes": 8521,
+      "sha256": "2cd9bda92f4c1cb3ba059e479e68652b066015f0834202105ec563bba8440698",
+      "bytes": 8745,
       "original_source": {
         "path": "tools/README.md",
         "sha256": "424400d690dd53e89cf48e325bd662f7f41d02f6814b97a02b5b1c1c5b0b7f96"
@@ -1129,8 +1130,8 @@
     },
     {
       "path": "tools/inputs.json",
-      "sha256": "a78d4de2f15bf715f712cd4bd5df9498dd2300df5cab75f4a143388d1e1b2f33",
-      "bytes": 8735,
+      "sha256": "33c61092065851e927b2fc59118d3eba07288825bb2b09e4514a8e03f9f45c24",
+      "bytes": 9147,
       "origin": "original documentation, fixture or utility"
     },
     {
@@ -1215,6 +1216,22 @@
         "oly_container"
       ],
       "entry_point": false
+    },
+    {
+      "path": "tools/om3_preview_probe.py",
+      "sha256": "3fc00f14dd2a6d5dab17c9c7534a6f5589ea8121a17080a4b26f60632e0c248d",
+      "bytes": 6790,
+      "original_source": {
+        "path": "tools/om3_preview_probe.py",
+        "sha256": "3fc00f14dd2a6d5dab17c9c7534a6f5589ea8121a17080a4b26f60632e0c248d"
+      },
+      "adapted": false,
+      "local_imports": [
+        "om3_tethering_probe",
+        "penf_emulator",
+        "penf_probe"
+      ],
+      "entry_point": true
     },
     {
       "path": "tools/om3_tethering_probe.py",

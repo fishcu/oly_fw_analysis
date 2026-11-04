@@ -4,12 +4,13 @@
     "author": "kred",
     "platform": "mu-43.com",
     "post_url": "https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/page-34#post-1886195",
-    "title": "Tethering the OM-3: How Live View Came Back — Explained From Scratch",
+    "title": "Tethering the OM-3: How Live View Came Back \u2014 Explained From Scratch",
     "publication": {
       "date": "2026-10-20",
-      "basis": "Author and October 20 date supplied with the attachment; the year is consistent with its dated 2026 experiments. The exact post timestamp was not independently retrieved.",
-      "exact_time": null,
-      "online_post_independently_retrieved": false
+      "basis": "Author and exact timestamp corroborated by user-supplied saved page-34 HTML; attachment association supplied by owner. Not a fresh server retrieval.",
+      "exact_time": "2026-10-20T18:03:15+0200",
+      "online_post_independently_retrieved": false,
+      "source_page_sha256": "c54754ceb645f372a707660070b34d5655eb2cc3b67801736d0bd1daf0201c4c"
     },
     "source_document_sha256": "0e5c238cebc23b1f5d1f01ddd54c6122a8b70a2e99d142ee86fbc85b39408440",
     "source_document_bytes": 34112,
@@ -36,21 +37,25 @@
       "method": [
         "exact binary identities",
         "prior independent patch and loader audits",
-        "58 bounded native selector and predicate cases"
+        "58 bounded native selector and predicate cases",
+        "19 bounded native preview wrapper and descriptor-reader cases"
       ],
       "models": [
         "synthetic stack and explicit API/status RAM",
         "two trace-output services omitted",
-        "mode-setup service modeled successful in the transport slice"
+        "mode-setup service modeled successful in the transport slice",
+        "Preview mutex, descriptor copy and USB sender modeled; no producer or transmission"
       ],
       "not_established": [
         "physical USB operation independently repeated",
         "earlier failing builds and fault traces",
         "complete event/callback scheduling",
         "reset bootloader or recovery guarantees"
-      ]
+      ],
+      "preview_result_sha256": "abe25c82f92ef0e588d1c7f20c5dc874b4aaee4290a2fa09908ea18cb5287034"
     },
     "finding": "docs/protocols/om-3/TETHERING.md",
-    "probe": "tools/om3_tethering_probe.py"
+    "probe": "tools/om3_tethering_probe.py",
+    "preview_probe": "tools/om3_preview_probe.py"
   }
 ]

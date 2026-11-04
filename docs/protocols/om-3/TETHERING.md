@@ -55,6 +55,22 @@ author reports an earlier preview attempt returned success with zero image
 bytes until its registration phase was fixed. The available V22 bytes support
 the final phase setting; the earlier trace was not supplied.
 
+The preview wrapper and ring reader also pass **19 bounded native checks**.
+They accept all three allowed buffers and lengths from 2 through 153,600 bytes,
+and reject disabled preview, invalid descriptor status, short/oversized data,
+unknown buffer addresses and a missing JPEG SOI. Stack and saved registers are
+restored on every tested path. This checks the header, not the JPEG's contents.
+
+The reader copies a 40-byte descriptor and rotates its three-entry ring under
+the mutex, then releases it before validation and sending. These changes happen
+even when later validation rejects the frame. No concurrent producer is modeled,
+so this does not prove ownership of the buffer throughout transmission.
+
+After calling the native sender, V22 unconditionally returns PTP success
+`2001`. Supplying a modeled sender result of `-1` still produces that response.
+This confirms that the wrapper does not inspect the return value; it does not
+establish the real sender's error convention or explain every failed transfer.
+
 ## Useful addresses and corrections
 
 Runtime addresses use main base `60021020` for this exact build.
@@ -98,6 +114,19 @@ The probe checks exact input hashes. It supplies synthetic stack and API/status
 RAM, suppresses two trace-output services, and models the transport setup call
 as successful. Other code slices stop before external services. It needs no
 PEN-F firmware and makes no camera connection.
+
+The separate [preview probe](../../../tools/om3_preview_probe.py) executes the
+wrapper and reader together:
+
+```sh
+python3 tools/om3_preview_probe.py \
+  --patched-main /path/to/om3-v22-main.bin \
+  --out generated/om3-preview.json
+```
+
+It models the mutex services, descriptor copy and sender. The ring has exactly
+one selected descriptor and at least one free descriptor. Producer scheduling,
+DMA and actual USB traffic remain outside the test.
 
 kred reports working popup and saved-RAW live view and captured-image transfer.
 Combined USB RAW development, complete AF behavior and the live callback/observer

@@ -619,7 +619,7 @@
       },
       {
         "source_document": "research/community/kred/2026-10-20-om3-tethering/ANALYSIS.md",
-        "sha256": "75cba8717759cce2c67390940652c81417dbc881bf1e6ba597becb1d02c0d67e"
+        "sha256": "dc6ddead74c89a17232b4601c68ae5360c0bb337f9506735d3c70139b3cf6aac"
       },
       {
         "source_document": "analysis/om3_tethering_claims_20261104/native.json",
@@ -628,9 +628,13 @@
       {
         "source_document": "research/om3_patcher_20260929/README.md",
         "sha256": "09426ac7eb3192dac7d1ce8bc4f2184acbd5c3950e69020cfd2f0ebb9e0430a3"
+      },
+      {
+        "source_document": "analysis/community_followup_20261104/kred-preview.json",
+        "sha256": "abe25c82f92ef0e588d1c7f20c5dc874b4aaee4290a2fa09908ea18cb5287034"
       }
     ],
-    "sha256": "1e124b17d38d11d49eb7a486716b3645b991ff6b845e42e1f0b3f07ec25715f2"
+    "sha256": "1443789bcf4f3830da64cec7be7a488ef5c0a9cff839e2919a068d3331c4fbb7"
   },
   {
     "path": "docs/protocols/pen-f/SETTINGS_BACKUP.md",
