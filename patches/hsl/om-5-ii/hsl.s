@@ -1108,6 +1108,36 @@ rt_profile:
  call active_read,[d2],8
  cmp TONE_SAVED,d0
  beq rt_write
+ /* Context 1 is filled from context 0 when the mode dial moves, so on its
+  * first profile refresh it already holds the profile's tone. If context 0
+  * holds a saved user tone, context 1 takes that record instead of saving
+  * its own (profile) values. */
+ cmp 968,d2
+ bne rt_save_cur
+ mov 964,d0
+ mov 1,d1
+ call active_read,[d2],8
+ cmp TONE_SAVED,d0
+ bne rt_save_cur
+ mov 965,d2
+rt_copy_loop:
+ mov d2,d0
+ mov 1,d1
+ call active_read,[d2],8
+ mov d0,a0
+ mov d2,d0
+ add 4,d0
+ mov 1,d1
+ call active_write,[d2],8
+ inc d2
+ cmp 968,d2
+ bne rt_copy_loop
+ mov TONE_SAVED,a0
+ mov 968,d0
+ mov 1,d1
+ call active_write,[d2],8
+ bra rt_write
+rt_save_cur:
  mov rs_tone_ids,a3
 rt_save_loop:
  movhu (a3),d0
