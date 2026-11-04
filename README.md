@@ -12,6 +12,7 @@ similar code does not imply identical hardware or interchangeable patches.
 - [Set up the tools](REPRODUCING.md)
 - [Choose a tool](tools/README.md)
 - [Build the PEN-F HSL patch from source](patches/hsl/pen-f/README.md)
+- [Build PEN-F HSL + Live ND (4f/8f) + AF Limiter from source](patches/live-nd-af-limiter/pen-f/README.md)
 - [Use IDA with the MN103 module](docs/tooling/ida/README.md)
 - [Find firmware identities and sources](provenance/README.md)
 - [Contribute a finding or another camera model](CONTRIBUTING.md)

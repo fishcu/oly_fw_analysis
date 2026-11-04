@@ -1,0 +1,613 @@
+{
+  "model": "PEN-F",
+  "firmware": "3.1 build 3101",
+  "release": "live-nd-af-20261101",
+  "base_release": "alpha-20261017",
+  "cpu_base": "0x60021020",
+  "stock_sha256": "77398610b379f80238117f31a6d5bbf65d608b49ec563666c64d84367e969f2c",
+  "base_package_sha256": "4f9a36e6742728ded3d9b443915355f1d1eea0371e1da673f322de970994f717",
+  "base_main_sha256": "850936e7fa5d9c089f054385dd0bbcc310b64285c784a5da3ab347173730d12e",
+  "main_sha256": "5bbf4ba38217c2fc2734461f301801dd1a36fef5c74daad00aee325456d39fba",
+  "osd_sha256": "f713df2a2d7d57a511e55cabb0f84ac4d612f99c58df4502a89b32bd8580084c",
+  "package_sha256": "6d212c1117a9050601684195c2acd52c3f1bf469b5c22a3532aa334bc3ca7e41",
+  "package_bytes": 44433408,
+  "stock_restore_sha256": "e13f9813d01d15441082ed907966aec54356d70ba0f75ae9b6c2b259ff01f26a",
+  "groups": [
+    {
+      "name": "live_nd",
+      "sources": [
+        "src/live_nd/helpers.s"
+      ],
+      "linker": "src/live_nd/layout.ld",
+      "sections": {
+        "scale_entry_cap": "0x6069b270",
+        "review_entry_cap": "0x6069b288",
+        "take_done_tail": "0x60a4fe70",
+        "release_kind": "0x60a4ffb4",
+        "bayer_handles": "0x60a4ffcc",
+        "exif_frame_count": "0x60fdc7a4"
+      }
+    },
+    {
+      "name": "af_limiter",
+      "sources": [
+        "src/af_limiter/af_limit.s"
+      ],
+      "linker": "src/af_limiter/layout.ld",
+      "sections": {
+        "af_limit": "0x60fdc7c0"
+      }
+    }
+  ],
+  "main_ranges": [
+    {
+      "name": "menu_visible_row",
+      "feature": "af_limiter",
+      "address": "0x60207312",
+      "bytes": 2,
+      "before_sha256": "512f843c7b45913b2109e87cb29cc3857d2dcb48a02d304515e1e5eabd64bd29",
+      "after_sha256": "04b2bc61031e5e4002c21ef9b7be1dd338dd6757e2b90a5b956b7603bca5a3af",
+      "purpose": "Custom Menu A visible-row list (.data init, RAM 61619052): Focus Ring 38 -> AF Limiter 448"
+    },
+    {
+      "name": "exif_hook",
+      "feature": "live_nd",
+      "address": "0x60254850",
+      "bytes": 7,
+      "before_sha256": "d588ac1c2d8c10039025196ce251beebb62646abd4618ee18a8fc87c8536dd2e",
+      "after_sha256": "8fad9e179b2b4d5a3ffc4714638ee12c0cfbbc62b60823857ea945c39bba0345",
+      "purpose": "capture EXIF writer (ME on): \"first |= 2\" -> H6 (keeps flag, second value = Frame)"
+    },
+    {
+      "name": "bayer_hook",
+      "feature": "live_nd",
+      "address": "0x60307d3f",
+      "bytes": 8,
+      "before_sha256": "0bb1033bf89e10bc66cdba16879a7899b8720bdaffce2af67e60b6b1048e1796",
+      "after_sha256": "16ca31bcf617d34c7e3cdafe7c17eba57855a3f988d9885af500161cc2c638cd",
+      "purpose": "Bayer_MultiExp: handle 4 copy -> H3 (handles 5..8 only when count > 4)"
+    },
+    {
+      "name": "force_off_rule_0",
+      "feature": "live_nd",
+      "address": "0x6037d8e8",
+      "bytes": 8,
+      "before_sha256": "680f4fcd95987ba1f1a9474ca3b6d113cff0c893b694f40a6b9c41e65b226b72",
+      "after_sha256": "11cb4b56d8842f04a8da6d78a6020711abc2fa65ce5fc9b17b9c78384f89a014",
+      "purpose": "rule 0 (15258==1): map, count 3"
+    },
+    {
+      "name": "force_off_rule_1",
+      "feature": "live_nd",
+      "address": "0x6037d8f8",
+      "bytes": 8,
+      "before_sha256": "680f4fcd95987ba1f1a9474ca3b6d113cff0c893b694f40a6b9c41e65b226b72",
+      "after_sha256": "11cb4b56d8842f04a8da6d78a6020711abc2fa65ce5fc9b17b9c78384f89a014",
+      "purpose": "rule 1 (15206==1): map, count 3"
+    },
+    {
+      "name": "rule_set_count",
+      "feature": "af_limiter",
+      "address": "0x603a1654",
+      "bytes": 4,
+      "before_sha256": "67abdd721024f0ff4e0b3f4c2fc13bc5bad42d0b7851d456d88d203d15aaa450",
+      "after_sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119",
+      "purpose": "rule set 448 (15210 == 1 -> 1->0, greys the row): rule count 1 -> 0"
+    },
+    {
+      "name": "frame_list_pointer",
+      "feature": "live_nd",
+      "address": "0x603e1c18",
+      "bytes": 4,
+      "before_sha256": "e1db99fb368543377be00a99075e7325ee8374771c6c8c1c93abe17987a5cf65",
+      "after_sha256": "7b389605390c0ef0e8beb9d4efc210d50013261efad67ee08b62fa8af9d20085",
+      "purpose": "Frame descriptor: list pointer"
+    },
+    {
+      "name": "frame_list_length",
+      "feature": "live_nd",
+      "address": "0x603e1c20",
+      "bytes": 2,
+      "before_sha256": "99be5efb88ca2013bd8e4eb035fd42d5245468fe9afa70d8ba9c1c419a48c4e8",
+      "after_sha256": "c0ba8a33ac67f44abff5984dfbb6f56c46b880ac2b86e1f23e7fa9c402c53ae7",
+      "purpose": "Frame descriptor: list length 2 -> 4"
+    },
+    {
+      "name": "setting_descriptor",
+      "feature": "af_limiter",
+      "address": "0x603e2830",
+      "bytes": 20,
+      "before_sha256": "7172bfe798f9f09b0b8ce009cf3169fb28d77a15fe12dc70499fd50cf53514a2",
+      "after_sha256": "b74eba8419cbc0ad853a009e31bf7b31ae572acd6d594654b5a030d0382b801a",
+      "purpose": "setting 448 descriptor: value list {0,1,2,3} (stock list at 603df178), 4 bytes"
+    },
+    {
+      "name": "option_array_a",
+      "feature": "live_nd",
+      "address": "0x60427e78",
+      "bytes": 48,
+      "before_sha256": "80a76a18acf8cb64fec3a659ffc4bab4a87cd9a6fde4dab2161a8751d136c9d2",
+      "after_sha256": "7f56dc21cac7f1d2bd234a15d831f9205d1af478a1a0a00106497aca1759691a",
+      "purpose": "GUI option array A: Off / 2f / 4f / 8f"
+    },
+    {
+      "name": "frame_values",
+      "feature": "live_nd",
+      "address": "0x60427ea8",
+      "bytes": 4,
+      "before_sha256": "ad95131bc0b799c0b1af477fb14fcf26a6a9f76079e48bf090acb7e8367bfd0e",
+      "after_sha256": "061ee3cb73b2bb699b8235797b37d830853a5d28ef836d8f389ff01fac641474",
+      "purpose": "Frame value list {0,2,4,8}"
+    },
+    {
+      "name": "force_off_map",
+      "feature": "live_nd",
+      "address": "0x60427eac",
+      "bytes": 12,
+      "before_sha256": "8688d249e9d047b4fc2fb89ce05afe9ec89252ffccdd969de6eef260dd7ffb21",
+      "after_sha256": "5d25cde1e455405ecc481e2b897dd92166af0d1193b34ad31a5a01d412e61aad",
+      "purpose": "force-off map {2->0, 4->0, 8->0}"
+    },
+    {
+      "name": "menu_data",
+      "feature": "af_limiter",
+      "address": "0x60427fac",
+      "bytes": 81,
+      "before_sha256": "b1d97d7cbbb586b86d0e71c9fd48d8aa79cecfffee145ed7caf94969375e5e27",
+      "after_sha256": "48edd8119838de691b78f0105d0abf1c6ce371446599f0f287472b57cb801f7a",
+      "purpose": "AF Limiter options (Off/3/4/1/2/1/4) + title/help text, section-2 tail"
+    },
+    {
+      "name": "af_hook",
+      "feature": "af_limiter",
+      "address": "0x6047ef38",
+      "bytes": 10,
+      "before_sha256": "9ae9beca393877e1c003bb7171c7b41e55350f4cb9b655675fcc389bbd653922",
+      "after_sha256": "f903847c6fb70bf5a324aca6246605f4859927296e27833df615fbe7935df105",
+      "purpose": "fcs_sub_iaf_set_lens_pos_info join: call H7 (limit POS_NEAR), then stock debug test"
+    },
+    {
+      "name": "fold_gain_lookup",
+      "feature": "live_nd",
+      "address": "0x6053908e",
+      "bytes": 5,
+      "before_sha256": "d5a70aac4454d08770e474270a989edeadedda236fe6e54c8c3cdafa2782ae0e",
+      "after_sha256": "0501307451761a997214f79d408cd92d2c310c156d42706af7ccffed2faa61c8",
+      "purpose": "gain helper 0x6053907a: handles[handle] lookup -> the handle itself (stock quirk; with 9 handles a value of 9 would read the request mode field)"
+    },
+    {
+      "name": "scale_entry_cap",
+      "feature": "live_nd",
+      "address": "0x6069b270",
+      "bytes": 22,
+      "before_sha256": "4cee7060fc85c66cdb7830ad2a6e09c8fbb0e9173276bee9df0744c2735e2fda",
+      "after_sha256": "008e2ef9526ad99b0cc3a9c9334cf9e21d7a8583cf526a0a79ebb0fc7d587261",
+      "purpose": "helper H4"
+    },
+    {
+      "name": "review_entry_cap",
+      "feature": "live_nd",
+      "address": "0x6069b288",
+      "bytes": 17,
+      "before_sha256": "e840723f7901baf63bb89c6a95133e00c04e186487511bd3de638bcc27dde064",
+      "after_sha256": "4ca2cd1d18b77f6625e3f4d3c9e58b08a3d464caf48a43d20042d7e6e3b114fd",
+      "purpose": "helper H5"
+    },
+    {
+      "name": "option_array_b",
+      "feature": "live_nd",
+      "address": "0x6069b7bc",
+      "bytes": 48,
+      "before_sha256": "80a76a18acf8cb64fec3a659ffc4bab4a87cd9a6fde4dab2161a8751d136c9d2",
+      "after_sha256": "7f56dc21cac7f1d2bd234a15d831f9205d1af478a1a0a00106497aca1759691a",
+      "purpose": "GUI option array B: Off / 2f / 4f / 8f"
+    },
+    {
+      "name": "review_hook",
+      "feature": "live_nd",
+      "address": "0x607ad61e",
+      "bytes": 7,
+      "before_sha256": "00c444b784e1a5593f65afd75df81e147aec748e3e374771e040ac95e986e60a",
+      "after_sha256": "49f9ab93264914e269549945c4ec0b432e316312a42e8bdd037d46a96ebb5671",
+      "purpose": "review RecView_MultiExp(OUT) entry -> H5 (count <= 4)"
+    },
+    {
+      "name": "scale_hook",
+      "feature": "live_nd",
+      "address": "0x607baf11",
+      "bytes": 12,
+      "before_sha256": "ad76af04b56f360f47f3ec0c9cffe56e9002633f8656f783081ae9d8fe12b522",
+      "after_sha256": "84cd48e74cf85a0002ff4575204aed40bcb6f8e5cb82645bc853b9fe5ad077af",
+      "purpose": "makePlayScaleHandle entry -> H4 (count <= 4)"
+    },
+    {
+      "name": "compose_frame",
+      "feature": "live_nd",
+      "address": "0x607bbaaf",
+      "bytes": 3,
+      "before_sha256": "faacc87e58ccb0bb9fce8647a34cffcc4ef7268537f3557ca5985f90df186407",
+      "after_sha256": "3bebb967e775b507462b9cb5347427e63d2ce2afacce527187cd129f50662a9c",
+      "purpose": "compose: add -52,sp -> add -60,sp (+8 keeps stock 8-byte stack parity)"
+    },
+    {
+      "name": "compose_memset",
+      "feature": "live_nd",
+      "address": "0x607bbabe",
+      "bytes": 2,
+      "before_sha256": "a1580052b0a8c1cb76141348757da623d554a07747636c6828d37aa417ae14bc",
+      "after_sha256": "a6dcb2f704228b94726c06105ed435d89c52aa2d8044dcefcc38058467b9f85c",
+      "purpose": "compose: memset 20 -> 36"
+    },
+    {
+      "name": "compose_ret",
+      "feature": "live_nd",
+      "address": "0x607bbb52",
+      "bytes": 3,
+      "before_sha256": "b60bcfe74eca155548695a49d89ccd97426a66dac0f39191fb525594ce059add",
+      "after_sha256": "6d2b324eb1c300823b3389e6bc42ca0c4279cd417d38cd97a59863276ae49b72",
+      "purpose": "compose: ret frame 68 -> 76"
+    },
+    {
+      "name": "compose_direct_call_frame",
+      "feature": "live_nd",
+      "address": "0x607bbe18",
+      "bytes": 1,
+      "before_sha256": "3f39d5c348e5b79d06e842c114e6cc571583bbf44e4b0ebfda1a01ec05745d43",
+      "after_sha256": "72dfcfb0c470ac255cde83fb8fe38de8a128188e03ea5ba5b2a93adbea1062fa",
+      "purpose": "compose direct caller 0x607bbe14 \"call 0x607bbab2,[d2,d3,a2,a3],68\": frame 68 -> 76 (this entry skips the add -N,sp; the call sets the frame)"
+    },
+    {
+      "name": "free_buffers_entry_bound",
+      "feature": "live_nd",
+      "address": "0x607fdaef",
+      "bytes": 2,
+      "before_sha256": "2bf00872e364c62758d2f57c1d72365aee3166a85528ec0f459cddfa57a6b262",
+      "after_sha256": "155964ebeb3a5571bbce70bbe659237146c5e9c1e35bf5b29ceb2d3e3d8f96b6",
+      "purpose": "freeTakeBufferAll: entry bound 5 -> 9"
+    },
+    {
+      "name": "free_buffers_loop_bound",
+      "feature": "live_nd",
+      "address": "0x607fdb54",
+      "bytes": 2,
+      "before_sha256": "2bf00872e364c62758d2f57c1d72365aee3166a85528ec0f459cddfa57a6b262",
+      "after_sha256": "155964ebeb3a5571bbce70bbe659237146c5e9c1e35bf5b29ceb2d3e3d8f96b6",
+      "purpose": "freeTakeBufferAll: loop bound 5 -> 9"
+    },
+    {
+      "name": "controller_reset_bound",
+      "feature": "live_nd",
+      "address": "0x607fe0c7",
+      "bytes": 2,
+      "before_sha256": "f3aebb7ba5229b4eab58ad44ab595ede7fe3bb659769c3059d9cde3990105f53",
+      "after_sha256": "8a0d8789125cbcbb0b462f501f0741e5d61748e91a5a3d9e4ecdbe9840e49c5b",
+      "purpose": "controller: reset loop (<=) 5 -> 9"
+    },
+    {
+      "name": "free_handles_entry_bound",
+      "feature": "live_nd",
+      "address": "0x607fe37d",
+      "bytes": 2,
+      "before_sha256": "2bf00872e364c62758d2f57c1d72365aee3166a85528ec0f459cddfa57a6b262",
+      "after_sha256": "155964ebeb3a5571bbce70bbe659237146c5e9c1e35bf5b29ceb2d3e3d8f96b6",
+      "purpose": "freeTakeHandles: entry bound 5 -> 9"
+    },
+    {
+      "name": "free_handles_loop_bound",
+      "feature": "live_nd",
+      "address": "0x607fe3a9",
+      "bytes": 2,
+      "before_sha256": "2bf00872e364c62758d2f57c1d72365aee3166a85528ec0f459cddfa57a6b262",
+      "after_sha256": "155964ebeb3a5571bbce70bbe659237146c5e9c1e35bf5b29ceb2d3e3d8f96b6",
+      "purpose": "freeTakeHandles: loop bound 5 -> 9"
+    },
+    {
+      "name": "controller_array_size",
+      "feature": "live_nd",
+      "address": "0x607fe857",
+      "bytes": 2,
+      "before_sha256": "1d1043283cb2dda39e49c16d906167dc2d06ccf985bb0829bd2c0a9f599a239f",
+      "after_sha256": "2d8d73f47c4d6a2184cb27e705d4529f2bb5456444a2523d230ade2437f6019c",
+      "purpose": "controller: combine array alloc 20 -> 40"
+    },
+    {
+      "name": "controller_init_bound",
+      "feature": "live_nd",
+      "address": "0x607fe880",
+      "bytes": 2,
+      "before_sha256": "f3aebb7ba5229b4eab58ad44ab595ede7fe3bb659769c3059d9cde3990105f53",
+      "after_sha256": "8a0d8789125cbcbb0b462f501f0741e5d61748e91a5a3d9e4ecdbe9840e49c5b",
+      "purpose": "controller: init loop 5 -> 9"
+    },
+    {
+      "name": "release_kind_call",
+      "feature": "live_nd",
+      "address": "0x608489df",
+      "bytes": 4,
+      "before_sha256": "98028f989472438c99c180820331abb3516c3e675043f75faba2706f282b8555",
+      "after_sha256": "e1d03cfb80d73f378088bc00997943a7f4c78e58ee65b59933132b9fb932b1d3",
+      "purpose": "entryTAKE_PICTURE_CONT: release-source call -> H1"
+    },
+    {
+      "name": "take_done_hook",
+      "feature": "live_nd",
+      "address": "0x608496fc",
+      "bytes": 14,
+      "before_sha256": "f546f396667cf29903001df9e0678432f99ff5b8124f9ad32ad20b93d9716f82",
+      "after_sha256": "be231ce07ca9ebc582a65fc2f981132b417e1967c7fe5597d874625eb7707237",
+      "purpose": "take-done: flag op -> mov a2,a0; call H2,[d2,a2],20"
+    },
+    {
+      "name": "take_done_tail",
+      "feature": "live_nd",
+      "address": "0x60a4fe70",
+      "bytes": 54,
+      "before_sha256": "1d15acfeb2edbd16f21951af2d9db31a9dd540a6f27b5cddef7c69e5ec1ee00c",
+      "after_sha256": "0ad99abc29757d5a7c85942f8cd67365d75f187c8ad24b32b0e76f830a99d890",
+      "purpose": "helper H2"
+    },
+    {
+      "name": "release_kind",
+      "feature": "live_nd",
+      "address": "0x60a4ffb4",
+      "bytes": 22,
+      "before_sha256": "4cee7060fc85c66cdb7830ad2a6e09c8fbb0e9173276bee9df0744c2735e2fda",
+      "after_sha256": "dba02e5163ec82b905f35475473f942edfe49b73789076b4fdeff5cef0384f0a",
+      "purpose": "helper H1"
+    },
+    {
+      "name": "bayer_handles",
+      "feature": "live_nd",
+      "address": "0x60a4ffcc",
+      "bytes": 43,
+      "before_sha256": "19462e5b80722887fa57a95767d166bee09cf097b4f393c05712515637133bbe",
+      "after_sha256": "cc8728bfd1280b1fcd412a54436b6431edde286f2f746dfd091f2c43176cd54e",
+      "purpose": "helper H3"
+    },
+    {
+      "name": "page_action_record",
+      "feature": "af_limiter",
+      "address": "0x60f43988",
+      "bytes": 4,
+      "before_sha256": "01ae8bca3feddc447c36822c041be588ef20ca9ff84c4ae180a0776f744427e2",
+      "after_sha256": "0d10a1656a262873081168b1f66a88a9a4f47ec881d30372893d52973ac0abd9",
+      "purpose": "page 67 action list record: Focus Ring 38 -> AF Limiter 448 (OK/right opens the popup)"
+    },
+    {
+      "name": "menu_row",
+      "feature": "af_limiter",
+      "address": "0x60f51c90",
+      "bytes": 36,
+      "before_sha256": "d45b1daa2a69368758de44e48251d80bfff2249d1875253fa377e3c123429021",
+      "after_sha256": "bdf7cc9d3f384952077218bed2d7ca0ee23d0c57988a0ccd4c21d598897bf029",
+      "purpose": "Custom Menu A row \"Focus Ring\" -> \"AF Limiter\" (setting 448, 4 options)"
+    },
+    {
+      "name": "popup_kind_entry",
+      "feature": "af_limiter",
+      "address": "0x60f52f20",
+      "bytes": 4,
+      "before_sha256": "ef8b4d432da2f1cb71fe515fe612d271c206cd72d9da63ce59616873115f7bbe",
+      "after_sha256": "b1d9ece1f2ef75bc8eb8f90a83fe28c4dd8560a2d466d55677baead36d09b6aa",
+      "purpose": "custom-menu popup kind table: (Focus Ring 38, 1) -> (AF Limiter 448, 1)"
+    },
+    {
+      "name": "menu_record_a",
+      "feature": "live_nd",
+      "address": "0x60f9752c",
+      "bytes": 8,
+      "before_sha256": "82b3ec032660146e7f0661c9558d93990c927f05fe4a89b4f6c9bbee9686ab8d",
+      "after_sha256": "03c80a126ea2f96bc3075d6651c24b0557517201beec20399dce89517a5f7f80",
+      "purpose": "menu record: array A, count 4"
+    },
+    {
+      "name": "menu_record_b",
+      "feature": "live_nd",
+      "address": "0x60f9753c",
+      "bytes": 8,
+      "before_sha256": "cfd14c1e3f7861a9d2d9990fc6f3d9e0823f630b9d9b9ec4175cb11e0cdc35bf",
+      "after_sha256": "b8183048102460a55ddc3ddc17e45c3d048e851b209164b7d2200bb107634bba",
+      "purpose": "menu record: array B, count 4"
+    },
+    {
+      "name": "exif_frame_count",
+      "feature": "live_nd",
+      "address": "0x60fdc7a4",
+      "bytes": 23,
+      "before_sha256": "be708023f605c56d0cb0582b0a28a8535509f9a66a8e7804cd9db3b55e464ef8",
+      "after_sha256": "3b86a75a0b5a382eae766f1f5c8e722ff09adde7cbcaee0c9e31bcf8e15dace4",
+      "purpose": "helper H6"
+    },
+    {
+      "name": "af_limit",
+      "feature": "af_limiter",
+      "address": "0x60fdc7c0",
+      "bytes": 51,
+      "before_sha256": "ef8ba7fe35e860343c0139598a8c4f7ac256847c0ca3542ea93644afc8685105",
+      "after_sha256": "7c8f06d7d7e5ffc1564cd5d50426bb31e3c24e23f20cb9b5c5bfdec8a7aa9957",
+      "purpose": "helper H7 af limiter by setting 448"
+    }
+  ],
+  "data_edits": [
+    {
+      "name": "menu_visible_row",
+      "address": "0x60207312",
+      "after": "c001"
+    },
+    {
+      "name": "exif_hook",
+      "address": "0x60254850",
+      "after": "dd547fd8000004"
+    },
+    {
+      "name": "bayer_hook",
+      "address": "0x60307d3f",
+      "after": "dd8d8274000000cb"
+    },
+    {
+      "name": "force_off_rule_0",
+      "address": "0x6037d8e8",
+      "after": "ac7e426003000000"
+    },
+    {
+      "name": "force_off_rule_1",
+      "address": "0x6037d8f8",
+      "after": "ac7e426003000000"
+    },
+    {
+      "name": "rule_set_count",
+      "address": "0x603a1654",
+      "after": "00000000"
+    },
+    {
+      "name": "frame_list_pointer",
+      "address": "0x603e1c18",
+      "after": "a87e4260"
+    },
+    {
+      "name": "frame_list_length",
+      "address": "0x603e1c20",
+      "after": "0400"
+    },
+    {
+      "name": "setting_descriptor",
+      "address": "0x603e2830",
+      "after": "c001800078f13d60000000000400010000010000"
+    },
+    {
+      "name": "option_array_a",
+      "address": "0x60427e78",
+      "after": "000000000400ae05a412f9600200000004002a00a412f9600400000004009705a412f9600800000004006e07a412f960"
+    },
+    {
+      "name": "frame_values",
+      "address": "0x60427ea8",
+      "after": "00020408"
+    },
+    {
+      "name": "force_off_map",
+      "address": "0x60427eac",
+      "after": "020000000400000008000000"
+    },
+    {
+      "name": "menu_data",
+      "address": "0x60427fac",
+      "after": "000000000400ae05e4f1f4600100000005000000dc7f4260020000000500000020fcf46003000000050000001cfcf460332f34004146204c696d69746572004146206661722072616e6765206f6e6c7900"
+    },
+    {
+      "name": "af_hook",
+      "address": "0x6047ef38",
+      "after": "dd88d8b5000004cbcbcb"
+    },
+    {
+      "name": "fold_gain_lookup",
+      "address": "0x6053908e",
+      "after": "cbcbcbcbcb"
+    },
+    {
+      "name": "option_array_b",
+      "address": "0x6069b7bc",
+      "after": "000000000400ae05a412f9600200000004002a00a412f9600400000004009705a412f9600800000004006e07a412f960"
+    },
+    {
+      "name": "review_hook",
+      "address": "0x607ad61e",
+      "after": "dd6adceeff0000"
+    },
+    {
+      "name": "scale_hook",
+      "address": "0x607baf11",
+      "after": "dd5f03eeff0000cbcbcbcbcb"
+    },
+    {
+      "name": "compose_frame",
+      "address": "0x607bbaaf",
+      "after": "f8fec4"
+    },
+    {
+      "name": "compose_memset",
+      "address": "0x607bbabe",
+      "after": "8524"
+    },
+    {
+      "name": "compose_ret",
+      "address": "0x607bbb52",
+      "after": "dff04c"
+    },
+    {
+      "name": "compose_direct_call_frame",
+      "address": "0x607bbe18",
+      "after": "4c"
+    },
+    {
+      "name": "free_buffers_entry_bound",
+      "address": "0x607fdaef",
+      "after": "af09"
+    },
+    {
+      "name": "free_buffers_loop_bound",
+      "address": "0x607fdb54",
+      "after": "af09"
+    },
+    {
+      "name": "controller_reset_bound",
+      "address": "0x607fe0c7",
+      "after": "a509"
+    },
+    {
+      "name": "free_handles_entry_bound",
+      "address": "0x607fe37d",
+      "after": "af09"
+    },
+    {
+      "name": "free_handles_loop_bound",
+      "address": "0x607fe3a9",
+      "after": "af09"
+    },
+    {
+      "name": "controller_array_size",
+      "address": "0x607fe857",
+      "after": "8028"
+    },
+    {
+      "name": "controller_init_bound",
+      "address": "0x607fe880",
+      "after": "a509"
+    },
+    {
+      "name": "release_kind_call",
+      "address": "0x608489df",
+      "after": "d6752000"
+    },
+    {
+      "name": "take_done_hook",
+      "address": "0x608496fc",
+      "after": "98dd73672000a014cbcbcbcbcbcb"
+    },
+    {
+      "name": "page_action_record",
+      "address": "0x60f43988",
+      "after": "c0010000"
+    },
+    {
+      "name": "menu_row",
+      "address": "0x60f51c90",
+      "after": "c00104000400000005000000e07f426005000000eb7f4260ac7f426000000000ac7f4260"
+    },
+    {
+      "name": "popup_kind_entry",
+      "address": "0x60f52f20",
+      "after": "c0010100"
+    },
+    {
+      "name": "menu_record_a",
+      "address": "0x60f9752c",
+      "after": "787e426004000000"
+    },
+    {
+      "name": "menu_record_b",
+      "address": "0x60f9753c",
+      "after": "bcb7696004000000"
+    }
+  ]
+}
