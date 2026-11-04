@@ -948,9 +948,10 @@ pm_set_loop:
  movbu (2,a0),d1
  mov d2,d0
  call active_read,[d2],8
- mov d0,d1
  cmp 4,d0
  bcc pm_set_next
+ call pm_num,[d2,d3],12
+ mov d0,d1
  mov d2,d0
  call wc_set,[],4
 pm_set_next:
@@ -971,6 +972,7 @@ pm_put:
 pm_put_loop:
  mov d2,d0
  call wc_get,[],4
+ call pm_num,[d2,d3],12
  mov d0,a0
  mov d2,d0
  mov d3,d1
@@ -980,6 +982,36 @@ pm_put_loop:
  mov 989,d2
  bra pm_put_loop
 pm_put_done:
+ ret [d2,d3],12
+/* d0 = profile number for d2 (903: Color Profile, 989: Monochrome Profile);
+ * returns 0 unless the working copy's stored 111 family is that profile's
+ * (11 = COLOR, 12 = MONO), and clears a stale working-copy number. E148's
+ * settings reset (0x602e0ef3) resets 111 but not 903/989, so after Reset
+ * (basic or full) from a profile the stored family was Natural's while 903 or
+ * 989 kept the old number, and 111 read as an unknown mode (ART16). The
+ * list copies run after the reset, so this keeps 111/903/989 consistent there
+ * and in every custom-mode copy. */
+pm_num:
+ mov d0,d3
+ mov 111,d0
+ call wc_get,[],4
+ cmp 903,d2
+ bne pm_num_mono
+ cmp 11,d0
+ beq pm_num_keep
+ bra pm_num_clear
+pm_num_mono:
+ cmp 12,d0
+ beq pm_num_keep
+pm_num_clear:
+ cmp 0,d3
+ beq pm_num_keep
+ mov d2,d0
+ clr d1
+ call wc_set,[],4
+ clr d3
+pm_num_keep:
+ mov d3,d0
  ret [d2,d3],12
 
 /* Picture-mode refresh tail for Color Profile 1-3 and Monochrome Profile 1-3
