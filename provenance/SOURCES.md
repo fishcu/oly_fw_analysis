@@ -61,3 +61,20 @@ These reports describe successful recovery in particular failure states. They do
 not identify PEN-F's reset code or prove that every failed main-image update is
 recoverable. The [recovery reference](../docs/boot/pen-f/RECOVERY.md) separates those
 reports from native updater evidence.
+
+## Stock Wi-Fi debug access
+
+- [Enduity's SD-file method](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1888641),
+  November 1, 2026: reports an open Wi-Fi network and debug console on stock
+  E-M5 III 1.7 using `PARAMDT/CP000001.CSV` and parameter `F971`.
+- [Cmdada's startup-gate finding](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1886911),
+  October 24, 2026: E-M10 debug parameter, stored network credentials and port-23
+  shell; proposes forcing the getter with a one-byte firmware patch.
+- [PhotoDmiK's F981 observation](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1888681),
+  November 2, 2026: identifies a second nearby parameter. PEN-F code independently
+  maps it to RAM diagnostic capture.
+
+These posts were read from a supplied saved page, whose identity and exact
+timestamps are recorded in [community-reports.json](community-reports.json).
+The [debug reference](../docs/protocols/pen-f/WIFI_DEBUG.md) separates contributor
+hardware reports from the stock-image and native-emulation checks.

@@ -238,5 +238,14 @@
     },
     "engine": "toolchains/mn103-gnu-build/penf-mn103",
     "scope": "Assembled read wrapper and stock READ; no complete plugin build, real dump or camera I/O."
+  },
+  "penf_stock_sd_debug": {
+    "tool": "tools/penf_sd_debug_probe.py",
+    "input": "native_penf.main",
+    "engine": "native_penf.engine",
+    "arguments": {
+      "--out": "Fresh JSON output path"
+    },
+    "scope": "19 bounded native CSV/parameter/network-construction/queue/logging cases; no device access or firmware output."
   }
 }

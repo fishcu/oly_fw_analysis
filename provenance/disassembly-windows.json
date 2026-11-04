@@ -21021,6 +21021,466 @@
     ]
   },
   {
+    "path": "analysis/enduity_debug_20261104/assembly/penf-boot_debug.asm",
+    "start": "0x6007439b",
+    "stop_exclusive": "0x6007443b",
+    "segments": [
+      {
+        "start": "0x6007439b",
+        "stop_exclusive": "0x6007443b"
+      }
+    ],
+    "listing_sha256s": [
+      "78a21126b2c4837c75bd589ebbbde2d16e0f4e5753898cd7c8c72e68994a3ae3"
+    ],
+    "input_images": [
+      {
+        "sha256": "a2eb1d1f1afe47cce148e9aae0a04dfb82547d9de9437d342e012341140913f4",
+        "bytes": 21364672,
+        "filenames": [
+          "00_0100_403a0020.decoded.bin"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "analysis/enduity_debug_20261104/assembly/penf-csv-completion-submit.asm",
+    "start": "0x6008593a",
+    "stop_exclusive": "0x60085a3f",
+    "segments": [
+      {
+        "start": "0x6008593a",
+        "stop_exclusive": "0x60085a3f"
+      }
+    ],
+    "listing_sha256s": [
+      "9916859104ee270b60bdbf60e0f8c40ef0fbb2defef2043938daced5f7bc7893"
+    ],
+    "input_images": [
+      {
+        "sha256": "a2eb1d1f1afe47cce148e9aae0a04dfb82547d9de9437d342e012341140913f4",
+        "bytes": 21364672,
+        "filenames": [
+          "00_0100_403a0020.decoded.bin"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "analysis/enduity_debug_20261104/assembly/penf-csv-import.asm",
+    "start": "0x6007363b",
+    "stop_exclusive": "0x600737bc",
+    "segments": [
+      {
+        "start": "0x6007363b",
+        "stop_exclusive": "0x600737bc"
+      }
+    ],
+    "listing_sha256s": [
+      "4c8b99a694c3c8c977e8d99ad905cf5d076d1670e24608af99ebcc59063bcec6"
+    ],
+    "input_images": [
+      {
+        "sha256": "a2eb1d1f1afe47cce148e9aae0a04dfb82547d9de9437d342e012341140913f4",
+        "bytes": 21364672,
+        "filenames": [
+          "00_0100_403a0020.decoded.bin"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "analysis/enduity_debug_20261104/assembly/penf-csv-work-consumer.asm",
+    "start": "0x600855a8",
+    "stop_exclusive": "0x600855ea",
+    "segments": [
+      {
+        "start": "0x600855a8",
+        "stop_exclusive": "0x600855ea"
+      }
+    ],
+    "listing_sha256s": [
+      "604f07fcd2dc1147f1df974e0891b8059635372d58b5c5b6c71f515de86a293d"
+    ],
+    "input_images": [
+      {
+        "sha256": "a2eb1d1f1afe47cce148e9aae0a04dfb82547d9de9437d342e012341140913f4",
+        "bytes": 21364672,
+        "filenames": [
+          "00_0100_403a0020.decoded.bin"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "analysis/enduity_debug_20261104/assembly/penf-csv_discovery.asm",
+    "start": "0x605843a3",
+    "stop_exclusive": "0x605844b4",
+    "segments": [
+      {
+        "start": "0x605843a3",
+        "stop_exclusive": "0x605844b4"
+      }
+    ],
+    "listing_sha256s": [
+      "c25ab45b452cf1e18ce390e113c373e1170c7191fc7cc334d3236acdb3c204bd"
+    ],
+    "input_images": [
+      {
+        "sha256": "a2eb1d1f1afe47cce148e9aae0a04dfb82547d9de9437d342e012341140913f4",
+        "bytes": 21364672,
+        "filenames": [
+          "00_0100_403a0020.decoded.bin"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "analysis/enduity_debug_20261104/assembly/penf-display-gamma-command.asm",
+    "start": "0x6031c2e2",
+    "stop_exclusive": "0x6031c745",
+    "segments": [
+      {
+        "start": "0x6031c2e2",
+        "stop_exclusive": "0x6031c745"
+      }
+    ],
+    "listing_sha256s": [
+      "dbb80caef1fdcfabe30ff7b2a2b81505810b346d37a4e7fc1e7157dcd3a304b6"
+    ],
+    "input_images": [
+      {
+        "sha256": "a2eb1d1f1afe47cce148e9aae0a04dfb82547d9de9437d342e012341140913f4",
+        "bytes": 21364672,
+        "filenames": [
+          "00_0100_403a0020.decoded.bin"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "analysis/enduity_debug_20261104/assembly/penf-log-capture.asm",
+    "start": "0x600230a7",
+    "stop_exclusive": "0x600231f9",
+    "segments": [
+      {
+        "start": "0x600230a7",
+        "stop_exclusive": "0x600231f9"
+      }
+    ],
+    "listing_sha256s": [
+      "5d87bde0e7f2eb5e11f26ab73f16337a47f182b167dcc7ff7586ad1337175bec"
+    ],
+    "input_images": [
+      {
+        "sha256": "a2eb1d1f1afe47cce148e9aae0a04dfb82547d9de9437d342e012341140913f4",
+        "bytes": 21364672,
+        "filenames": [
+          "00_0100_403a0020.decoded.bin"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "analysis/enduity_debug_20261104/assembly/penf-log-mode.asm",
+    "start": "0x6002302a",
+    "stop_exclusive": "0x6002304a",
+    "segments": [
+      {
+        "start": "0x6002302a",
+        "stop_exclusive": "0x6002304a"
+      }
+    ],
+    "listing_sha256s": [
+      "0cf0d7dc825edf6ee8256dae73ea120f7a5ffdac50d469d29a55988e9b2bb468"
+    ],
+    "input_images": [
+      {
+        "sha256": "a2eb1d1f1afe47cce148e9aae0a04dfb82547d9de9437d342e012341140913f4",
+        "bytes": 21364672,
+        "filenames": [
+          "00_0100_403a0020.decoded.bin"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "analysis/enduity_debug_20261104/assembly/penf-macro-dispatch.asm",
+    "start": "0x606f49fc",
+    "stop_exclusive": "0x606f4ae9",
+    "segments": [
+      {
+        "start": "0x606f49fc",
+        "stop_exclusive": "0x606f4ae9"
+      }
+    ],
+    "listing_sha256s": [
+      "f50edc83fcefba02deb65e2c4593fe3dde26f5adde5b10a48721f1498b9c235c"
+    ],
+    "input_images": [
+      {
+        "sha256": "a2eb1d1f1afe47cce148e9aae0a04dfb82547d9de9437d342e012341140913f4",
+        "bytes": 21364672,
+        "filenames": [
+          "00_0100_403a0020.decoded.bin"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "analysis/enduity_debug_20261104/assembly/penf-macro-file-read.asm",
+    "start": "0x606fa8f8",
+    "stop_exclusive": "0x606fa9af",
+    "segments": [
+      {
+        "start": "0x606fa8f8",
+        "stop_exclusive": "0x606fa9af"
+      }
+    ],
+    "listing_sha256s": [
+      "f44704d692040761647b06274cb292f6df5a05f86fbb921f1de7a1b082ad4db1"
+    ],
+    "input_images": [
+      {
+        "sha256": "a2eb1d1f1afe47cce148e9aae0a04dfb82547d9de9437d342e012341140913f4",
+        "bytes": 21364672,
+        "filenames": [
+          "00_0100_403a0020.decoded.bin"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "analysis/enduity_debug_20261104/assembly/penf-macro-file-write.asm",
+    "start": "0x606faa25",
+    "stop_exclusive": "0x606faaaf",
+    "segments": [
+      {
+        "start": "0x606faa25",
+        "stop_exclusive": "0x606faaaf"
+      }
+    ],
+    "listing_sha256s": [
+      "44907b7af82e82cd389f7aa05f650ee39d51f714101c8b52d971502aa7a06183"
+    ],
+    "input_images": [
+      {
+        "sha256": "a2eb1d1f1afe47cce148e9aae0a04dfb82547d9de9437d342e012341140913f4",
+        "bytes": 21364672,
+        "filenames": [
+          "00_0100_403a0020.decoded.bin"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "analysis/enduity_debug_20261104/assembly/penf-macro-play.asm",
+    "start": "0x606fa777",
+    "stop_exclusive": "0x606fa80b",
+    "segments": [
+      {
+        "start": "0x606fa777",
+        "stop_exclusive": "0x606fa80b"
+      }
+    ],
+    "listing_sha256s": [
+      "b1ebd42c20e989dd225f7b57a4e20d24f1cb999395e171b96c657e810bbf1b55"
+    ],
+    "input_images": [
+      {
+        "sha256": "a2eb1d1f1afe47cce148e9aae0a04dfb82547d9de9437d342e012341140913f4",
+        "bytes": 21364672,
+        "filenames": [
+          "00_0100_403a0020.decoded.bin"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "analysis/enduity_debug_20261104/assembly/penf-macro-timer.asm",
+    "start": "0x606fa9af",
+    "stop_exclusive": "0x606faa25",
+    "segments": [
+      {
+        "start": "0x606fa9af",
+        "stop_exclusive": "0x606faa25"
+      }
+    ],
+    "listing_sha256s": [
+      "ba14a7d60db3d8dfa2719c878b1b593c1f62453849098acc1af03d9c6035aba2"
+    ],
+    "input_images": [
+      {
+        "sha256": "a2eb1d1f1afe47cce148e9aae0a04dfb82547d9de9437d342e012341140913f4",
+        "bytes": 21364672,
+        "filenames": [
+          "00_0100_403a0020.decoded.bin"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "analysis/enduity_debug_20261104/assembly/penf-pca-wifi.asm",
+    "start": "0x60b84679",
+    "stop_exclusive": "0x60b847a5",
+    "segments": [
+      {
+        "start": "0x60b84679",
+        "stop_exclusive": "0x60b847a5"
+      }
+    ],
+    "listing_sha256s": [
+      "25796b9643ba09676e42097eb90a4ad9c198c102b5d82ef90cdd3545c55fbef4"
+    ],
+    "input_images": [
+      {
+        "sha256": "a2eb1d1f1afe47cce148e9aae0a04dfb82547d9de9437d342e012341140913f4",
+        "bytes": 21364672,
+        "filenames": [
+          "00_0100_403a0020.decoded.bin"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "analysis/enduity_debug_20261104/assembly/penf-shell-queue-receive.asm",
+    "start": "0x6006fc98",
+    "stop_exclusive": "0x6006fcd2",
+    "segments": [
+      {
+        "start": "0x6006fc98",
+        "stop_exclusive": "0x6006fcd2"
+      }
+    ],
+    "listing_sha256s": [
+      "d8155b83161b0c14417c9f33bbac427d0d5c1073898bbe277400fc676d447e34"
+    ],
+    "input_images": [
+      {
+        "sha256": "a2eb1d1f1afe47cce148e9aae0a04dfb82547d9de9437d342e012341140913f4",
+        "bytes": 21364672,
+        "filenames": [
+          "00_0100_403a0020.decoded.bin"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "analysis/enduity_debug_20261104/assembly/penf-socket-listener.asm",
+    "start": "0x60aaa820",
+    "stop_exclusive": "0x60aaa8d3",
+    "segments": [
+      {
+        "start": "0x60aaa820",
+        "stop_exclusive": "0x60aaa8d3"
+      }
+    ],
+    "listing_sha256s": [
+      "0838631e0eaadaf69329b8669340b014d8d79e02d45c87aa9223254ba2a2cbee"
+    ],
+    "input_images": [
+      {
+        "sha256": "a2eb1d1f1afe47cce148e9aae0a04dfb82547d9de9437d342e012341140913f4",
+        "bytes": 21364672,
+        "filenames": [
+          "00_0100_403a0020.decoded.bin"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "analysis/enduity_debug_20261104/assembly/penf-strobe-parameter-refresh.asm",
+    "start": "0x602db754",
+    "stop_exclusive": "0x602db771",
+    "segments": [
+      {
+        "start": "0x602db754",
+        "stop_exclusive": "0x602db771"
+      }
+    ],
+    "listing_sha256s": [
+      "2229a5e4a180b3cd81f89792bf4ee3c14d0bfaeeb8133980679f67b91d88ccc9"
+    ],
+    "input_images": [
+      {
+        "sha256": "a2eb1d1f1afe47cce148e9aae0a04dfb82547d9de9437d342e012341140913f4",
+        "bytes": 21364672,
+        "filenames": [
+          "00_0100_403a0020.decoded.bin"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "analysis/enduity_debug_20261104/assembly/penf-user-shell-line-reader.asm",
+    "start": "0x601a6f5a",
+    "stop_exclusive": "0x601a6f6c",
+    "segments": [
+      {
+        "start": "0x601a6f5a",
+        "stop_exclusive": "0x601a6f6c"
+      }
+    ],
+    "listing_sha256s": [
+      "93cf9d1baacca5bd00f15e826584a18d0a6423d6072b7bf1a8bd574735da5f0e"
+    ],
+    "input_images": [
+      {
+        "sha256": "a2eb1d1f1afe47cce148e9aae0a04dfb82547d9de9437d342e012341140913f4",
+        "bytes": 21364672,
+        "filenames": [
+          "00_0100_403a0020.decoded.bin"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "analysis/enduity_debug_20261104/assembly/penf-wifi-accept.asm",
+    "start": "0x60aaa5d5",
+    "stop_exclusive": "0x60aaa6dc",
+    "segments": [
+      {
+        "start": "0x60aaa5d5",
+        "stop_exclusive": "0x60aaa6dc"
+      }
+    ],
+    "listing_sha256s": [
+      "ae4f6101945930db807d9d170adf01797ef321d337dddd26ff61ad47a7a75689"
+    ],
+    "input_images": [
+      {
+        "sha256": "a2eb1d1f1afe47cce148e9aae0a04dfb82547d9de9437d342e012341140913f4",
+        "bytes": 21364672,
+        "filenames": [
+          "00_0100_403a0020.decoded.bin"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "analysis/enduity_debug_20261104/assembly/penf-wifi-command-bridge.asm",
+    "start": "0x60aaa8d3",
+    "stop_exclusive": "0x60aaa8fa",
+    "segments": [
+      {
+        "start": "0x60aaa8d3",
+        "stop_exclusive": "0x60aaa8fa"
+      }
+    ],
+    "listing_sha256s": [
+      "015e865e785491d5949f85c39ff342ca5c0f348127a72ed3f9e66081844730cb"
+    ],
+    "input_images": [
+      {
+        "sha256": "a2eb1d1f1afe47cce148e9aae0a04dfb82547d9de9437d342e012341140913f4",
+        "bytes": 21364672,
+        "filenames": [
+          "00_0100_403a0020.decoded.bin"
+        ]
+      }
+    ]
+  },
+  {
     "path": "analysis/ep7_om3_trace/ep7_builder.asm",
     "start": "0x603b0068",
     "stop_exclusive": "0x603b0247",

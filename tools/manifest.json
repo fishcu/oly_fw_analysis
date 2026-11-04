@@ -38,6 +38,7 @@
     "tools/penf_profile_context_probe.py",
     "tools/penf_repack_preflight.py",
     "tools/penf_replay_compare.py",
+    "tools/penf_sd_debug_probe.py",
     "tools/penf_sd_path_probe.py",
     "tools/penf_section3_layout_probe.py",
     "tools/penf_settings_backup_probe.py",
@@ -975,8 +976,8 @@
     },
     {
       "path": "tools/README.md",
-      "sha256": "f92fc0d769421f7a21066684670f00061b2c70f7f44a9d71bf17efb8bf03d3d5",
-      "bytes": 9265,
+      "sha256": "81525587aa3073eddeb91411e080d7bcca3d689a5bfeb132259818f659a48912",
+      "bytes": 9525,
       "original_source": {
         "path": "tools/README.md",
         "sha256": "424400d690dd53e89cf48e325bd662f7f41d02f6814b97a02b5b1c1c5b0b7f96"
@@ -1162,8 +1163,8 @@
     },
     {
       "path": "tools/inputs.json",
-      "sha256": "e0b0a29db3df77b1acbfe35bcaefde205672891608748ccc320b8bcf94efdb9a",
-      "bytes": 10632,
+      "sha256": "eee42e6946c02602d3e9bc533796e424a3cb823ea0b998dc2dd0a893feaa2415",
+      "bytes": 10969,
       "origin": "original documentation, fixture or utility"
     },
     {
@@ -2845,6 +2846,22 @@
         "penf_landmarks"
       ],
       "entry_point": false
+    },
+    {
+      "path": "tools/penf_sd_debug_probe.py",
+      "sha256": "7ba80c8ddf554c0bbed58219e300117c6e275822492ee1fa16a784b11647dcba",
+      "bytes": 12628,
+      "original_source": {
+        "path": "tools/penf_sd_debug_probe.py",
+        "sha256": "7ba80c8ddf554c0bbed58219e300117c6e275822492ee1fa16a784b11647dcba"
+      },
+      "adapted": false,
+      "local_imports": [
+        "penf_emulator",
+        "penf_landmarks",
+        "penf_probe"
+      ],
+      "entry_point": true
     },
     {
       "path": "tools/penf_sd_path_probe.py",

@@ -22,7 +22,7 @@
   {
     "path": "docs/README.md",
     "sources": [],
-    "sha256": "dcb19afe017d7ca56a0df01c8a0b1b3cc67e1a5e488dddee6c42b6a2b0a6a539"
+    "sha256": "eb23d57614035afd1ba4df9dbdd6a2a20e44acdee4a13e8bc5a4dc705e69d416"
   },
   {
     "path": "docs/boot/e-m10/RECOVERY.md",
@@ -156,9 +156,13 @@
       {
         "source_document": "docs/safety/CMIO_AND_RUNTIME_FLASH_PROTECTION.md",
         "sha256": "bb79ba825748a6c56ff3ab6f15a5f3902ec03fc8e7dee78d0db4f95ef0b53491"
+      },
+      {
+        "source_document": "research/community/enduity/2026-11-04-debug-mode/ANALYSIS.md",
+        "sha256": "16147320989114b6b0e33eaec6bf4dbba4099540f457d326d45dd1f044c88495"
       }
     ],
-    "sha256": "0dbe078c9efafb3b3ff93e53f6ce7a9b75df1688dd650dbabb66e751e9407ca5"
+    "sha256": "24e87eb5157d201cc52fb4b42255ac610d611fa4fdae7bb22ab58c39308430be"
   },
   {
     "path": "docs/boot/pen-f/STARTUP.md",
@@ -677,6 +681,20 @@
     "sha256": "1443789bcf4f3830da64cec7be7a488ef5c0a9cff839e2919a068d3331c4fbb7"
   },
   {
+    "path": "docs/protocols/pen-f/DEBUG_FILES.md",
+    "sources": [
+      {
+        "source_document": "research/community/enduity/2026-11-04-debug-mode/ANALYSIS.md",
+        "sha256": "16147320989114b6b0e33eaec6bf4dbba4099540f457d326d45dd1f044c88495"
+      },
+      {
+        "source_document": "docs/color/HSL_STORAGE_CANDIDATES.md",
+        "sha256": "d8f3cf0a1970d0e3ba86bbf448b08596dec12b3ed2d95a05b4962c9626c20387"
+      }
+    ],
+    "sha256": "c4dd2a08e794de8d0ec7395db2dbdbd90088444c164c4dfbca8702e24eef60d6"
+  },
+  {
     "path": "docs/protocols/pen-f/SETTINGS_BACKUP.md",
     "sources": [
       {
@@ -718,9 +736,23 @@
       {
         "source_document": "analysis/penf_wifi_workflow_camera_20261017/REPORT.md",
         "sha256": "2b476edf6191a6bd011f87d2290f78353b4407d1d48515abf2a7e62154456d4d"
+      },
+      {
+        "source_document": "research/community/enduity/2026-11-04-debug-mode/ANALYSIS.md",
+        "sha256": "16147320989114b6b0e33eaec6bf4dbba4099540f457d326d45dd1f044c88495"
       }
     ],
-    "sha256": "0553a066c036c0685b356445d0daae1307dd8196eadfc72a74e5c45f8452e949"
+    "sha256": "d34f0b5176c81d8c22275a3f6fa27ac88557017abff4add765a0936150762762"
+  },
+  {
+    "path": "docs/protocols/pen-f/WIFI_DEBUG.md",
+    "sources": [
+      {
+        "source_document": "research/community/enduity/2026-11-04-debug-mode/ANALYSIS.md",
+        "sha256": "16147320989114b6b0e33eaec6bf4dbba4099540f457d326d45dd1f044c88495"
+      }
+    ],
+    "sha256": "3a8f1bc8fa1cac7c9f228eabc70651e16a22c122643be709a74cae11b50c108d"
   },
   {
     "path": "docs/safety/CODE_SPACE.md",
@@ -851,6 +883,6 @@
         "sha256": "ac7244e438e5467fb725c43c44b0705b6cb16bc3311b57fd3aa271264459e7f1"
       }
     ],
-    "sha256": "81259875aca8a7e861ca67394806e9f6280982f7830ec4b5d643a4da88ace46f"
+    "sha256": "f86a51cc06e5ddf288258428086e5d273b97069d537f8f2decddfb29d84bec21"
   }
 ]

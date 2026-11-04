@@ -161,5 +161,109 @@
     ],
     "tool": "tools/em10_source_audit.py",
     "read_probe": "tools/em10_dump_probe.py"
+  },
+  {
+    "id": "enduity-stock-sd-debug-20261101",
+    "author": "enduity",
+    "platform": "mu-43.com",
+    "posts": [
+      {
+        "author": "cmdada",
+        "post_id": "1886911",
+        "published_at": "2026-10-24T04:29:24+0200",
+        "url": "https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1886911"
+      },
+      {
+        "author": "enduity",
+        "post_id": "1888641",
+        "published_at": "2026-11-01T21:21:14+0100",
+        "url": "https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1888641"
+      },
+      {
+        "author": "PhotoDmiK",
+        "post_id": "1888681",
+        "published_at": "2026-11-02T00:52:38+0100",
+        "url": "https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1888681"
+      }
+    ],
+    "publication_evidence": "Exact time[datetime] fields from supplied saved page 35; live forum retrieval failed.",
+    "source_page_sha256": "9341c0d579ca2acc12d6e098baf0a6f9d662c31784bb5889bbf5b51271dc8428",
+    "reported_physical_test": {
+      "model": "E-M5 Mark III",
+      "firmware": "1.7",
+      "claims": [
+        "Stock SD CSV enables open Wi-Fi and diagnostic console",
+        "OI.Share connects",
+        "Brief battery removal may be needed"
+      ]
+    },
+    "stock_images": [
+      {
+        "model": "PEN-F",
+        "version": "3.1",
+        "build": "3101",
+        "main_sha256": "a2eb1d1f1afe47cce148e9aae0a04dfb82547d9de9437d342e012341140913f4",
+        "main_bytes": 21364672,
+        "cpu_base": "0x60021020"
+      },
+      {
+        "model": "E-M5 Mark III",
+        "version": "1.7",
+        "build": "1700",
+        "main_sha256": "4097f57751ac30c24589448865b2824891a754744eae63ab14359fd46c1cf4be",
+        "main_bytes": 25034688,
+        "cpu_base": "0x60021020"
+      },
+      {
+        "model": "E-M10 Mark I",
+        "version": "1.4",
+        "build": "1400",
+        "main_sha256": "e2b227662d782a2c75c6c6e872bc34fdfa45d34a9b1b2cee04a4435a00c54f0e",
+        "main_bytes": 18874304,
+        "cpu_base": "0x7d991020"
+      }
+    ],
+    "verification": {
+      "date": "2026-11-04",
+      "native_cases": 19,
+      "native_target": "PEN-F 3101",
+      "result_sha256": "37bebcde17a188aef894cc98a64b185d940925bc42299cf237e1d8789374a511",
+      "source_sha256": "7ba80c8ddf554c0bbed58219e300117c6e275822492ee1fa16a784b11647dcba",
+      "engine_sha256": "0ded32d880a424678be02c1b45c2fc9334d50a59ddd9754e77fee022eee5e9f5",
+      "checked": [
+        "Stock CSV discovery and import call chain",
+        "Native CSV parsing and RAM override lookup/clear",
+        "Native F971 gate and separate F981 mode",
+        "Native 0.0.0.0:23 listener construction",
+        "Native line callback to U_SHELL message buffer CE",
+        "Native conditional 106-entry strobe pointer refresh",
+        "Native disabled/bounded/circular RAM logging",
+        "Static key-event macro and service-file mechanisms"
+      ],
+      "models": [
+        "CSV parser, overlay installer/getter/clear and boot selector run native instructions with synthetic RAM.",
+        "File discovery and line delivery are not replayed; each line is supplied directly to the native parser.",
+        "Startup readiness/sleep and Wi-Fi initializer/start are modeled; no full boot or radio operation.",
+        "Listener construction executes separately on modeled CPU1 with allocator/socket/bind/listen/task services replaced.",
+        "Command bridge records its message-buffer send; U_SHELL dispatch and help execution are not run.",
+        "Native overlay clear is not a power-cycle or hot-removal test; no flash writes or full persistence trace.",
+        "7B64 native pointer refresh uses 106 synthetic strobe parameter IDs and modeled pointer resolution.",
+        "F981 native RAM capture uses synthetic buffer/cursor; serial suppressed, interrupt services modeled.",
+        "No TCP connection, authentication handshake, shell command, camera I/O or physical test is performed."
+      ],
+      "not_established": [
+        "Physical PEN-F Wi-Fi operation or authentication/session behavior",
+        "Full boot, CSV filesystem delivery and concurrent scheduling in one run",
+        "Removal/reboot reversibility on hardware",
+        "Safe physical flash dump or recovered boot bytes",
+        "Automatic stock native-plugin loading from SD",
+        "Independent recovery environment"
+      ]
+    },
+    "findings": [
+      "docs/protocols/pen-f/WIFI_DEBUG.md",
+      "docs/protocols/pen-f/DEBUG_FILES.md"
+    ],
+    "probe": "tools/penf_sd_debug_probe.py"
   }
 ]

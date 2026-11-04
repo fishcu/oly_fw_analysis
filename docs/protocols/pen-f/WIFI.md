@@ -6,6 +6,10 @@ connection is more limited. The camera's HTTP service is ordinarily at
 `192.168.0.10`. The [camera manual](https://learning.omsystem.com/PEN-F/zz_pdf/pen-f_eng.pdf)
 describes connection setup.
 
+Stock firmware also has a separate [SD parameter override and port-23 debug
+shell](WIFI_DEBUG.md). That route is distinct from the HTTP recipe interface
+below and has different access and lifetime implications.
+
 ## Stock protocol
 
 PEN-F 3100/3101 contain the same OI.Share 2.60 command description: 23 listed CGI
