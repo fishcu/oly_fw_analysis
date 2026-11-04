@@ -6,8 +6,10 @@
 package (SHA-256 `35f0caac4b70f1e59e3d5311fdf74a8c021d720755a7441796b080707b79d434`).**
 The owner reports that the update appeared to run, but the camera then showed
 a black screen and repeatedly moved autofocus instead of booting. An attempted
-stock reflash showed a sustained solid red light; its outcome was not yet
-known. The root cause has not been established. The static and emulator results
+stock-firmware reflash showed a sustained solid red light. The owner reports
+that a second stock-firmware reflash attempt recovered the camera. This is one
+observed recovery, not proof that other boot failures can be recovered. The
+root cause has not been established. The static and emulator results
 below did not predict this physical boot failure and must not be read as
 evidence that this build is safe to install. The analysis below predates this
 incident.

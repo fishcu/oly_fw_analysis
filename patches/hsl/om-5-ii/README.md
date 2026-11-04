@@ -3,10 +3,11 @@
 > **DO NOT FLASH THIS BUILD.** On 4 November 2026, the owner reported that
 > package SHA-256 `35f0caac4b70f1e59e3d5311fdf74a8c021d720755a7441796b080707b79d434`
 > appeared to flash but the OM-5 Mark II then failed to boot: black screen and
-> repeated autofocus movement. An attempted stock reflash showed a sustained
-> solid red light; recovery was not confirmed at the time of this report.
+> repeated autofocus movement. The first stock-firmware reflash attempt showed
+> a sustained solid red light; a second attempt recovered the camera.
 > The cause is unknown. Treat this patch and its generated install package as
-> unsafe for camera use pending investigation. See [brick-risk review](BRICK-RISK.md).
+> unsafe for camera use pending investigation. This recovery does not establish
+> that other failures would be recoverable. See [brick-risk review](BRICK-RISK.md).
 
 This port targets the official E148 firmware 1.1 build 1100. It restores Color
 Profile 1–3 in the picture-mode selector and adds Hue and Lightness beside the
