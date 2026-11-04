@@ -1166,6 +1166,13 @@
       "adapted": false
     },
     {
+      "path": "tools/oly_compress.py",
+      "origin": "original documentation, fixture or utility",
+      "local_imports": [],
+      "sha256": "3368a06a9ad297d547f5912420389815d57c6bf660433924af2646402153ec0e",
+      "bytes": 7063
+    },
+    {
       "path": "tools/oly_container.py",
       "sha256": "ab842e186049074848a24dda432e8a5b85d52390fd22af9d059bf630def9cb6b",
       "bytes": 8788,
@@ -1180,8 +1187,22 @@
     {
       "path": "tools/oly_patch.py",
       "origin": "original documentation, fixture or utility",
-      "sha256": "b35c4076be6eda0c79cd0bbd4fcad7b33a3a083ae50db8ab8914df7dc7b2c529",
-      "bytes": 13844
+      "sha256": "97396718fa6f7b9566b12c663d50404d497a1bfa40ff4e57db61b1dd52f467c2",
+      "bytes": 15862,
+      "local_imports": [
+        "oly_container",
+        "oly_compress",
+        "oly_resource"
+      ]
+    },
+    {
+      "path": "tools/oly_resource.py",
+      "origin": "original documentation, fixture or utility",
+      "local_imports": [
+        "oly_compress"
+      ],
+      "sha256": "9708a0db1f17b0b70ece48991a3de099718804dce90201d3cc26ab1aa82b4bad",
+      "bytes": 3826
     },
     {
       "path": "tools/oly_sd_selector_comparison.py",
@@ -3026,8 +3047,8 @@
     },
     {
       "path": "tools/run_checks.py",
-      "sha256": "112f935e1d9c0955d0cffb6f8f6cd21d455327fe8bb1c0cc8114eae670bd06f2",
-      "bytes": 2218,
+      "sha256": "4121e64ad16794d2e2b02c223774a2f3e38db86ba7e4579a114af8a8e039b07f",
+      "bytes": 2362,
       "origin": "original documentation, fixture or utility",
       "local_imports": [
         "penf_emulator"

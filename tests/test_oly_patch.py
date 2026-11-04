@@ -9,6 +9,7 @@ import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
 from oly_container import encode, parse, sum32
+from oly_compress import MAGIC, _encode, repack_image
 import oly_patch
 
 
@@ -49,11 +50,11 @@ def definition(**overrides):
 
 
 class PatchBuilderTests(unittest.TestCase):
-    def run_build(self, spec, **kwargs):
+    def run_build(self, spec, *, stock=STOCK, **kwargs):
         temp = Path(self.enterContext(tempfile.TemporaryDirectory()))
         (temp / "patch").mkdir()
         (temp / "patch" / "patch.json").write_text(json.dumps(spec))
-        (temp / "stock.bin").write_bytes(STOCK)
+        (temp / "stock.bin").write_bytes(stock)
         report = oly_patch.build(temp / "patch", temp / "stock.bin", temp / "out", **kwargs)
         return temp / "out", report
 
@@ -109,6 +110,38 @@ class PatchBuilderTests(unittest.TestCase):
         spec = definition(package={"components": "all", "file": "X.BIN", "sha256": "0" * 64})[0]
         with self.assertRaisesRegex(ValueError, "Package sha256"):
             self.run_build(spec)
+
+    def test_compressed_component_checks_both_images_and_withholds_install(self):
+        raw = b'abcd' * 128
+        packed = _encode(b'abcd' * 4, 4, 496) + _encode(b'')
+        stored = bytearray(b'\xff' * len(raw))
+        stored[:16] = MAGIC
+        struct.pack_into('<II', stored, 16, len(packed), len(raw))
+        stored[24:32] = bytes(8)
+        stored[32:32 + len(packed)] = packed
+        target = bytearray(raw)
+        target[100:104] = b'edit'
+        repacked = repack_image(bytes(stored), bytes(target), split=True, literal_limit=0)
+        stock = component(0x100, bytes(stored))
+        spec = {
+            "schema": "oly-patch/1", "name": "compressed test", "model": "synthetic",
+            "firmware": "0", "camera_tested": False, "stock": {"sha256": sha(stock)},
+            "components": {"0x100": {"image_transform": "olycompress", "repack": "split",
+                "before_sha256": sha(raw), "after_sha256": sha(target),
+                "stored_before_sha256": sha(stored), "stored_after_sha256": sha(repacked)}},
+            "ranges": [{"component": "0x100", "name": "edit", "offset": hex(100), "bytes": 4,
+                        "before_sha256": sha(raw[100:104]), "after_sha256": sha(b'edit')}],
+            "data_edits": [{"component": "0x100", "name": "edit", "offset": hex(100), "after": b'edit'.hex()}],
+            "package": {"components": "all", "file": "X.BIN"},
+        }
+        out, report = self.run_build(spec, stock=stock, decoded=True)
+        self.assertEqual((out / "decoded/0100.bin").read_bytes(), target)
+        self.assertEqual(report["components"]["0x100"]["sha256"], sha(repacked))
+        self.assertFalse((out / "install").exists())
+        self.assertEqual(parse((out / "restore-stock/X.BIN").read_bytes())[0].payload, stored)
+        spec["components"]["0x100"]["stored_after_sha256"] = "0" * 64
+        with self.assertRaisesRegex(ValueError, "Repacked component"):
+            self.run_build(spec, stock=stock)
 
 
 if __name__ == "__main__":
