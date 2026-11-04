@@ -48,6 +48,12 @@ availability at the original host.
 
 ## Reported recovery cases
 
+- [cmdada's E-M10 I report](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1886273)
+  and [later simulated bootloader overwrite](https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1886391),
+  October 21, 2026. [Source snapshot](https://github.com/cmdada/em10-fw/tree/6adb3bef36239859ae3fcd94b0dbb7db6de6ffa1)
+  contains the plugin loader and main-entry system emulator, but not the later
+  preboot simulator or original boot dumps. See the [qualified summary](../docs/boot/e-m10/RECOVERY.md)
+  and [source identities](community-reports.json).
 - [E-M1X recovery discussion](https://www.dpreview.com/forums/threads/how-to-fix-bricked-om-d-e-m1x.4707099/).
 - [E-M5 recovery discussion](https://cameraderie.org/threads/e-m5-bricked-and-now-unbricked.60619/).
 

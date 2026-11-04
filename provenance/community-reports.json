@@ -57,5 +57,109 @@
     "finding": "docs/protocols/om-3/TETHERING.md",
     "probe": "tools/om3_tethering_probe.py",
     "preview_probe": "tools/om3_preview_probe.py"
+  },
+  {
+    "id": "cmdada-em10-20261021",
+    "author": "cmdada",
+    "platform": "mu-43.com",
+    "posts": [
+      {
+        "author": "cmdada",
+        "post_id": "1886273",
+        "url": "https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1886273",
+        "published_at": "2026-10-21T03:47:06+0200"
+      },
+      {
+        "author": "cmdada",
+        "post_id": "1886277",
+        "url": "https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1886277",
+        "published_at": "2026-10-21T03:50:40+0200"
+      },
+      {
+        "author": "cmdada",
+        "post_id": "1886283",
+        "url": "https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1886283",
+        "published_at": "2026-10-21T04:07:41+0200"
+      },
+      {
+        "author": "cmdada",
+        "post_id": "1886391",
+        "url": "https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/post-1886391",
+        "published_at": "2026-10-21T16:05:24+0200"
+      }
+    ],
+    "publication_evidence": "time[datetime] attributes in user-supplied saved HTML; live forum request failed",
+    "source_page_sha256": "c54754ceb645f372a707660070b34d5655eb2cc3b67801736d0bd1daf0201c4c",
+    "upstream": {
+      "url": "https://github.com/cmdada/em10-fw",
+      "commit": "6adb3bef36239859ae3fcd94b0dbb7db6de6ffa1",
+      "commit_time": "2026-10-21T02:06:11Z",
+      "source_hashes": {
+        "README.md": "0f643a467393f8655117bf770aabb00d03025845a99d9e3f8b96c9211ad63b5a",
+        "notes/system.md": "a0cceab8f5eb5a3c9811a5b592c8c64547540f53257979a8a2287afce9a53bd2",
+        "notes/plugins.md": "f6976c41700a8265cbc5f06b1ddd2274d78888e22744ddd163b6646b788e51e8",
+        "tools/patch.py": "623969bb79a175acf3978b0d5d17a3f7a976a4b27c014b63d2bc50e0d285711e",
+        "plugins/loader/loader.c": "cef90b847fc5f1d7bae6bee4e4383f51f640d35a9628e5c1526a2a37a7da35c0",
+        "plugins/loader/fw.S": "211298b1c6d2081678a1577720138ad075095f66f3d64a5b3b6fd53c0b186ccc",
+        "plugins/loader/loader.ld": "e60a31ceae35e65cdf3521cdbac3509b76f60c4cdb762f85b921360c33448d42",
+        "plugins/sdk/em10.h": "c81e8b55fd189f4f03c5a2a58697583c3a09284082a917cca6d1124da84f7cef",
+        "plugins/sysdump/sysdump.c": "e4b75aec7c99a478840d608b1879789dce7d64f7e9ceb74d5194ea49c8c51f12",
+        "tools/emp.py": "0f3d282b47604db0fcac4c316ddff9d92d96b54437c9857778bdda750195c591",
+        "emu/main.c": "5cdf9fe7eaa13b3dc7b84acf31297fd5872fec97c69b352b350be733aa6a5fcc",
+        "emu/hle.c": "21a93a5e0945d7b0548b8b7e2f47816086e4f6d2c56694b1c7db7be9d5308c6d",
+        "emu/emu.h": "434e677a2e60d62dd63fcdefa3c624a9447eb1ef4e79110ccd43476e706f6ede",
+        "emu/mem.c": "f2a25a3a2ca0943ac5ca3efba2b34773606b85fb8a24a385f2ef0bc0d161aec8"
+      },
+      "license": "GPL-3.0, with third-party exceptions listed upstream"
+    },
+    "target": {
+      "model": "E-M10 Mark I",
+      "version": "1.4",
+      "sha256": "84d81b2dbd80ea2e94ec70e35acbba0e3193ccee8b51db14976fd0d9c4e3590c"
+    },
+    "verification": {
+      "date": "2026-11-04",
+      "static": [
+        "Three stock checksums and exact container roundtrip",
+        "22 plugin hook preimages",
+        "Six section descriptors, proposed tail and arena padding",
+        "Native movie duration operand"
+      ],
+      "execution": [
+        "Stock main-entry startup and section-only variant, strict alignment stops enabled",
+        "Extended section copy matches decoded source",
+        "Stock GUI and menu rendered in upstream emulator",
+        "46-byte SYSDUMP wrapper and stock READ executed in nine bounded cases"
+      ],
+      "models": [
+        "Main-entry handoff supplied; no reset execution",
+        "Flash READ backed by decoded components",
+        "Incomplete sensor/ISP, substituted waits and modeled peripherals",
+        "Emulator timing is not camera timing",
+        "Bounded READ probe models semaphore, timer and sector I/O; synthetic GCC caller"
+      ],
+      "not_established": [
+        "Original boot dump contents independently verified",
+        "Later preboot/updater simulation reproduced",
+        "Complete plugin build or physical execution repeated",
+        "PEN-F recovery chain or direct port compatibility"
+      ],
+      "source_audit_sha256": "0b92287ed064332fe981a99bdac735a9366f0bd465db954b130dcc39fdd33247",
+      "run_summary_sha256": "369b2396ef3b523b1aff33e42cab36b50cf5cb84f55d9d1e99579e63a4a90430",
+      "read_probe_result_sha256": "298634e16fda3d1730bd6987fcae8e18733f66d87abcc324f78b5e958b499be8"
+    },
+    "corrections": [
+      "Later simulated bootloader overwrite qualifies the early safety claim",
+      "Public emulator revision starts at main, not ROM",
+      "SDK API7; loading in FILEFGND, not triggered solely by Homebrew screen",
+      "FreeRTOS hardware/emulator status differs between post and README"
+    ],
+    "findings": [
+      "docs/boot/e-m10/RECOVERY.md",
+      "docs/tooling/e-m10/PLUGINS.md",
+      "docs/color/e-m10/PROCESSING.md"
+    ],
+    "tool": "tools/em10_source_audit.py",
+    "read_probe": "tools/em10_dump_probe.py"
   }
 ]

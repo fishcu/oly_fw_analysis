@@ -61,6 +61,12 @@ failures remain author reports without their failing builds or fault traces.
 
 ## Runtime and update risks are different
 
+An alternative is to extend a section's loaded end. cmdada's
+[E-M10 I loader](../tooling/e-m10/PLUGINS.md) changes two descriptor bytes to load
+a larger tail. Independent emulation confirms the additional copy under a
+modeled flash reader. This avoids relying on a tiny existing loaded suffix,
+but still requires checking destination ownership, aliases and later reloads.
+
 Executable camera code can reside in RAM. A lower-level section reload can reset
 extension state even though the stored firmware bytes never change. Using an
 uncached alias consistently avoids one class of accidental alias mixing; it does

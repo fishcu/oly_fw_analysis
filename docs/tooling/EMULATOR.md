@@ -6,6 +6,10 @@ and modeled hardware/service boundaries. It is useful for checking dataflow,
 calling conventions and parameter ownership; it is not a complete TruePic or
 camera emulator.
 
+For a complementary system model, see cmdada's
+[E-M10 I emulator and plugin work](e-m10/PLUGINS.md). It reaches a rendered GUI
+with modeled peripherals; its published revision also begins at main, not reset.
+
 ## Build
 
 Python 3.12, a C/C++ build environment, GNU make and the GNU simulator's host

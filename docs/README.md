@@ -10,6 +10,7 @@ camera with the same processor.
 | Startup and recovery | [Startup structure](boot/pen-f/STARTUP.md) · [SD update and recovery limits](boot/pen-f/RECOVERY.md) · [Buttons and dials](boot/pen-f/INPUTS.md) |
 | Camera interfaces | [USB firmware update](protocols/pen-f/USB_UPDATE.md) · [Settings backup](protocols/pen-f/SETTINGS_BACKUP.md) · [Wi-Fi settings](protocols/pen-f/WIFI.md) |
 | OM-3 tethering | [USB startup selectors, live view and image transfer](protocols/om-3/TETHERING.md) |
+| E-M10 I research | [Boot and recovery](boot/e-m10/RECOVERY.md) · [SD plugins and system emulator](tooling/e-m10/PLUGINS.md) · [Image-processing extensions](color/e-m10/PROCESSING.md) |
 | Color processing | [Modes and generations](color/MODES.md) · [HSL tables and scales](color/pen-f/HSL_TABLES.md) · [Processing jobs](color/pen-f/CREATIVE_PROCESSING_JOBS.md) |
 | Profile integration | [Editor and display](color/pen-f/EDITOR.md) · [Saved settings](color/pen-f/SETTINGS_STORAGE.md) · [Per-image parameters](color/pen-f/CAPTURE_PARAMETERS.md) · [ORF metadata](color/pen-f/ORF_METADATA.md) |
 | Other image effects | [Grain](color/pen-f/GRAIN.md) · [Sharpening](color/pen-f/SHARPENING.md) · [Creative shading](color/pen-f/SHADING.md) |

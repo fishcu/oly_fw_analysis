@@ -190,6 +190,21 @@
     "engine": "toolchains/mn103-gnu-build/penf-mn103",
     "scope": "No PEN-F input, camera access or complete USB session; see protocol reference for explicit models."
   },
+  "em10_community": {
+    "tool": "tools/em10_source_audit.py",
+    "arguments": {
+      "--firmware": {
+        "format": "Original encoded E-M10 Mark I 1.4 container",
+        "sha256": "84d81b2dbd80ea2e94ec70e35acbba0e3193ccee8b51db14976fd0d9c4e3590c"
+      },
+      "--upstream": {
+        "url": "https://github.com/cmdada/em10-fw",
+        "reviewed_commit": "6adb3bef36239859ae3fcd94b0dbb7db6de6ffa1",
+        "required_file": "tools/patch.py (parsed, never imported)"
+      }
+    },
+    "scope": "Static source/stock comparison. No compiler, emulator, network or device access required."
+  },
   "om3_preview": {
     "tool": "tools/om3_preview_probe.py",
     "arguments": {
@@ -200,5 +215,28 @@
     },
     "engine": "toolchains/mn103-gnu-build/penf-mn103",
     "scope": "Native wrapper and ring reader; mutex/copy/sender modeled, no physical USB transfer."
+  },
+  "em10_dump_reader": {
+    "tool": "tools/em10_dump_probe.py",
+    "arguments": {
+      "--stock-main": {
+        "format": "Decoded E-M10 Mark I 1.4 main payload",
+        "sha256": "e2b227662d782a2c75c6c6e872bc34fdfa45d34a9b1b2cee04a4435a00c54f0e"
+      },
+      "--upstream": {
+        "url": "https://github.com/cmdada/em10-fw",
+        "reviewed_commit": "6adb3bef36239859ae3fcd94b0dbb7db6de6ffa1",
+        "required_file": "plugins/sysdump/sysdump.c",
+        "sha256": "e4b75aec7c99a478840d608b1879789dce7d64f7e9ceb74d5194ea49c8c51f12"
+      },
+      "--assembler": {
+        "format": "MN103 GNU assembler executable"
+      },
+      "--linker": {
+        "format": "MN103 GNU linker executable"
+      }
+    },
+    "engine": "toolchains/mn103-gnu-build/penf-mn103",
+    "scope": "Assembled read wrapper and stock READ; no complete plugin build, real dump or camera I/O."
   }
 }

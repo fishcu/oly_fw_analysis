@@ -22,7 +22,29 @@
   {
     "path": "docs/README.md",
     "sources": [],
-    "sha256": "4fee38e2e6dc059a3267f728dacfb35c530afef7e374e66522cf5d709989b737"
+    "sha256": "dcb19afe017d7ca56a0df01c8a0b1b3cc67e1a5e488dddee6c42b6a2b0a6a539"
+  },
+  {
+    "path": "docs/boot/e-m10/RECOVERY.md",
+    "sources": [
+      {
+        "source_document": "research/community/cmdada/2026-11-04-intake/ANALYSIS.md",
+        "sha256": "cee857dd27378bf8b1a0674da53eb3d7eb2c6b47720153cad1d828c83b74562c"
+      },
+      {
+        "source_document": "analysis/cmdada_em10_20261104/source-audit.json",
+        "sha256": "0b92287ed064332fe981a99bdac735a9366f0bd465db954b130dcc39fdd33247"
+      },
+      {
+        "source_document": "analysis/cmdada_em10_20261104/verification.json",
+        "sha256": "369b2396ef3b523b1aff33e42cab36b50cf5cb84f55d9d1e99579e63a4a90430"
+      },
+      {
+        "source_document": "analysis/community_followup_20261104/cmdada-read.json",
+        "sha256": "298634e16fda3d1730bd6987fcae8e18733f66d87abcc324f78b5e958b499be8"
+      }
+    ],
+    "sha256": "afe1c4b4ca11f5b4d9ed614d28a610501c5f20ef1dcc918e1c4f8deb1dd087a4"
   },
   {
     "path": "docs/boot/pen-f/FUNCTION_MAP.md",
@@ -136,7 +158,7 @@
         "sha256": "bb79ba825748a6c56ff3ab6f15a5f3902ec03fc8e7dee78d0db4f95ef0b53491"
       }
     ],
-    "sha256": "3518eb4825ee836882f18b68a3d763f7ab27e073970ce60b89ea953de95e873c"
+    "sha256": "0dbe078c9efafb3b3ff93e53f6ce7a9b75df1688dd650dbabb66e751e9407ca5"
   },
   {
     "path": "docs/boot/pen-f/STARTUP.md",
@@ -193,6 +215,24 @@
       }
     ],
     "sha256": "fc0184a54407aceb134c0a05fb7adbafcb7b5ac2f5b37193a5040df5b5a0f41f"
+  },
+  {
+    "path": "docs/color/e-m10/PROCESSING.md",
+    "sources": [
+      {
+        "source_document": "research/community/cmdada/2026-11-04-intake/ANALYSIS.md",
+        "sha256": "cee857dd27378bf8b1a0674da53eb3d7eb2c6b47720153cad1d828c83b74562c"
+      },
+      {
+        "source_document": "analysis/cmdada_em10_20261104/source-audit.json",
+        "sha256": "0b92287ed064332fe981a99bdac735a9366f0bd465db954b130dcc39fdd33247"
+      },
+      {
+        "source_document": "analysis/cmdada_em10_20261104/verification.json",
+        "sha256": "369b2396ef3b523b1aff33e42cab36b50cf5cb84f55d9d1e99579e63a4a90430"
+      }
+    ],
+    "sha256": "59790f40e48ea0c8fa09735f33a4b76f91eb85f291b8f1f4a948c14b546fec0e"
   },
   {
     "path": "docs/color/pen-f/CAPTURE_PARAMETERS.md",
@@ -698,7 +738,7 @@
         "sha256": "26e284177f37d09cc5b4b5a32c495968fb39d78ee6040e25fce477220fcc17d0"
       }
     ],
-    "sha256": "bba31e7ddcfcb2a4d062a37407d3f6eca78ad9493cf24e66164ef2e98b2c3790"
+    "sha256": "0bbd28d11495c21b36654f96b7bc9d8d135f130b7e67b82c90efc08cde8611d8"
   },
   {
     "path": "docs/safety/VALIDATION.md",
@@ -721,6 +761,24 @@
       }
     ],
     "sha256": "d0f4c4d757447ee4281ba64658d2a11bccc68c3f2842e91bb52affb6705c4a05"
+  },
+  {
+    "path": "docs/tooling/e-m10/PLUGINS.md",
+    "sources": [
+      {
+        "source_document": "research/community/cmdada/2026-11-04-intake/ANALYSIS.md",
+        "sha256": "cee857dd27378bf8b1a0674da53eb3d7eb2c6b47720153cad1d828c83b74562c"
+      },
+      {
+        "source_document": "analysis/cmdada_em10_20261104/source-audit.json",
+        "sha256": "0b92287ed064332fe981a99bdac735a9366f0bd465db954b130dcc39fdd33247"
+      },
+      {
+        "source_document": "analysis/cmdada_em10_20261104/verification.json",
+        "sha256": "369b2396ef3b523b1aff33e42cab36b50cf5cb84f55d9d1e99579e63a4a90430"
+      }
+    ],
+    "sha256": "8ab2abe312d554d892a7cf64d81ac523ca6c3419343a8b07af7b8b9e58526f36"
   },
   {
     "path": "docs/tooling/ida/README.md",
@@ -793,6 +851,6 @@
         "sha256": "ac7244e438e5467fb725c43c44b0705b6cb16bc3311b57fd3aa271264459e7f1"
       }
     ],
-    "sha256": "28c92984c46c88495c6e7848b3f8cabe7b818d5b6674c730b79f6219ca957709"
+    "sha256": "81259875aca8a7e861ca67394806e9f6280982f7830ec4b5d643a4da88ace46f"
   }
 ]
