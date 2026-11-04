@@ -7,10 +7,11 @@ camera with the same processor.
 | Topic | Reference |
 | --- | --- |
 | Update files | [Components, decoding and checksums](format/CONTAINERS.md) · [Address spaces and section loading](format/pen-f/ADDRESS_SPACES.md) |
-| Startup and recovery | [Startup structure](boot/pen-f/STARTUP.md) · [SD update and recovery limits](boot/pen-f/RECOVERY.md) · [Buttons and dials](boot/pen-f/INPUTS.md) |
+| Startup and recovery | [Startup structure](boot/pen-f/STARTUP.md) · [SD update and recovery limits](boot/pen-f/RECOVERY.md) · [Buttons and dials](boot/pen-f/INPUTS.md) · [OM-3 SD update client](boot/om-3/RECOVERY.md) |
 | Camera interfaces | [USB firmware update](protocols/pen-f/USB_UPDATE.md) · [Settings backup](protocols/pen-f/SETTINGS_BACKUP.md) · [Wi-Fi settings](protocols/pen-f/WIFI.md) |
 | Color processing | [Modes and generations](color/MODES.md) · [HSL tables and scales](color/pen-f/HSL_TABLES.md) · [Processing jobs](color/pen-f/CREATIVE_PROCESSING_JOBS.md) |
 | Profile integration | [Editor and display](color/pen-f/EDITOR.md) · [Saved settings](color/pen-f/SETTINGS_STORAGE.md) · [Per-image parameters](color/pen-f/CAPTURE_PARAMETERS.md) · [ORF metadata](color/pen-f/ORF_METADATA.md) |
+| OM-3 COLOR profiles | [Editor and input](color/om-3/EDITOR.md) · [Settings and alternate cells](color/om-3/SETTINGS_STORAGE.md) · [Builder and per-image parameters](color/om-3/CAPTURE_PARAMETERS.md) |
 | Other image effects | [Grain](color/pen-f/GRAIN.md) · [Sharpening](color/pen-f/SHARPENING.md) · [Creative shading](color/pen-f/SHADING.md) |
 | Other camera features | [Silent burst and Pro Capture](features/om-5/BURST.md) · [External flash](features/FLASH.md) · [Published firmware hacks](features/HISTORICAL_HACKS.md) |
 | Modification techniques | [Code placement](safety/CODE_SPACE.md) · [Validation](safety/VALIDATION.md) · [Resource graphics](tooling/pen-f/RESOURCES.md) · [MN103 emulator](tooling/EMULATOR.md) |
