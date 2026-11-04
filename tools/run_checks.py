@@ -35,6 +35,9 @@ def main():
         importlib.import_module(path.stem)
     print(f"Parsed {len(files)} Python files; imported {len(modules)} tool modules.", flush=True)
     run_tests(ROOT, "test_oly_container.py")
+    run_tests(ROOT, "test_oly_patch.py")
+    run_tests(ROOT, "test_oly_compress.py")
+    run_tests(ROOT, "test_oly_resource.py")
     run_tests(ROOT, "test_penf_emulator_performance.py")
     run_tests(ROOT / "camera_client", "test_*.py")
     if args.loopback:
