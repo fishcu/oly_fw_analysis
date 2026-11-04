@@ -1,0 +1,1253 @@
+{
+  "schema": "oly-patch/1",
+  "name": "OM-5 Mark II HSL, per-profile white balance, Monochrome Profiles and Live ND32/ND64 (experimental)",
+  "model": "OM-5 Mark II",
+  "firmware": "1.1 build 1100",
+  "camera_tested": false,
+  "stock": {
+    "sha256": "9de5d77e1d290fa2ed4ebc7d75cee0ed490befbc89566722467d1d421d66d637"
+  },
+  "components": {
+    "0x100": {
+      "cpu_base": "0x60021020",
+      "image_transform": "olycompress",
+      "stored_before_sha256": "f9c6b0bb37675a2b031ccf09292796ab5793994b8ce2053dcfd7f9fe68035cd8",
+      "stored_after_sha256": "0258d0f9e6e4c8304dc7b7ae9c072f8aa8b0e24767e3790b673c180fa9144a6e",
+      "before_sha256": "7ae7d4c60990cc859c070e0ceb6cbe612f9c5b260713f2f1256e51d137851c61",
+      "after_sha256": "84904219bb30dcdc4ab7b24110b1b2bc966ab5923fd69bce7699586199379421",
+      "repack": "split"
+    },
+    "0x101": {
+      "before_sha256": "0576d786f8f40350ec9f620c7302f95c317c979fed88d9afc678c5b7e6f59fa0",
+      "after_sha256": "6b93ba2171e8ad5627cfa29d198bc07a01ff49173307bafde3b37fd412707a22"
+    }
+  },
+  "assembly": [
+    {
+      "name": "hsl",
+      "sources": [
+        "hsl.s"
+      ],
+      "linker": "layout.ld",
+      "component": "0x100",
+      "sections": {
+        "delete_pointer": "0x61234464",
+        "label_hook": "0x60e4ade9",
+        "container_pointer": "0x611a0c54",
+        "reset_hook": "0x60e9e0f4",
+        "read_hook": "0x6091c66d",
+        "write_hook": "0x6091c6bd",
+        "display_hook": "0x60a33eac",
+        "builder_hook": "0x603e7eb0",
+        "parent_hook": "0x60ea0180",
+        "paint_pointer": "0x610c1540",
+        "pages_hook": "0x60dad5f5",
+        "ext2": "0x605af4b0",
+        "ext6": "0x60ca7b00",
+        "ext7": "0x612a4b98",
+        "state": "0x60ca7fc0",
+        "refresh_hook": "0x602e0826",
+        "creset_hook": "0x602db531",
+        "refresh_cases": "0x604997f0",
+        "refresh_guard": "0x605af560",
+        "pm_s1": "0x602e0f82",
+        "pm_s2": "0x602e1119",
+        "pm_s4": "0x602e0fe8",
+        "pm_s5": "0x602e11fc",
+        "ext8": "0x613f2b80",
+        "ext5": "0x60845a00"
+      }
+    },
+    {
+      "name": "wb",
+      "sources": [
+        "wb.s"
+      ],
+      "linker": "wb.ld",
+      "component": "0x100",
+      "sections": {
+        "wb_hook": "0x602d19b6",
+        "wb_extension": "0x605af5cc",
+        "wb_profile": "0x613f2e00"
+      }
+    }
+  ],
+  "ranges": [
+    {
+      "component": "0x100",
+      "name": "delete_pointer",
+      "address": "0x61234464",
+      "bytes": 4,
+      "before_sha256": "c2a6a656ab17f882c22a46a91661b96f8711baffd25d553006dff96f77a1acd2",
+      "after_sha256": "ea176b714498095a7d3ac2ab450234c0bc57ac2e5e7bdd45542ac64f1ee67d87"
+    },
+    {
+      "component": "0x100",
+      "name": "label_hook",
+      "address": "0x60e4ade9",
+      "bytes": 10,
+      "before_sha256": "307387d133e13f4927285f506d816c8085da65beb17cdf256eac689e0f21b1df",
+      "after_sha256": "e20a649e244fd9c8aabe56de8b4f05e10ab224f4424bc2ed6f117b0687b1a2b4"
+    },
+    {
+      "component": "0x100",
+      "name": "container_pointer",
+      "address": "0x611a0c54",
+      "bytes": 4,
+      "before_sha256": "626661c43b6b3abb401ea5271d305c3e32b15da2450002836c2f6b953cc8c84b",
+      "after_sha256": "fa91b6aa80f1829a9ee70622490c6feb263a8c2725bcb3a2d2cbfb688e0fa05e"
+    },
+    {
+      "component": "0x100",
+      "name": "reset_hook",
+      "address": "0x60e9e0f4",
+      "bytes": 6,
+      "before_sha256": "ca65362c087f111161eaed861bc573d1514c7075e4ca3f0e225d72992fc802a3",
+      "after_sha256": "4608387de0ae882fa891d62928c7d3d1250475bea4a8fc44cb2afc0ba48b90f0"
+    },
+    {
+      "component": "0x100",
+      "name": "read_hook",
+      "address": "0x6091c66d",
+      "bytes": 7,
+      "before_sha256": "7203e476b85e8cc475de792d4a3098f3679419100f5d4556d786b85bf998bed8",
+      "after_sha256": "2bee5fe4ed3502b560f9ad7c479e9fd7bff21d53ccc786cdab6d67c22fb265f3"
+    },
+    {
+      "component": "0x100",
+      "name": "write_hook",
+      "address": "0x6091c6bd",
+      "bytes": 7,
+      "before_sha256": "ad804063715dc1980279a22e814b78caa04ed5de5302c381d1534073cc9c5411",
+      "after_sha256": "9f64cdd022990bdbba8801fb175cf0ff413295bf9c576815eca8046a5b15a12b"
+    },
+    {
+      "component": "0x100",
+      "name": "display_hook",
+      "address": "0x60a33eac",
+      "bytes": 7,
+      "before_sha256": "f3b65500f9cca9789895a0c88cca719df969c9e473a5aa67a7ed32eb941a58c6",
+      "after_sha256": "73957e0c611c8823978adf8245dbe0d6e885bca151e6c3e13218d03b043e305e"
+    },
+    {
+      "component": "0x100",
+      "name": "builder_hook",
+      "address": "0x603e7eb0",
+      "bytes": 5,
+      "before_sha256": "a3b96d4f33a4d36b4178f1be5b53c52b63884b6ff2708ea5c6f808002ec87ff7",
+      "after_sha256": "5882a58192bfbcb6c1af741dc565cf7269de4dfca9b97a055c915b71e49f0125"
+    },
+    {
+      "component": "0x100",
+      "name": "parent_hook",
+      "address": "0x60ea0180",
+      "bytes": 5,
+      "before_sha256": "fe90ddd5789edb62bf46cf8a6603c92063da6d15d42bebfbc05f0b85d485b0f1",
+      "after_sha256": "403e914bbc68dfc3bc2f76173e64a649e9d9f8589798a74ea74b6c9f28a1dd73"
+    },
+    {
+      "component": "0x100",
+      "name": "paint_pointer",
+      "address": "0x610c1540",
+      "bytes": 4,
+      "before_sha256": "406b295cae9c8d6f0a57ee26e69ca6c6711605c26dbe4d5f350b2294e7b40f0d",
+      "after_sha256": "744ef43329fbb0bd3afc6c54543f506ad1ccf0853a353ab9193c3a2eb14603bf"
+    },
+    {
+      "component": "0x100",
+      "name": "pages_hook",
+      "address": "0x60dad5f5",
+      "bytes": 7,
+      "before_sha256": "3d69ce6a0e3c449875b318625e20d42f0d360f45bd40ea45845b6f2fb11eb85b",
+      "after_sha256": "6f6eae3fd2af0af6eac671726e298ea64047fa4450d95fbfcced3305e1046382"
+    },
+    {
+      "component": "0x100",
+      "name": "ext2",
+      "address": "0x605af4b0",
+      "bytes": 174,
+      "before_sha256": "b0875ed210fd9d98c0c3a4d84e7f2db21e25c867cb57392843365ce8fcf3b3aa",
+      "after_sha256": "7b540f695ee70f09471f76d3b5f6104fe777067fa59b8361f2f39dbfe0655631"
+    },
+    {
+      "component": "0x100",
+      "name": "ext6",
+      "address": "0x60ca7b00",
+      "bytes": 731,
+      "before_sha256": "54f5c0be81c002a317ce28bc119719df6700d7a0bf36592ba0bbead1a9b48bbb",
+      "after_sha256": "d2254f1c40754f7a7dd8d426d8cbed1eba1345152fad7080b83ca1e590505363"
+    },
+    {
+      "component": "0x100",
+      "name": "ext7",
+      "address": "0x612a4b98",
+      "bytes": 840,
+      "before_sha256": "2e966af6faf79c32dacb4a611202c51cb546a9711cdf72b992592f78c8e3dd24",
+      "after_sha256": "7a972bc4c6d572b3f9dcb659c8e091cfb4570b83134ec40c8d9efec6abd2af4f"
+    },
+    {
+      "component": "0x100",
+      "name": "state",
+      "address": "0x60ca7fc0",
+      "bytes": 64,
+      "before_sha256": "8667e718294e9e0df1d30600ba3eeb201f764aad2dad72748643e4a285e1d1f7",
+      "after_sha256": "f5a5fd42d16a20302798ef6ed309979b43003d2320d9f0e8ea9831a92759fb4b"
+    },
+    {
+      "component": "0x100",
+      "name": "refresh_hook",
+      "address": "0x602e0826",
+      "bytes": 6,
+      "before_sha256": "ec4b8380b540f2cfa760822a24fab400bb1ecea494d37ef415342703eaaf91e3",
+      "after_sha256": "fe06f29acfc3f42867ac1c52d7b2a484c7d69f323986caf4aca3bfaca229b803"
+    },
+    {
+      "component": "0x100",
+      "name": "creset_hook",
+      "address": "0x602db531",
+      "bytes": 5,
+      "before_sha256": "443470b5049654fa1ffce1def139cfddfe398201974c7e03bd8f2bccddfbff2f",
+      "after_sha256": "a19000c9894ee01630bdc780482be7a1c16f964bea4eda09d0bbeeb14d849485"
+    },
+    {
+      "component": "0x100",
+      "name": "refresh_cases",
+      "address": "0x604997f0",
+      "bytes": 24,
+      "before_sha256": "cd2007e77e6d9df9d0289f2db7faa952d7bad1f4365feff8ccc221cbc144be40",
+      "after_sha256": "cdbc2fbbd8f1a12d291524e6099b989cb0c8bdf1d752d69b8cc48c90cee3077a"
+    },
+    {
+      "component": "0x100",
+      "name": "refresh_guard",
+      "address": "0x605af560",
+      "bytes": 47,
+      "before_sha256": "77b51f20da095151e2792a92435f304c817e2dd9b58c1d5cbf2fc3f784a4108f",
+      "after_sha256": "0d8786e338763122ebfaad152c141a5f4d28bf665880497c98f7e6b2e6b677ee"
+    },
+    {
+      "component": "0x100",
+      "name": "pm_s1",
+      "address": "0x602e0f82",
+      "bytes": 7,
+      "before_sha256": "8e66ac6c1da09b0b6fdfc016d2c2ba9d353371200915f5a49566b7d95efc7eda",
+      "after_sha256": "45220d2e0407ff02efc378fa755a285979bb9828d1df0f7971b1ad7f540d1557"
+    },
+    {
+      "component": "0x100",
+      "name": "pm_s2",
+      "address": "0x602e1119",
+      "bytes": 7,
+      "before_sha256": "6ac85631b3ff37c0917b136964f331818855138dadf2180e6f0456dc9e0587ed",
+      "after_sha256": "60b5598e7a78ff71b66e59f214d742027ae3e58563e33244363a79252f2d09b0"
+    },
+    {
+      "component": "0x100",
+      "name": "pm_s4",
+      "address": "0x602e0fe8",
+      "bytes": 7,
+      "before_sha256": "894e6f241b750b305bb68eaa37e0a87281c82261491e3ca4841313420d9fd183",
+      "after_sha256": "6c20355480f0087f5d91b038128b5e675fad047c027f55dfd26d6b5c825daeaa"
+    },
+    {
+      "component": "0x100",
+      "name": "pm_s5",
+      "address": "0x602e11fc",
+      "bytes": 7,
+      "before_sha256": "af5c4560396e84fb676bd2e0db2b5784478ac08791bf3a2f1d329f14ae874e52",
+      "after_sha256": "ac229a7ea16dd0f3ebd8b805d752cf81389546ee1ee8aeb2dea6adcf1d8d58f5"
+    },
+    {
+      "component": "0x100",
+      "name": "ext8",
+      "address": "0x613f2b80",
+      "bytes": 484,
+      "before_sha256": "d72674baf21b2f65f74ecc9fbd4985ee3916bead8c4745266ad61b43ab964322",
+      "after_sha256": "5adc0958a4c5fc553b7c61928eee8610030f0f5468b0dde6b7be00b79da67493"
+    },
+    {
+      "component": "0x100",
+      "name": "ext5",
+      "address": "0x60845a00",
+      "bytes": 692,
+      "before_sha256": "0b759b9819eace025aba5e7d201a4f297096c18f30695f25caab2c78c5f8726a",
+      "after_sha256": "2d59b6b3114face102734355dfabaefcb5b85f0ec85e0ac783bb8220960bad33"
+    },
+    {
+      "component": "0x100",
+      "name": "wb_hook",
+      "address": "0x602d19b6",
+      "bytes": 5,
+      "before_sha256": "e91114dba8b373951ae604d1950d795a07147bde5dae6159904078563428db95",
+      "after_sha256": "c72032ba598dacf2a33621220677149be66d7cf6c519b81916f1c379b9f0cd11"
+    },
+    {
+      "component": "0x100",
+      "name": "wb_extension",
+      "address": "0x605af5cc",
+      "bytes": 555,
+      "before_sha256": "a54983043a6d0b83855d5c6a0fe6a3534e297b3350269997b236d9399fd983f6",
+      "after_sha256": "181055fe820806649ad8031b1c4dbaab82047fb8636cfd52537b2d34ad80ddff"
+    },
+    {
+      "component": "0x100",
+      "name": "wb_profile",
+      "address": "0x613f2e00",
+      "bytes": 214,
+      "before_sha256": "765d2d532d99bc5e1846b6774b659d6d4357d40f888a394a8b94afeac7af8b62",
+      "after_sha256": "04f95e2a97d2915f338f13438bcc678f6bc87bca070931caf895c02f3d0a4912"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_01",
+      "address": "0x602ddb89",
+      "bytes": 4,
+      "before_sha256": "189498de8d39656bee0c7b1bb598fd77dd885cd41e55f8bdb5adaab65a568a3a",
+      "after_sha256": "11920abfb92622779c3f5eb8a66f3fbd8b8153bbbd4b801b324cde2e36674bc2"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_02",
+      "address": "0x602ddb9b",
+      "bytes": 1,
+      "before_sha256": "ef2d127de37b942baad06145e54b0c619a1f22327b2ebbcfbec78f5564afe39d",
+      "after_sha256": "41b805ea7ac014e23556e98bb374702a08344268f92489a02f0880849394a1e4"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_03",
+      "address": "0x60472666",
+      "bytes": 10,
+      "before_sha256": "df628476bb4bc1e0cf81f252c1b26a0594bf285b99a8a66fa7a2f0e899c2bbf8",
+      "after_sha256": "e071457914915a8ad887e0367eafb6f6ceda7f6c11a57862211e54d090b936e3"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_04",
+      "address": "0x604729da",
+      "bytes": 10,
+      "before_sha256": "dc8b29f0eee59a72b2818fd72988be8e89025055eacff60899d450978a877d3b",
+      "after_sha256": "9f5bdb7261c93db03547819b617300a61849c7065824e2b68dd47315ebeceacf"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_05",
+      "address": "0x604729fc",
+      "bytes": 10,
+      "before_sha256": "35ce5edf40a6dc7c4dc16f5c64a75da482a0dde7436422ee700caffc2f3c7495",
+      "after_sha256": "f20b32a46bd00e8f24cdd4fe2ee96dffdcd7f5f2557ba28b89d7d5d6472a64cc"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_06",
+      "address": "0x6047c348",
+      "bytes": 6,
+      "before_sha256": "d6ffbd9a00a5801f22f5d90374ea54f52c94419c03bdaa5eb7dd6b96fbe7574b",
+      "after_sha256": "204648ef4f0198851f0cca325a195af83d734171c83c46aac80931b03c72bcdd"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_07",
+      "address": "0x6047c358",
+      "bytes": 6,
+      "before_sha256": "45c7e980690e8164a4432cd7bbb2c9bef68c499aff59f830ae849441585d3c79",
+      "after_sha256": "84f87cbbd6e227e0bfc36f3b1f31096b5569cfa4d1f3e9020b54c04728c6d79e"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_08",
+      "address": "0x6047c368",
+      "bytes": 6,
+      "before_sha256": "b9ba37f13d5b13248652ebd6f175e565c21221e12dbb9537a610919e790c9024",
+      "after_sha256": "72cf593e30e775d18d2777e6dd5a585bdd8c75cafdbfad926339b7c38cf1eff1"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_09",
+      "address": "0x6047c378",
+      "bytes": 6,
+      "before_sha256": "d6ffbd9a00a5801f22f5d90374ea54f52c94419c03bdaa5eb7dd6b96fbe7574b",
+      "after_sha256": "204648ef4f0198851f0cca325a195af83d734171c83c46aac80931b03c72bcdd"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_10",
+      "address": "0x6047c388",
+      "bytes": 6,
+      "before_sha256": "45c7e980690e8164a4432cd7bbb2c9bef68c499aff59f830ae849441585d3c79",
+      "after_sha256": "84f87cbbd6e227e0bfc36f3b1f31096b5569cfa4d1f3e9020b54c04728c6d79e"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_11",
+      "address": "0x6047c398",
+      "bytes": 6,
+      "before_sha256": "b9ba37f13d5b13248652ebd6f175e565c21221e12dbb9537a610919e790c9024",
+      "after_sha256": "72cf593e30e775d18d2777e6dd5a585bdd8c75cafdbfad926339b7c38cf1eff1"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_12",
+      "address": "0x6047c3a8",
+      "bytes": 6,
+      "before_sha256": "3bf8ce16fb82066ca5d83cacb8193bade5119ea084b6ca708c6172672194f824",
+      "after_sha256": "0a66c4cabdc8a4f6e6daa98c0a569934347ae1dda39d30a86bdec6cea1b8ec88"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_13",
+      "address": "0x6047c3b8",
+      "bytes": 6,
+      "before_sha256": "3bf8ce16fb82066ca5d83cacb8193bade5119ea084b6ca708c6172672194f824",
+      "after_sha256": "0a66c4cabdc8a4f6e6daa98c0a569934347ae1dda39d30a86bdec6cea1b8ec88"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_14",
+      "address": "0x6047c3c8",
+      "bytes": 6,
+      "before_sha256": "45c7e980690e8164a4432cd7bbb2c9bef68c499aff59f830ae849441585d3c79",
+      "after_sha256": "84f87cbbd6e227e0bfc36f3b1f31096b5569cfa4d1f3e9020b54c04728c6d79e"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_15",
+      "address": "0x6047c3d8",
+      "bytes": 6,
+      "before_sha256": "45c7e980690e8164a4432cd7bbb2c9bef68c499aff59f830ae849441585d3c79",
+      "after_sha256": "84f87cbbd6e227e0bfc36f3b1f31096b5569cfa4d1f3e9020b54c04728c6d79e"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_16",
+      "address": "0x6047c3e8",
+      "bytes": 6,
+      "before_sha256": "45c7e980690e8164a4432cd7bbb2c9bef68c499aff59f830ae849441585d3c79",
+      "after_sha256": "84f87cbbd6e227e0bfc36f3b1f31096b5569cfa4d1f3e9020b54c04728c6d79e"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_17",
+      "address": "0x6047c3f8",
+      "bytes": 6,
+      "before_sha256": "45c7e980690e8164a4432cd7bbb2c9bef68c499aff59f830ae849441585d3c79",
+      "after_sha256": "84f87cbbd6e227e0bfc36f3b1f31096b5569cfa4d1f3e9020b54c04728c6d79e"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_18",
+      "address": "0x6047c408",
+      "bytes": 6,
+      "before_sha256": "45c7e980690e8164a4432cd7bbb2c9bef68c499aff59f830ae849441585d3c79",
+      "after_sha256": "84f87cbbd6e227e0bfc36f3b1f31096b5569cfa4d1f3e9020b54c04728c6d79e"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_19",
+      "address": "0x6047c418",
+      "bytes": 6,
+      "before_sha256": "45c7e980690e8164a4432cd7bbb2c9bef68c499aff59f830ae849441585d3c79",
+      "after_sha256": "97f42554d7331c702e1ab02f9138640712ebc21c21d2f4f1bcea51cf4b805e00"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_20",
+      "address": "0x6047c428",
+      "bytes": 6,
+      "before_sha256": "45c7e980690e8164a4432cd7bbb2c9bef68c499aff59f830ae849441585d3c79",
+      "after_sha256": "84f87cbbd6e227e0bfc36f3b1f31096b5569cfa4d1f3e9020b54c04728c6d79e"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_21",
+      "address": "0x6047c438",
+      "bytes": 6,
+      "before_sha256": "45c7e980690e8164a4432cd7bbb2c9bef68c499aff59f830ae849441585d3c79",
+      "after_sha256": "84f87cbbd6e227e0bfc36f3b1f31096b5569cfa4d1f3e9020b54c04728c6d79e"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_22",
+      "address": "0x6047c448",
+      "bytes": 6,
+      "before_sha256": "d6ffbd9a00a5801f22f5d90374ea54f52c94419c03bdaa5eb7dd6b96fbe7574b",
+      "after_sha256": "204648ef4f0198851f0cca325a195af83d734171c83c46aac80931b03c72bcdd"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_23",
+      "address": "0x6047c458",
+      "bytes": 6,
+      "before_sha256": "19f5ef3bf18d92f18c78de21b43f48eef45bba8d41d8d3a115356a93677054c5",
+      "after_sha256": "ded43f5cb09326091fd732bc2768b7e2bae36b02400cd80d935b6b30d3894948"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_24",
+      "address": "0x6047c468",
+      "bytes": 6,
+      "before_sha256": "19f5ef3bf18d92f18c78de21b43f48eef45bba8d41d8d3a115356a93677054c5",
+      "after_sha256": "ded43f5cb09326091fd732bc2768b7e2bae36b02400cd80d935b6b30d3894948"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_25",
+      "address": "0x6047c478",
+      "bytes": 6,
+      "before_sha256": "19f5ef3bf18d92f18c78de21b43f48eef45bba8d41d8d3a115356a93677054c5",
+      "after_sha256": "ded43f5cb09326091fd732bc2768b7e2bae36b02400cd80d935b6b30d3894948"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_26",
+      "address": "0x6047c488",
+      "bytes": 6,
+      "before_sha256": "19f5ef3bf18d92f18c78de21b43f48eef45bba8d41d8d3a115356a93677054c5",
+      "after_sha256": "ded43f5cb09326091fd732bc2768b7e2bae36b02400cd80d935b6b30d3894948"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_27",
+      "address": "0x6047c498",
+      "bytes": 6,
+      "before_sha256": "19f5ef3bf18d92f18c78de21b43f48eef45bba8d41d8d3a115356a93677054c5",
+      "after_sha256": "ded43f5cb09326091fd732bc2768b7e2bae36b02400cd80d935b6b30d3894948"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_28",
+      "address": "0x6047c4a8",
+      "bytes": 6,
+      "before_sha256": "19f5ef3bf18d92f18c78de21b43f48eef45bba8d41d8d3a115356a93677054c5",
+      "after_sha256": "ded43f5cb09326091fd732bc2768b7e2bae36b02400cd80d935b6b30d3894948"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_29",
+      "address": "0x6047c4b8",
+      "bytes": 6,
+      "before_sha256": "19f5ef3bf18d92f18c78de21b43f48eef45bba8d41d8d3a115356a93677054c5",
+      "after_sha256": "ded43f5cb09326091fd732bc2768b7e2bae36b02400cd80d935b6b30d3894948"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_30",
+      "address": "0x6047c4c8",
+      "bytes": 6,
+      "before_sha256": "19f5ef3bf18d92f18c78de21b43f48eef45bba8d41d8d3a115356a93677054c5",
+      "after_sha256": "ded43f5cb09326091fd732bc2768b7e2bae36b02400cd80d935b6b30d3894948"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_31",
+      "address": "0x6047c4d8",
+      "bytes": 6,
+      "before_sha256": "b8627ab622b7510b9b522f91c84eba0dc20bd7960a63737cd6152d3a9b0d0ca8",
+      "after_sha256": "1ad9affa0d45b0ab867e44e5a3f85f8d2e9dc0a903a8a338e851c74f47bcbd96"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_32",
+      "address": "0x6047c538",
+      "bytes": 6,
+      "before_sha256": "45c7e980690e8164a4432cd7bbb2c9bef68c499aff59f830ae849441585d3c79",
+      "after_sha256": "84f87cbbd6e227e0bfc36f3b1f31096b5569cfa4d1f3e9020b54c04728c6d79e"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_33",
+      "address": "0x6047c548",
+      "bytes": 6,
+      "before_sha256": "45c7e980690e8164a4432cd7bbb2c9bef68c499aff59f830ae849441585d3c79",
+      "after_sha256": "84f87cbbd6e227e0bfc36f3b1f31096b5569cfa4d1f3e9020b54c04728c6d79e"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_34",
+      "address": "0x6047c558",
+      "bytes": 6,
+      "before_sha256": "45c7e980690e8164a4432cd7bbb2c9bef68c499aff59f830ae849441585d3c79",
+      "after_sha256": "84f87cbbd6e227e0bfc36f3b1f31096b5569cfa4d1f3e9020b54c04728c6d79e"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_35",
+      "address": "0x6047c570",
+      "bytes": 6,
+      "before_sha256": "45c7e980690e8164a4432cd7bbb2c9bef68c499aff59f830ae849441585d3c79",
+      "after_sha256": "84f87cbbd6e227e0bfc36f3b1f31096b5569cfa4d1f3e9020b54c04728c6d79e"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_36",
+      "address": "0x6047c580",
+      "bytes": 6,
+      "before_sha256": "45c7e980690e8164a4432cd7bbb2c9bef68c499aff59f830ae849441585d3c79",
+      "after_sha256": "84f87cbbd6e227e0bfc36f3b1f31096b5569cfa4d1f3e9020b54c04728c6d79e"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_37",
+      "address": "0x6047c590",
+      "bytes": 6,
+      "before_sha256": "45c7e980690e8164a4432cd7bbb2c9bef68c499aff59f830ae849441585d3c79",
+      "after_sha256": "84f87cbbd6e227e0bfc36f3b1f31096b5569cfa4d1f3e9020b54c04728c6d79e"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_38",
+      "address": "0x604eeae0",
+      "bytes": 940,
+      "before_sha256": "0dc8be62b01c4817df34530c6a3348565dc9943753b0ea3480a4be24f9e6dfa1",
+      "after_sha256": "4cc24da334482ea317892b87536799bf824f1cd8cafe3b31c50ec97fd9d464c3"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_39",
+      "address": "0x604eee8c",
+      "bytes": 472,
+      "before_sha256": "d6ec86ef41af71b31a39c03b96777b174658a7da7af6e144612f1fd7a893760c",
+      "after_sha256": "48e6b6ac1778f53c3ac7a6acbb3bb38c23bcfac4b40260efae359629f450235c"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_40",
+      "address": "0x604f1160",
+      "bytes": 3072,
+      "before_sha256": "13b737b2acb88441a309370243b98c57d72f541abf71132916cece93ea397ae4",
+      "after_sha256": "5ec9051dc5e6a62118e9bb188f04bd49022476c12abe5a9d70cf1cb4b139a435"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_41",
+      "address": "0x604f1d60",
+      "bytes": 192,
+      "before_sha256": "d5421eacfd5746d3a141cc7472d06abdd4b0ca9f0376d4a1cc792120dcc1df9f",
+      "after_sha256": "a4a6c061600472cd6527ed154d771d62282731dccd0f38cab840a5818393b471"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_42",
+      "address": "0x604f1e20",
+      "bytes": 192,
+      "before_sha256": "55a14ae5e222461c9d87da67b2ab37212b0558eafbb9f021021b2a5abd36782a",
+      "after_sha256": "4ee89ae82e0f97b747641523651fd89a272fe36d87dffb5235ec8dcacdd7b8b3"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_43",
+      "address": "0x604f1ee0",
+      "bytes": 192,
+      "before_sha256": "07d555940b43aebfdc27c2b8c80d6b9b5fb9c8f6e7912b6348599a0cc7c640f8",
+      "after_sha256": "08c0476fd4d83c734d1773bb9dabe3e222134ac65752711b0415f85a8a63ed13"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_44",
+      "address": "0x604f1fa0",
+      "bytes": 192,
+      "before_sha256": "c983ed31b3dabb8e5651ce9c1437126d3dca47219dc736fe20503cb814ccf4e4",
+      "after_sha256": "e3cec6a85d2f4fdcad40b3dda7da5616b16afce1713f2dc560c50950508cf2ac"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_45",
+      "address": "0x604f2060",
+      "bytes": 192,
+      "before_sha256": "cd1252139335c7fbdf4f3f148a85b3e05b3ba836bd815f2fcf609018298be274",
+      "after_sha256": "b37f2afbd675e31a604642bb5cb0bdcc36d8ff27173a6ca9978db7a6ec3a5770"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_46",
+      "address": "0x604f2120",
+      "bytes": 192,
+      "before_sha256": "f253a3c4ac9144b31665f96eb46a339ca3a3b3b46ffa1ccc87676cf690a3f603",
+      "after_sha256": "fe89424a159597fabe67d6e423aaaf152768c194f04c649588ce7120004ca8ff"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_47",
+      "address": "0x604f21e0",
+      "bytes": 192,
+      "before_sha256": "89d060d139fe792a577206f4b036318b39ceb991f1fc544a17305f61847310b9",
+      "after_sha256": "99d917f68f103d87f3a50616b8de99171faa138d4bef644fe7fa495b872bc6e5"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_48",
+      "address": "0x604f22a0",
+      "bytes": 192,
+      "before_sha256": "55f700ee7be620efdf03e1730bad1a9ee3d048ea33fddddcee8e5e22a8042d56",
+      "after_sha256": "acee39e5f16d5d224bfd92257ad6174301e11cc47e365d731498f57a427662ed"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_49",
+      "address": "0x604f2360",
+      "bytes": 376,
+      "before_sha256": "465d3f515a8e84c9e1ace43cc0f5a06c447ab2d92c40d35390bb27722e7be0b1",
+      "after_sha256": "71bd6fddc206f76964607384d02f782ec5efcc444155e4ee6659858b2b25d6a3"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_50",
+      "address": "0x6050de48",
+      "bytes": 10,
+      "before_sha256": "466eda35346aa4b0f41afb69a85ba2b462e616893f04a7a6fbb8497e3d583d20",
+      "after_sha256": "62e6e9dd00222109c9095da96c3d877b7be46708b55cbc46e641b6ceaf4f6aa7"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_51",
+      "address": "0x6050e050",
+      "bytes": 10,
+      "before_sha256": "9327aff352cd17e50a561b933bcb3f608aa6b2fde4449d14d72f2ef550cd9a82",
+      "after_sha256": "62e6e9dd00222109c9095da96c3d877b7be46708b55cbc46e641b6ceaf4f6aa7"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_52",
+      "address": "0x6050e064",
+      "bytes": 10,
+      "before_sha256": "5abef17875ca81952d863e4d9471a89836dcfd6d335a009470e446cc7773bbe0",
+      "after_sha256": "62e6e9dd00222109c9095da96c3d877b7be46708b55cbc46e641b6ceaf4f6aa7"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_53",
+      "address": "0x61199b5c",
+      "bytes": 8,
+      "before_sha256": "c4ba390d06fcac7dee60e938c13d5825c5dc0de71230ec536a6af716caa0076e",
+      "after_sha256": "aa30d43c8125af1c2ac6b2b8a4c9457722415f1bbbd33d6e40a2020e451ca9c6"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_54",
+      "address": "0x611a1a00",
+      "bytes": 4,
+      "before_sha256": "4f2d892d6af406902c1aae6e58a78b2e6865fd4b782fc96b12de65d3bf3dc03e",
+      "after_sha256": "bce941d196c26696f1f5d701d21a8a9e414e81d6e15a48f3663313e3cd7cc4b9"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_55",
+      "address": "0x611a1a08",
+      "bytes": 4,
+      "before_sha256": "08b24e0bfbe2c4a99a610d101e04843fafcbffe33e120cfb9bcc636213e25a96",
+      "after_sha256": "b058a3d7660851438d78aedfcf2383b89de7f5af216fc6bdffc0afca7784bc38"
+    },
+    {
+      "component": "0x100",
+      "name": "nd_step_selector",
+      "address": "0x6023c850",
+      "bytes": 37,
+      "before_sha256": "78444e9b12e21902e7e648b5a24891b35e88d308001fefbba147dc5098d92b39",
+      "after_sha256": "792213949b1144226b19728f9b32353dad9bbbb0e7f4f8d9f4fec3ba91f812be"
+    },
+    {
+      "component": "0x100",
+      "name": "nd_1710_allowed_list",
+      "address": "0x60514860",
+      "bytes": 4,
+      "before_sha256": "15d6269326b2af35e20790d41905a3fb9b4a6c3761d80a3826aa748388f960e8",
+      "after_sha256": "d6da632c11b7c226cf36fcd95226db22fea32bf1bcf1c70e60ba22c0b32e5a93"
+    },
+    {
+      "component": "0x100",
+      "name": "nd_1710_allowed_count",
+      "address": "0x60514868",
+      "bytes": 2,
+      "before_sha256": "c0ba8a33ac67f44abff5984dfbb6f56c46b880ac2b86e1f23e7fa9c402c53ae7",
+      "after_sha256": "ceb827ad3d3884fd4d50ae6099d6d50c09a21e72ebd309708e8b69d93df19e55"
+    },
+    {
+      "component": "0x101",
+      "name": "profile_icon_aliases",
+      "offset": "0x0",
+      "bytes": 12582848,
+      "before_sha256": "0576d786f8f40350ec9f620c7302f95c317c979fed88d9afc678c5b7e6f59fa0",
+      "after_sha256": "6b93ba2171e8ad5627cfa29d198bc07a01ff49173307bafde3b37fd412707a22"
+    }
+  ],
+  "data_edits": [
+    {
+      "component": "0x100",
+      "name": "color_profile_01",
+      "address": "0x602ddb89",
+      "after": "8cee4e60"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_02",
+      "address": "0x602ddb9b",
+      "after": "3b"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_03",
+      "address": "0x60472666",
+      "after": "6f0069018703dd03800c"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_04",
+      "address": "0x604729da",
+      "after": "f801230424042504800c"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_05",
+      "address": "0x604729fc",
+      "after": "f901270428042904800c"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_06",
+      "address": "0x6047c348",
+      "after": "201e4f603000"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_07",
+      "address": "0x6047c358",
+      "after": "e01e4f603000"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_08",
+      "address": "0x6047c368",
+      "after": "a01f4f603000"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_09",
+      "address": "0x6047c378",
+      "after": "201e4f603000"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_10",
+      "address": "0x6047c388",
+      "after": "e01e4f603000"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_11",
+      "address": "0x6047c398",
+      "after": "a01f4f603000"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_12",
+      "address": "0x6047c3a8",
+      "after": "60204f603000"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_13",
+      "address": "0x6047c3b8",
+      "after": "60204f603000"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_14",
+      "address": "0x6047c3c8",
+      "after": "e01e4f603000"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_15",
+      "address": "0x6047c3d8",
+      "after": "e01e4f603000"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_16",
+      "address": "0x6047c3e8",
+      "after": "e01e4f603000"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_17",
+      "address": "0x6047c3f8",
+      "after": "e01e4f603000"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_18",
+      "address": "0x6047c408",
+      "after": "e01e4f603000"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_19",
+      "address": "0x6047c418",
+      "after": "20214f603000"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_20",
+      "address": "0x6047c428",
+      "after": "e01e4f603000"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_21",
+      "address": "0x6047c438",
+      "after": "e01e4f603000"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_22",
+      "address": "0x6047c448",
+      "after": "201e4f603000"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_23",
+      "address": "0x6047c458",
+      "after": "e0214f603000"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_24",
+      "address": "0x6047c468",
+      "after": "e0214f603000"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_25",
+      "address": "0x6047c478",
+      "after": "e0214f603000"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_26",
+      "address": "0x6047c488",
+      "after": "e0214f603000"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_27",
+      "address": "0x6047c498",
+      "after": "e0214f603000"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_28",
+      "address": "0x6047c4a8",
+      "after": "e0214f603000"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_29",
+      "address": "0x6047c4b8",
+      "after": "e0214f603000"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_30",
+      "address": "0x6047c4c8",
+      "after": "e0214f603000"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_31",
+      "address": "0x6047c4d8",
+      "after": "a0224f603000"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_32",
+      "address": "0x6047c538",
+      "after": "e01e4f603000"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_33",
+      "address": "0x6047c548",
+      "after": "e01e4f603000"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_34",
+      "address": "0x6047c558",
+      "after": "e01e4f603000"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_35",
+      "address": "0x6047c570",
+      "after": "e01e4f603000"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_36",
+      "address": "0x6047c580",
+      "after": "e01e4f603000"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_37",
+      "address": "0x6047c590",
+      "after": "e01e4f603000"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_38",
+      "address": "0x604eeae0",
+      "after": "070000005701000007000000000000000000000000000000580100000000000000000000000000000100000059010000010000000000000000000000020000005a010000020000000000000000000000050000005b010000050000000000000000000000030000005c010000030000000000000000000000060000005d01000006000000000000000000000014000000480200001400000000000000000000001c000000620300001c0000000000000000000000150000004a02000015000000000000000000000036000000300400003600000000000000000000003700000031040000370000000000000000000000380000003204000038000000000000000000000039000000340400003900000000000000000000003a000000350400003a00000000000000000000003b000000360400003b00000000000000000000001d000000380400001d00000001000000000000001e000000390400001e0000000200000000000000090000005f0100000900000000000000000000001f0000003a0400001f0000000100000000000000200000003b0400002000000002000000000000000b000000610100000b0000000000000000000000210000003c040000210000000100000000000000220000003d040000220000000200000000000000230000003e040000230000000100000000000000240000003f0400002400000002000000000000002500000040040000250000000300000000000000260000004104000026000000010000000000000027000000420400002700000002000000000000002800000043040000280000000100000000000000290000004404000029000000020000000000000010000000660100001000000000000000000000002a000000450400002a00000001000000000000002b000000460400002b00000002000000000000002c000000470400002c00000001000000000000002d000000480400002d00000002000000000000002e000000490400002e00000001000000000000002f0000004a0400002f0000000200000000000000300000004b040000300000000100000000000000310000004c040000310000000200000000000000320000004d040000320000000300000000000000330000004e040000330000000100000000000000340000004f04000034000000020000000000000035000000500400003500000003000000000000003d000000ba0500003d00000001000000000000003e000000bb0500003e00000002000000000000003f000000c50500003f0000000000000000000000"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_39",
+      "address": "0x604eee8c",
+      "after": "070000005701000000000000580100000100000059010000020000005a010000050000005b010000030000005c010000060000005d01000014000000480200001c00000062030000150000004a020000080000005e010000090000005f0100000a000000600100000b000000610100000c000000620100000d000000630100000e000000640100000f000000650100001000000066010000110000006701000012000000b801000013000000d10100001a000000a30200001b000000a40200003c000000b90500003f000000c50500001d000000380400001e000000390400001f0000003a040000200000003b040000210000003c040000220000003d040000230000003e040000240000003f040000250000004004000026000000410400002700000042040000280000004304000029000000440400002a000000450400002b000000460400002c000000470400002d000000480400002e000000490400002f0000004a040000300000004b040000310000004c040000320000004d040000330000004e040000340000004f04000035000000500400003d000000ba0500003e000000bb05000036000000300400003700000031040000380000003204000039000000340400003a000000350400003b00000036040000"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_40",
+      "address": "0x604f1160",
+      "after": "07000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000a0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000900000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000064000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000640000000200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000066000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000660000000200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000068000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000680000000200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006900000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000069000000020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000690000000300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006a0000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006a0000000200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006b0000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006b0000000200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006c0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006d0000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006d000000020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000770000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000007700000002000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000078000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000780000000200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000007900000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000079000000020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000790000000300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000007a0000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000007a0000000200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000007a0000000300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000007b0000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000007b0000000200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000007c0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000b0000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000b0000000000000002000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000b0000000000000003000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0000000000000000000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0000000000000000000000020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0000000000000000000000030000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000007c000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_41",
+      "address": "0x604f1d60",
+      "after": "07000000000000000100000002000000050000000300000006000000140000001c000000150000001d0000001e000000090000001f000000200000000b000000210000002200000023000000240000002500000026000000270000002800000029000000100000002a0000002b0000002c0000002d0000002e0000002f0000003000000031000000320000003300000034000000350000003d0000003e0000003f000000360000003700000038000000390000003a0000003b0000003f000000"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_42",
+      "address": "0x604f1e20",
+      "after": "07000100000000000100010002000200050005000300030006000600140001001c001c00150015001d0001001e000100090001001f000100200001000b000100210001002200010023000100240001002500010026000100270001002800010029000100100001002a0001002b0001002c0001002d0001002e0001002f0001003000010031000100320001003300010034000100350001003d0001003e0001003f000100360036003700370038003800390039003a003a003b003b003f000100"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_43",
+      "address": "0x604f1ee0",
+      "after": "07000700000000000100010002000200050005000300030006000600140001001c001c00150015001d0001001e000100090001001f000100200001000b000100210001002200010023000100240001002500010026000100270001002800010029000100100001002a0001002b0001002c0001002d0001002e0001002f0001003000010031000100320001003300010034000100350001003d0001003e0001003f000100360036003700370038003800390039003a003a003b003b003f000100"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_44",
+      "address": "0x604f1fa0",
+      "after": "07000700000000000100010002000200050005000300030006000600140014001c001c00150015001d001d001e001e00090009001f001f00200020000b000b00210021002200220023002300240024002500250026002600270027002800280029002900100010002a002a002b002b002c002c002d002d002e002e002f002f003000300031003100320032003300330034003400350035003d003d003e003e003f003f00360036003700370038003800390039003a003a003b003b003f003f00"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_45",
+      "address": "0x604f2060",
+      "after": "07000100000001000100010002000100050001000300010006000100140001001c000100150001001d0001001e000100090001001f000100200001000b000100210001002200010023000100240001002500010026000100270001002800010029000100100001002a0001002b0001002c0001002d0001002e0001002f0001003000010031000100320001003300010034000100350001003d0001003e0001003f000100360001003700010038000100390001003a0001003b0001003f000100"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_46",
+      "address": "0x604f2120",
+      "after": "07000700000000000100010002000200050005000300030006000600140001001c001c00150015001d0001001e000100090001001f000100200001000b000100210001002200010023000100240001002500010026000100270001002800010029000100100001002a0001002b0001002c0001002d0001002e0001002f0001003000010031000100320001003300010034000100350001003d0001003e0001003f000100360036003700370038003800390001003a0001003b0001003f000100"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_47",
+      "address": "0x604f21e0",
+      "after": "07000700000000000100010002000200050005000300030006000600140001001c001c00150015001d001d001e001e00090009001f001f00200020000b000b00210021002200220023002300240024002500250026002600270027002800280029002900100010002a002a002b002b002c002c002d002d002e002e002f002f003000300031003100320032003300330034003400350035003d003d003e003e003f003f00360036003700370038003800390039003a003a003b003b003f003f00"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_48",
+      "address": "0x604f22a0",
+      "after": "07000700000000000100010002000200050005000300030006000600140014001c001c00150015001d0001001e000100090001001f000100200001000b000100210001002200010023000100240001002500010026000100270001002800010029000100100001002a0001002b0001002c0001002d0001002e0001002f0001003000010031000100320001003300010034000100350001003d0001003e0001003f000100360036003700370038003800390039003a003a003b003b003f000100"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_49",
+      "address": "0x604f2360",
+      "after": "070000005701000000000000580100000100000059010000020000005a010000050000005b010000030000005c010000060000005d01000014000000480200001c00000062030000150000004a0200001d000000380400001e00000039040000090000005f0100001f0000003a040000200000003b0400000b00000061010000210000003c040000220000003d040000230000003e040000240000003f0400002500000040040000260000004104000027000000420400002800000043040000290000004404000010000000660100002a000000450400002b000000460400002c000000470400002d000000480400002e000000490400002f0000004a040000300000004b040000310000004c040000320000004d040000330000004e040000340000004f04000035000000500400003d000000ba0500003e000000bb0500003f000000c505000036000000300400003700000031040000380000003204000039000000340400003a000000350400003b00000036040000"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_50",
+      "address": "0x6050de48",
+      "after": "60114f60601d4f60000c"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_51",
+      "address": "0x6050e050",
+      "after": "60114f60601d4f60000c"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_52",
+      "address": "0x6050e064",
+      "after": "60114f60601d4f60000c"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_53",
+      "address": "0x61199b5c",
+      "after": "2f000000e0ea4e60"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_54",
+      "address": "0x611a1a00",
+      "after": "2f000000"
+    },
+    {
+      "component": "0x100",
+      "name": "color_profile_55",
+      "address": "0x611a1a08",
+      "after": "60234f60"
+    },
+    {
+      "component": "0x100",
+      "name": "nd_step_selector",
+      "address": "0x6023c850",
+      "after": "a001c029a006c125128100e829ffc9fd82ca14cbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcb"
+    },
+    {
+      "component": "0x100",
+      "name": "nd_1710_allowed_list",
+      "address": "0x60514860",
+      "after": "d3c35060"
+    },
+    {
+      "component": "0x100",
+      "name": "nd_1710_allowed_count",
+      "address": "0x60514868",
+      "after": "0600"
+    }
+  ],
+  "package": {
+    "components": [
+      "0x100",
+      "0x101"
+    ],
+    "file": "DCOLYMP/E1489999.BIN",
+    "sha256": "35f0caac4b70f1e59e3d5311fdf74a8c021d720755a7441796b080707b79d434",
+    "bytes": 37486592,
+    "restore_sha256": "1e0d38f87b367c92023e8b827910fa94a9d9ec511ebec286406ca36d20066fde"
+  },
+  "resource_aliases": [
+    {
+      "component": "0x101",
+      "name": "profile_icon_aliases",
+      "aliases": [
+        [
+          "0x38bf",
+          "0x1909"
+        ],
+        [
+          "0x38c0",
+          "0x1909"
+        ],
+        [
+          "0x38c1",
+          "0x1909"
+        ],
+        [
+          "0x38c2",
+          "0x1909"
+        ],
+        [
+          "0x38c3",
+          "0x1909"
+        ],
+        [
+          "0x38c4",
+          "0x1909"
+        ],
+        [
+          "0x38c5",
+          "0x1909"
+        ],
+        [
+          "0x38c6",
+          "0x1909"
+        ],
+        [
+          "0x38c7",
+          "0x1909"
+        ],
+        [
+          "0x38c8",
+          "0x1909"
+        ],
+        [
+          "0x38c9",
+          "0x1909"
+        ],
+        [
+          "0x3d62",
+          "0x2bb4"
+        ],
+        [
+          "0x3d63",
+          "0x2bb4"
+        ],
+        [
+          "0x3d64",
+          "0x2bb4"
+        ],
+        [
+          "0x38b3",
+          "0x236"
+        ],
+        [
+          "0x38b4",
+          "0x236"
+        ],
+        [
+          "0x38b5",
+          "0x236"
+        ],
+        [
+          "0x38b6",
+          "0x236"
+        ],
+        [
+          "0x38b7",
+          "0x236"
+        ],
+        [
+          "0x38b8",
+          "0x236"
+        ],
+        [
+          "0x38b9",
+          "0x236"
+        ],
+        [
+          "0x38ba",
+          "0x236"
+        ],
+        [
+          "0x38bb",
+          "0x236"
+        ],
+        [
+          "0x38bc",
+          "0x236"
+        ],
+        [
+          "0x38bd",
+          "0x236"
+        ],
+        [
+          "0x3d5a",
+          "0x2bb7"
+        ],
+        [
+          "0x3d5b",
+          "0x2bb7"
+        ],
+        [
+          "0x3d5c",
+          "0x2bb7"
+        ]
+      ]
+    }
+  ]
+}

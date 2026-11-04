@@ -1,5 +1,10 @@
 # Olympus / OM System firmware research
 
+> **OM-5 Mark II warning (4 November 2026):** Do not flash the
+> [`codex/om5ii-hsl` patch](patches/hsl/om-5-ii/README.md). The first reported
+> physical installation failed to boot. The owner recovered the camera on a
+> second stock-firmware reflash attempt. See the [incident notice](patches/hsl/om-5-ii/BRICK-RISK.md).
+
 Shared knowledge and tools for studying and modifying Olympus and OM System
 camera firmware. The repository covers update files, startup, settings, image
 processing and camera interfaces.
