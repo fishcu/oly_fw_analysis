@@ -1,0 +1,56 @@
+[
+  {
+    "id": "kred-om3-tethering-20261020",
+    "author": "kred",
+    "platform": "mu-43.com",
+    "post_url": "https://www.mu-43.com/threads/modified-firmware-looking-for-users.99804/page-34#post-1886195",
+    "title": "Tethering the OM-3: How Live View Came Back — Explained From Scratch",
+    "publication": {
+      "date": "2026-10-20",
+      "basis": "Author and October 20 date supplied with the attachment; the year is consistent with its dated 2026 experiments. The exact post timestamp was not independently retrieved.",
+      "exact_time": null,
+      "online_post_independently_retrieved": false
+    },
+    "source_document_sha256": "0e5c238cebc23b1f5d1f01ddd54c6122a8b70a2e99d142ee86fbc85b39408440",
+    "source_document_bytes": 34112,
+    "reported_hardware_milestones": {
+      "V17_pc_transfer": "2026-09-10",
+      "V21_popup_raw_live_view": "2026-09-16",
+      "V22_persistent_raw_live_view": "2026-09-21"
+    },
+    "target": {
+      "model": "OM-3",
+      "firmware": "1.1",
+      "build": "E147 1100",
+      "stock_encoded_sha256": "8c133084414533159f587bf46bfb4152714c4074312a47c8d8503e33d605696d",
+      "v22_encoded_sha256": "6b58d1b4fc832142f9fe6ffa43c3d28c05a90517e48cdf7db938a3bdff3a7bbf"
+    },
+    "donor": {
+      "model": "OM-1 Mark II",
+      "firmware": "1.3",
+      "build": "E146 1300",
+      "decoded_container_sha256": "26dc36da6297a40af484cef9c8d024dac46010306cf193c8eae3f8ad40d0de2c"
+    },
+    "verification": {
+      "independent_audit_date": "2026-11-04",
+      "method": [
+        "exact binary identities",
+        "prior independent patch and loader audits",
+        "58 bounded native selector and predicate cases"
+      ],
+      "models": [
+        "synthetic stack and explicit API/status RAM",
+        "two trace-output services omitted",
+        "mode-setup service modeled successful in the transport slice"
+      ],
+      "not_established": [
+        "physical USB operation independently repeated",
+        "earlier failing builds and fault traces",
+        "complete event/callback scheduling",
+        "reset bootloader or recovery guarantees"
+      ]
+    },
+    "finding": "docs/protocols/om-3/TETHERING.md",
+    "probe": "tools/om3_tethering_probe.py"
+  }
+]

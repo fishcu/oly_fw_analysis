@@ -55,6 +55,9 @@ under modeled storage.
 
 Working tethering is a contributor report. This gives a concrete precedent for
 loaded-tail code placement, not for arbitrary FF gaps or identical PEN-F recovery.
+The [tethering reference](../protocols/om-3/TETHERING.md) adds independently
+checked startup selectors. The described early out-of-range and alignment
+failures remain author reports without their failing builds or fault traces.
 
 ## Runtime and update risks are different
 

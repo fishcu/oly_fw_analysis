@@ -20,6 +20,8 @@ can refer to different internal builds.
   filenames and documented changes, including versions without a retrieved file.
 - [External references](SOURCES.md): manuals, processor documentation and prior
   camera research.
+- [Community reports](community-reports.json): attributed contributions, publication
+  dates, source identities and the scope of independent verification.
 
 Container metadata checks establish structure, not authenticity or safe camera
 execution. A historical mirror's availability can change. Public download URLs

@@ -46,6 +46,8 @@ regions. It is substantial added code, with a reported OM-1 II porting origin.
 The contributor reports working USB live view and recovery from a failed
 experiment. Those reports do not supply the failed image or a complete recovery
 trace. Its [code-space layout](../safety/CODE_SPACE.md) is independently analyzed.
+The [OM-3 tethering reference](../protocols/om-3/TETHERING.md) explains the
+startup selectors and protocol pieces, with attributed reports and native checks.
 
 ## E-M1 III 1.2 header defect
 

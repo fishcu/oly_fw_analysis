@@ -174,5 +174,20 @@
       "role": "Synthetic protocol demonstration, not a captured user recipe."
     }
   ],
-  "outputs": "Prefer generated/ for new outputs. Full raw reports can contain embedded firmware bytes, regardless of JSON file extension."
+  "outputs": "Prefer generated/ for new outputs. Full raw reports can contain embedded firmware bytes, regardless of JSON file extension.",
+  "om3_tethering": {
+    "tool": "tools/om3_tethering_probe.py",
+    "arguments": {
+      "--stock-main": {
+        "sha256": "5e8d376e9111a44ac0352f26030d7c1b17026d42c45f3600cfa02a0e8c5b7d59",
+        "format": "decoded OM-3 1.1 main payload"
+      },
+      "--patched-main": {
+        "sha256": "2fa0238100f8072b449b8722ef03069975e2a0180443ea338bd50f08a0e79f49",
+        "format": "decoded V22 main payload"
+      }
+    },
+    "engine": "toolchains/mn103-gnu-build/penf-mn103",
+    "scope": "No PEN-F input, camera access or complete USB session; see protocol reference for explicit models."
+  }
 }

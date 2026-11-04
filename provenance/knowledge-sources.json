@@ -22,7 +22,7 @@
   {
     "path": "docs/README.md",
     "sources": [],
-    "sha256": "6bbf386e8bd759c7a9383bfb0ac4ac161c83a0ee5af6dfd47a3b77c3083c0715"
+    "sha256": "4fee38e2e6dc059a3267f728dacfb35c530afef7e374e66522cf5d709989b737"
   },
   {
     "path": "docs/boot/pen-f/FUNCTION_MAP.md",
@@ -562,7 +562,7 @@
         "sha256": "26e284177f37d09cc5b4b5a32c495968fb39d78ee6040e25fce477220fcc17d0"
       }
     ],
-    "sha256": "b2e4dd8b6c8f420bbc7d2b127eaf56abf98e5c8584cc582e156a53df01e29637"
+    "sha256": "287cfcb5d7b18838e52f69baa10f4a4d90c9eeecbaad8b69bbb11fc39698d3b4"
   },
   {
     "path": "docs/features/om-5/BURST.md",
@@ -609,6 +609,28 @@
       }
     ],
     "sha256": "074c24080c3814b0f30b7911ee997bd8aae40a5f4bd1630297f5d72df494b312"
+  },
+  {
+    "path": "docs/protocols/om-3/TETHERING.md",
+    "sources": [
+      {
+        "source_document": "research/community/kred/2026-10-20-om3-tethering/README.original.md",
+        "sha256": "0e5c238cebc23b1f5d1f01ddd54c6122a8b70a2e99d142ee86fbc85b39408440"
+      },
+      {
+        "source_document": "research/community/kred/2026-10-20-om3-tethering/ANALYSIS.md",
+        "sha256": "75cba8717759cce2c67390940652c81417dbc881bf1e6ba597becb1d02c0d67e"
+      },
+      {
+        "source_document": "analysis/om3_tethering_claims_20261104/native.json",
+        "sha256": "41c96f48cea14268443c5aab002e553bc75618fc72adcd2ed723141d182c28fe"
+      },
+      {
+        "source_document": "research/om3_patcher_20260929/README.md",
+        "sha256": "09426ac7eb3192dac7d1ce8bc4f2184acbd5c3950e69020cfd2f0ebb9e0430a3"
+      }
+    ],
+    "sha256": "1e124b17d38d11d49eb7a486716b3645b991ff6b845e42e1f0b3f07ec25715f2"
   },
   {
     "path": "docs/protocols/pen-f/SETTINGS_BACKUP.md",
@@ -672,7 +694,7 @@
         "sha256": "26e284177f37d09cc5b4b5a32c495968fb39d78ee6040e25fce477220fcc17d0"
       }
     ],
-    "sha256": "fd2043a96ee5d4b3e4911ef3c8cab048bcc0108a56e4a6a6108929464075a71e"
+    "sha256": "bba31e7ddcfcb2a4d062a37407d3f6eca78ad9493cf24e66164ef2e98b2c3790"
   },
   {
     "path": "docs/safety/VALIDATION.md",
@@ -749,7 +771,7 @@
   {
     "path": "provenance/README.md",
     "sources": [],
-    "sha256": "804a885de54f9448bd7413291fc00d9ffa62b4f70336d2a9bccce9eadd7fd9d1"
+    "sha256": "123615b6f34f0fa185bd7f699b5b24b014dd1ad2cc61edfb1fb053086995f1df"
   },
   {
     "path": "provenance/SOURCES.md",
@@ -767,6 +789,6 @@
         "sha256": "ac7244e438e5467fb725c43c44b0705b6cb16bc3311b57fd3aa271264459e7f1"
       }
     ],
-    "sha256": "5dc999edb46027f8105df2374e37ba431d928b8b29e7ec29df6a5b4d68cd8f30"
+    "sha256": "28c92984c46c88495c6e7848b3f8cabe7b818d5b6674c730b79f6219ca957709"
   }
 ]
