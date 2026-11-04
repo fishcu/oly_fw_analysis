@@ -1,6 +1,18 @@
 # OM-5 Mark II E148 firmware 1.1: HSL/WB brick-risk review
 
-3 November 2026. Scope: `codex/om5ii-hsl` at `d80077e` and its stock E148 build 1100 input. This is a static and OM-Emu review. No package has been installed on an OM-5 Mark II. The install image remains withheld by the builder. Addresses below are main-CPU runtime addresses. The [brick-risk handoff](HANDOFF-2026-11-03-brickrisk.md) records the disassembly, probes and scripts behind the findings.
+## 4 November 2026 camera incident — do not flash
+
+**Do not flash `codex/om5ii-hsl` build `1bd6276` or its generated install
+package (SHA-256 `35f0caac4b70f1e59e3d5311fdf74a8c021d720755a7441796b080707b79d434`).**
+The owner reports that the update appeared to run, but the camera then showed
+a black screen and repeatedly moved autofocus instead of booting. An attempted
+stock reflash showed a sustained solid red light; its outcome was not yet
+known. The root cause has not been established. The static and emulator results
+below did not predict this physical boot failure and must not be read as
+evidence that this build is safe to install. The analysis below predates this
+incident.
+
+3 November 2026. Scope: `codex/om5ii-hsl` at `d80077e` and its stock E148 build 1100 input. This was a static and OM-Emu review before the camera incident above. At that time no package had been installed on an OM-5 Mark II. The install image is withheld by the builder by default. Addresses below are main-CPU runtime addresses. The [brick-risk handoff](HANDOFF-2026-11-03-brickrisk.md) records the disassembly, probes and scripts behind the findings.
 
 ## Decision
 
