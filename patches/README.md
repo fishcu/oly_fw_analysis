@@ -18,6 +18,7 @@ A definition with `"camera_tested": false` withholds `install/` unless
 | Patch | Model / build | Camera tested |
 | --- | --- | --- |
 | [hsl/pen-f](hsl/pen-f/README.md) | PEN-F 3.1 (3101) | Yes (alpha releases) |
+| [live-nd/om-5-ii](live-nd/om-5-ii/README.md) | OM-5 Mark II 1.1 (1100) | No; offline research only |
 
 ## `oly-patch/1`
 
