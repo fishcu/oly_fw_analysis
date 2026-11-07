@@ -1,0 +1,11 @@
+PASS native optional-bank checksum and constructor on explicitly synthetic zero-value cache; native registration binds normal settings to stock RAM destinations; shared-setting hardware semaphore/cache publication modeled
+PASS AF Home native key=9fa1, index=0: bank 7 selection, mutable value write/readback, both cache aliases, dirty-on-change and unchanged-write suppression; physical NVM write excluded
+PASS AF Home native key=9fa1, index=1: bank 7 selection, mutable value write/readback, both cache aliases, dirty-on-change and unchanged-write suppression; physical NVM write excluded
+PASS AF Home native key=9fa1, index=2: bank 7 selection, mutable value write/readback, both cache aliases, dirty-on-change and unchanged-write suppression; physical NVM write excluded
+PASS AF Home native key=99d2, index=0: bank 7 selection, mutable value write/readback, both cache aliases, dirty-on-change and unchanged-write suppression; physical NVM write excluded
+PASS AF Home native key=99d2, index=1: bank 7 selection, mutable value write/readback, both cache aliases, dirty-on-change and unchanged-write suppression; physical NVM write excluded
+PASS AF Home native key=99d2, index=2: bank 7 selection, mutable value write/readback, both cache aliases, dirty-on-change and unchanged-write suppression; physical NVM write excluded
+PASS AF Home native key=dfa1, index=0: bank 7 selection, mutable value write/readback, both cache aliases, dirty-on-change and unchanged-write suppression; physical NVM write excluded
+PASS native mutable Home parameters -> native scalar getter -> Home builder -> stock enum converter -> profile record, supplied orientation=0; configured size retained; live orientation selection excluded
+PASS native mutable Home parameters -> native scalar getter -> Home builder -> stock enum converter -> profile record, supplied orientation=1; configured size retained; live orientation selection excluded
+PASS native mutable Home parameters -> native scalar getter -> Home builder -> stock enum converter -> profile record, supplied orientation=2; configured size retained; live orientation selection excluded

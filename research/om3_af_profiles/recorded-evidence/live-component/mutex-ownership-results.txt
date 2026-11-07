@@ -1,0 +1,2 @@
+PASS native mutex take rejects same-task recursive acquisition with -28 before scheduler wait; explicit CPU/domain/task/mutex fixtures and interrupt/context service models
+PASS native different-owner mutex take reaches actual scheduler-wait call; scheduler completion/fairness excluded

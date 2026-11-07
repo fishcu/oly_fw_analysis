@@ -1,0 +1,13 @@
+{
+  "integrated_payload_sha256": "961f3dbb7049fb2653edb19f3bf840919651f911a23c64636985a6a637b6450a",
+  "checker_sha256": "b9ed27ced1a9a8273a4f6db980562fbce7e922d57115ad1da0f855a2d3c597f3",
+  "changed_bytes": 3543,
+  "code_blocks": 9,
+  "all_changes_within_explicit_ranges": true,
+  "original_descriptor_targets_verified": true,
+  "relocated_descriptor_targets_verified": true,
+  "constructor_count_and_table_verified": true,
+  "relative_hooks_verified": true,
+  "initialization_failure_disables_feature": true,
+  "scope": "Byte placement and fingerprints only; no startup, SD admission, focus, flash or recovery assertion"
+}

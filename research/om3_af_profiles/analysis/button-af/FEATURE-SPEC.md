@@ -1,0 +1,108 @@
+# Independent stock AF target profiles for shutter half-press and AF-ON
+
+User requirement, clarified 31 October 2026: reuse the camera's existing AF target/zone choices, with an independent target profile for each button. Keep the current shared S-AF/C-AF setting.
+
+## Installation constraint, corrected 1 November 2026
+
+The user intends to load the extension from an SD card, keeping the camera intact. Their earlier selection of “USB only” answered an incomplete options list and must not be treated as excluding SD installation. USB remains available.
+
+The stock OM-3 image contains SD client task 81 at `0x6106b87a`, a `DCOLYMP` directory search and `E147????BIN` body-file selection. The community [manual installation instructions](https://github.com/iKenndac/om-1-manual-firmware-install) explicitly list OM-3 filename `DCOLYMP/E1479999.BIN` and describe holding OK while powering on. This is a community-documented installation route; it does not establish recovery from arbitrary patched startup failures.
+
+New bounded native probes in `scripts/OM3SDSelectionProof.java` passed 74 cases: 72 filename-suffix/attribute/previous-candidate combinations and two complete no-file scans through all 11 stock descriptor rows. Candidate selection compares the four suffix characters numerically as hexadecimal; `9999` is selection data, not an embedded firmware version. These probes model filesystem enumeration/metadata, initialization/mount and controller acknowledgements. They do not test FAT wildcard filtering, the physical OK/power entry, full container acceptance or flash programming. Results: `analysis/button-af/readiness/sd-selection-results.txt`.
+
+Plan installation around SD, but retain separate readiness requirements for valid package construction, startup behavior, original shooting-handler integration and a recovery method demonstrated for the specific failure modes. No installable extension has been produced or tested on a camera.
+
+## Required behavior
+
+- Shutter half-press uses its assigned stock AF target/zone and the Subject Detect choice currently selected in the SCP. If that choice is Off, use normal stock AF behavior.
+- AF-ON uses its independently assigned stock AF target/zone and behaves as though Subject Detect were Off, using the current S-AF/C-AF setting.
+- Both profiles offer the camera-supported target choices, including their normal position, size and custom-target behavior where applicable. Exact names and available combinations must come from the stock controls.
+- AF-ON bypasses Subject Detect while it owns AF without changing the user's stored SCP Subject Detect choice. Returning to half-press restores that choice's effective behavior.
+
+For example, half-press could use All targets with Human detection selected in the SCP, while AF-ON uses a single point with Subject Detect bypassed. Either button can be assigned any supported stock zone; the detection policy remains half-press follows SCP and AF-ON bypasses detection.
+
+This specification does not add independent S-AF/C-AF modes, new detector classes, new target geometries or an extra subject-search region independent of the stock zone behavior. Reuse stock acquisition and tracking semantics for the chosen configuration.
+
+## Proposed interaction policy, not yet hardware-tested
+
+Give AF-ON precedence while both controls are held, so pressing the shutter to capture retains AF-ON's target and detection bypass. On AF-ON release, return to the half-press profile if half-press remains active. On half-press release while AF-ON remains held, retain the AF-ON profile. This precedence is a proposed default, not a separately confirmed user requirement.
+
+Retain both target profiles and the SCP Subject Detect selection. Update the displayed AF target to reflect the active profile. Define target movement, orientation, C-AF transitions, focus lock, full shutter press, bursts and custom-mode recall through the stock mechanisms. Avoid persistent setting writes on each button transition.
+
+## Current evidence and limits
+
+Documentation checkpoint: 7 November 2026, at the user's request to document the work so far. Investigation stopped at this checkpoint. The requested firmware extension is not finished; the findings below distinguish a tested mechanism from an installable, working camera feature.
+
+The current implementation uses the normal stock AF target settings for shutter half press and the existing AF Home settings as the independently configurable AF-ON profile. This reuses stock controls rather than adding a new menu. The main implementation is [OM3LiveProfiles.java](../../scripts/OM3LiveProfiles.java); native original-handler continuation is in [OM3FullShooting.java](../../scripts/OM3FullShooting.java) and [OM3LiveDispatch.java](../../scripts/OM3LiveDispatch.java). AF-ON precedence remains a proposed policy. No human-detection algorithm or model weights were changed.
+
+7 November 2026: the receiver-startup investigation now runs the stock main-thread and capture-framework singleton constructors, three missing message-prototype constructors, a supplied native start event, and 38 native initialization messages. The root reaches state 11 and the examined receiver components become active. Static semaphore initial values are taken from 133 stock ROM descriptors; task scheduling and kernel object storage remain explicit emulator models.
+
+Under this initialization, AF-ON no longer merely receives the inactive-component error described below. Its native 0x3bf request reaches the capture router at 0x62b7315c. The router is in state 7, with both backend pointers at offsets 0xb8/0xbc null, and buffers the request. The original AF-ON handler then waits at 0x60dd896d. A differential control restores the complete original payload before section loading and calls the original button handlers directly: the stock firmware reaches the same null-backend and response-wait boundary. This identifies a missing operational capture context in the harness; it does not prove successful AF integration or rule out other extension defects.
+
+The next conditional probe executes the actual capture-composite factory at 0x60dae512. The diagnostic string at 0x60f18cf1 identifies creation of `Cmp_ShootingComponent`. The factory returns interface 0x62b71778 and constructs the embedded AE/AF-lock controller at 0x62b72f2c with vtable 0x60ebda38; its source string identifies `CmpSts_AEAFLockController.cpp`. This controller contains native handling for 0x3bf. Its parent and a zero diagnostic counter at register 0x98e000d0 are declared inputs. Supplying the router's native connection event 0x114 with that factory-produced interface advances initialization through native messages, but reaches kernel object creation at 0x600303db, which requires unprovided kernel task/object state at 0x97f00004. At that boundary the router is in state 12, its requested backend is 0x62b71778, and its active backend is still null. No positive AF acknowledgement, completed focus operation, or complete operational boot is synthesized. The conditional event does not establish its normal camera producer or timing. See `readiness/capture-connected/` and the exact-source evidence manifest for the boundary and native trace.
+
+The final follow-up identifies that initialization's synchronous RPC destination as task 207, read from stock ROM address 0x60043312. Native caller 0x610618aa sends command 8; task loop 0x610615f5 selects handler 0x61061b4f, which leads to 0x61061cdf and native producer 0x61061c4c. Bounded assembly corroborates this routing. A separate conditional probe invokes that producer with command group 4 and an explicit command-8 input, bypassing the uninitialized task/RPC layer. Native 0x6007a931 constructs a 36-byte packet (header type 0x0b, payload length 0x1c, command 0x40), with callback 0x610619a7, then reaches transport 0x6007a7b5 with port 2 and timeout 5000. The probe stops before submission. Its command mutex, allocation, ROM memory primitives and input are explicit models/fixtures. It establishes native packet construction for that input, not successful scheduling, delivery, a hardware response, or AF acquisition. The native waiting path at 0x61061cdf still requires a completion event; no successful event was supplied. Source: [OM3CaptureTransportProof.java](../../scripts/OM3CaptureTransportProof.java). Evidence: [supplemental manifest](readiness/capture-transport/evidence-manifest.json) and [native trace](readiness/capture-transport/capture-transport-trace.txt).
+
+The latest complete rerun, `readiness/live-runs/20261107-063654/`, completed on 7 November 2026. It reproduces 11 native RAM-setting groups, 15 profile groups, three decoder groups and two mutex-ownership groups; these cover different scopes and are not a combined feature-success score. The full native validator returned zero after its actual 32 MiB checksum loop (97.18 seconds in that run). The integrated payload SHA-256 is `961f3dbb7049fb2653edb19f3bf840919651f911a23c64636985a6a637b6450a`. The decoded full-component fixture SHA-256 is `6a3424f1417950c55708bd3d7e49ccea8a574240af671dd555c979e9a6104dfd`. These identify research fixtures, not an installable update. The later transport probe is supplemental and is not silently included in that full run.
+
+Evidence entry points:
+
+- [Exact-source full-run manifest](readiness/live-evidence-manifest.json), [phase-one log](readiness/live-runs/20261107-063654/phase-one.log) and [native full-component validation log](readiness/live-runs/20261107-063654/phase-two.log).
+- [Profile results](readiness/live-profiles/live-profile-results.txt), [package audit](readiness/live-component/live-package-results.json) and [byte-placement audit](readiness/live-component/live-diff-results.json).
+- [Native error-path results](readiness/live-dispatch/full-shooting-results.txt), [initialized receiver results](readiness/receiver-startup/full-shooting-results.txt) and [unmodified stock control](readiness/stock-receiver-control/full-shooting-results.txt).
+- [Conditional connection boundary](readiness/capture-connected/capture-connection-outcome.txt) and [connection trace](readiness/capture-connected/capture-connection-trace.txt).
+
+Reproduce the complete suite from the project root with `./scripts/run_om3_live_offline.ps1` after closing any GUI use of the same Ghidra project. The supplemental transport probe can be run separately with the bundled headless launcher, project `ghidra-projects OM3_main_full`, read-only/no-analysis mode, script path `scripts`, and post-script `OM3CaptureTransportProof.java analysis/button-af/readiness/capture-transport`. Configure `JAVA_HOME` to the bundled `tooling/jdk-25.0.5+8`. Expected supplemental outcome is BOUNDARY at transport submission, not completed AF. Neither procedure connects to a camera or writes an SD update.
+
+Readiness decision: **NO-GO for writing the modified firmware to the camera.** The profile mechanism and component validation have bounded executable evidence; successful operational AF, full UI/lifecycle behavior, concurrency/record lifetime, physical settings reload and update/recovery behavior do not. These open items include unfinished software analysis and modeling; they must not be described collectively as hardware-only checks. The safe next camera work, if undertaken, is stock-firmware observation and recovery-path characterization, not installing this research image. The decoded fixture is not an SD installation file. A valid component checksum does not establish updater admission, safe startup or recovery after a failed modified boot.
+
+The acceptance gates for changing that decision are concrete:
+
+- Trace the camera's normal capture-backend creation/connection producer and execute the actual successful request/reply path. Compare stock and modified operation for half press, AF-ON, release and both overlap orders. A native error reply or an invented success reply cannot satisfy this gate.
+- Establish the physical orientation producer, then exercise the actual stock target-edit and display events, including moving targets while either profile is active. The supplied pose matrix and immutable-record checks alone do not satisfy it.
+- Establish a synchronization/lifetime contract for readers of the staged target records. Test delayed readers and events crossing profile switches, plus full shutter press, burst, sleep/wake, mode recall and reset. The current single-thread instruction observer cannot establish these properties.
+- Establish full initialization and physical setting reload for this exact image, updater acceptance on the intended SD route, and an intact-camera recovery method covering the startup code being changed. Directory selection and component checksum validation satisfy only narrower gates.
+
+Gate-closure review, 7 November 2026: [AF-GAP-CLOSURE-ASSESSMENT.md](../../AF-GAP-CLOSURE-ASSESSMENT.md) identifies `0x97f00004` as a per-core kernel control-block table of a multi-core RTOS, with a startup barrier at `0x60033387`, and shows that the transport hands off through a shared-memory mailbox at `0xa32c65b0`. It closes no gate.
+
+These are acceptance criteria, not additional passing tests. The reproducible runner checks narrow expected boundaries explicitly and records them separately from successes. `capture-connected/capture-connection-outcome.txt` must say BOUNDARY while the native kernel initialization is unavailable; completing the runner never changes the release status to ready automatically.
+
+6 November 2026: `OM3LiveProfiles.java` now reads normal stock target settings and a separate profile from existing AF Home settings through the native mutable settings service. It uses uncached owned state, inactive ten-byte staging records, a dedicated mutex initialized through the stock constructor loop, and relocated hooks in the tested section 1/2/4 image. Fifteen bounded test groups cover all 11 Home enum choices, three supplied pose codes, independent area/position orientation enables, shared S-AF/C-AF, all SCP classes, mixed edges, invalid-pointer fallback and native target gates, an early stock mode-setter call with section 4 absent, and a failed mutex-creation fallback that disables the extension and forwards stock button handlers. Instruction-boundary checks observe the current published record until pointer replacement; cross-CPU visibility and old-pointer lifetimes are not established.
+
+The exact integrated modified payload, including hooks, constructor changes, data and code, passed stock native component validator `0x6106b712` and its full 32 MiB checksum loop. The full six-component container was reconstructed and parsed in memory with all other components unchanged. The native decoder matches the host codec in bounded byte-pattern and multi-block tests. Only decoded research fixtures are saved; no installable update is emitted.
+
+Original shutter half-press/release bodies return through this build under declared runtime fixtures. Without a response-task scheduling model, original AF-ON press/release bodies reach a response semaphore; supplying negative wait results makes the stock code retry. The new native-dispatch harness executes the actual main-thread queue pop, message processing, reply queue and reply processing, after which all four original handlers return with the dedicated mutex released. However, traced response status 1 maps through the stock table at 0x60e1d170 to API error 0xf0000001. The tested receiver takes its native NotConsumed fallback at 0x60dbd81e. Thus these are original-handler error-path and cleanup proofs; successful AF reception/acquisition remains unproved. No positive reply was fabricated. Native mutex ownership probes establish same-task recursive acquisition is rejected with -28 before the scheduler wait; different-owner acquisition reaches the native wait path. Full task scheduling, actual pose producer mapping, display/editing and sleep/custom-mode/reset behavior, physical settings reload, whole boot, SD service admission and recovery remain unproved. **The prototype is not ready to flash.**
+
+Reproduction entry point: `scripts/run_om3_live_offline.ps1`. It checks headless script failures and unprovided-memory warnings, reruns the integrated suites, audits packaging, runs the native full-component validator, and pins source/result hashes in `readiness/live-evidence-manifest.json`. The manifest records original-handler boundaries separately from passing groups; group counts are not added together. Source, execution and result logs are retained under `readiness/live-runs/`.
+
+## Historical findings and earlier reports
+
+The following entries preserve earlier checkpoints. References to "latest" inside these historical descriptions mean latest at that checkpoint; use the 7 November evidence and manifests above for the current status.
+
+Historical seven-area investigation: [PREHARDWARE-AF-AUDIT.md](../../PREHARDWARE-AF-AUDIT.md). The earlier revised native prototype added pending-command admission, complete-record change detection, worker-health reconciliation and orientation-bank capture. Its suites distinguish 91 PASS groups, 18 boundary records and eight before-fix defect reproductions. Its packed code was 1,780 bytes in an emulator-only overlay. Those historical counts and outstanding-work descriptions refer to that earlier prototype, not the latest integrated build.
+
+Historical consolidated proof: [OFFLINE-AF-PROOF.md](../../OFFLINE-AF-PROOF.md). The native emulator controller, original queue/worker lifecycle, target update, complete search snapshot, effective-mode guard, proposed shooting-table wrappers and negative transition cases pass 66 consolidated checks, including 224 finite button-state edges across all SCP choices and S-AF/C-AF settings. Kernel/device services remain explicit models. Configuration UI/capture, original shooting-handler continuation, display, concurrency/recovery and camera behavior were not established by that suite. Historical reports below describe the earlier evidence and their former gaps.
+
+Verification audit: [AF-GAP-VERIFICATION.md](../../AF-GAP-VERIFICATION.md) reruns the 28 integration fixtures and adds five targeted gap checks. Reset eligibility, deferred command ordering, late-result reachability, full target activation/display and button ownership remain unverified as a complete feature.
+
+Latest integration results: [AF-INTEGRATION-GAPS.md](../../AF-INTEGRATION-GAPS.md) adds a nested native stop/reset sequence and state-gated target-update tests. It identifies a selection-retention option; complete stock Off equivalence, button ownership and target activation/display remain open.
+
+Latest follow-up: [AF-LIFECYCLE-PROOF.md](../../AF-LIFECYCLE-PROOF.md) tests every SCP class, traces start/stop commands to worker handlers, and executes the stock four-byte target descriptor converter. It does not yet establish a complete per-button transition or active target update.
+
+Follow-up: [AF-DETECT-OFF-PROOF.md](../../AF-DETECT-OFF-PROOF.md) adds 26 bounded fixtures. It demonstrates a separate effective-mode setter and a native request path where effective Off differs from selection suppression. Complete Off lifecycle and per-button behavior remain unproven.
+
+The [latest prototype report](../../AF-PROFILE-PROTOTYPE.md) describes 18 bounded native profile/shooting fixtures, following 27 acquisition/update fixtures and 17 initial fixtures: 62 in total. They verify selected original instructions with explicit models and exclusions; they do not demonstrate a complete extension. No modified image was generated or flashed.
+
+The ten-byte target record can feed the active geometry cache. Native UI lookup identifies the relevant setting keys, but the UI target type (`MODE_AF_AREA_TYPE`, key `0x99a1`) differs from internal `MODE_AF_AREA` (`0x84d1`). Stock target selection must use the correct conversion and refresh paths, rather than copying a dropdown value directly into the internal record.
+
+`MODE_SUBJECT_DETECT` maps to key `0x1e71`, index 0. The examined subject-selection enable/disable paths at `0x609024d2` and `0x609025aa` establish selection-control primitives. Disabling selection through that helper has not been shown to reproduce all behavior of the stock Subject Detect Off setting. AF-ON requires the latter behavior, including normal target selection and fallback.
+
+The tested narrow/wide geometry fixtures are synthetic. They are not proof of captured stock Single/All presets. The full shooting transaction-to-worker trace, cache/snapshot synchronization, installation, boot and recovery remain unresolved.
+
+## Next implementation investigations
+
+1. Recover the stock zone/type conversion and refresh sequence for the supported target choices, including custom targets and position handling.
+2. Compare Subject Detect Off with enabled detection through the AF request and selection paths; identify how to apply the complete Off behavior per active AF-ON request while retaining the SCP choice.
+3. Complete button ownership and transaction-to-worker tracing, then design one synchronized profile transition covering target cache, subject snapshots, selection invalidation and display.
+
+Validate both-button overlap, capture, AF-ON release/resume, no-subject fallback, target movement, orientation, C-AF/bursts and custom-mode recall before claiming this feature works. Firmware ABI, installation and recovery checks remain necessary before a camera trial.

@@ -1,0 +1,236 @@
+{
+  "scope": "Static byte checks and trace metadata; no inference, AF, timing or camera behavior tests",
+  "settings_enum": [
+    {
+      "value": 0,
+      "name": "MODE_SUBJECT_DETECT_OFF",
+      "label_decoded_offset": "0x28d1dec"
+    },
+    {
+      "value": 1,
+      "name": "MODE_SUBJECT_DETECT_MOTOR_SPORTS",
+      "label_decoded_offset": "0x28d1e24"
+    },
+    {
+      "value": 2,
+      "name": "MODE_SUBJECT_DETECT_AIRPLANE",
+      "label_decoded_offset": "0x28d1e5c"
+    },
+    {
+      "value": 3,
+      "name": "MODE_SUBJECT_DETECT_TRAIN",
+      "label_decoded_offset": "0x28d1e94"
+    },
+    {
+      "value": 4,
+      "name": "MODE_SUBJECT_DETECT_BIRD",
+      "label_decoded_offset": "0x28d1ecc"
+    },
+    {
+      "value": 5,
+      "name": "MODE_SUBJECT_DETECT_ANIMAL",
+      "label_decoded_offset": "0x28d1f04"
+    },
+    {
+      "value": 6,
+      "name": "MODE_SUBJECT_DETECT_HUMAN",
+      "label_decoded_offset": "0x28d1f3c"
+    }
+  ],
+  "resource_selector_hex": "0001020304050609ffffffff07080a",
+  "learning_banks": [
+    {
+      "index": 0,
+      "logical_address": "0x49680800",
+      "decoded_offset": "0x3dc07e0",
+      "stored_size": 9383936,
+      "sha256": "3726ebaa6baf8acd46159aa51a6f79cc6a72c385e1af96eb52423d4a2a28e157"
+    },
+    {
+      "index": 1,
+      "logical_address": "0x49f73800",
+      "decoded_offset": "0x46b37e0",
+      "stored_size": 9383936,
+      "sha256": "7d276839cd12a21d85c1b8671dbcfad0b96ef98217cac8babd3c1e3db1de5405"
+    },
+    {
+      "index": 2,
+      "logical_address": "0x4a866800",
+      "decoded_offset": "0x4fa67e0",
+      "stored_size": 9383936,
+      "sha256": "43800f7e8047d8f1b690c8f315c6295498d0a39959527ce1bfbca0a6a7b900ad"
+    },
+    {
+      "index": 3,
+      "logical_address": "0x4b159800",
+      "decoded_offset": "0x58997e0",
+      "stored_size": 9383936,
+      "sha256": "7476ac5a9ab52b1bb6b28d8c258c08293c19b9cffb95c9c827d655647a99dcca"
+    },
+    {
+      "index": 4,
+      "logical_address": "0x4ba4c800",
+      "decoded_offset": "0x618c7e0",
+      "stored_size": 9383936,
+      "sha256": "dff22d678065355b298c77927f9b331ac027eb8b3044dda10b51499371bffd73"
+    },
+    {
+      "index": 5,
+      "logical_address": "0x4c33f800",
+      "decoded_offset": "0x6a7f7e0",
+      "stored_size": 9383936,
+      "sha256": "80f8477268bfed5e4576d5b8c12cecf9a14c45d34a5dbb4463c64c5ac8b2cdcb"
+    }
+  ],
+  "resize_tables": [
+    {
+      "index": 0,
+      "table_address": "0x60a05b28",
+      "words": [
+        640,
+        480,
+        65537,
+        65537,
+        0,
+        5461,
+        5461,
+        480,
+        0,
+        4096,
+        4096,
+        480
+      ],
+      "interface_width": 640,
+      "interface_height": 480
+    },
+    {
+      "index": 1,
+      "table_address": "0x60a05b58",
+      "words": [
+        640,
+        360,
+        65537,
+        65537,
+        0,
+        5461,
+        5461,
+        480,
+        0,
+        3072,
+        3072,
+        480
+      ],
+      "interface_width": 640,
+      "interface_height": 360
+    },
+    {
+      "index": 2,
+      "table_address": "0x60a05b88",
+      "words": [
+        640,
+        340,
+        65537,
+        65537,
+        0,
+        5461,
+        5461,
+        480,
+        0,
+        2901,
+        2901,
+        480
+      ],
+      "interface_width": 640,
+      "interface_height": 340
+    }
+  ],
+  "stabilization_parameter_bytes": {
+    "0x60a06a44": 50,
+    "0x60a06a45": 6,
+    "0x60a06a46": 6,
+    "0x60a06a47": 4,
+    "0x60a06a48": 4,
+    "0x60a06a49": 8,
+    "0x60a06a4a": 3,
+    "0x60a06a4b": 3,
+    "0x60a06a4c": 2,
+    "0x60a06a4d": 2,
+    "0x60a06a4e": 4,
+    "0x60a06a4f": 6,
+    "0x60a06a50": 6,
+    "0x60a06a51": 10,
+    "0x60a06a52": 10,
+    "0x60a06a53": 6,
+    "0x60a06a54": 0
+  },
+  "checks": [
+    {
+      "name": "Human settings enum equals 6",
+      "passed": true
+    },
+    {
+      "name": "Resource 0x800f maps to directory index 10",
+      "passed": true
+    },
+    {
+      "name": "Directory index 10 is 0x49680000",
+      "passed": true
+    },
+    {
+      "name": "Nested resource directory has OE header",
+      "passed": true
+    },
+    {
+      "name": "Learning bank 0 in decoded component bounds",
+      "passed": true
+    },
+    {
+      "name": "Learning bank 1 in decoded component bounds",
+      "passed": true
+    },
+    {
+      "name": "Learning bank 2 in decoded component bounds",
+      "passed": true
+    },
+    {
+      "name": "Learning bank 3 in decoded component bounds",
+      "passed": true
+    },
+    {
+      "name": "Learning bank 4 in decoded component bounds",
+      "passed": true
+    },
+    {
+      "name": "Learning bank 5 in decoded component bounds",
+      "passed": true
+    },
+    {
+      "name": "Extracted Human-selected bank equals sixth directory entry",
+      "passed": true
+    },
+    {
+      "name": "Resize tables describe 640x480, 640x360 and 640x340",
+      "passed": true
+    },
+    {
+      "name": "Stabilization parameter bytes match reviewed image",
+      "passed": true
+    },
+    {
+      "name": "Log metadata names resolve at expected IDs",
+      "passed": true
+    },
+    {
+      "name": "Bounded decode has no failures: result-read-full-window.asm",
+      "passed": true
+    },
+    {
+      "name": "Bounded decode has no failures: class-filter.asm",
+      "passed": true
+    },
+    {
+      "name": "Bounded decode has no failures: learning-loader.asm",
+      "passed": true
+    }
+  ]
+}

@@ -4,6 +4,11 @@ Start with the file format and address spaces. Then choose the subsystem relevan
 to your camera or modification. Addresses refer to the stated build, not every
 camera with the same processor.
 
+OM-3 research: [independent AF-button target profiles](features/om-3/AF_BUTTON_PROFILES.md)
+and the [Human detection pipeline](features/om-3/SUBJECT_DETECTION.md), with
+[source, compact evidence and reproduction instructions](../research/om3_af_profiles/README.md).
+The AF prototype is incomplete and not ready to flash.
+
 | Topic | Reference |
 | --- | --- |
 | Update files | [Components, decoding and checksums](format/CONTAINERS.md) · [Address spaces and section loading](format/pen-f/ADDRESS_SPACES.md) |

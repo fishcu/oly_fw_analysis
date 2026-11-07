@@ -1,0 +1,5 @@
+PASS full 33554432-byte decoded main component: integrated, native validator result=0, native full checksum calls=1, seconds=86.6906763; no device/update-service/boot/flash assertion
+PASS full 33554432-byte decoded main component: integrated, native validator result=0, native full checksum calls=1, seconds=76.828861; no device/update-service/boot/flash assertion
+PASS full 33554432-byte decoded main component: integrated, native validator result=0, native full checksum calls=1, seconds=89.6983623; no device/update-service/boot/flash assertion
+PASS full 33554432-byte decoded main component: integrated, native validator result=0, native full checksum calls=1, seconds=79.3248146; no device/update-service/boot/flash assertion
+PASS full 33554432-byte decoded main component: integrated, native validator result=0, native full checksum calls=1, seconds=97.1785494; no device/update-service/boot/flash assertion

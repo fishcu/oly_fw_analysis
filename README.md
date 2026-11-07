@@ -15,6 +15,7 @@ similar code does not imply identical hardware or interchangeable patches.
 - [Use IDA with the MN103 module](docs/tooling/ida/README.md)
 - [Find firmware identities and sources](provenance/README.md)
 - [Contribute a finding or another camera model](CONTRIBUTING.md)
+- [OM-3 AF button profiles and Human detection research](research/om3_af_profiles/README.md)
 
 The tools include a component decoder, checksum checks, disassembly helpers,
 and an MN103 instruction emulator. Image-processing hardware is not emulated.

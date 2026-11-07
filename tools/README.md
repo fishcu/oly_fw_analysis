@@ -9,6 +9,11 @@ Start with [reproduction](../REPRODUCING.md) and the
 Python 3.12 and Pillow are the tested host setup. The container parser and Wi-Fi
 client use the standard library; Pillow is needed by resource and atlas tools.
 
+The separate [OM-3 AF research workspace](../research/om3_af_profiles/README.md)
+contains Ghidra probes, a portable launcher and recorded evidence checks.
+It requires separately obtained exact firmware inputs and an MN10300 Ghidra
+extension; it is not an installer or a complete AF firmware extension.
+
 ```bash
 python3 tools/run_checks.py
 python3 tools/oly_container.py /path/to/owned-firmware.BIN

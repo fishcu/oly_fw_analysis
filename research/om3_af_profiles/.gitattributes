@@ -1,0 +1,3 @@
+* -text whitespace=cr-at-eol
+scripts/OM3NativeFlow.java whitespace=cr-at-eol,-blank-at-eof
+trace_human_detection.py whitespace=cr-at-eol,-blank-at-eof
