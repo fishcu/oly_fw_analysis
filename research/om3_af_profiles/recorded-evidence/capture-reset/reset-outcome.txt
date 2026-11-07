@@ -1,0 +1,1 @@
+BOUNDARY harness: labelled stock-reset scenario (full native reset 604048c3 completed); raw mode code 3 and mode key 3 found; connection processing continues natively through 24 messages and stops at the 2,000,000-instruction cap for one native call; SCPU modelled as silent; original button handlers not reached; no AF queue 94/95 sends observed; not a normal boot

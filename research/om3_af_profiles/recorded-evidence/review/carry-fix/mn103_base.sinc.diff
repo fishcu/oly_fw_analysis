@@ -1,0 +1,33 @@
+--- analysis/review/carry-fix/backup-language/mn103_base.sinc	2026-11-07 16:16:37.758941200 -0500
++++ tooling/ghidra_12.2_PUBLIC/Ghidra/Extensions/MN10300/data/languages/mn103_base.sinc	2026-11-07 16:18:39.722318800 -0500
+@@ -56,7 +56,7 @@
+ :cmp am1_0,an0_0 is op0_74=0xb & am1_0 & an0_0 { local r:4 = an0_0 - am1_0; subFlags(an0_0, am1_0, r); }
+ :cmp imm8,an0_0  is (op0=0xb0 | op0=0xb5 | op0=0xba | op0=0xbf) & an0_0; imm8 { local s:4 = imm8; local r:4 = an0_0 - s; subFlags(an0_0, s, r); }
+ 
+-:add dm1_0,dn0_0 is op0_74=0xe & dm1_0 & dn0_0 { local o:4 = dn0_0; dn0_0 = o + dm1_0; addFlags(o, dm1_0, dn0_0); }
++:add dm1_0,dn0_0 is op0_74=0xe & dm1_0 & dn0_0 { local s:4 = dm1_0; local o:4 = dn0_0; dn0_0 = o + s; addFlags(o, s, dn0_0); }
+ 
+ # ---- conditional branches ------------------------------------------------------------------
+ CC: "lt" is op0_30=0x0 { local c:1 = NF != VF; export c; }
+@@ -198,10 +198,10 @@
+ }
+ 
+ # ---- F1 page: register-register arithmetic ---------------------------------------------------
+-:sub dm1_1,dn0_1  is op0=0xf1; op1_74=0x0 & dm1_1 & dn0_1 { local o:4 = dn0_1; dn0_1 = o - dm1_1; subFlags(o, dm1_1, dn0_1); }
++:sub dm1_1,dn0_1  is op0=0xf1; op1_74=0x0 & dm1_1 & dn0_1 { local s:4 = dm1_1; local o:4 = dn0_1; dn0_1 = o - s; subFlags(o, s, dn0_1); }
+ :sub am1_1,dn0_1  is op0=0xf1; op1_74=0x1 & am1_1 & dn0_1 { local o:4 = dn0_1; dn0_1 = o - am1_1; subFlags(o, am1_1, dn0_1); }
+ :sub dm1_1,an0_1  is op0=0xf1; op1_74=0x2 & dm1_1 & an0_1 { local o:4 = an0_1; an0_1 = o - dm1_1; subFlags(o, dm1_1, an0_1); }
+-:sub am1_1,an0_1  is op0=0xf1; op1_74=0x3 & am1_1 & an0_1 { local o:4 = an0_1; an0_1 = o - am1_1; subFlags(o, am1_1, an0_1); }
++:sub am1_1,an0_1  is op0=0xf1; op1_74=0x3 & am1_1 & an0_1 { local s:4 = am1_1; local o:4 = an0_1; an0_1 = o - s; subFlags(o, s, an0_1); }
+ :addc dm1_1,dn0_1 is op0=0xf1; op1_74=0x4 & dm1_1 & dn0_1 {
+ 	local a:4 = dn0_1; local b:4 = dm1_1; local c:4 = zext(CF);
+ 	local s:4 = a + b;
+@@ -213,7 +213,7 @@
+ }
+ :add am1_1,dn0_1  is op0=0xf1; op1_74=0x5 & am1_1 & dn0_1 { local o:4 = dn0_1; dn0_1 = o + am1_1; addFlags(o, am1_1, dn0_1); }
+ :add dm1_1,an0_1  is op0=0xf1; op1_74=0x6 & dm1_1 & an0_1 { local o:4 = an0_1; an0_1 = o + dm1_1; addFlags(o, dm1_1, an0_1); }
+-:add am1_1,an0_1  is op0=0xf1; op1_74=0x7 & am1_1 & an0_1 { local o:4 = an0_1; an0_1 = o + am1_1; addFlags(o, am1_1, an0_1); }
++:add am1_1,an0_1  is op0=0xf1; op1_74=0x7 & am1_1 & an0_1 { local s:4 = am1_1; local o:4 = an0_1; an0_1 = o + s; addFlags(o, s, an0_1); }
+ :subc dm1_1,dn0_1 is op0=0xf1; op1_74=0x8 & dm1_1 & dn0_1 {
+ 	local a:4 = dn0_1; local b:4 = dm1_1; local c:4 = zext(CF);
+ 	local s:4 = a - b;

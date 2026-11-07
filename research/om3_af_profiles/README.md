@@ -18,7 +18,7 @@ their test counts together or interpret a BOUNDARY as a successful feature test.
 
 ## Included and excluded material
 
-`scripts/` contains 66 Java Ghidra scripts and the original Python/PowerShell
+`scripts/` contains 74 Java Ghidra scripts and the Python/PowerShell
 helpers. Root Python files support the earlier container/decompilation and
 Human-detection investigation. `recorded-evidence/` contains compact recorded
 outcomes and original manifests. `import-manifest.json` hashes the imported
@@ -99,6 +99,45 @@ process exit code alone is insufficient: script errors and missing-memory
 warnings are checked before evidence verification. A successful runner still
 reports **NOT READY TO FLASH**; expected receiver/connection boundaries remain
 unresolved. The supplemental command-transport probe stops before submission.
+
+## Supplemental AF-command and emulator findings
+
+The later investigation is documented in
+[AF-GAP-CLOSURE-ASSESSMENT.md](AF-GAP-CLOSURE-ASSESSMENT.md). It supersedes the
+earlier transport-only boundary for its separately labelled scenarios; it is
+not part of the original complete-run result counts above.
+
+- Stock task 207 and port-2 transport were followed to the SCPU link boundary.
+  Silent-peer timeout and full stock-reset scenarios preserve failure paths.
+- The reset scenario obtains mode key 3 from stock initialization. The installed
+  MN10300 language had an aliased-register carry/overflow defect; the included
+  source diff and before/after tests document its correction. A carry-fixed
+  reset run passes the numeric loop and sends queue-95 command 0x1d, then waits
+  on reply buffer 1032. Backend connection and successful AF remain unproven.
+- Queue 95's 93-slot dispatch table, request/reply format and start/end family
+  were decoded. The offline decoder can inspect captured bytes:
+  `python scripts/decode_om3_queue95.py --request HEX --payload HEX --reply HEX`.
+  Payload and reply are optional. This imported decoder adds a fallback to the
+  packaged dispatch-map location; original probe manifests retain original
+  source hashes, while `import-manifest.json` pins this packaged adaptation.
+- `OM3CaptureAfTaskProof.java` is a continuation probe source included as work
+  in progress. No completed execution result for it is claimed in this snapshot.
+
+Compact outcomes and manifests are under `recorded-evidence/capture-*` and
+`recorded-evidence/review/`. Review subdirectories preserve derived ROM facts,
+the queue dispatch map, a mathematical carry reproduction, and language-fix
+results. Full listings, original language backups, compiled language binaries
+and bulk traces are omitted. References to `analysis/review/` in the original
+notes refer to local generated evidence; packaged compact counterparts are in
+`recorded-evidence/review/`. The local byte-verification scripts referenced by
+those notes are not bundled as standalone firmware-free checks.
+
+The language diff modifies the Apache-2.0 MN10300 extension referenced above;
+its license and attribution are preserved beside the diff. Apply it to that
+pinned extension and recompile before reproducing carry-fixed supplemental
+runs. The old complete-run evidence remains historical evidence of the earlier
+toolchain; targeted revalidation of flag-sensitive results remains necessary.
+No full firmware run was performed merely to prepare this Git update.
 
 ## Remaining work
 

@@ -1,0 +1,44 @@
+{
+  "title": "MN10300 aliased register-add carry/overflow flag defect: fix and verification",
+  "date": "2026-11-07",
+  "scope": "Offline tooling fix in the Ghidra MN10300 SLEIGH language. No firmware image changed. Readiness position unchanged (NO-GO).",
+  "defect": {
+    "where": "tooling/ghidra_12.2_PUBLIC/Ghidra/Extensions/MN10300/data/languages/mn103_base.sinc",
+    "root_cause": "Four register-register constructors assigned the destination before passing the SOURCE register symbol to addFlags/subFlags. The flag macros (addFlags: CF=carry(a,b), VF=scarry(a,b); subFlags: CF=a<b, VF=sborrow(a,b)) therefore re-read the source AFTER it was overwritten. When source and destination are the same register (e.g. 'add D0,D0'), the macro read the result instead of the original source operand, producing wrong CF and VF. ZF/NF and the arithmetic result were always correct.",
+    "constructors_fixed": [
+      ":add dm1_0,dn0_0 (op0_74=0xe)  E-page 1-byte add Dm,Dn",
+      ":sub dm1_1,dn0_1 (op1_74=0x0)  F1-page sub Dm,Dn",
+      ":sub am1_1,an0_1 (op1_74=0x3)  F1-page sub Am,An",
+      ":add am1_1,an0_1 (op1_74=0x7)  F1-page add Am,An"
+    ],
+    "fix": "Snapshot the source into a local (local s:4 = <src>) BEFORE writing the destination, then use s for both the arithmetic and the flag macro. This matches the already-correct AM33 extended-register forms in mn103_gen.sinc:198-202.",
+    "audit": "The four above are the only register-register forms that write the destination and then re-read a register source in a flag macro. Cross-file A/D forms cannot alias; cmp forms do not write; addc/subc already snapshot; inc dn1_0 uses an immediate source; AM33 gen forms already snapshot."
+  },
+  "impact": "The u32->double converter 0x6004c266 normalizes via 'add D0,D0; rol D1'. With the defect, 'add D0,D0' of a value with bit31 set cleared carry, so rol D1 lost the top bit and the normalize loop never set its bit-20 stop condition -> non-termination. This is a confirmed candidate for the 2,000,000-instruction cap-stop seen during capture-reset connection processing. Fixing the flags removes that non-termination WITHOUT raising the instruction cap.",
+  "verification": {
+    "method": "OM3CarryDefectTest.java emulates the REAL instructions at 0x6004c28c (add D0,D0) and 0x6004c28d (rol D1) in OM3_main_full through EmulatorHelper, which decodes with the compiled .sla. Identical script run before and after rebuilding the language.",
+    "before": "add D0,D0 of 80000000 -> CF=0 VF=0 (wrong); of 40000000 -> VF=0 (wrong); normalize loop DID NOT TERMINATE.",
+    "after": "add D0,D0 of 80000000 -> CF=1 VF=1 (correct); of 40000000 -> VF=1 (correct); normalize loop terminated at iteration 21. Sanity cases ffffffff and 00000001 identical before/after (non-aliasing paths untouched); D0 result identical in all cases."
+  },
+  "files": {
+    "diff": "mn103_base.sinc.diff",
+    "backup_language": "backup-language/ (original mn103_base.sinc and the three original .sla)",
+    "test_script": "../../../scripts/OM3CarryDefectTest.java",
+    "before_result": "before/carry-test-result.txt",
+    "after_result": "after/carry-test-result.txt"
+  },
+  "sha256": {
+    "mn103_base.sinc.fixed": "b955295524a6bdebb030e127d91296033d38aa22eeab4be3ac99a9bda2c76404",
+    "mn103_base.sinc.backup": "39c5c0d76aef3443cd4197186a4b136dcde44ec959fa15191960872cb2714295",
+    "mn103.sla.rebuilt": "f8b478375a2bb3a1f6397c5709a3e27b10ee87190ce97c23b805cb8950b4ad19",
+    "mn103.sla.backup": "ee1478e711e6edced861c4db929a5ae197bc66d5ed350335b44cd042d7dd32f7",
+    "mn103_am33.sla.rebuilt": "98a5791ac8b568fd15854d23903f788bd2ac30ed3f9356974fe10d96292a4169",
+    "mn103_am33.sla.backup": "6222fe067dcb5de206687fdb1b5a58d9eede39eecf75ec707f0243a65d67fb87",
+    "mn103_mn10300.sla.rebuilt": "0892f3c043037685a90495fb98a6d8916359da3be113640906b25dfcd4538bb0",
+    "mn103_mn10300.sla.backup": "bb1cffa48935719774930f4068a1c1fd3be675a341cb198a48e4e803af04ab9b",
+    "before.carry-test-result.txt": "cd25ff103dd49a63049b50dc44a2a768cde6a2d6130974bb4a89396e0b7297a5",
+    "after.carry-test-result.txt": "a14834a5f7535a563f899fe7d3d79d862675532840ba3c334e7f540acae97471",
+    "OM3CarryDefectTest.java": "23d4aacab6240c63ca8ac63d7015074d0e0e8a431e145b7bf6296f80b3956a89"
+  },
+  "revalidation_note": "Prior emulator runs that branched on CF/VF after an aliased same-register add/sub may be affected. The arithmetic results and ZF/NF were always correct, so runs not sensitive to CF/VF on such an instruction are unaffected. Targeted revalidation, not wholesale invalidation."
+}

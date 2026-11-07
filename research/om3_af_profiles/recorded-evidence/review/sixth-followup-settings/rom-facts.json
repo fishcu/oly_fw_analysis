@@ -1,0 +1,113 @@
+{
+  "model_override_rows": [
+    {
+      "address": "0x60600978",
+      "selector": 1,
+      "entries": [
+        {
+          "uid": 3012,
+          "value": 0
+        }
+      ]
+    },
+    {
+      "address": "0x60600984",
+      "selector": 2,
+      "entries": [
+        {
+          "uid": 3012,
+          "value": 0
+        }
+      ]
+    },
+    {
+      "address": "0x60600990",
+      "selector": 3,
+      "entries": [
+        {
+          "uid": 3012,
+          "value": 0
+        }
+      ]
+    },
+    {
+      "address": "0x6060099c",
+      "selector": 10,
+      "entries": [
+        {
+          "uid": 3012,
+          "value": 0
+        }
+      ]
+    },
+    {
+      "address": "0x606009a8",
+      "selector": 8,
+      "entries": [
+        {
+          "uid": 3012,
+          "value": 0
+        }
+      ]
+    },
+    {
+      "address": "0x606009b4",
+      "selector": 9,
+      "entries": [
+        {
+          "uid": 3012,
+          "value": 0
+        }
+      ]
+    },
+    {
+      "address": "0x606009c0",
+      "selector": 0,
+      "entries": [
+        {
+          "uid": 3012,
+          "value": 0
+        }
+      ]
+    }
+  ],
+  "settings_bank7_count": 1215,
+  "bank_end": "0x6011fe20",
+  "settings": [
+    {
+      "key": "0x4501",
+      "record": "0x600e51d8",
+      "source": "0x600e51dc",
+      "count": 1,
+      "width": 1,
+      "data": "00",
+      "registered_ram": "0x62920a3d"
+    },
+    {
+      "key": "0xc011",
+      "record": "0x6011efd4",
+      "source": "0x6011efd8",
+      "count": 1,
+      "width": 1,
+      "data": "00",
+      "registered_ram": "0x6295951e"
+    }
+  ],
+  "ui24_map": {
+    "address": "0x606255bc",
+    "key": "0xc011",
+    "index": 0
+  },
+  "ui24_factory_default": {
+    "address": "0x605f6df0",
+    "value": 3
+  },
+  "raw3_translation": {
+    "hash_slot": "0x606eb640",
+    "raw_minus_two": 1,
+    "target": "0x60570992",
+    "registry_key": 3,
+    "registry_index": 4,
+    "condition": "before optional record-flag overrides"
+  }
+}

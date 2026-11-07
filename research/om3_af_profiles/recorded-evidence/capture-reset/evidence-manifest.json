@@ -1,0 +1,23 @@
+{
+ "created": "2026-11-07",
+ "status": "BOUNDARY",
+ "scenario": "STOCK RESET (labelled), not a normal boot",
+ "outcome": "BOUNDARY harness: labelled stock-reset scenario (full native reset 604048c3 completed); raw mode code 3 and mode key 3 found; connection processing continues natively through 24 messages and stops at the 2,000,000-instruction cap for one native call; SCPU modelled as silent; original button handlers not reached; no AF queue 94/95 sends observed; not a normal boot",
+ "baseline": "analysis/button-af/readiness/capture-timeout (template-only settings)",
+ "note": "timeout-trace.txt (about 2.2 million lines) is not hashed here because of its size; regenerate it by rerunning the probe.",
+ "sha256": {
+  "scripts/OM3CaptureResetProof.java": "215fd668008a232dba2b58c6c268a900d15e6cdf166ae5451a1ff10a1751cde5",
+  "scripts/OM3CaptureTimeoutProof.java": "55e7c94c3fadee88133dcfd38f556870147a4215f53c3c00a69bb4f75ac8741a",
+  "scripts/OM3CaptureLinkProof.java": "4941ab1f1d40c843ff8fe4442c26697c9e7649a3a7d931fcbe98689407dba4d8",
+  "scripts/OM3CaptureKernelModelProof.java": "677c85333834960e5bf303d08f096dad3e46ba8c3e37637ee955bea2927449f2",
+  "scripts/OM3CaptureConnectedProof.java": "7a60ccfc4941b960d6c0e8f1dee0444728d561c922edd0dd7959fa7cf999717f",
+  "scripts/OM3CaptureFactoryProof.java": "ed1a970dfd71ce7fdd127d58654641c4ecdc3b1e13b0082201c5cbd173716574",
+  "scripts/OM3ReceiverStartupProof.java": "3f97d1f20fc722129c4dd0bbad768e662a65a97658428a4c9a97cf2098af59f8",
+  "scripts/OM3NativeQueue.java": "27460aa318d21b2e62dada1972baaea7bc99d838676e6f9a637b5f9cf81413ab",
+  "analysis/decoded/00_0100_50000020.decoded.bin": "5e8d376e9111a44ac0352f26030d7c1b17026d42c45f3600cfa02a0e8c5b7d59",
+  "analysis\\button-af\\readiness\\capture-reset\\reset-outcome.txt": "8443f03f097d209f5eb2bcdaec17bbd2b188a44bd3f02b1276165e62cddebcb1",
+  "analysis\\button-af\\readiness\\capture-reset\\reset-scenario.txt": "80bc0563de90abbfde8decf1b2b89a125a312361467e0e52ff4871512d591787",
+  "analysis\\button-af\\readiness\\capture-reset\\kernel-model-outcome.txt": "74e2dd47ac34e3afccd9e6bb81f92ac9899e6684a8d1755c0e815121a5f95995",
+  "analysis\\button-af\\readiness\\capture-reset\\run.log": "2bfc00bd4570b7f8a7a8728b98769c7375ca021014d80cd2e1b7b5b0c527b8bd"
+ }
+}

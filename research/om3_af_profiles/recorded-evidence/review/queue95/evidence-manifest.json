@@ -1,0 +1,131 @@
+{
+  "method": "Read-only bounded Ghidra decode, bytes and continuity checked; not whole-function reachability or hardware proof",
+  "payload_sha256": "5e8d376e9111a44ac0352f26030d7c1b17026d42c45f3600cfa02a0e8c5b7d59",
+  "listings": [
+    {
+      "file": "task-dispatch-and-guard.asm",
+      "start": "6031787e",
+      "requested_end": "60317a54",
+      "actual_end": "0x60317a54",
+      "instructions": 188,
+      "bytes": 470,
+      "sha256": "1a8cfb27eb1e64aba69f73dbac7e7f07db589b45f8348eaebdd55f265517c86b"
+    },
+    {
+      "file": "send-receive-reply-wrappers.asm",
+      "start": "60318c44",
+      "requested_end": "60318d47",
+      "actual_end": "0x60318d47",
+      "instructions": 111,
+      "bytes": 259,
+      "sha256": "fe838f246bc772520ea811e9885fd7cd059d28354146ccbfdfbb65ebc37a36e1"
+    },
+    {
+      "file": "message-rpc-wrappers.asm",
+      "start": "6004d087",
+      "requested_end": "6004d26f",
+      "actual_end": "0x6004d26f",
+      "instructions": 182,
+      "bytes": 488,
+      "sha256": "49253c3324fc0c8b3baa10ac8c60a20f22e30d35e3d74b454656563655b9dd82"
+    },
+    {
+      "file": "start-command-handler.asm",
+      "start": "603c86d7",
+      "requested_end": "603c8af3",
+      "actual_end": "0x603c8af3",
+      "instructions": 390,
+      "bytes": 1052,
+      "sha256": "c437624ce451c4738c7adc19db574c85f7076acb0d8f3e2076361194d22c194a"
+    },
+    {
+      "file": "end-command-handler.asm",
+      "start": "603c8af3",
+      "requested_end": "603c8d14",
+      "actual_end": "0x603c8d14",
+      "instructions": 206,
+      "bytes": 545,
+      "sha256": "bf39282b7e03338c2ae4ee0a5e4c6a3f63a71ca89042cc6a92b2f8a0aa321592"
+    },
+    {
+      "file": "alternate-start-handler.asm",
+      "start": "603c8d14",
+      "requested_end": "603c8d90",
+      "actual_end": "0x603c8d91",
+      "instructions": 50,
+      "bytes": 125,
+      "sha256": "00e5c324843ac241547911020b426f967d74749388d870a140e3e7b7fd224dfc"
+    },
+    {
+      "file": "public-af-request.asm",
+      "start": "6043f7c5",
+      "requested_end": "6043f9c8",
+      "actual_end": "0x6043f9c8",
+      "instructions": 196,
+      "bytes": 515,
+      "sha256": "31c7d11fbb67482559387f5073e5fbb2286ca50445ce94fde92706736acdcb2f"
+    },
+    {
+      "file": "generic-request-helper.asm",
+      "start": "60416fac",
+      "requested_end": "6041706e",
+      "actual_end": "0x6041706e",
+      "instructions": 69,
+      "bytes": 194,
+      "sha256": "84aa5bae060028beed3b34fba7d6b07c1b4b03d350984f2a9bc3da2b4bd17b96"
+    },
+    {
+      "file": "synchronous-envelope-builder.asm",
+      "start": "6004f3bd",
+      "requested_end": "6004f585",
+      "actual_end": "0x6004f585",
+      "instructions": 158,
+      "bytes": 456,
+      "sha256": "209e46498e2fbebd742c1b98c30150179bb2b7f2cc3657affef9b12c94ed2056"
+    },
+    {
+      "file": "deferred-request-ring.asm",
+      "start": "60318676",
+      "requested_end": "603186de",
+      "actual_end": "0x603186de",
+      "instructions": 49,
+      "bytes": 104,
+      "sha256": "6a3aebc29087b91240b714c558eb3f6bd026c0468d49da908c92ac0493c42479"
+    },
+    {
+      "file": "status-override.asm",
+      "start": "60317bec",
+      "requested_end": "60317c00",
+      "actual_end": "0x60317c00",
+      "instructions": 6,
+      "bytes": 20,
+      "sha256": "766deafdcb59676999d036e21353935d170bb30f030b31804a394c441327df94"
+    },
+    {
+      "file": "default-handler-stubs.asm",
+      "start": "603c5206",
+      "requested_end": "603c524c",
+      "actual_end": "0x603c524c",
+      "instructions": 24,
+      "bytes": 70,
+      "sha256": "3fe2df9612e2f09aefee11d7d89de662218a34a7c26b8d84c7e9021874b57582"
+    },
+    {
+      "file": "command-debug-print.asm",
+      "start": "60317a54",
+      "requested_end": "60317a7c",
+      "actual_end": "0x60317a7c",
+      "instructions": 12,
+      "bytes": 40,
+      "sha256": "f59fd7435dcc742df0c2d815e2df63bd81ccfa44438f50abe3b36b18ae404b81"
+    }
+  ],
+  "dispatch_entries": 93,
+  "distinct_handlers": 52,
+  "sources": {
+    "scripts/OM3HumanWindows.java": "cad927d4a5ca4120b07d21d8d0c6449249a8879e0cbbe6ebd3c4e49285ec28b3",
+    "scripts/decode_om3_queue95.py": "cf6fd3b0e5703e434001f591ca957e5b91f7dc85c9618025a66f5554aaef06ed"
+  },
+  "dispatch_map_sha256": "21b99cffaf45d1f3b67d9d4eba2cf4f633840a34feaeaf8abc33a62b9f7b8de1",
+  "decoder_validation": "PASS: lock selection/precedence, IAF selection, alternate start, invalid ID, reply and malformed length"
+}

@@ -4,6 +4,8 @@ For the current independent AF-button profile investigation, read the
 [feature specification and findings](analysis/button-af/FEATURE-SPEC.md#current-evidence-and-limits)
 and its linked evidence manifests. Updated 7 November 2026: the research
 prototype is not ready for installation; no camera has been flashed.
+The later gate-closure review, its probe index and the AF request-path findings
+are in [AF-GAP-CLOSURE-ASSESSMENT.md](AF-GAP-CLOSURE-ASSESSMENT.md).
 
 The exports are provisional C-like reconstructions. Start with a small routine
 and check its assembly, callers and referenced data before trusting its types

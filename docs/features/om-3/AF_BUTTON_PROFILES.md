@@ -9,6 +9,14 @@ The research prototype executes these transitions under emulator fixtures.
 It is **not ready to flash**. No camera was accessed or flashed, and no
 installable modified SD image is distributed.
 
+Later supplemental work recovered queue 95's 93-slot dispatch table and common
+request/reply format, applied a verified carry/overflow fix to the local Ghidra
+MN10300 language, and reran the labelled stock-reset scenario. That run reaches
+queue-95 command 0x1d and stops waiting for its receiver's reply on buffer 1032;
+it does not establish successful backend connection or autofocus. See the
+[current assessment and continuation plan](../../../research/om3_af_profiles/AF-GAP-CLOSURE-ASSESSMENT.md)
+and [supplemental evidence notes](../../../research/om3_af_profiles/README.md#supplemental-af-command-and-emulator-findings).
+
 ## Input and address spaces
 
 All findings concern OM-3 version 1.1, catalog filename
