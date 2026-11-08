@@ -3090,8 +3090,8 @@
     },
     {
       "path": "tools/run_checks.py",
-      "sha256": "095fd72b9bf725e2013dbc4032707ee973c19459aec1b655866b8227082e8955",
-      "bytes": 2177,
+      "sha256": "7b494fd854b307011b19fa8f42841357e71df184dde3c9e75feac7df80b6f3fc",
+      "bytes": 3282,
       "origin": "original documentation, fixture or utility",
       "local_imports": [
         "penf_emulator"
