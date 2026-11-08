@@ -50,6 +50,23 @@ public class OM3AFStartupConsumerProof extends OM3NativeAFModeConsumerProof {
    trace.add(s);if(taskIdCalls.size()<2000)taskIdCalls.add(s);
    return false;
   }
+  if(t==0x60038ea5L&&!inTask10&&!taskStack.isEmpty()&&System.getProperty("om3.noTaskParking")==null){
+   long id=reg("D0")&65535,wai=reg("D1"),mode=reg("A1")&255,q=taskStack.peek();
+   try{return super.external(t);}
+   catch(CompletionWait blocked){
+    if(afTaskRow(q)==null)throw blocked;
+    parked.put(q,new long[]{id,wai,mode});
+    String s=String.format("SCHED:park queue=%d flag=%d mask=%08x mode=%d pc=%08x stack=%s (infinite wait unsatisfied; native context kept)",q,id,wai,mode,e.getExecutionAddress().getOffset(),taskStack);
+    trace.add(s);taskIdCalls.add(s);consumerNote(s);
+    throw new TaskBlocked();
+   }
+  }
+  if(t==0x6003193eL&&!taskStack.isEmpty()&&taskStack.peek()==92){
+   // Task identity for the queue-92 task from its ROM record (task 104), as OM3OriginalButtonConsumerProof does for 94/95.
+   check(u32(0x600390e0L+103*28)==104,"Stock queue-92 task identity record");
+   e.writeMemoryValue(toAddr(reg("A0")),2,104);e.writeRegister("D0",0);
+   String s="MODEL:AF-task-identity-from-ROM queue=92 task=104";trace.add(s);taskIdCalls.add(s);return true;
+  }
   if(t==0x6003193eL){
    long a0=reg("A0");
    String s=String.format("TASKID-CALL site=%08x A0=%08x SP=%08x stackTop=%08x taskStack=%s",e.getExecutionAddress().getOffset(),a0,reg("SP"),stackTop,taskStack);
@@ -67,6 +84,45 @@ public class OM3AFStartupConsumerProof extends OM3NativeAFModeConsumerProof {
   }
   return super.external(t);
  }
+ // af-startup-consumer2: after LOCK_START the worker sends request 0x5d to message buffer 92 (607117ac) and waits on 93.
+ // ROM task table (records at 0x600390e0 + (id-1)*28, id at +0, entry at +12): task 104 entry 605a370a reads its queue
+ // ID from halfword 0x6004322c (= 92), as task 105 reads 0x60043230 (94) and task 106 reads 0x60043232 (95). Prologue
+ // movm [d2,d3,a2,a3]; add -0x40. It is scheduled exactly like the 94/95 tasks (persistent context, own-queue idle) on
+ // its own stack (top 0x700e8000, unused elsewhere). Disable with -Dom3.noQueue92Task.
+ static final long[] QUEUE92_TASK={92,0x605a370aL,0xf0,0x40,0x700e8000L};
+ @Override boolean schedulePending()throws Exception {
+  if(super.schedulePending())return true;
+  if(System.getProperty("om3.noTaskParking")==null&&resumeParked())return true;
+  if(System.getProperty("om3.noQueue92Task")!=null)return false;
+  long[] t=QUEUE92_TASK;
+  if(taskStack.contains(t[0])||mbfQueue.getOrDefault(t[0],new ArrayDeque<>()).isEmpty())return false;
+  check(u32(0x600390e0L+103*28)==104&&u32(0x600390e0L+103*28+12)==t[1]&&u16(0x6004322cL)==92,"Stock queue-92 task identity record");
+  runStockTask(t);return true;
+ }
+ // af-startup-consumer3: worker 94 submits its request through function pointer 603c8d71, which sets flag 68 bit
+ // 0x100000 (the AF-command task's awaited event), registers callback 609ec651 (sets flag 67 bit 1, ROM halfword
+ // 0x60042fa2) and waits on flag 67 at 609ec622. The worker was running nested inside task 95's flag-68 wait
+ // (task stack [94,95]), so the nested model could not return to task 95 although its flag was now set. A uITRON kernel
+ // would switch tasks. Scheduler model (labelled): an AF task whose infinite flag wait is unsatisfied is PARKED instead
+ // of ending the run: its native context is kept exactly as for own-queue idle (TaskBlocked extends TaskIdle, so
+ // OM3CompleteStaticOSConsumerProof stores it with PC at the wait call), control returns to the task or caller that
+ // scheduled it, and schedulePending resumes it once its flag condition holds; the resumed wait call is re-executed and
+ // re-checked by the stock wait model. No flag is set, no completion is supplied. Disable with -Dom3.noTaskParking.
+ static class TaskBlocked extends TaskIdle {}
+ final Map<Long,long[]> parked=new LinkedHashMap<>();
+ long[] afTaskRow(long q){if(q==92)return QUEUE92_TASK;for(long[] t:TASKS)if(t[0]==q)return t;return null;}
+ boolean flagMet(long id,long wai,long mode){Long p=eventFlags.get(id);if(p==null)return false;return mode==1?(p&wai)!=0:(p&wai)==wai;}
+ boolean resumeParked()throws Exception {
+  for(var en:new ArrayList<>(parked.entrySet())){
+   long q=en.getKey();long[] w=en.getValue();
+   if(taskStack.contains(q)||!flagMet(w[0],w[1],w[2]))continue;
+   String s=String.format("SCHED:resume-parked queue=%d flag=%d mask=%08x pattern=%08x",q,w[0],w[1],eventFlags.get(w[0]));
+   trace.add(s);taskIdCalls.add(s);consumerNote(s);
+   runStockTask(afTaskRow(q));return true;
+  }
+  return false;
+ }
+ @Override void runStockTask(long[] t)throws Exception {parked.remove(t[0]);super.runStockTask(t);}
  boolean afModuleInit;
  @Override void prepareNativeAFMode()throws Exception {
   if(!afModuleInit&&System.getProperty("om3.noAfModuleInit")==null){
@@ -109,6 +165,10 @@ public class OM3AFStartupConsumerProof extends OM3NativeAFModeConsumerProof {
   super.prepareNativeAFMode();
  }
  @Override public void run()throws Exception {
-  try{super.run();}finally{Files.write(Paths.get(getScriptArgs()[0]).resolve("af-startup-steps.txt"),taskIdCalls);}
+  try{super.run();}finally{
+   for(var en:parked.entrySet()){long[] w=en.getValue();Long p=eventFlags.get(w[0]);
+    taskIdCalls.add(String.format("SCHED:parked-at-end queue=%d flag=%d mask=%08x mode=%d pattern=%s (no producer set it)",en.getKey(),w[0],w[1],w[2],p==null?"none":Long.toHexString(p)));}
+   Files.write(Paths.get(getScriptArgs()[0]).resolve("af-startup-steps.txt"),taskIdCalls);
+  }
  }
 }

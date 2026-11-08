@@ -2037,8 +2037,220 @@ and the mode commands to the consumer chain, then runs the original buttons.
     for the reply (`0x6004d115`). Queue 95 waits on the same buffer.
   - **Checks:** profile-matrix checks remain 2 / 28.
 
-**Next step:** buffers 91–96 form the AF task family (ROM halfwords from
-`0x6004322a`). Identify the task that serves buffer **92**: queue-95 handlers
+**Queue-92 task (`af-startup-consumer3/`).**
+- **The server:** the ROM task table (records at `0x600390e0 + (id-1)*28`)
+  shows that **task 104, entry `0x605a370a`**, reads its queue ID from halfword
+  `0x6004322c` (= 92). Tasks 105 and 106 read `0x60043230` (94) and
+  `0x60043232` (95) the same way.
+- **Scheduling:** it is scheduled like the 94/95 tasks: persistent context,
+  own-queue idle, ROM task identity 104, its own stack.
+- **The exchange:**
+  1. Task 104 receives request 0x5d, replies on buffer 93 with an all-zero
+     status block, and goes idle, all natively.
+  2. The worker continues into `0x609ec5e9`. That routine builds a request with
+     completion callback **`0x609ec651`** and calls the request's function
+     pointer, **`0x603c8d71`**.
+  3. That function **sets flag 68 bit 0x100000** (via `0x60318eec`). This is
+     the event the AF-command task waited on forever in
+     `original-button-consumer3`.
+  4. The worker then waits at `0x609ec622` for **flag 67 bit 1** (ROM halfword
+     `0x60042fa2`). Only callback `0x609ec651` sets it.
+- **The stop:** the run stops there. The worker was running nested inside task
+  95's flag-68 wait (task stack `[94, 95]`), so the nested scheduler model
+  could not return to task 95 even though its flag had just been set.
+- **Fix (scheduler model):** an AF task whose infinite wait is unsatisfied is
+  parked with its native context. It is resumed when its flag condition holds,
+  and the stock wait is re-executed. This is labelled
+  `-Dom3.noTaskParking`, and nothing is set or supplied. Run:
+  `af-startup-consumer4/`.
+
+**Result (`af-startup-consumer4/`): original button/SCP matrix 28 / 28.**
+All four original edges (half press, AF-ON press, AF-ON release, half release)
+return for each SCP setting 0..6. Each matches the feature's expected profile
+owner (**1, 2, 1, 0**) and the expected effective Subject Detect:
+- half press and AF-ON release follow SCP;
+- AF-ON press is 0 for every SCP value.
+
+The first AF-ON press drives the complete AF command chain natively:
+
+1. Queue 95 handles command 0x2a and submits **LOCK_START (0x100)** to worker
+   94 (owner 2, subject 0).
+2. The worker reads the **AF-ON target-profile cache** (`0xa031ea00`, owner 2,
+   subject 0).
+3. Task 104 serves request 0x5d (buffers 92/93).
+4. The worker's request function `0x603c8d71` sets flag 68 bit 0x100000. It
+   then parks at `0x609ec622` on flag 67.
+5. Task 95's flag-68 wait is satisfied. It continues through `0x60700bdf` and
+   **calls the worker's callback `0x609ec651`**, which sets flag 67 bit 1.
+6. The worker resumes (one park and one resume in total). It finishes
+   LOCK_START and replies on buffer 99.
+7. Task 95 sends its common reply (status 0) on buffer 6 and goes idle.
+
+Every flag and reply in that chain is produced by stock code, and no task is
+left parked at the end.
+
+**Scope and open points:**
+- **One submission only (investigated below).** There is one worker
+  submission in the whole matrix: the SCP=0 AF-ON press. Later AF-ON presses
+  update ownership and Subject Detect correctly but do not submit another
+  LOCK_START.
+- **Silent status block.** Task 104's status block is all zeros under the
+  silent-SCPU and device models. No lens drive, image, phase-detect data or
+  focus measurement is involved or claimed.
+- **Labelled inputs.** The three supplied startup steps, the scheduler, heap
+  and task-ID models, the reset scenario and the button and SCP fixtures all
+  remain labelled inputs.
+- This is not normal boot, AF convergence or a camera result. **Readiness
+  stays NO-GO.**
+
+**Why later AF-ON presses do not resubmit (static decode plus consumer4
+traces).** I aligned the call sequences of the SCP=0 and SCP=1 AF-ON presses,
+discounting one-time singleton construction. The chain is:
+
+1. **The handler's permission check.** Original handler `0x610b962a` enters
+   the AF path (`0x610a5620` → `0x610a5f10` → `0x610a5a14` → shooting-sequence
+   vtable +0x5c `0x60b88e17` → 0x3bf → command 0x2a) only if
+   `0x6108ad0a(0xb, 0)` returns 1. That function is the generic "is control
+   action allowed in the current state" check.
+2. **Where it fails.** On the second press the check fails at `0x6108b9c6`,
+   which requires the word **`0x62b7f7b4` == 0**.
+3. **Who sets that word.** It is set during the SCP=0 **AF-ON release** by
+   `0x61088066`. The only clear that runs, `0x610883a3`, executes during the
+   same release.
+4. **What should clear it.** In the same step, `0x61088066` writes follow-up
+   event **`0x0400001c`** (plus an argument) into the handler context's
+   **pending-event slot +0xb0/+0xb4**. Handlers for that event clear the word
+   through `0x61087044`: `0x610bb310`, `0x6109d8ad`, `0x6109dd6d` and
+   `0x610a2067` (handler-table records `0x61312a80`, `0x61319f40`,
+   `0x6131abf0` and `0x6131ba88`).
+5. **Other clearers.** Handlers for `0x03000023` (`0x610b92da`,
+   `0x610ac45a`; probably a timer-service event) and `0x09000022`
+   (`0x610bb53b`, `0x610bbe60`; producer `0x610876ae`, not run) also clear it.
+   None of these runs in consumer4.
+
+**Reading.** The original edges are invoked directly through the resident
+wrapper with a supplied context. The GUI state-machine engine, which in stock
+code would dispatch the pending follow-up event, does not run, so the
+release's state is never cleared.
+
+This is most likely a **harness gap** in how original handlers are driven,
+not stock behaviour that forbids repeated AF-ON. That is inferred and not yet
+verified: neither the engine that consumes +0xb0 nor the run-time value left
+there has been confirmed. Candidate readers of +0xb0 (`0x61087965` ran;
+`0x610a322a` and `0x610cc43e` did not) are listed for the next step.
+
+**The stock GUI engine (static decode, not yet run).**
+- **The class.** The GUI state-machine class has its vtable at **`0x6133a46c`**
+  (constructors reference it at `0x610beaef` and `0x610bfe68`). Slot +0x8 is
+  the event engine **`0x610beb04`** (A0 = machine, A1 = context, current event
+  at context+0).
+- **What the engine does.** It runs a state hook through `0x610bfba3`, then
+  dispatches on the machine's two state words, +0xb8 and +0xac. These are the
+  same `0x5a05` and `0x5100` the harness writes into its machine object. The
+  dispatch goes through the **state dispatcher `0x610bfc0a`**, which hashes
+  state 0x5000–0x5e00 into `0x6133a26c` and reaches a per-state function. For
+  0x5101 that function loads the descriptor array **`0x6131e7f0`** ({state,
+  handler table, count}; state 0x5100 → table **`0x6131bd50`**, which holds the
+  88 records including half press, AF-ON press and AF-ON release). The engine
+  then handles class events through `0x6133a16c`, and its tail calls
+  `0x610bf5b9` → `0x61094ed9`, which reads the context's +0xc0.
+- **The pending-event writers.** Pending-event writers such as `0x6108a007`
+  (33 callers), `0x6108a234` and `0x61088066` store an event at +0xb0 and a
+  kind (2) at +0xc0.
+- **Not established:** which stock code consumes +0xb0/+0xc0 and redispatches
+  it. Neither `0x610beb04` nor `0x610bfc0a` runs in any probe.
+
+**Consequence for the harness.** The feature is designed as **handler-table
+wrappers** (`OFFLINE-AF-PROOF.md`): table entries `0x6131c290`/`0x6131c2a0`
+and the half-press pair are redirected to native wrappers that run the profile
+transaction and continue into the unchanged original handler. The harness calls
+those wrappers directly, so the stock engine and its follow-up processing are
+skipped.
+
+**Next step:** a probe that does three things:
+1. applies the feature's four table redirects in emulator memory (the intended
+   modification itself);
+2. delivers each button event through the stock engine `0x610beb04` with the
+   harness's existing machine and context;
+3. records context +0xb0/+0xc0 and `0x62b7f7b4` after each edge.
+
+No clear may be supplied. If the stock flow clears `0x62b7f7b4`, the next
+AF-ON press should resubmit LOCK_START natively.
+
+**Engine-routed runs (`OM3EngineRoutedConsumerProof`, `engine-routed1..5/`).**
+- **routed1–2:** stopped on the probe's own record check. At run time the four
+  shooting-table handler fields already hold the resident wrappers
+  `0x6031eb80`, `0x6031ec98`, `0x6031edb0` and `0x6031eec8`. The inherited
+  `prepareResident` installs the feature's table redirect, so the harness was
+  already in the designed modified-firmware state. The check now accepts that
+  and writes nothing.
+- **routed3:** each edge is delivered to the stock engine `0x610beb04`. The
+  engine consults the machine's secondary state +0xb8 before the shooting state
+  +0xac. The inherited fixture value **0x5a05** (written by
+  `OM3ShootingRuntime`; provenance undocumented) selects table `0x61333858`.
+  Its first record handles half press with `0x610b10b6`, and it has no AF-ON or
+  half-release records, which looks like an overlay state. Half press was
+  consumed there, and the shooting table was never consulted (profile check
+  failed on edge 0).
+- **routed4:** labelled fixture: secondary state **0** (none; stock
+  `0x610bfc0a` returns no table below 0x5000 and the engine skips null
+  tables), with shooting state 0x5100 kept.
+  - **All 28 edges go through the stock engine → feature wrapper → original
+    handler.** All return, and the original button/SCP matrix passes
+    **28 / 28**.
+  - There is still **one** LOCK_START submission (first AF-ON press, owner 2,
+    subject 0).
+  - The state word `0x62b7f7b4` becomes 1 at the first AF-ON release and stays
+    1. The clearing handlers (`0x61087044` and its event handlers) never run.
+  - The engine pre-filter `0x610bf5b9` runs on every edge, but `0x61094ed9`
+    (the +0xc0 reader) does not.
+- **routed5:** observation only; 28/28 again. `0x61088066` does **not** reach
+  either follow-up store (`0x610880c1`/`0x61088180`), so the "unprocessed
+  pending event" reading does not apply here. It takes this path instead:
+  1. set the word to 1 at `0x61088126`;
+  2. query the object from `0x610c8702` (vtable +0x2c, trace label
+     **"isMoveEditActive"**) and clear the word immediately only if that
+     returns non-zero; it returns 0;
+  3. post the follow-up only if `0x6108856e` returns 0 and `0x6036e870` is 0;
+     neither condition holds.
+
+**What the state word is (firmware trace labels).** `0x62b7f7b4` is a
+**display-output change in progress** flag, not AF state:
+
+| Function | Role | Trace labels |
+|---|---|---|
+| `0x61088066` | setter | "Playback on EVF:Go to stby" and the output-line paths |
+| `0x610883a3` | conditional clear | "CA->GUI CHG_OUT_LINE : TFT / VIDEO / EVF / INTERNAL_EVF" |
+| `0x6108846d` | HDMI variants | "CA->GUI CHG_OUT_LINE : HDMI&…" |
+| `0x61087044` | clearer | "setChangeStateDisplayCompleteSubAppMdlDispDevice()" |
+| `0x6108ad0a` | permission check | "CHECK_IS_NOT_TAKING_PICTURE" |
+
+The original AF-ON release issues its state event 9 (`0x61090e0a`), which
+reaches this display output-line logic and starts a display-device change. The
+camera clears the flag when the display module reports the change complete.
+The harness has no display-module completion, so the flag stays set, and the
+shooting permission check refuses later AF-ON starts.
+
+**Conclusion.** The single LOCK_START in the matrix is caused by a missing
+**display-change completion** in the emulation, not by AF profile or worker
+behaviour. Why AF-ON release starts a display-output change at all in this
+fixture is not established. It may come from the inherited
+display/eye-sensor/output fixtures rather than camera behaviour.
+
+**Not done (deliberately):** supplying a display-complete event or clearing
+the flag. Either would fabricate a completion. Further options:
+1. find the stock producer of the display-complete notification (the
+   display-manager path that calls `0x61087044` through events
+   `0x03000023`/`0x0400001c`/`0x09000022`) and model only its trigger as a
+   labelled display completion;
+2. find which fixture makes release choose an output-line change and correct
+   it from stock state.
+
+Neither affects the established AF-ON command chain or the 28/28 profile
+results.
+
+**Earlier next step (done above):** buffers 91–96 form the AF task family (ROM
+halfwords from `0x6004322a`). Identify the task that serves buffer **92**: queue-95 handlers
 `0x603c524c`, `0x603c531b` and `0x603c5378` send to it, and its loop likely
 receives through the generic helper `0x6004d087`. Then schedule it like the
 94/95 tasks. Its reply is produced by stock code or not at all. Nothing in

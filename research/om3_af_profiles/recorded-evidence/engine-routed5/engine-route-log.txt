@@ -1,0 +1,122 @@
+FIXTURE:machine secondary state +0xb8 5a05 -> 0 (shooting state +0xac=5100 kept)
+TABLE-RECORD-RUNTIME 6131bd50 expect event=01000002 handler=610b9197 seen=01000002 00000001 00000001 6031eb80
+FEATURE-TABLE-REDIRECT already installed by inherited resident preparation record=6131bd50 event=01000002 -> wrapper=6031eb80 (original 610b9197)
+TABLE-RECORD-RUNTIME 6131bd60 expect event=01000003 handler=610b96f0 seen=01000003 00000001 00000001 6031ec98
+FEATURE-TABLE-REDIRECT already installed by inherited resident preparation record=6131bd60 event=01000003 -> wrapper=6031ec98 (original 610b96f0)
+TABLE-RECORD-RUNTIME 6131c290 expect event=01050007 handler=610b962a seen=01050007 00000001 00000001 6031edb0
+FEATURE-TABLE-REDIRECT already installed by inherited resident preparation record=6131c290 event=01050007 -> wrapper=6031edb0 (original 610b962a)
+TABLE-RECORD-RUNTIME 6131c2a0 expect event=01050008 handler=610b9653 seen=01050008 00000001 00000001 6031eec8
+FEATURE-TABLE-REDIRECT already installed by inherited resident preparation record=6131c2a0 event=01050008 -> wrapper=6031eec8 (original 610b9653)
+EDGE 0 BEFORE event=01000002 ctx+b0=00000000 +b4=00000000 +c0=00000001 state-word=00000000 machine+ac=5100 +b8=0
+ENGINE-ROUTE edge=0 event=01000002 engine=610beb04 machine-vt=00000000
+ENGINE-CALLED-WRAPPER event=01000002 pc=6031eb80
+EDGE 0 AFTER event=01000002 original-handler-called=true ctx+b0=00000000 +b4=00000000 +c0=00000001 state-word=00000000 machine+ac=5100 +b8=0
+EDGE 1 BEFORE event=01050007 ctx+b0=00000000 +b4=00000000 +c0=00000001 state-word=00000000 machine+ac=5100 +b8=0
+ENGINE-ROUTE edge=1 event=01050007 engine=610beb04 machine-vt=00000000
+ENGINE-CALLED-WRAPPER event=01050007 pc=6031edb0
+EDGE 1 AFTER event=01050007 original-handler-called=true ctx+b0=00000000 +b4=00000000 +c0=0000590c state-word=00000000 machine+ac=5100 +b8=0
+EDGE 2 BEFORE event=01050008 ctx+b0=00000000 +b4=00000000 +c0=0000590c state-word=00000000 machine+ac=5100 +b8=0
+ENGINE-ROUTE edge=2 event=01050008 engine=610beb04 machine-vt=00000000
+ENGINE-CALLED-WRAPPER event=01050008 pc=6031eec8
+EDGE 2 AFTER event=01050008 original-handler-called=true ctx+b0=00000000 +b4=00000000 +c0=00005000 state-word=00000001 machine+ac=5100 +b8=0
+EDGE 3 BEFORE event=01000003 ctx+b0=00000000 +b4=00000000 +c0=00005000 state-word=00000001 machine+ac=5100 +b8=0
+ENGINE-ROUTE edge=3 event=01000003 engine=610beb04 machine-vt=00000000
+ENGINE-CALLED-WRAPPER event=01000003 pc=6031ec98
+EDGE 3 AFTER event=01000003 original-handler-called=true ctx+b0=00000000 +b4=00000000 +c0=00000001 state-word=00000001 machine+ac=5100 +b8=0
+EDGE 4 BEFORE event=01000002 ctx+b0=00000000 +b4=00000000 +c0=00000001 state-word=00000001 machine+ac=5100 +b8=0
+ENGINE-ROUTE edge=4 event=01000002 engine=610beb04 machine-vt=00000000
+ENGINE-CALLED-WRAPPER event=01000002 pc=6031eb80
+EDGE 4 AFTER event=01000002 original-handler-called=true ctx+b0=00000000 +b4=00000000 +c0=00000001 state-word=00000001 machine+ac=5100 +b8=0
+EDGE 5 BEFORE event=01050007 ctx+b0=00000000 +b4=00000000 +c0=00000001 state-word=00000001 machine+ac=5100 +b8=0
+ENGINE-ROUTE edge=5 event=01050007 engine=610beb04 machine-vt=00000000
+ENGINE-CALLED-WRAPPER event=01050007 pc=6031edb0
+EDGE 5 AFTER event=01050007 original-handler-called=true ctx+b0=00000000 +b4=00000000 +c0=00000001 state-word=00000001 machine+ac=5100 +b8=0
+EDGE 6 BEFORE event=01050008 ctx+b0=00000000 +b4=00000000 +c0=00000001 state-word=00000001 machine+ac=5100 +b8=0
+ENGINE-ROUTE edge=6 event=01050008 engine=610beb04 machine-vt=00000000
+ENGINE-CALLED-WRAPPER event=01050008 pc=6031eec8
+EDGE 6 AFTER event=01050008 original-handler-called=true ctx+b0=00000000 +b4=00000000 +c0=00005000 state-word=00000001 machine+ac=5100 +b8=0
+EDGE 7 BEFORE event=01000003 ctx+b0=00000000 +b4=00000000 +c0=00005000 state-word=00000001 machine+ac=5100 +b8=0
+ENGINE-ROUTE edge=7 event=01000003 engine=610beb04 machine-vt=00000000
+ENGINE-CALLED-WRAPPER event=01000003 pc=6031ec98
+EDGE 7 AFTER event=01000003 original-handler-called=true ctx+b0=00000000 +b4=00000000 +c0=00000001 state-word=00000001 machine+ac=5100 +b8=0
+EDGE 8 BEFORE event=01000002 ctx+b0=00000000 +b4=00000000 +c0=00000001 state-word=00000001 machine+ac=5100 +b8=0
+ENGINE-ROUTE edge=8 event=01000002 engine=610beb04 machine-vt=00000000
+ENGINE-CALLED-WRAPPER event=01000002 pc=6031eb80
+EDGE 8 AFTER event=01000002 original-handler-called=true ctx+b0=00000000 +b4=00000000 +c0=00000001 state-word=00000001 machine+ac=5100 +b8=0
+EDGE 9 BEFORE event=01050007 ctx+b0=00000000 +b4=00000000 +c0=00000001 state-word=00000001 machine+ac=5100 +b8=0
+ENGINE-ROUTE edge=9 event=01050007 engine=610beb04 machine-vt=00000000
+ENGINE-CALLED-WRAPPER event=01050007 pc=6031edb0
+EDGE 9 AFTER event=01050007 original-handler-called=true ctx+b0=00000000 +b4=00000000 +c0=00000001 state-word=00000001 machine+ac=5100 +b8=0
+EDGE 10 BEFORE event=01050008 ctx+b0=00000000 +b4=00000000 +c0=00000001 state-word=00000001 machine+ac=5100 +b8=0
+ENGINE-ROUTE edge=10 event=01050008 engine=610beb04 machine-vt=00000000
+ENGINE-CALLED-WRAPPER event=01050008 pc=6031eec8
+EDGE 10 AFTER event=01050008 original-handler-called=true ctx+b0=00000000 +b4=00000000 +c0=00005000 state-word=00000001 machine+ac=5100 +b8=0
+EDGE 11 BEFORE event=01000003 ctx+b0=00000000 +b4=00000000 +c0=00005000 state-word=00000001 machine+ac=5100 +b8=0
+ENGINE-ROUTE edge=11 event=01000003 engine=610beb04 machine-vt=00000000
+ENGINE-CALLED-WRAPPER event=01000003 pc=6031ec98
+EDGE 11 AFTER event=01000003 original-handler-called=true ctx+b0=00000000 +b4=00000000 +c0=00000001 state-word=00000001 machine+ac=5100 +b8=0
+EDGE 12 BEFORE event=01000002 ctx+b0=00000000 +b4=00000000 +c0=00000001 state-word=00000001 machine+ac=5100 +b8=0
+ENGINE-ROUTE edge=12 event=01000002 engine=610beb04 machine-vt=00000000
+ENGINE-CALLED-WRAPPER event=01000002 pc=6031eb80
+EDGE 12 AFTER event=01000002 original-handler-called=true ctx+b0=00000000 +b4=00000000 +c0=00000001 state-word=00000001 machine+ac=5100 +b8=0
+EDGE 13 BEFORE event=01050007 ctx+b0=00000000 +b4=00000000 +c0=00000001 state-word=00000001 machine+ac=5100 +b8=0
+ENGINE-ROUTE edge=13 event=01050007 engine=610beb04 machine-vt=00000000
+ENGINE-CALLED-WRAPPER event=01050007 pc=6031edb0
+EDGE 13 AFTER event=01050007 original-handler-called=true ctx+b0=00000000 +b4=00000000 +c0=00000001 state-word=00000001 machine+ac=5100 +b8=0
+EDGE 14 BEFORE event=01050008 ctx+b0=00000000 +b4=00000000 +c0=00000001 state-word=00000001 machine+ac=5100 +b8=0
+ENGINE-ROUTE edge=14 event=01050008 engine=610beb04 machine-vt=00000000
+ENGINE-CALLED-WRAPPER event=01050008 pc=6031eec8
+EDGE 14 AFTER event=01050008 original-handler-called=true ctx+b0=00000000 +b4=00000000 +c0=00005000 state-word=00000001 machine+ac=5100 +b8=0
+EDGE 15 BEFORE event=01000003 ctx+b0=00000000 +b4=00000000 +c0=00005000 state-word=00000001 machine+ac=5100 +b8=0
+ENGINE-ROUTE edge=15 event=01000003 engine=610beb04 machine-vt=00000000
+ENGINE-CALLED-WRAPPER event=01000003 pc=6031ec98
+EDGE 15 AFTER event=01000003 original-handler-called=true ctx+b0=00000000 +b4=00000000 +c0=00000001 state-word=00000001 machine+ac=5100 +b8=0
+EDGE 16 BEFORE event=01000002 ctx+b0=00000000 +b4=00000000 +c0=00000001 state-word=00000001 machine+ac=5100 +b8=0
+ENGINE-ROUTE edge=16 event=01000002 engine=610beb04 machine-vt=00000000
+ENGINE-CALLED-WRAPPER event=01000002 pc=6031eb80
+EDGE 16 AFTER event=01000002 original-handler-called=true ctx+b0=00000000 +b4=00000000 +c0=00000001 state-word=00000001 machine+ac=5100 +b8=0
+EDGE 17 BEFORE event=01050007 ctx+b0=00000000 +b4=00000000 +c0=00000001 state-word=00000001 machine+ac=5100 +b8=0
+ENGINE-ROUTE edge=17 event=01050007 engine=610beb04 machine-vt=00000000
+ENGINE-CALLED-WRAPPER event=01050007 pc=6031edb0
+EDGE 17 AFTER event=01050007 original-handler-called=true ctx+b0=00000000 +b4=00000000 +c0=00000001 state-word=00000001 machine+ac=5100 +b8=0
+EDGE 18 BEFORE event=01050008 ctx+b0=00000000 +b4=00000000 +c0=00000001 state-word=00000001 machine+ac=5100 +b8=0
+ENGINE-ROUTE edge=18 event=01050008 engine=610beb04 machine-vt=00000000
+ENGINE-CALLED-WRAPPER event=01050008 pc=6031eec8
+EDGE 18 AFTER event=01050008 original-handler-called=true ctx+b0=00000000 +b4=00000000 +c0=00005000 state-word=00000001 machine+ac=5100 +b8=0
+EDGE 19 BEFORE event=01000003 ctx+b0=00000000 +b4=00000000 +c0=00005000 state-word=00000001 machine+ac=5100 +b8=0
+ENGINE-ROUTE edge=19 event=01000003 engine=610beb04 machine-vt=00000000
+ENGINE-CALLED-WRAPPER event=01000003 pc=6031ec98
+EDGE 19 AFTER event=01000003 original-handler-called=true ctx+b0=00000000 +b4=00000000 +c0=00000001 state-word=00000001 machine+ac=5100 +b8=0
+EDGE 20 BEFORE event=01000002 ctx+b0=00000000 +b4=00000000 +c0=00000001 state-word=00000001 machine+ac=5100 +b8=0
+ENGINE-ROUTE edge=20 event=01000002 engine=610beb04 machine-vt=00000000
+ENGINE-CALLED-WRAPPER event=01000002 pc=6031eb80
+EDGE 20 AFTER event=01000002 original-handler-called=true ctx+b0=00000000 +b4=00000000 +c0=00000001 state-word=00000001 machine+ac=5100 +b8=0
+EDGE 21 BEFORE event=01050007 ctx+b0=00000000 +b4=00000000 +c0=00000001 state-word=00000001 machine+ac=5100 +b8=0
+ENGINE-ROUTE edge=21 event=01050007 engine=610beb04 machine-vt=00000000
+ENGINE-CALLED-WRAPPER event=01050007 pc=6031edb0
+EDGE 21 AFTER event=01050007 original-handler-called=true ctx+b0=00000000 +b4=00000000 +c0=00000001 state-word=00000001 machine+ac=5100 +b8=0
+EDGE 22 BEFORE event=01050008 ctx+b0=00000000 +b4=00000000 +c0=00000001 state-word=00000001 machine+ac=5100 +b8=0
+ENGINE-ROUTE edge=22 event=01050008 engine=610beb04 machine-vt=00000000
+ENGINE-CALLED-WRAPPER event=01050008 pc=6031eec8
+EDGE 22 AFTER event=01050008 original-handler-called=true ctx+b0=00000000 +b4=00000000 +c0=00005000 state-word=00000001 machine+ac=5100 +b8=0
+EDGE 23 BEFORE event=01000003 ctx+b0=00000000 +b4=00000000 +c0=00005000 state-word=00000001 machine+ac=5100 +b8=0
+ENGINE-ROUTE edge=23 event=01000003 engine=610beb04 machine-vt=00000000
+ENGINE-CALLED-WRAPPER event=01000003 pc=6031ec98
+EDGE 23 AFTER event=01000003 original-handler-called=true ctx+b0=00000000 +b4=00000000 +c0=00000001 state-word=00000001 machine+ac=5100 +b8=0
+EDGE 24 BEFORE event=01000002 ctx+b0=00000000 +b4=00000000 +c0=00000001 state-word=00000001 machine+ac=5100 +b8=0
+ENGINE-ROUTE edge=24 event=01000002 engine=610beb04 machine-vt=00000000
+ENGINE-CALLED-WRAPPER event=01000002 pc=6031eb80
+EDGE 24 AFTER event=01000002 original-handler-called=true ctx+b0=00000000 +b4=00000000 +c0=00000001 state-word=00000001 machine+ac=5100 +b8=0
+EDGE 25 BEFORE event=01050007 ctx+b0=00000000 +b4=00000000 +c0=00000001 state-word=00000001 machine+ac=5100 +b8=0
+ENGINE-ROUTE edge=25 event=01050007 engine=610beb04 machine-vt=00000000
+ENGINE-CALLED-WRAPPER event=01050007 pc=6031edb0
+EDGE 25 AFTER event=01050007 original-handler-called=true ctx+b0=00000000 +b4=00000000 +c0=00000001 state-word=00000001 machine+ac=5100 +b8=0
+EDGE 26 BEFORE event=01050008 ctx+b0=00000000 +b4=00000000 +c0=00000001 state-word=00000001 machine+ac=5100 +b8=0
+ENGINE-ROUTE edge=26 event=01050008 engine=610beb04 machine-vt=00000000
+ENGINE-CALLED-WRAPPER event=01050008 pc=6031eec8
+EDGE 26 AFTER event=01050008 original-handler-called=true ctx+b0=00000000 +b4=00000000 +c0=00005000 state-word=00000001 machine+ac=5100 +b8=0
+EDGE 27 BEFORE event=01000003 ctx+b0=00000000 +b4=00000000 +c0=00005000 state-word=00000001 machine+ac=5100 +b8=0
+ENGINE-ROUTE edge=27 event=01000003 engine=610beb04 machine-vt=00000000
+ENGINE-CALLED-WRAPPER event=01000003 pc=6031ec98
+EDGE 27 AFTER event=01000003 original-handler-called=true ctx+b0=00000000 +b4=00000000 +c0=00000001 state-word=00000001 machine+ac=5100 +b8=0
+FINAL ctx+b0=00000000 +b4=00000000 +c0=00000001 state-word=00000001 machine+ac=5100 +b8=0

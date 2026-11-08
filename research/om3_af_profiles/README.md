@@ -145,6 +145,18 @@ not part of the original complete-run result counts above.
     bypassed). It then waits for a reply from an AF-family task that is not yet
     scheduled (message buffers 92/93).
   - No AF acknowledgement, focus result or hardware completion is supplied.
+- Later follow-up 22 runs schedule the queue-92 AF task (ROM task 104) and park
+  a blocked AF task with its native context until its flag is set
+  (`af-startup-consumer4`).
+  - **Matrix result:** the original button/SCP matrix passes **28 / 28**.
+  - **AF-ON chain:** the first AF-ON press completes the native LOCK_START
+    chain (worker, task 104, callback and replies), all produced by stock code.
+  - **Engine routing:** `OM3EngineRoutedConsumerProof` (`engine-routed4/5`)
+    delivers every edge through the stock GUI engine and the feature's table
+    wrappers, again 28 / 28.
+  - **Open:** later AF-ON presses are refused while a display-output change
+    flag (`0x62b7f7b4`) awaits a display-complete notification that the
+    emulation does not produce.
 
 Compact outcomes and manifests are under `recorded-evidence/capture-*` and
 `recorded-evidence/review/`. Review subdirectories preserve derived ROM facts,
