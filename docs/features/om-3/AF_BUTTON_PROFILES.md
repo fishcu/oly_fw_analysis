@@ -13,7 +13,11 @@ Later supplemental work recovered queue 95's 93-slot dispatch table and common
 request/reply format, applied a verified carry/overflow fix to the local Ghidra
 MN10300 language, and reran the labelled stock-reset scenario. That run reaches
 queue-95 command 0x1d and stops waiting for its receiver's reply on buffer 1032;
-it does not establish successful backend connection or autofocus. See the
+it does not establish successful backend connection or autofocus. A follow-up
+probe runs the stock AF-command task natively. With it, the capture connection
+completes and all four original handlers run in that connected context. AF-ON
+is then held because the router's requested backend never reports that it has
+started; no AF start command is sent. See the
 [current assessment and continuation plan](../../../research/om3_af_profiles/AF-GAP-CLOSURE-ASSESSMENT.md)
 and [supplemental evidence notes](../../../research/om3_af_profiles/README.md#supplemental-af-command-and-emulator-findings).
 

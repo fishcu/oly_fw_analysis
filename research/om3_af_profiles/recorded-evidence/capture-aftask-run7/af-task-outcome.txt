@@ -1,0 +1,6 @@
+AF-COMMAND-TASK PROBE (stock-reset scenario, silent SCPU; not a normal boot)
+task runs: {95=4}
+connection state=12 backend=00000000 requested=62b71778
+state-12 handler entries: {msg=7003d510 vtable=60dff1c8 isA=60af651c=1, msg=7003eda0 vtable=60e012b0 isA=60af79e0=1}
+terminal outcome: RETURNED connection probe with modelled 600303db; state=12 backend=00000000 requested=62b71778; inspect trace; physical completion excluded
+No reply, status or AF completion was supplied; see af-task-log.txt for every queue 94/95/96/99 exchange.

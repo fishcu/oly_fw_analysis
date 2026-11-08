@@ -1,0 +1,1 @@
+RETURNED connection probe with modelled 600303db; state=12 backend=00000000 requested=62b71778; inspect trace; physical completion excluded

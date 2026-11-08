@@ -120,8 +120,19 @@ not part of the original complete-run result counts above.
   Payload and reply are optional. This imported decoder adds a fallback to the
   packaged dispatch-map location; original probe manifests retain original
   source hashes, while `import-manifest.json` pins this packaged adaptation.
-- `OM3CaptureAfTaskProof.java` is a continuation probe source included as work
-  in progress. No completed execution result for it is claimed in this snapshot.
+- `OM3CaptureAfTaskProof.java` runs the stock queue-95 AF-command task (and the
+  queue-94 worker) natively when a caller would block on its reply. It also runs
+  the stock memory-pool constructor group `0x602153e6` and corrects four harness
+  models. Run 6 (`recorded-evidence/capture-aftask-run6/`) completes the capture
+  connection in each iteration: the AF-command task serves command 0x1d itself,
+  half-press and shutter-release return, and AF-ON press and release wait at
+  `0x60dd896d`. No handler sends an AF start command.
+- Run 7 (`recorded-evidence/capture-aftask-run7/`) adds observation-only logging
+  at the router's state-12 handler. Its results are identical to run 6. The router
+  is waiting for requested backend `0x62b71778` to report "started" (type 0x1b),
+  and that report never comes. The ninth follow-up in the assessment records the
+  event tally and the partial decode of the backend's sub-components. Backend
+  activation, AF-ON response and AF acquisition remain unproven.
 
 Compact outcomes and manifests are under `recorded-evidence/capture-*` and
 `recorded-evidence/review/`. Review subdirectories preserve derived ROM facts,

@@ -1,36 +1,52 @@
-# AF acceptance-gate closure assessment — 7 November 2026
+# AF acceptance-gate closure assessment — 8 November 2026
 
 This review covers the four acceptance gates in
 [FEATURE-SPEC.md](analysis/button-af/FEATURE-SPEC.md#current-evidence-and-limits).
-It began with static reading of the existing decompilation and byte searches of
-the decoded main payload. Four supplemental emulator probes followed, each
-extending the previous one; they are listed in the probe index below. No firmware
-image was changed or written, and no camera was accessed.
-**No gate is closed by this review. The readiness decision stays NO-GO.**
+It began with static reading and supplemental emulator probes; later follow-ups
+retain the successive boundaries and corrections. The summary below and the
+latest follow-ups contain the current interpretation. No camera-installable image
+was built, and no camera was accessed.
+**No complete acceptance gate is closed. The readiness decision stays NO-GO.**
 
 ## Summary
 
-- **Gate 1 (successful capture request/reply), software side.** The conditional
-  event-114 backend connection now runs natively from the real caller, through the
-  stock task-207 RPC loop, the inter-task transport and the stock port-2 link task.
-  It stops at the hardware link to the **SCPU** (component 0107). The SCPU's reply
-  would arrive on event flag 225. That exchange appears to be a power or USB-state
-  query, not AF itself.
-- **SCPU modelled as silent.** With the SCPU treated as not answering, the stock
-  code handles the timeout and continues. It then stops at a mode lookup whose key
-  comes from a record byte the harness never sets. That byte is derived from camera
-  settings; where it is written is still open (see the last section).
-- **Where focus is actually driven.** AF-ON's `setAflState` only produces a GUI
-  lock-state notification and a live-view power-saving restriction. Focus is driven
-  by the AF worker's `LOCK_START`, which comes only from AF-command queue 95,
-  entries 42 and 44. No fixed-command production sender of those entries exists, so
-  the AF start request is computed at runtime.
-- **Not started:** gates 2–4 (orientation, synchronisation, install and recovery).
+- **Direct-connection fixture gap: missing completion observers.**
+  The direct event-114 connection leaves the router in state 12 with no active
+  backend, but the capture backend itself completes its internal start. Its
+  success handler calls its observer notifier with **zero start observers**,
+  then enters stock `active` state (coarse 4, active 14). Stock category setup
+  registers the router's completion callbacks; the direct fixture omits that
+  setup. See the tenth follow-up and its two preserved observation runs.
+- **Earlier boundaries have advanced.** Native settings reset resolves the mode
+  lookup in this conditional scenario. The queue-95 task now runs stock command
+  0x1d and produces its own reply. The stock silent-SCPU timeout path continues;
+  it does not explain this particular empty-observer notification.
+- **Native capture activation and original AF-ON press now observed.** Stock-constructed input 0x1a4
+  makes native code construct and register the photo category, deliver a real
+  0x1b to the main router, and promote its selected category to `0x62b76000`.
+  The initial family input reaches router state 6 after 13 jobs. Native class-key
+  initialization, preserved constructor-created objects, the queue-10 receiver
+  and verified native missing-device callbacks then let the lower capture chain
+  activate: **coarse 4 / active 14, one start observer**. An original AF-ON press
+  returns with its owned-cache / Subject Detect checks intact. Release reaches
+  the old bump-heap limit; bounded free-space reuse is tested and the complete
+  original button/SCP matrix is running. Normal boot, real hardware acquisition,
+  input timing and the inherited OS/device fixtures remain unproved.
+- **Where focus is driven.** AF-ON's `setAflState` produces GUI lock-state and
+  live-view power-saving notifications. The AF worker's `LOCK_START` comes from
+  AF-command queue 95 entries 42 and 44. Run 6 now observes an original
+  AF-ON press enqueue **0x2a (42)**. Its downstream processing is still open: the
+  current scheduler services tasks on blocking receives, so a returning press
+  leaves this asynchronous command queued. Handler returns alone do not close
+  the AF-consumer / acquisition or synchronization proof.
+- **Still open:** acceptance gates 2–4 (orientation, synchronisation, installation
+  and recovery), normal boot, physical AF acquisition and camera safety.
 
 ## Probe index
 
-All probes are supplemental. None is part of `scripts/run_om3_live_offline.ps1` or
-of the 7 November full run. Each extends the one before it.
+These are supplemental probes, outside `scripts/run_om3_live_offline.ps1` and
+the original 7 November full run. The table lists the early probes; later
+follow-ups name their additional scripts and evidence folders.
 
 | Probe | Output folder (`analysis/button-af/readiness/`) | Outcome | Adds |
 |---|---|---|---|
@@ -1064,6 +1080,755 @@ camera state.
 and control-flow gaps under stated inputs. Modified-image acceptance, recovery
 after a failed modified boot, and actual cross-core timing/visibility still
 require hardware evidence. No firmware installation is part of this plan.
+
+## Eighth follow-up: AF-command task scheduled; connection completes (7 November, evening)
+
+**Still a labelled stock-reset scenario with a silent SCPU, not a normal boot.**
+The carry-fixed rerun (`readiness/capture-reset-carryfixed/`) stopped when the
+connection sent queue-95 command 0x1d and waited forever on reply buffer 1032.
+The new probe [OM3CaptureAfTaskProof.java](scripts/OM3CaptureAfTaskProof.java)
+extends `OM3CaptureResetProof`. When a caller would block, it runs the stock task
+loop serving a queue with pending work, natively from its entry, in its own saved
+context. This is the same pattern already used for task 207 and the port-2 task.
+Queue 95 is served by the AF-command task at `0x6031787e`, and queue 94 by the AF
+worker at `0x609df84d`. The probe never fabricates a reply.
+
+Six runs, each removing one diagnosed harness gap. All are kept under
+`analysis/button-af/readiness/capture-aftask*/`, with hashes in
+`capture-aftask-run6/evidence-manifest.json`:
+
+1. **AF-command task served command 0x1d natively.** The request was
+   `08040000 02000000 1d000000 4c70a962`, routed to handler `0x603c641a`. It
+   returned status 0, and the stock common reply sent 12 bytes to buffer 1032.
+   The caller then received the reply. Next stop: a read of address 0x10 at
+   `0x60542447`.
+2. **Missing stock constructor group.** `0x605423e3` queries free space in the
+   memory-pool registry at `0x606e21a0`: 119 slots of {id<<8, object}, with
+   objects at `0xa31f5xxx`/`0x97f00xxx`. Those objects are built by
+   static-constructor group `0x602153e6`, which runs the 13 entries of ROM table
+   `0x60718770` and is called from section loader `0x60045f44` at
+   `0x60046020`. The harness had only ever run the patched group `0x602153fb`.
+   The probe now runs `0x602153e6` natively before the reset. Every registered
+   pool then has a vtable (`0x606e291c`/`0x606e28e0`/`0x606e282c`).
+3. **Zero-length memcpy.** Vector-grow `0x60b2e8bf` copies an empty old array.
+   The shared model of imported memcpy `0x50002909` rejected n=0, so the probe
+   treats n=0 as a no-op (standard semantics). With that change the
+   **connection reaches quiescence for the first time** (30 jobs).
+4. **Lock primitive semantics.** `0x60075f73`/`0x60075fbc` (649 callers) were
+   modelled as one non-nesting "link spin-lock". Disassembly shows otherwise.
+   The take disables dispatch only if it is not already disabled (and then sets
+   bit 31 of its result), and calls `0x6004f63f`. That routine raises the PSW
+   interrupt-mask level (bits 8–10) to D0 only if the current level is lower,
+   and returns the old PSW. The release restores the PSW through `0x6004f660`
+   and re-enables dispatch only when bit 31 is set. Nesting, including
+   re-taking the same level, is therefore legitimate. The probe now uses a LIFO
+   model that checks the bit-31 flag against nesting depth.
+5. **Model state carried over between handler iterations.** The parent probes
+   never cleared their kernel and link model state between the four
+   fresh-emulator handler iterations, so iteration 1 skipped hook-table
+   publisher `0x6004cfd9`. The probe resets that state in `init()`. No earlier
+   probe got past iteration 0, so this had never been exercised.
+
+**Current result (run 6):** in all four iterations the connection runs to
+completion (`RETURNED`) after the stock reset, the pool constructors and a
+served command 0x1d. The four original handlers then give:
+
+| Handler | Result |
+|---|---|
+| `610b9197` (shutter half press) | RETURNED, mutex released, 0 native dispatches |
+| `610b962a` (AF-ON press) | BOUNDARY: waits on response semaphore 1037 at `0x60dd896d` (1000 ms) |
+| `610b9653` (AF-ON release) | BOUNDARY: waits on response semaphore 1040 at `0x60dd896d` |
+| `610b96f0` (shutter release) | RETURNED, mutex released |
+
+**No handler sent anything to queues 94 or 95.** The half-press body returns
+without starting AF directly, so its AF start goes through some other route that
+has not been traced. AF-ON's request is buffered by the capture router at
+`0x62b7315c`, which is still in **state 12, "newCapabilityStart"**, with the
+requested backend `0x62b71778` set and the active backend null.
+
+**Where backend activation happens (static).** In state 12, router event handler
+`0x60db3dca` takes the current message (`0x60dd9d65`) and tests it through
+vtable+8. A 0x17 result takes the "next transition notstart" failure path
+(`0x60db3048`, `0x60db3c2a`). A 0x1b result calls `0x60db3d96`, which copies
++0xbc to +0xb8 (activating the backend) and starts the object at +0xd8. Native
+messages with ID 0x1b occur 21 times during the connection, but the backend is
+never activated. So either the vtable+8 test is a class or type check rather
+than the message ID, or the relevant message comes from the backend's start
+acknowledgement, which may depend on the silent SCPU exchange (task 207 command 8
+returned 0xfffe). This has not been established yet.
+
+**What this establishes:** under the stated scenario and models, stock code
+completes the capture connection, serves an AF-command-task request natively, and
+runs all four original handlers in that connected context. **It does not
+establish:** backend activation, an AF-ON response, any AF start command
+(0x2a/0x2c) or worker `LOCK_START`, AF acquisition, or normal boot.
+
+**Next step:** instrument `0x60db3dca` to record each message's vtable+8 result
+in state 12. Then trace what sends the message that would yield 0x1b, and
+whether it depends on the SCPU reply.
+
+## Ninth follow-up: why the router stays in state 12 (7 November, night)
+
+Run 7 (`analysis/button-af/readiness/capture-aftask-run7/`) is run 6 plus
+observation-only logging at the state-12 handler `0x60db3dca`. Nothing is written
+by the instrumentation.
+
+**The vtable+8 call is a class test, not an ID compare.** For example, the
+AF-ON press event's test `0x60af651c` returns 1 only when the queried type is
+0x3bf (its own type) or 0x269 (its base type, tested in `0x60aed071`). Each
+event's type is the halfword at +4, set by its constructor. Types 0x17–0x1b are a
+family of generic result events built by `0x60bbbb40` (0x17), `0x60bbbb65`,
+`0x60bbbb8a` (0x19), `0x60bbbbaf` and `0x60bbbbd4` (0x1b). About 75 call sites
+across many state machines construct them.
+
+**What state 12 actually sees.** In the AF-ON press and AF-ON release handlers,
+`0x60db3dca` runs exactly once. The event it sees is the button event itself
+(type 0x3bf, then 0x5dd). Both class tests (0x17 and 0x1b) return 0, so the
+default path `0x60db3b09` runs. State 12 is never reached during the connection
+phase.
+
+**How state 12 is entered and what it waits for.** During the connection, a type
+0x19 event drives state 11 (`0x60db3d22`). That handler calls `0x60db30ec` and
+then enters state 12 (`0x60db3d70` → `0x60db3d78`). `0x60db30ec` branches on
+whether a backend was requested:
+
+- **Requested backend (+0xbc) is non-null:** build a start request
+  (`0x60aebe2a`) and hand it to that backend through the backend's vtable+4.
+- **No backend requested:** build a 0x1b itself and post it to the router
+  (`0x60dbd132`).
+
+In this run the requested backend is `0x62b71778`. So the router is waiting in
+state 12 for that backend to answer with 0x1b (started) or 0x17 (failed).
+
+**Tally of every event enqueued on the shared event queue `0x62b7659c` during
+the connection** (type at +4, target at +0x18):
+
+| Target | Events received |
+|---|---|
+| Router `0x62b7315c` | 0x19, 0x19a, 0x19d, 0x19f — **no 0x1b and no 0x17** |
+| Backend `0x62b71778` | 0x19a, 0x19f, 0x1f0, 0x1f4 ×2, 0x1b ×7 |
+| `0x62b732b8` / `0x62b73490` / `0x62b73870` | 0x1b ×1 / ×7 / ×6 |
+
+The backend gets its start request and seven child "done" events, but never
+posts a result to the router. Its dispatcher `0x60cb8f68` first offers each event
+to its own handler `0x60c6a0eb`. That handler class-tests the event against the
+type in global `0x62b74d54` and walks a component list. Any event it doesn't take
+goes on to its two children at +0x3a0 and +0x3a4 (`0x62b71f9c`, vtable
+`0x60ebc334`; `0x62b72f2c`, vtable `0x60ebda38`). Both children report component
+state 4 for the whole run.
+
+**Narrowed gap.** AF-ON is held because the backend under the router never
+completes its start. That composite backend (`0x62b71778`) and its two children
+are now the frontier (the partial decode below shifts the focus to the backend
+itself): they would have to reach the state that posts 0x1b to
+`0x62b7315c`. Two things are not established yet:
+- what component state 4 means;
+- whether leaving it depends on the silent-SCPU exchange (task 207 command 8 →
+  0xfffe).
+
+**Next step:** decode `0x60c6a0eb`'s type key (`0x62b74d54`) and the state
+handlers behind vtables `0x60ebc334` and `0x60ebda38`. Find the call site among
+the 0x1b constructors that targets the router. Then record which input the
+children are missing.
+
+**Still not established:** backend activation, an AF-ON response, an AF start
+command (0x2a/0x2c), AF acquisition, normal boot.
+
+### Partial decode of the sub-components (in progress)
+
+**Component state.** The "component state" in the receiver trace is the word at
++0xb0 (`OM3LiveReceiverTrace.java`). Three base classes share a five-step
+lifecycle for it. Each has one stock setter per step, and each setter writes the
+same value to +0xb0 and +0xb4:
+
+| Base class | States 1 / 2 / 3 / 4 |
+|---|---|
+| A | `0x60db0fb5` / `0x60db0fd1` / `0x60db10be` / `0x60db113d` |
+| B | — / `0x60dba54a` / `0x60dba64f` / `0x60dba6ca` |
+| C | `0x60dbafee` / `0x60dbb008` / `0x60dbb110` / `0x60dbb18e` |
+
+The setters `0x60db0e7e`, `0x60dba45b` and `0x60dbaebf` write a value passed in
+D0 rather than a constant.
+
+**State 4 is the last step.** All three state-4 setters do the same thing: write
+4, then call `0x60dbd56c`. Because 4 is the last value in the sequence, both
+sub-components (`0x62b71f9c` and `0x62b72f2c`) have reached the end of their own
+lifecycle. They are not stuck partway through it. So the missing piece is more
+likely in the composite backend `0x62b71778` itself: it receives seven child 0x1b
+events but never turns them into a 0x1b for the router. That is an inference and
+has not been verified.
+
+**Router state names.** These come from the stock name strings passed to
+`0x60dbd44c` and to the logger `0x60ae7412`:
+
+| Address | Name |
+|---|---|
+| state 9 / `0x60f11664` | `wait_restart` |
+| state 10 / `0x60f11689` | `previousCapabilityRestart` |
+| state 11 / `0x60f116ba` | `previousCapabilityEnd` |
+| state 12 / `0x60f116e1` | `newCapabilityStart` |
+| `0x60f116d0` | `TransitionStoped` (stock spelling) |
+| `0x60f116f4` | `next transition started` (the 0x1b branch) |
+| `0x60f1170c` | `next transition notstart` (the 0x17 branch) |
+
+**Still open:**
+- what `0x60dbd56c` does after state 4;
+- the type key at `0x62b74d54` that the backend's handler `0x60c6a0eb` tests
+  against;
+- which 0x1b construction site is meant to target the router `0x62b7315c`;
+- whether any of these depends on the silent-SCPU exchange.
+
+## Tenth follow-up: backend layout and completion notification (8 Nov UTC)
+
+This follow-up supersedes the ninth follow-up's suggestion that the two simple
+children must leave lifecycle state 4. The children are dispatch-ready at 4;
+the public capture backend has a different layout and state machine.
+
+**New evidence.** `OM3BackendStartTrace.java` observed one complete conditional
+stock-reset connection and deliberately stopped before the original buttons.
+The run is in `analysis/button-af/readiness/backend-start-trace1/`. The outcome
+file distinguishes this intentional observation stop from an execution failure.
+No additional input/reply/state was supplied by that observation subclass;
+the inherited direct event-114 input, reset and silent-SCPU models still apply.
+
+**Closed static questions.**
+
+- Global type key `0x62b74d54` is **0x269**, initialized by the stock request-base
+  constructor and copy path. `0x60c6a0eb` handles that request class, rather than
+  aggregating every child-start completion. All 12 observed class tests returned
+  zero for the connection's bare-event family, including start/done events.
+- `0x60dbabe4` explicitly requires simple-component lifecycle +0xb0 == 4 before
+  testing its registered event classes. Therefore 4 permits event dispatch.
+- `0x60dbd56c` records a diagnostic state through `0x60dbd63b` and conditionally
+  logs it. It does not itself construct or enqueue a start acknowledgement.
+
+**Layout correction.** For backend `0x62b71778` (vtable `0x60f10f50`), the coarse
+state is at +0xfc and the active state is at +0x100. The final snapshot is
+**4 / 14**. The backend's +0xb0 and +0xb4 belong to observer/vector storage;
+interpreting these as lifecycle/state produces meaningless large values.
+The generic `state()` labels in the original observation text are retained as
+historical output, but must not be used for this backend. The inherited
+`NATIVE-RECEIVER` logger also prints fixed offsets across different classes;
+its state labels require the same class-specific interpretation. Raw snapshot bytes
+are the evidence. The two children still use +0xb0/+0xb4 and finish at 4 / 4.
+
+**Completion path.** Backend handler `0x60daf121` recognizes successful internal
+start event 0x19a and enters `0x60daf108`. That routine calls `0x60cb6779`,
+which calls `0x60c6abfb`: notify the observer list embedded at backend+0x9c,
+then store the backend itself at +0x94. Afterwards `0x60daf7a5` enters coarse
+state 4 (stock name `active`) and active state 14. State 14's handler
+`0x60db08cc` recognizes class 0x118 for observer registration before entering
+a shooting-end sequence; reaching 14 alone is not evidence of failed startup.
+The retained native-call trace reaches this success path and state-14 setter.
+
+**New concrete lead.** The final backend snapshot has zero start observers
+(count at +0xa8). Stock still-image construction has an explicit wiring path:
+`0x60dd4a4f` creates/gets the capture backend, obtains the owning router's
+callback through `0x60db3230`, obtains the backend's observer list through
+`0x60dbf08d`, then registers the callback with `0x60dbcc7f`. The started callback
+`0x60dbb321` constructs event 0x1b and posts it to its target at +0x14.
+The current `OM3CaptureConnectedProof` fixture directly supplies event 0x114
+with the public capture interface. It does not reproduce this stock category
+construction and registration sequence. An omitted observer, or an omitted
+category layer, is therefore a specific harness explanation to test before
+attributing the missing router reply to hardware/SCPU.
+
+**Confirmed at the actual notification call.** The second observation run,
+`analysis/button-af/readiness/backend-notify-trace1/`, records the backend's
+success handler `0x60daf108`, bridge `0x60cb6779`, notifier `0x60c6abfb` and
+observer dispatch `0x60dbcd5b` on the same path. At the last call A0 is
+`0x62b71814` (backend+0x9c), and the observer count is **zero**. No registration
+of a start observer on that list occurs in this run. The ordinary connection
+trace is byte-for-byte identical to the first observation run. Thus the lack of
+a router acknowledgement in this fixture is explained by the omitted observer
+wiring; it is not evidence that the backend failed to finish its internal start
+or that a positive SCPU reply is required for this particular notification.
+
+`backend-class-aware-summary.json` in each run corrects the generic layout
+labels without rewriting the original observations. Each
+`class-aware-evidence-manifest.json` pins the raw observations, decoded stock
+payload, compiled processor definition, bounded disassembly and an archived
+copy of the complete Java inheritance chain. All **41 bounded windows** were
+checked for contiguous decoding and exact byte agreement with the stock
+payload. These checks validate the inspected bytes, not all possible paths or
+all processor semantics.
+
+**Native comparison result.** `OM3CaptureConnectedProof` now exposes
+`enqueueConnectionInput()`; its default body preserves the original direct
+input exactly, excluding comments/whitespace. `OM3StockModeConnectionProof`
+replaces that input with a stock-constructed event 0x1a4 to the native mode
+controller in its observed state 11. Sources for the earlier run are archived
+separately; notification instrumentation also avoids an unnecessary register
+read on unrelated instructions without changing emulated state.
+
+The run `analysis/button-af/readiness/stock-mode-connection1/` completes its
+connection observation. Native `0x60db1753` registers the main router's started
+callback on the newly constructed category `0x62b76000` (vtable `0x60f18aa8`).
+Its notification list at `0x62b7609c` has **one** observer. `0x60dbb321` executes
+with callback `0x62b7325c`, target `0x62b7315c`, constructs a genuine 0x1b and
+posts it. The router's state-12 0x1b class test returns 1, its native promotion
+path runs, and the queue drains after **13 jobs** with:
+
+- main router state **6**, active/requested category **0x62b76000**;
+- capture backend `0x62b71778` still **3 / 3**;
+- capture children still **3 / 3**;
+- no queue-95 task run and no original button execution in this observation.
+
+This proves native registration, callback delivery and promotion at the first
+category layer. It does not prove that the physical capture component has been
+selected. The generic inherited outcome files describe the deliberate
+observation stop as a `BOUNDARY`; `backend-start-outcome.txt` and the retained
+trace distinguish that instrumentation stop from a failed connection.
+
+## Eleventh follow-up: staged photo-mode input reaches an initialization gap
+
+The stock producer is an iterator, not a single event:
+
+- `0x60afd647` advances stages 0, 1 and 2 and returns each produced request.
+- Stage 0, `0x60afd577`, compares mode family bits and constructs 0x1a4 for
+  family `0x10000` through `0x60aebee9`.
+- Stage 1, `0x60afce68`, constructs **0x1a1** through `0x60aebe7d` for packed
+  photo modes `0x10100` or `0x10200`.
+- Stage 2, `0x60afcf22`, has a separate guarded table; its changed-mode path
+  requires a packed value at least `0x20101`, so these two photo values do not
+  produce another request there.
+
+The selected category's active-state handler `0x60dd4740` recognizes 0x1a1,
+then calls `0x60dd3ae9`. That path asks stock category logic to obtain the
+sub-component and produce the next connection. Native factory/wiring
+`0x60dd39c2` connects its callbacks; `0x60dd4a4f` is the lower still-image path
+that obtains and wires the capture backend. The stock ROM vtables confirm
+that `0x60f18aa8` dispatches the former factory through +0xcc, while the lower
+still-image vtable `0x60f18dd8` dispatches the capture factory through +0xc8;
+those slots must not be assumed identical across the classes. Ten additional bounded windows
+(**484 instructions**) in `analysis/review/mode-sequence/` agree exactly with
+the decoded stock bytes and cover these producer/consumer paths.
+
+`OM3StockModeSequenceProof` therefore supplies the two stock-constructed inputs
+in order, drains the native queue after family selection, and addresses the
+subtype input to the category that native code actually selected. Routing and
+input timing remain fixtures; it does not write any active/requested backend
+field or fabricate a completion event. It will attempt original AF-ON press
+and release through the existing resident/context fixture only if native code
+has actually made the capture backend active.
+
+**Observed result:** `analysis/button-af/readiness/stock-mode-sequence1/` again
+activates the first photo category. The subtype request then reaches the inner
+router `0x62b75e5c` with no selected backend; `0x60db8ad3` buffers it. There are
+no additional queued jobs, the capture backend remains 3 / 3, and the AF-ON
+guard stops before executing either button. The button-only trace is empty;
+its result is a failed capture-active precondition, not a firmware AF-ON fault.
+The preserved class-aware summary and source manifest distinguish these facts
+from the inherited intentional-stop `BOUNDARY` messages.
+
+## Twelfth follow-up: native protocol initialization advances subtype routing
+
+The category's request-routing function `0x60dcc872` reads its class key from
+`0x62b756bc`, calls the request's isA method, and returns the category itself
+when the class matches. Otherwise it can send the request to the inner router,
+which explains the observed buffering path.
+
+The stock initializer is `0x60dcd228`. It constructs a temporary subtype base
+through `0x60aed0d5` (class **0x26c**) and copies it into the global object at
+`0x62b756b8`. Its pointer is at ROM table slot `0x60f1a770`. The harness had not
+called it. `OM3StockModeInitializedProof` now runs the six omitted protocol
+constructors in the table's suffix, preserving registers around their native
+execution. It records the actual type key before/after and the category's
+subsequent class-test results. It never writes an expected key directly. The
+run is `analysis/button-af/readiness/stock-mode-initialized1/`. The observed
+key changes from **0x0000 to 0x026c**, and the category's native class test
+returns **1**. Stock `0x60dd39c2` creates the still-image category at
+`0x62b7637c` (vtable `0x60f18dd8`), registers its completion callback, and
+produces the next connection/start inputs. This closes the specific missing
+class-key explanation of the earlier subtype buffering.
+Nine more bounded windows in `analysis/review/mode-key-init/` cover the key,
+routing, copy constructor and these protocol constructors (**142 instructions**).
+
+**Broader startup audit.** Stock loader `0x60045f44` calls `0x60215410` for
+section 6. That group runs **49 constructors** from table `0x60f1a6b4`, byte
+count 0xc4. The previous explicit harness list called six of those constructors;
+no calls to the other 43 were found in the inspected trace. This is a coverage
+audit, not a normal-boot assertion; `constructor-coverage.json` records the
+trace hash, each table slot and the distinction between source-invoked roots
+and logged native calls.
+
+Some omitted constructors populate member-function descriptors that are zero
+in the decoded initial data. Examples are `0x6036c024` / `0x6036c548` /
+`0x6036d17c`, initialized by `0x60c6b6a3` / `0x60c6c120` / `0x60d20abf`.
+The associated stock function values are `0x60c7100a`, `0x60c70675` and
+`0x60d28814`. Therefore a selective constructor model is insufficient to
+interpret all future button-dispatch failures as device dependencies.
+
+The complete-group comparison in `OM3ProtocolConstructorGroupProof` has
+executed the stock section-2 pool group followed by **all 49 section-6
+constructors, each observed once**. `constructor-group-proof.txt` in
+`analysis/button-af/readiness/constructor-group-queue10-1/` records the visits,
+class keys 0x26c / 0x269 and verified representative descriptors. The later shooting/connection path exposed the singleton-reset conflict
+described in the fourteenth follow-up. The six legacy manual framework/
+receiver constructor calls are skipped in this variant, avoiding duplicate
+initialization; the legacy default bodies are preserved behind explicit seams.
+No reply or active/requested backend field is supplied. This covers these
+constructor groups, not the complete camera startup sequence.
+
+
+## Thirteenth follow-up: native queue-10 service and corrected header layout
+
+The initialized subtype run stops at empty reply buffer **1028**, after this
+16-byte request is queued to **MBF 10**:
+`04040000020000000100000038ff0470`. The worker's raw loads and native execution
+establish the header: **+0 reply buffer 0x404 (1028), +4 sender task ID 2,
++8 command 1, +12 payload pointer 0x7004ff38**. Earlier working notes called
+this command 2 by mistaking the sender-task field for the command. That
+interpretation is superseded. 0x404 is not a component ID.
+
+The stock task table identifies task 10's entry as **0x60065881**. It registers
+a queue-10 send hook that sets event flag 11 bit 2, waits on flag 11, references
+the queue, receives requests, calls **0x60065afb**, and constructs a reply
+through **0x6004d171**. Command **1** dispatches through **0x60065c35** to the
+property-write handler **0x60065781**. Descriptor key **0x8101** selects **one
+byte at 0x6298d500**; this command copies the payload's byte at +1 there. The
+30 stock descriptors and corrected header interpretation are retained in
+`analysis/review/queue10/property-descriptors-v2.json`. The earlier JSON is
+retained for historical manifests; its command-number metadata is incorrect.
+
+`OM3Queue10TaskProbe`, repeated in
+`analysis/button-af/readiness/task10-startup2/`, executes the native publisher,
+send-hook registration and worker entry, including timer registration, and
+reaches its own unsatisfied flag-11 wait. No timer expiry is generated.
+`OM3Queue10WorkerProof` preserves that task's registers and stack, initializes
+it before the send, and resumes the saved context when the caller blocks. Its
+scoped `ref_mbf` model reports the existing queue contents; command dispatch,
+property copying and response construction execute stock code.
+
+**Isolated exchange result:** `queue10-exchange3/` replays the captured header
+twice with one worker entry and two subsequent resumes. Each native worker
+reply is **`000000000200000038ff0470`**, and the caller's correctly supplied
+receive descriptor obtains these exact 12 bytes with wrapper status zero.
+The reply buffer is poisoned before each call to detect a missing copy. This
+proves a reusable native software receiver for this request under the fixture.
+It does not prove capture activation or a camera response. An earlier replay
+used a raw output pointer where the receive wrapper requires a descriptor;
+`queue10-exchange2/` therefore is not caller-delivery proof despite its original
+RETURNED label. The focused probe also requires explicit no-active-loop LIR /
+LAR register initialization; `queue10-exchange1/` stopped on that omission.
+
+The old trace captured the header, not its pointed-to payload. The corrected
+`queue10-exchange4/` explicitly supplies a two-byte zero payload fixture at the
+captured pointer and labels **command 1 / sender task 2** correctly. Both
+exchanges return the exact native reply to the poisoned caller buffer. This value
+is not claimed as observed camera data. Its result is retained with the explicit input fixture.
+No response, backend pointer, lifecycle transition or timer expiry is supplied.
+
+The 52 constructor-group windows (**10,005 instructions**) and seven queue-10
+windows (**523 instructions**) agree byte-for-byte with the stock payload.
+Across the five new analysis folders, **119 windows / 13,236 instructions**
+have now been checked for byte identity and contiguous decoding. This is not
+a whole-program reachability proof. Default harness initialization and the
+emulator execution loop were checked unchanged after expanding extracted
+methods.
+
+## Fourteenth follow-up: preserving the natively initialized main thread
+
+The first complete-constructor comparison,
+`analysis/button-af/readiness/constructor-group-queue10-1/`, initializes all
+49 constructors and verifies keys and descriptors, but **does not reach the
+queue-10 exchange**. Its supplied 0x19f startup event is released, zero startup
+jobs run, and the mode controller remains state **3**, so the mode-input idle
+guard stops. No mode selection or original button executes in this run.
+
+The retained trace identifies the cause: the native constructor group calls
+**0x60dd7bb4** and **0x60dd7aff**, initializing main-thread object
+**0x62b76554** and guard byte **0x6036d700**. Later, the legacy shooting fixture
+zeros **0xb50 bytes starting at that object**, also erasing the native default
+event context at **0x62b76a14**. The guard remains set, so the subsequent singleton getter
+does not reconstruct it. This is a destructive fixture operation after stock
+initialization, not evidence that the real camera stalls at startup.
+
+The second comparison, `constructor-group-queue10-2/`, preserves the object
+instead. Its override checks the native guard and vtable **0x60f19b98** and
+omits the later zeroing; it does not write a desired field or clear a guard to
+force reconstruction. The default harness keeps its old storage setup through
+an explicit seam. **Observed result:** the second run reaches **38 startup jobs / controller
+state 11**, makes the native category connection, and uses the real queue-10
+worker to obtain command 1's own reply (dynamic reply buffer 1030). It then
+queues **command 3**, which reaches an unprovided read of **0x97f00090**
+through getter `0x600216f2`, called at `0x600644f0` in the property builder.
+No original AF-ON input executes before that boundary. The source/result
+manifest preserves this run separately from the isolated replay.
+
+## Fifteenth follow-up: bounded independence proof for one MMIO read
+
+Raw getter **0x600216f2** consists of a four-byte read from **0x97f00090** and
+a return. Its physical register meaning is not established here. In the
+observed caller **0x600644d5**, the returned value is used only in a zero versus
+nonzero test. When the preceding source result in **D2.low is zero**, both
+branches reach **0x600644fe**, write the same output, and return **0xff**.
+This is a local dataflow statement, not a claim about the real register.
+
+`OM3StatusPropertyProbe` executes the entire native builder with the declared
+reset source flag **0x6299555e = 0** and separately supplied register values
+**0x00000000** and **0xffffffff**. Both runs return **0xff** and overwrite a
+poisoned three-byte buffer with **00 00 01**. These cover the only two value
+classes distinguished by the verified raw code. Results, traces and archived
+sources are in `analysis/button-af/readiness/status-property1/`.
+
+`OM3Queue10StatusIndependentProof` therefore continues only this getter call,
+only inside task 10 at **0x600644f0**, and only while **D2.low = 0** and the
+source flag is still zero. It uses zero as a representative value of the two
+equivalent classes, records every such abstraction, and rejects any other
+call site or condition. It does not set a backend state, invent a property
+reply, or assert a physical register value. The full comparison is
+`analysis/button-af/readiness/constructor-group-queue10-3/`. It uses the
+guarded abstraction once and progresses into additional native property
+refresh logic. The next stop is the legacy dispatcher's **Unexpected device
+callback** guard, not another MMIO read or a successful camera response.
+
+Fourteen further windows (**371 instructions**) cover the singleton getter,
+constructor, event-submit gates, receive wrapper and this status path. All
+new evidence now covers **133 bounded windows / 13,607 instructions**, checked
+against stock bytes. Decoding validates byte identity and continuity, not
+whole-program correctness or camera safety.
+
+## Sixteenth follow-up: native missing-device completion and sparse flag IDs
+
+The new callback is **0x600701ec**. Raw submitter **0x6006fd32** looks up the
+request endpoint through **0x6006fe4d**. With the declared registry empty
+(`0xa32bff14 = 0`), it selects that callback, queues it through **0x60072c53**,
+and returns native **failure result 1**. The old `OM3NativeLifecycle` model
+accepted only callback 0x6082e204, so its guard rejects this new path.
+
+The request is the native 56-byte packet at 0x7002b900 with original
+completion function **0x60064085**. Raw builder `0x60063f0c` stores an input
+byte as the endpoint; ROM `0x6012000c` lists **1, 4, 5, 2, 3**, all class 1.
+The C projection appeared to use literal 0x53, but that is contradicted by the
+raw load/store at `0x60063f7f` / `0x60063f83`. The original endpoint-0x53
+guard was therefore incorrect. The selected failure callback
+only invokes that original completion function if present. That function
+signals the caller's completion bit through **0x60066977**; it does not return
+a sensor sample or register a device. The software dispatcher itself stores
+callbacks in a ring through **0x60072d87** and requests service through an
+interrupt register. Immediate callback delivery remains an explicit scheduler
+fixture, not a claim about hardware interrupt timing.
+
+`OM3MissingDeviceCallbackProbe` in `missing-device2/` executes the submitter,
+failure callback and original completion function natively under that delivery
+model. It verifies **submit result 1**, the native flag notification, and an
+unchanged empty registry. No device success or sample is supplied. The first
+attempt, `missing-device1/`, stopped because the inherited static flag loader
+omitted flag 295.
+
+The ROM table contains **294 descriptors** with IDs **1..283 and 287..297**,
+then a zero terminator at **0x6003b8fc**. It is not a 283-record table: the
+last 11 IDs form a sparse tail. The new experiment loads those tail descriptors
+from their actual ROM records, preserving attributes and initial patterns.
+`analysis/review/device-dispatch/core0-flag-descriptors.json` records the full
+table and payload hash. The default legacy loader is retained for comparison.
+
+`OM3Queue10MissingDeviceProof` adds only this guarded missing-endpoint callback
+case and the ROM-backed tail flags. Run `constructor-group-queue10-4/`
+stops at the over-specific endpoint guard before delivering a callback.
+`missing-device3/` now tests **all five ROM-listed IDs**, clearing the input
+flag pattern before each test and preserving submit result 1, callback
+notification and an empty registry for every ID. The corrected full comparison
+is `analysis/button-af/readiness/constructor-group-queue10-5/`. It delivers
+the native missing-device callback but stops on **Unknown event flag 295**
+at its first set, before any later wait could lazily load that ROM descriptor.
+The flag must exist before a callback signals it, as in the native OS startup.
+No native failure result, device registry, backend state or sample is replaced.
+Ten additional byte-validated windows (**343 instructions**) cover the
+submitter, dispatcher, callback, completion signaling and request builder. The
+accumulated static audit is **143 windows / 13,950 instructions**.
+
+Evidence indexes now freeze mutable static analyses inside each run. Earlier
+indexes affected by an appended window-list row retain their original index
+plus an explicit migration record, with every expected content hash unchanged.
+Execution traces and source snapshots were not modified. All migrated indexes
+were revalidated after the path correction.
+
+## Seventeenth follow-up: complete native missing-device request path
+
+The next software initialization gap is the request-bit allocator at
+**0xa32bfb34**. Reset-only zeroing leaves it zero, and the request builder doubles
+it, still yielding zero. Native initializer **0x60063eda** seeds it to **1**
+and initializes the related software descriptor. It is called by larger
+property initializer **0x6006635a**, whose pointer is in ROM at **0x6012051c**.
+This identifies a missing native setup routine; it does not establish all
+property-service startup order or initialize an actual hardware endpoint.
+
+`OM3PropertyFailurePathProof` loads static flag 295 from its ROM descriptor
+before the first signal, runs **0x60063eda natively**, and preserves registers
+around setup. It never writes a desired completion bit or backend field.
+`OM3PropertyFailurePathProbe`, run in **property-failure4/**, then calls the
+complete native builder **0x60063f0c** for each of the five ROM-listed IDs.
+For each request it observes native allocation, missing-device submission,
+native failure callback, completion-bit notification, satisfied native wait,
+flag clearing and packet freeing. Native allocator progression is
+**2, 4, 8, 0x10, 0x20**. Each builder returns its native **fallback zero**;
+this is explicitly **not a sampled hardware measurement**. The device
+registry remains empty.
+
+The three earlier isolated attempts, `property-failure1/` through
+`property-failure3/`, stopped while preserving an incompletely specified root
+CPU context (SP, condition flags, then the SLEIGH scratch register). The final
+isolated probe declares a zero base-register CPU fixture and a valid stack
+before installing strict read checks. These are test setup corrections, not
+camera state evidence.
+
+The full comparison using this verified setup is
+`analysis/button-af/readiness/constructor-group-queue10-6/`. The native
+connection queue becomes quiescent after **45 jobs**, the capture backend
+reaches **coarse 4 / active 14** with **one start observer**, and the original
+**AF-ON press returns**. Release then stops at the bounded heap model, as
+detailed in the eighteenth follow-up. This is conditional software integration,
+not a camera AF acquisition result.
+The stock constructor groups, preserved main-thread/default context, native
+queue-10 worker and guarded MMIO-independent branch remain as documented.
+No device is registered and no successful device completion is supplied.
+
+Two further byte-validated initialization windows (**100 instructions**) bring
+the accumulated static audit to **145 windows / 14,050 instructions**.
+
+## Eighteenth follow-up: active capture, original press and bounded heap reuse
+
+Run **constructor-group-queue10-6/** completes the native category/capture
+connection and original AF-ON press. The backend receives the original path's
+**0x3bf** request and its stock class test recognizes the request. Its capture
+state remains **4 / 14**, with its completion observer registered. The press
+passes the inherited owned-target/cache and Subject Detect bypass checks.
+Its native path also queues **AF command 0x2a (42)** with bytes
+`06000000000001f02a00000040f30370`. The queue-95 task has serviced only the
+earlier setup command 0x1d in that run; the new asynchronous 0x2a remains
+pending because no later caller blocks before the release allocator boundary.
+This is evidence of native AF submission, not execution of LOCK_START or
+correct binding of the target profile when the asynchronous consumer runs.
+
+The release fails allocating another **896-byte vector** at the old model's
+high-water mark **0x7003fcb0**. That bump allocator never reused native frees.
+Reconstructing allocations from the connection and button traces finds
+**1,124 live allocations / 116,060 payload bytes**, **272 native frees**, and
+free gaps of **33,552**, **32,960** and **2,240** bytes. This demonstrates model
+capacity exhaustion despite reclaimable space, not camera heap exhaustion.
+`analysis/review/property-init/heap-capacity-run6.json` records the trace hashes
+and reconstruction.
+
+`OM3ReusingHeapProof` preserves the original arena **0x70010000..0x70040000**,
+64-KiB maximum request, bump behavior and native frees. At the old bump limit
+it allocates only from gaps absent from the live-allocation map; it does not
+expand into task stacks. **heap-reuse2/** verifies the 896-byte request,
+preservation of live canaries and unused tail bytes, free/reuse, and rejection
+of a genuinely full arena. The first test used an inconsistent synthetic
+high-water mark and was corrected before this result. This remains an OS heap
+model, not a proof of the camera allocator implementation.
+
+## Nineteenth follow-up: original button/SCP matrix and registered-device boundary
+
+The new **OM3OriginalButtonMatrixProof** comparison supplies native SCP setting
+values **0..6** through existing setter **0x60063431**. For each value it runs
+original **half press, AF-ON press, AF-ON release, half release** through the
+resident wrappers, checks expected profile owners **1, 2, 1, 0**, checks Subject
+Detect follows SCP except during AF-ON, and retains the inherited cache checks.
+The default probe still runs its original two AF-ON edges; the new input seam
+changes the matrix variant only. Its output is
+`analysis/button-af/readiness/original-button-matrix1/`. It passes **2 / 28**
+checks: original half press and AF-ON press for **SCP=0**. On AF-ON release,
+queue 95 processes the pending **0x2a** and submits **0x100 (LOCK_START)** to
+queue 94. The old timeout model then incorrectly times out an **infinite**
+flag-68 wait before scheduling queue 94, and the diagnostic path reaches
+unprovided kernel state at **0x97f00004**. This is a scheduler/timeout-model
+limitation; it is not a completed matrix or a camera release failure.
+Handler returns and ownership/cache checks do not assert focus acquisition,
+healthy device initialization or installation safety.
+
+The normal device-registry initializer is **0x6006fc01**, called by stock
+startup **0x60044f5f** at **0x60044fea**. Its ROM table contains endpoints
+**1, 2, 4, 12, 13, 14, 15, 16**; property IDs **3 and 5** legitimately miss
+that table. The initializer sets pointer **0x6012387c** and count **8**, then
+registers service/interrupt handling through **0x6006f515 / 0x6007602b /
+0x6004f86e**. The isolated registered-path probe selects the inherited board
+selector-0 fixture and supplies no hardware response or interrupt. It reaches
+an unprovided **0x97f00000** read at **0x6004f99b** during interrupt registration.
+The raw registration code shows that the loaded D0 value is discarded before
+use. In **device-registry2/** a zero representative for that discarded value
+lets native registration finish, retaining the eight ROM endpoints. This does
+not model physical bus ordering. The registered endpoint-1 request then stops
+at an unprovided read of **0x98c00028**, at **0x6006f53b**. Here bit 0 selects
+different native paths (`0x6006f715` versus `0x6006f80a`), so its control-flow
+dependence is real. No register response, measurement or interrupt is supplied.
+The registered-path probe preserves infinite waits as waits. Its remaining
+hardware state and interrupt behavior are separate from the verified native
+missing-device failure path.
+
+## Twentieth follow-up: native AF consumer scheduling without impossible timeouts
+
+The original-button trace establishes a longer native chain than earlier
+probes: **AF-ON press -> queue95 command0x2a -> handler0x603c86d7 -> queue94
+command0x100 (LOCK_START)**. Queue 94's real worker was not scheduled at the
+flag wait. The inherited silent-device timeout model accepted all nonzero
+timeouts, including **0xffffffff**, which is an infinite wait. Converting that
+wait to -50 is invalid for this scenario and exposes a diagnostic kernel path
+instead of the pending worker's actual behavior.
+
+**OM3OriginalButtonConsumerProof** therefore services pending AF tasks after
+original button edges and before AF flag waits. The task at the top of the
+nested execution stack is not reentered; native worker and command handlers
+run on their existing separate stacks. Task identity service results for
+queues94/95 use verified stock ROM task IDs **105/106**. If an infinite AF wait
+remains unsatisfied after available producers run, the probe stops at that
+wait, with its actual flag, mask, PC and task recorded. It supplies no AF
+completion and does not manufacture a timeout.
+
+The consumer run records queue94 payloads and any profile-cache accessor reads
+from AF tasks, alongside the original button/SCP ownership checks. Its output
+is `analysis/button-af/readiness/original-button-consumer2/`. The first
+consumer attempt did not execute because of a Java trace-helper compilation
+error, retained separately as NOT EXECUTED. The corrected run services queue94
+natively and reaches **LOCK_START** before stopping on a clear of valid static
+**flag 197**, which had not been created by the lazy object loader. Native task
+IDs105/106 and the worker payload were recorded; this still completes only the
+first two profile checks for SCP=0. No infinite AF timeout is fabricated in
+this corrected run.
+This is an explicit bounded schedule, not a proof of all camera interleavings,
+AF convergence, physical lens movement or race freedom.
+
+Seven registered-device windows (**249 instructions**) bring the accumulated
+static audit to **152 windows / 14,299 instructions**, all checked against the
+stock payload. The C projection's omitted/discarded volatile reads are checked
+against these raw windows before interpreting them as hardware dependencies.
+
+## Twenty-first follow-up: complete ROM tables and persistent AF workers
+
+The missing flag197 was a general object-provisioning defect. Core0's four
+relevant ROM tables contain **142 semaphores**, **294 event flags**, **5 data
+queues**, and **242 message buffers**. Semaphore IDs are 1..133 and 138..146;
+flag IDs are 1..283 and 287..297; message-buffer IDs have a contiguous prefix
+1..218 followed by 224..244, 253, 254 and 257. Table terminators and every
+record are captured in `analysis/review/static-os/core0-resource-tables.json`.
+These are four audited object types, not a claim of complete RTOS boot.
+
+**OM3CompleteStaticOSConsumerProof** provisions those objects from their ROM
+attributes, initial counts/patterns and capacities before constructors/tasks
+use them. Existing objects are preserved, not reset. It also retains native
+AF-task register/stack contexts at own-queue idle waits, so resuming a worker
+does not rerun its initialization. The new model does not populate a device
+registry, submit images, set an AF acknowledgement or manufacture a completion.
+
+**af-worker-startup1/** tests that setup without the long shooting reset.
+Native worker94 initialization completes, reaches its own empty queue, and
+resumes that same idle context. Its metadata initializer **0x609eff6b** is
+observed exactly once across both runs. No AF command or frame is supplied.
+
+The full comparison is **original-button-consumer3/**, using class
+`OM3CompleteStaticOSConsumerProof`; result pending. Its progress file confirms
+entry into the native settings reset/framework stage. The native lock/start
+hash table maps command **0x100** to normalized key **0x101**, table slot **6**
+at **0x60a83484**, handler **0x609df95b**, then **0x609e05a6**. These addresses
+are verified against ROM table bytes and bounded raw disassembly.
+
+Eight additional byte-validated windows (**832 instruction rows**) cover the
+worker dispatch, initialization, lock/start path, flag-clear wrapper and
+peripheral status branch. The accumulated audit is **160 windows / 15,131
+decoded instruction rows**; ranges overlap, so this is not a unique-instruction
+coverage count or a whole-program correctness claim.
 
 ## Unchanged position
 

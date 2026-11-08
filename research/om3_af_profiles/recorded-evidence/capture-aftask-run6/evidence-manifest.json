@@ -1,0 +1,147 @@
+{
+ "probe": "scripts/OM3CaptureAfTaskProof.java",
+ "probe_sha256": "c54d1d51fa655b51361d28f77bfeb44b97e8c69e75ee3846b30cf29cced071ba",
+ "language_fix": "carry-fixed MN10300 SLEIGH (analysis/review/carry-fix)",
+ "scenario": "labelled stock-reset scenario, SCPU modelled as silent; not a normal boot",
+ "runs": {
+  "capture-aftask": {
+   "description": "run 1: AF-command task scheduled; stop at pool-registry vtable read 0x10 @60542447",
+   "files": {
+    "af-sends.txt": "10448132bda28bd6b81d92a0cf50f7f5842c5555fda6da86f554f7ed9319541b",
+    "af-task-log.txt": "6a7f68aa1031dee661ffbd8325ce99305b52e8f96391cefafc8eca6f4fe9c204",
+    "af-task-outcome.txt": "372273e7e00c252269db9ddfa4f3eaf8eb2fb677e2fd966cd08c15a9a2f7c393",
+    "capture-connection-boundary.txt": "7b1b6018d17ab4b61ca98bd7e6633fb1bd16378b10ec66390214acc95be1f909",
+    "capture-connection-trace.txt": "1fb792946c1bceab7eb83e517ab5ff8cccc84ba3cd5ba25235292eddb9003ee7",
+    "capture-factory-trace.txt": "9bec9bd430803ed2c62e91a774ba7a318616b7809b170c248a6950eb0605c0db",
+    "console.txt": "d48ad3ee73d3a417d522b75ac424244585ec2c3cb49650bea9f27bf314955db4",
+    "kernel-model-outcome.txt": "bafcd311e252b7bd804d3f6be18d5f2ebbfa1b4938be4b4141a984922117cac7",
+    "link-outcome.txt": "8a8237291bfa355941421ccd5619e9c0d98ab766b88fc386c27dfc667e8ed66f",
+    "live-profile-relocation-map.txt": "ba78ca924b150dcb710429d9ed55eacd115068de2efec046cc92591d1e669145",
+    "reset-scenario.txt": "80bc0563de90abbfde8decf1b2b89a125a312361467e0e52ff4871512d591787",
+    "run.log": "30304b39e9535ad2a076cb14631a59294e439edb387d413517c6bd45dee0df77",
+    "startup-trace.txt": "19a3b01ce75b3ddfc0da78256fb817968e18ed1b53d7812cdae7c343b2894d0c",
+    "timeout-trace.txt": "1fb792946c1bceab7eb83e517ab5ff8cccc84ba3cd5ba25235292eddb9003ee7"
+   }
+  },
+  "capture-aftask-ctors": {
+   "description": "run 2: + stock static-constructor group 602153e6; stop at memcpy model n==0",
+   "files": {
+    "af-sends.txt": "10448132bda28bd6b81d92a0cf50f7f5842c5555fda6da86f554f7ed9319541b",
+    "af-task-log.txt": "c1cc691c5e6a1d75aeb131d4f00e22e00e015580c71da598f1c65a027494228f",
+    "af-task-outcome.txt": "6347efdcb5eeedae6d245ced8d967de1a1825622fdb403dec8388f8e7884fa83",
+    "capture-connection-boundary.txt": "57856456ba892dbbc5394f067ce9d2c8328d420a3efb7ab7accc06b01ca5094e",
+    "capture-connection-trace.txt": "0b87d9e14f47213aafc4e626f994a178ae82f9671371f7756074175724cbed2a",
+    "capture-factory-trace.txt": "4aafad59965e02e1c9c868c6c2f26763e82c5d708cb510bc34a23b42fa5609d6",
+    "console.txt": "779438d3a6d3dad5e5db4de3e3f2f409413450ebedf5313de88efb1f13a9f3eb",
+    "kernel-model-outcome.txt": "c4e5ec8d9f655339c8fbabdadc980293fd85b1a24f39ebb260bc6dd22139c19c",
+    "link-outcome.txt": "82ca8426f5f61b1c77e6927fc4ed1e9666c77fe04dff7a34275b33b1842ae7c7",
+    "live-profile-relocation-map.txt": "ba78ca924b150dcb710429d9ed55eacd115068de2efec046cc92591d1e669145",
+    "reset-scenario.txt": "80bc0563de90abbfde8decf1b2b89a125a312361467e0e52ff4871512d591787",
+    "run.log": "29f87b228f12138dc0292bf413ba0138c5c29192735512fcdcaac97eb1422797",
+    "startup-trace.txt": "97f3ac0584cfaecdfded1f3db276133c3428068d97e28fe9b0d6e93bfd6e28bb",
+    "timeout-trace.txt": "0b87d9e14f47213aafc4e626f994a178ae82f9671371f7756074175724cbed2a"
+   }
+  },
+  "capture-aftask-run3": {
+   "description": "run 3: + zero-length memcpy no-op; connection quiescent; handler 0 stops at nested lock-model check",
+   "files": {
+    "af-sends.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "af-task-log.txt": "b32e031ac034f86e475f676ea258cca5659c56d248029bfa07bb8505df8d76f3",
+    "af-task-outcome.txt": "13dff07a30e7366049766cb070521005a8b7123b8d7acf11c56a6eaea6d30e28",
+    "capture-connection-trace.txt": "e565653e56a41b4ea08630ed4bd555301430dd830ce865332d8a3be4134c1110",
+    "capture-factory-trace.txt": "4aafad59965e02e1c9c868c6c2f26763e82c5d708cb510bc34a23b42fa5609d6",
+    "console.txt": "92771f841b2e3e2f3f977e6914369f1cede55af5a63ecb40e775a3b5ab1b0bc6",
+    "full-shooting-trace-0.txt": "29ea0969a6c249188079e565b86c1d3ce97fdd366cc659000ff96e29a3c66a42",
+    "kernel-model-outcome.txt": "7f0d80b0ce153ecc1c2538ad190c762dbd8afac8c328289de65f08a7fb1f5929",
+    "link-outcome.txt": "c9487342e2ac7776a2898b7b3b19e397a4f50bf59e02c94d10b2f99d189314e6",
+    "live-profile-relocation-map.txt": "ba78ca924b150dcb710429d9ed55eacd115068de2efec046cc92591d1e669145",
+    "reset-scenario.txt": "80bc0563de90abbfde8decf1b2b89a125a312361467e0e52ff4871512d591787",
+    "run.log": "c30a7a77831569c317945df7f350d6cc0d205357a76c3d911a4168564bc0dfb1",
+    "startup-trace.txt": "97f3ac0584cfaecdfded1f3db276133c3428068d97e28fe9b0d6e93bfd6e28bb",
+    "timeout-trace.txt": "3fa3d4f595900437be90556d961e3b1a73eb751807635cfb3177fddf48406156"
+   }
+  },
+  "capture-aftask-run4": {
+   "description": "run 4: + nested lock model; iteration 1 fails from carried-over parent model state @6004d286",
+   "files": {
+    "af-sends.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "af-task-log.txt": "d96445d16fe45cbc2b52094a1c9ae408067d5de9ee4eeffec22fab82e170e555",
+    "af-task-outcome.txt": "5b319a8ec6f152310b892402c738c52f9d5b6bd286a7b98b1d672bb9f070d181",
+    "capture-connection-boundary.txt": "fa4057b9c1e2c8d63e9b8252053496dfb6d765b44ccdc8dcdcad2a9c1386c928",
+    "capture-connection-trace.txt": "4078e48a19510d822cdd5a3559ae07faac353a1be510a865a5902ba4aeb2264a",
+    "capture-factory-trace.txt": "a41656f8cd4b6cccdc8611068c0aa3288a087eb062f72ff9f6e3b41e78e8c502",
+    "console.txt": "678aef33d4fdaa7798ed2074e0ac91c1cb08f770355458360e6ed09bc55137d9",
+    "full-shooting-trace-0.txt": "ea02edf6f47c97ce079d37a85813cb982762d0f5dcbb2e1910642475fa36d064",
+    "kernel-model-outcome.txt": "3198d7a666aece3f925b387a6ec3163c1a0c58bb967ce053b15aa5bb75d1c257",
+    "link-outcome.txt": "43f566a68a9102dda7be7f50512966984517d6a2fd34e7bd4627dae090c776f8",
+    "live-profile-relocation-map.txt": "ba78ca924b150dcb710429d9ed55eacd115068de2efec046cc92591d1e669145",
+    "reset-scenario.txt": "80bc0563de90abbfde8decf1b2b89a125a312361467e0e52ff4871512d591787",
+    "run.log": "2145a52b04076122d6b871e2a2bf3641a03caa52c8b939cd110da413ec2c0f51",
+    "startup-trace.txt": "4b598139d1eb3cdc9120b155485a6f123c7db9693d74a83fe78d92a0915abfc9",
+    "timeout-trace.txt": "4078e48a19510d822cdd5a3559ae07faac353a1be510a865a5902ba4aeb2264a"
+   }
+  },
+  "capture-aftask-run5": {
+   "description": "run 5: + per-emulator state reset; all 4 connections RETURNED; 3 handlers stop at wrong same-level re-take rule",
+   "files": {
+    "af-sends.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "af-task-log.txt": "f29890ad17214c483e3de4dd5dfd621d42d8d0e57dc800215d1c0b6e03b0ad5d",
+    "af-task-outcome.txt": "f25978f23841b5843afb8d49b23b0672f5f31b8d6b8bd25dc2d5162ca2c7bd77",
+    "capture-connection-outcome.txt": "76660bf6bbe97f8ed5f0f1803f90cd9f4d2372108900a16595b10511de85b5be",
+    "capture-connection-trace.txt": "05e77b74adeac556acb437f8cc49997a422401afe9dc4cfbd64a4744ef0a6cb6",
+    "capture-factory-trace.txt": "bafd21cd769e43f564451109ef95af9c64e187badd4284a684c04891b3ad1cf1",
+    "console.txt": "8a11bd0b8d255b0803eb7c70de4c920f576a8330632b66304ae6869b5fa52701",
+    "full-shooting-results.txt": "4f8702f6f4bc0138e7beb432b62914501640db4f37818816b31f249546f8c2f0",
+    "full-shooting-trace-0.txt": "ea02edf6f47c97ce079d37a85813cb982762d0f5dcbb2e1910642475fa36d064",
+    "full-shooting-trace-1.txt": "7594395a8ba49c69a7aa2955e2551a33d919248da0339a78a63cb730dcc12b0b",
+    "full-shooting-trace-2.txt": "ea02edf6f47c97ce079d37a85813cb982762d0f5dcbb2e1910642475fa36d064",
+    "full-shooting-trace-3.txt": "ea02edf6f47c97ce079d37a85813cb982762d0f5dcbb2e1910642475fa36d064",
+    "kernel-model-outcome.txt": "47ceba47b068cea565a65887bbff8b323c7b2904c1e74e15565b31a014d3513d",
+    "link-outcome.txt": "0e6a86d3e7711a98882e39d3363f81deb1c0dbc2f02ab0e6e034f11cf8089443",
+    "live-profile-relocation-map.txt": "ba78ca924b150dcb710429d9ed55eacd115068de2efec046cc92591d1e669145",
+    "reset-scenario.txt": "80bc0563de90abbfde8decf1b2b89a125a312361467e0e52ff4871512d591787",
+    "run.log": "5996e970431cf1688761b8177c623ead951af502f532084dd0289596d06900cc",
+    "startup-trace.txt": "0bd6ec28af98ccc70fd5015ceb2f67f6cdc4a0ff738661ae4588ed82f2168871",
+    "timeout-trace.txt": "ea02edf6f47c97ce079d37a85813cb982762d0f5dcbb2e1910642475fa36d064"
+   }
+  },
+  "capture-aftask-run6": {
+   "description": "run 6 (current): + interrupt-level semantics for 6004f63f; 2 handlers RETURNED, 2 wait at 60dd896d",
+   "files": {
+    "af-sends.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "af-task-log.txt": "f29890ad17214c483e3de4dd5dfd621d42d8d0e57dc800215d1c0b6e03b0ad5d",
+    "af-task-outcome.txt": "f25978f23841b5843afb8d49b23b0672f5f31b8d6b8bd25dc2d5162ca2c7bd77",
+    "capture-connection-outcome.txt": "76660bf6bbe97f8ed5f0f1803f90cd9f4d2372108900a16595b10511de85b5be",
+    "capture-connection-trace.txt": "05e77b74adeac556acb437f8cc49997a422401afe9dc4cfbd64a4744ef0a6cb6",
+    "capture-factory-trace.txt": "bafd21cd769e43f564451109ef95af9c64e187badd4284a684c04891b3ad1cf1",
+    "console.txt": "b7d7598f0c696d3233947013f992b3eb94211eb40257ff58f74475d5d605b699",
+    "full-shooting-results.txt": "72b8ae288a9897f1f93671506cfe9f103bf91b126a1a3f99f76fde3ca389998e",
+    "full-shooting-trace-0.txt": "e117350d3b724d1363dbcf7bfa9029fab0ed93a3987438c2d95a4e9f66104275",
+    "full-shooting-trace-1.txt": "7594395a8ba49c69a7aa2955e2551a33d919248da0339a78a63cb730dcc12b0b",
+    "full-shooting-trace-2.txt": "7896b2116ad787c51a4f0a0ce716f57f60b7cf9e18daf928b51b6b2420e8aa50",
+    "full-shooting-trace-3.txt": "ef73a461e2dccaf5571b3fe23bb5b857e4687ffc186c959638b36f24ddd4f223",
+    "kernel-model-outcome.txt": "47ceba47b068cea565a65887bbff8b323c7b2904c1e74e15565b31a014d3513d",
+    "link-outcome.txt": "0e6a86d3e7711a98882e39d3363f81deb1c0dbc2f02ab0e6e034f11cf8089443",
+    "live-profile-relocation-map.txt": "ba78ca924b150dcb710429d9ed55eacd115068de2efec046cc92591d1e669145",
+    "reset-scenario.txt": "80bc0563de90abbfde8decf1b2b89a125a312361467e0e52ff4871512d591787",
+    "run.log": "e9e175bcd1616d8c2bf9942ffc3667117fff032972e3fa28afbe41cb774b8e40",
+    "startup-trace.txt": "0bd6ec28af98ccc70fd5015ceb2f67f6cdc4a0ff738661ae4588ed82f2168871",
+    "timeout-trace.txt": "ef73a461e2dccaf5571b3fe23bb5b857e4687ffc186c959638b36f24ddd4f223"
+   }
+  }
+ },
+ "current_results": [
+  "RETURNED original handler 610b9197 under heap/create models and supplied shooting context; downstream AF completion not asserted",
+  "BOUNDARY original handler 610b962a with bounded OS heap/create models, pc=60dd896d: java.lang.Exception: Semaphore would block id=1037, timeout=3e8",
+  "BOUNDARY original handler 610b9653 with bounded OS heap/create models, pc=60dd896d: java.lang.Exception: Semaphore would block id=1040, timeout=3e8",
+  "RETURNED original handler 610b96f0 under heap/create models and supplied shooting context; downstream AF completion not asserted"
+ ],
+ "not_established": [
+  "successful SCPU exchange",
+  "router backend activation (state 12, active backend null)",
+  "AF-ON response",
+  "any queue 94/95 AF start (0x2a/0x2c) or worker LOCK_START",
+  "AF acquisition",
+  "normal boot"
+ ]
+}
