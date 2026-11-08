@@ -1,0 +1,6 @@
+AF-COMMAND-TASK PROBE (stock-reset scenario, silent SCPU; not a normal boot)
+task runs: {}
+connection state=3 backend=00000000 requested=00000000
+state-12 handler entries: {}
+terminal outcome: BOUNDARY after modelled 600303db: java.lang.Exception: Mode controller must be in its observed idle state
+No reply, status or AF completion was supplied; see af-task-log.txt for every queue 94/95/96/99 exchange.

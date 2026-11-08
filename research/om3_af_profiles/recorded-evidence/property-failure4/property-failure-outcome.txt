@@ -1,0 +1,1 @@
+RETURNED: five native request builders completed via native missing-device failure callbacks, flag waits and packet frees; fallback zero is not a sensor sample; registry remains empty

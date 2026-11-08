@@ -1,0 +1,3 @@
+RETURNED shutter half press [SCP=0]; acquisition and hardware completion not asserted
+RETURNED AF-ON press [SCP=0]; acquisition and hardware completion not asserted
+BOUNDARY pc=60dd896d: java.lang.Exception: Native failure 600364c1: Unprovided startup read 97f00004 at 600364c1

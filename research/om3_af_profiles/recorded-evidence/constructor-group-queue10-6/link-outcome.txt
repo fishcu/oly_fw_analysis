@@ -1,0 +1,1 @@
+UNEXPECTED link-probe outcome: BOUNDARY after modelled 600303db: java.lang.Exception: INTENTIONAL STOP after conditional mode sequence and bounded original AF-ON attempt; inspect mode-sequence-button-results.txt

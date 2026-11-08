@@ -1,0 +1,1 @@
+RETURNED: 896-byte gap reuse, preserved live canaries and unused tail, free/reuse, and bounded exhaustion verified; arena not enlarged

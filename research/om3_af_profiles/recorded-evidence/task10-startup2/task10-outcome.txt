@@ -1,0 +1,1 @@
+IDLE: native task10 startup completed; no message or reply supplied

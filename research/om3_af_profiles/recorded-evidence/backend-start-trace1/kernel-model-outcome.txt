@@ -1,0 +1,1 @@
+BOUNDARY after modelled 600303db: java.lang.Exception: INTENTIONAL OBSERVATION STOP after first connection; no original button executed by this subclass

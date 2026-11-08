@@ -1974,6 +1974,76 @@ peripheral status branch. The accumulated audit is **160 windows / 15,131
 decoded instruction rows**; ranges overlap, so this is not a unique-instruction
 coverage count or a whole-program correctness claim.
 
+## Twenty-second follow-up: native AF mode start from stock startup steps
+
+`native-af-mode1/` (`OM3NativeAFModeProbe`) stopped on the shared
+**Task-ID output contract**. `OM3NativeAFModeDiagProbe` diagnoses each stop in
+turn (`native-af-mode-diag1..11/`); every fix is labelled in the source.
+
+| Run | Stop | Cause and labelled change |
+|---|---|---|
+| diag1–3 | task-ID output `0xa3456e84` | `0x60700fb4` is the AF-command API. Owner task ID (ROM `0x60042da2`) is **106**, the queue-95 task. Other callers take the cross-task path `0x6004f3bd`, which stores the caller's task ID into a native pool request. The inherited model allowed only stack outputs. **Model:** the same task-1 value may also be written to word +4 of a request whose header was just written. |
+| diag3 | null+0x8b4 at `0x609dbd6b` | Worker context `0xa33f3614` is set only by `0x609db6ab`, a sub-init of AF module init `0x608fe1b0`. That init is called only by startup task `0x602188f1` (task table `0x60039584`) at `0x6021897f`, which the harness never runs. **Supplied:** run `0x608fe1b0` directly. |
+| diag4 | "Diagnostic path `0x609dcddd`" | `0x609dcddd` is the AF module's trace logger (→ `0x609479ef`, ring-buffer record; 721 callers), not an error path. **Change:** run it natively and record each call. |
+| diag5–7 | memset bound | Init clears a 0x11800-byte AF buffer at `0xa5ee5000` (`0x60947242`). **Model:** same memset semantics with a 2-MiB bound for RAM destinations, logged. |
+| diag7 | null+0x28 at `0x6098b140` | Object `0xa32c9c24` is set by `0x602f61a2`, a sub-init of module init `0x602ef888`. That is called by stock startup sequence `0x60045907` at `0x60045b09` (← `0x60044f5f`), which the harness never runs. **Supplied:** run `0x602ef888` first. |
+| diag8 | read `0x97f00000` at `0x6004f99b` | The same discarded IRQ-registration read as the nineteenth follow-up. **Reuses** `OM3DeviceRegistryProbe`'s zero representative. |
+| diag9 | probe's LOCK_START guard | MODE_START (0x3f9) and MODE_UPDATE (0x3fa, param 2) round-trip natively: forwarded request → worker 94 → replies on buffers 1017/1018 → result 0. Guard byte `0xa33f3674` has one writer, the AF worker defaults `0x609df7e4`, which the same startup task runs at `0x6021898d` after `0x608fe1b0` and the empty `0x609001ec`. **Supplied:** run those two steps in stock order. |
+
+**diag10/diag11 result: RETURNED.** With the labelled startup steps:
+- module init `0x602ef888` completes, and `0xa32c9c24` becomes `0xa3193780`;
+- AF module init completes, and the worker context becomes `0xa33f2d5c`;
+- the AF worker defaults set `0xa33f3674` = 1 and `0xa33f3640` = 1;
+- native **MODE_START** and **MODE_UPDATE** are accepted, and LOCK_START's
+  baseline mode guard is met by stock-written state.
+
+The probe writes no worker readiness byte, acknowledgement or AF result.
+diag11 runs the same steps after the refactor into `OM3AFStartupConsumerProof`
+and reproduces diag10's evidence exactly.
+
+**Limits:**
+- The three supplied steps are direct calls of stock startup code. Their
+  callers (startup sequence `0x60045907` and startup task `0x602188f1`) are
+  not run, and neither are those callers' other steps (section loads 3/4,
+  `0x60181a38`, `0x6004d566`, `0x605629cd`, and the remaining `0x60045907`
+  steps).
+- The discarded-read representative and the two model widenings are
+  harness models.
+- This is not normal boot, AF execution or a hardware result.
+
+**Full comparison.** `OM3AFStartupConsumerProof` adds these startup steps
+and the mode commands to the consumer chain, then runs the original buttons.
+
+- **`af-startup-consumer1/`:** the steps and modes ran (`Prepared=true`). Half
+  press, which now enters the initialized AF module (`0x603cedfe` →
+  `0x609029f1` → status dispatcher `0x60903e88`), stopped on
+  `OM3NativeFlow`'s "diagnostic path" `0x60068a54` (code `0x0f804001`).
+- **Fix:** `0x60068a54` is the firmware's general **errlog writer** (4,928
+  callers; the caller continues afterwards). OM-Emu records errlog entries
+  during ordinary S1 presses. The consumer class now runs it natively and
+  records each call: 13 in consumer2, with codes `0x24000615`, `0x0f803003` and
+  `0x0f804001`.
+- **`af-startup-consumer2/`:**
+  - **Half press:** returns (SCP=0).
+  - **AF-ON press:** queue 95 → **LOCK_START (0x100)** to worker 94 with
+    owner 2 and subject 0, as in consumer3.
+  - **New:** the now-initialized worker reads the **AF-ON target profile
+    cache** (`AF-CACHE-ACCESS task=94 owner=2 active-cache=a031ea00
+    subject=0`, twice). This is the first observation of the AF worker itself
+    consuming the AF-ON profile with Subject Detect bypassed. consumer3 had no
+    worker cache access.
+  - **Stop:** the worker then sends request **0x5d** (parameter 0x0b00)
+    through `0x607117ac` to message buffer **92** and waits on buffer **93**
+    for the reply (`0x6004d115`). Queue 95 waits on the same buffer.
+  - **Checks:** profile-matrix checks remain 2 / 28.
+
+**Next step:** buffers 91–96 form the AF task family (ROM halfwords from
+`0x6004322a`). Identify the task that serves buffer **92**: queue-95 handlers
+`0x603c524c`, `0x603c531b` and `0x603c5378` send to it, and its loop likely
+receives through the generic helper `0x6004d087`. Then schedule it like the
+94/95 tasks. Its reply is produced by stock code or not at all. Nothing in
+these runs fabricates an AF reply, acknowledgement or focus result.
+
 ## Unchanged position
 
 Every acceptance gate stays open. The safe camera work is still stock-firmware

@@ -1,0 +1,4 @@
+BOUNDARY before complete mode-sequence connection snapshot
+Supplied stock-constructed inputs 0x1a4 then 0x1a1, with a native queue drain between them. Original button inputs/context are conditional fixtures. No completion reply, backend pointer or lifecycle value supplied. Inherited reset, OS models and silent SCPU remain fixtures.
+Conditional MMIO abstraction: getter600216f2 only at600644f0 in task10, with D2.low=0 and source6299555e=0. Both zero/nonzero result classes are equivalent in the verified native builder. Reads=1. No claim about the actual camera register.
+Conditional immediate delivery of native callback600701ec for empty-registry endpoint from ROM table6012000c, owned56-byte packet, original callback60064085. Scheduler accept result is modeled; native submit failure1 and callback body are not replaced. Deliveries=0. No device registered or sample supplied.

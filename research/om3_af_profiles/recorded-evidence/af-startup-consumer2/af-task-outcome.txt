@@ -1,0 +1,6 @@
+AF-COMMAND-TASK PROBE (stock-reset scenario, silent SCPU; not a normal boot)
+task runs: {95=2, 94=3}
+connection state=6 backend=62b76000 requested=62b76000
+state-12 handler entries: {msg=7002b050 vtable=60e6fc58 isA=60bbbbed=1, msg=7003e0d0 vtable=60e6fc58 isA=60bbbbed=1, msg=7003e180 vtable=60e6fc58 isA=60bbbbed=1}
+terminal outcome: BOUNDARY after modelled 600303db: java.lang.Exception: INTENTIONAL STOP after conditional mode sequence and bounded original AF-ON attempt; inspect mode-sequence-button-results.txt
+No reply, status or AF completion was supplied; see af-task-log.txt for every queue 94/95/96/99 exchange.

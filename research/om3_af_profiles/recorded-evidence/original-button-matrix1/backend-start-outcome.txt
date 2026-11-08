@@ -1,0 +1,7 @@
+CONNECTION OBSERVED; original AF-ON results recorded separately
+Supplied stock-constructed inputs 0x1a4 then 0x1a1, with a native queue drain between them. Original button inputs/context are conditional fixtures. No completion reply, backend pointer or lifecycle value supplied. Inherited reset, OS models and silent SCPU remain fixtures.
+Conditional MMIO abstraction: getter600216f2 only at600644f0 in task10, with D2.low=0 and source6299555e=0. Both zero/nonzero result classes are equivalent in the verified native builder. Reads=1. No claim about the actual camera register.
+Conditional immediate delivery of native callback600701ec for empty-registry endpoint from ROM table6012000c, owned56-byte packet, original callback60064085. Scheduler accept result is modeled; native submit failure1 and callback body are not replaced. Deliveries=1. No device registered or sample supplied.
+Stock software initializer60063eda executed before framework connection; this does not establish complete property-service startup or any hardware device.
+Bounded heap model reuses gaps in live-allocation map only after original bump capacity is reached. Arena remains70010000..70040000, allocation limit64KiB, native frees retained. Reused allocations=41. Not the camera's complete heap implementation.
+Original button matrix completed edges=2/28 under supplied native SCP settings0..6, stock-reset/shooting-context fixtures and declared OS/device models. A returning handler/profile check is not physical AF acquisition, valid camera boot or installation safety.

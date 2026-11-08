@@ -1,0 +1,1 @@
+RETURNED: native MODE_START and MODE_UPDATE accepted and produced their mode guards; no button/frame/AF result supplied

@@ -133,6 +133,18 @@ not part of the original complete-run result counts above.
   and that report never comes. The ninth follow-up in the assessment records the
   event tally and the partial decode of the backend's sub-components. Backend
   activation, AF-ON response and AF acquisition remain unproven.
+- Assessment follow-ups 10–22 add the stock-mode connection (`OM3StockMode*`),
+  the original button/SCP matrix and AF consumer scheduling, complete ROM OS
+  tables, and native AF mode start from labelled stock startup steps
+  (`OM3AFStartupConsumerProof`). Their compact outcomes, results, summaries and
+  manifests are under `recorded-evidence/<run>/`, and their derived ROM tables
+  under `recorded-evidence/review/`. Traces, memory images and disassembly
+  excerpts are omitted.
+  - In `af-startup-consumer2`, an original AF-ON press reaches LOCK_START, and
+    the AF worker reads the AF-ON target profile (owner 2, Subject Detect
+    bypassed). It then waits for a reply from an AF-family task that is not yet
+    scheduled (message buffers 92/93).
+  - No AF acknowledgement, focus result or hardware completion is supplied.
 
 Compact outcomes and manifests are under `recorded-evidence/capture-*` and
 `recorded-evidence/review/`. Review subdirectories preserve derived ROM facts,

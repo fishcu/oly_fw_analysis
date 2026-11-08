@@ -1,0 +1,1 @@
+RETURNED: native missing-device submit result1; native callback delivered flag notification; registry remains empty; no sample or successful device result supplied
