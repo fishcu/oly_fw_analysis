@@ -1271,8 +1271,152 @@ has not been verified.
 | `0x60f116f4` | `next transition started` (the 0x1b branch) |
 | `0x60f1170c` | `next transition notstart` (the 0x17 branch) |
 
+### Backend decode, continued (8 November)
+
+**State 4 has no further action.** `0x60dbd56c` only checks the log level and
+writes a trace line. Nothing else is attached to state 4.
+
+**Composite layout.** The stock singleton getter `0x60dae512` builds the capture
+composite once at `0x62b712b8` (constructor `0x60dae53d`, vtable `0x60f10744`).
+It returns the public interface at +0x4c0, which is `0x62b71778` (class
+`0x60f10f50`, derived from `0x60ec1f2c`). Members include:
+
+| Offset | Address | Class / role |
+|---|---|---|
+| +0x4c0 | `0x62b71778` | interface (dispatcher `0x60cb8f68`) |
+| +0xce4 | `0x62b71f9c` | vtable `0x60ebc334` |
+| +0x1c74 | `0x62b72f2c` | vtable `0x60ebda38`, the AE/AF lock controller checked by `OM3CaptureFactoryProof` |
+| +0x1d4c | `0x62b73004` | class `0x60f10824` (constructor `0x60dae8c8`) |
+
+**A sequencer that reports start results.** The +0x1d4c member's state
+dispatcher `0x60dae92b` (vtable slot `0x60f108a8`) handles four states:
+- **state 1:** waits for 0x19d;
+- **state 2:** `0x60daea4b` posts 0x1b ("started") to the object at its +0xa8 on
+  event 0x19a, after calling `0x60dbae2f`, or 0x17 ("failed") on event 0x19b;
+- **state 3:** handled by `0x60daeb54`;
+- **state 4:** waits for 0x1a6.
+
+In run 7, nothing addresses `0x62b73004` and its dispatcher never runs.
+
+**Composite start is never called.** Composite virtual slot +0x10
+(`0x60dae867`, at `0x60f10754`) calls `0x60dd94b7` on every member, including
++0x1d4c. Neither has a direct caller, and neither runs in any phase of run 7.
+
+**Stock attach routine is skipped (the strongest lead so far).** The only stock
+caller of the factory is `0x60dd4ad2`, called from `0x60dd4a4f` (vtable slot
+`0x60f18ea0`, apparently slot +0xc8 of owner class `0x60f18dd8` with constructor
+`0x60dd499b`). That routine does five things:
+1. gets the interface;
+2. calls its vtable+0xb8 with the owner;
+3. takes the router from owner+0x148;
+4. calls `0x60dbcc7f` twice to connect router channels (getters `0x60db3230` →
+   +0x100 and `0x60db323e`) to backend channels (`0x60dbf08d` → +0x9c and
+   `0x60dbf0a2`), then calls `0x60db3237`/`0x60dbefd4`;
+5. calls `0x60dcaf5b`.
+
+None of `0x60dd4a4f`, `0x60dd4ad2`, `0x60dd94b7` or the owner constructor ran.
+`OM3CaptureFactoryProof` calls the factory directly with a supplied parent, and
+`OM3CaptureConnectedProof` supplies event 114 naming backend `0x62b71778`. So in
+the emulation:
+- the router–backend channel connections are never made;
+- the composite's members are never started.
+
+**Revised reading of the state-12 stall.** The stall is most likely a gap in the
+harness's set-up of the scenario, not missing firmware behaviour or an SCPU
+dependency. The router waits for a result on a channel the stock attach routine
+would have connected, and the sequencer that produces start results was never
+started. This is a static reading and has not been confirmed by a run. It
+supersedes the earlier inference that the composite's handling of child events is
+the blocker.
+
+**Next step:** a labelled probe that runs the stock owner path natively instead
+of the bare factory:
+1. construct owner class `0x60dd499b` (or identify the stock object that already
+   holds one);
+2. invoke its slot +0xc8 (`0x60dd4a4f`);
+3. confirm that the router is at owner+0x148;
+4. rerun the four handlers.
+
+Pass condition: a 0x1b or 0x17 addressed to `0x62b7315c` arrives from stock code.
+
+### Cross-check in OM-Emu (8 November)
+
+**Search.** I checked the related GitHub projects for a better emulator:
+- the upstream (fishcu/oly_fw_analysis) and its 18 forks;
+- Ghidra-Rare and the pinned MN10300 extension (no change since our pinned
+  version);
+- a repository search.
+
+The upstream ships a GNU-simulator MN103 harness built for the PEN-F. Ax72864's
+fork adds an OM-3 boot harness on top of it, but that harness auto-stubs
+unmodelled accesses and parks in a synthetic idle loop. Neither touches the
+capture code.
+
+The useful find is **OM-Emu** (`flatpanda/om-emu`, commit `15d407e`, no
+license). It is a JavaScript MN10300 lab that runs the firmware's own µITRON
+kernel, GUI and camera application natively. Its OM-3 (E147 v1.1) main block
+is byte-identical to ours (`5e8d376e…`).
+
+**How it was run.** Locally only:
+- portable Node v26.12.1 under `tooling/`, checked against the published
+  SHA-256;
+- blocks unpacked from our local `.BIN`, with no vendor download;
+- a local-only patch to its `import.meta.url` path handling so it runs on
+  Windows (50 sites; OM-Emu itself unchanged);
+- the player on 127.0.0.1 with its debug API.
+
+OM-Emu's stand-ins are labelled. Several of them fabricate results; S-MODACK,
+for example, answers every module request with status 0. So its observations
+below are corroboration, not gate evidence.
+
+**Results:**
+
+| Session | Composite (`0x6036d470` / `0x62b712b8`) | Router `0x62b7315c` |
+|---|---|---|
+| default (camapp 1) | not built (0 / 0) | vtable `0x60f11758`, state 3 |
+| HLS components on (camapp 2) | **built by stock code**: flag 1, vtable `0x60f10744`, interface `0x62b71778` vtable `0x60f10f50` | state 6, active and requested backend both `0x62b76000` (vtable `0x60f18aa8`) |
+
+- **Layout confirmed.** The components session confirms the static composite
+  layout, and confirms that building the composite is part of the stock
+  component bring-up.
+- **The harness supplies a different backend.** At idle, stock bring-up leaves
+  the router in state 6 with backend `0x62b76000`. `OM3CaptureConnectedProof`
+  instead requests `0x62b71778` through supplied event 114. That supplied
+  request is a scenario choice, not the stock idle state.
+- **The button path cannot be tested there yet.** The OM-3 port comes up in
+  movie mode (4K 30p, movie-P), and its stills/movie switch is not wired. Half
+  press and AF-ON were accepted but executed none of: the four original
+  handlers, router dispatch `0x60db3289`, state 12, `0x60dd4a4f`, `0x60dae512`
+  or the queue-95 task (filtered exec trace, both sessions). OM-Emu's AF,
+  release and capture modules are stand-ins on every body.
+
+**Consequence.** OM-Emu cannot exercise this AF path today. The next step
+remains our own probe, with one adjustment. It should start from the
+stock-built state (composite built by the bring-up, router backend
+`0x62b76000`) rather than from a supplied request for `0x62b71778`. Then it
+should find which stock event requests a backend change on half-press or
+AF-ON.
+
+**Superseded (8 November, afternoon).** The stock-mode probes
+(`OM3StockMode*`; eighteenth follow-up onward) produce the category and capture
+connection natively from stock-constructed mode inputs 0x1a4 and 0x1a1. That
+covers the next step proposed above. A parallel direct-call probe,
+`OM3CaptureAttachProof` (runs `capture-attach-run1` and `capture-attach-run2`),
+did the following:
+- built the container `0x62b76180` and owner `0x62b7637c` natively, with
+  owner+0x148 = router `0x62b761f0`;
+- ran the attach routine's three channel connections and its registration;
+- stopped at a return-address setup error in the probe itself: an
+  explicit-prologue routine was entered as a `call` target.
+
+It was not continued and is not evidence for any gate. The OM-Emu observation
+remains a corroborating cross-check: in its components session, router
+`0x62b761f0` holds `0x62b71778` as active and requested backend in state 6.
+
 **Still open:**
-- what `0x60dbd56c` does after state 4;
+- the owner object's stock producer and its constructor arguments;
+- what `0x60dd94b7` sends to each member;
+- what `0x60dbd56c` does after state 4 (resolved above: logging only);
 - the type key at `0x62b74d54` that the backend's handler `0x60c6a0eb` tests
   against;
 - which 0x1b construction site is meant to target the router `0x62b7315c`;
