@@ -1,3 +1,6 @@
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Portable numeric recipes derived from validated client snapshots.
 
 Snapshots retain camera/context evidence; exported recipes contain only a

@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Read-only checks of cmdada's E-M10 I 1.4 source against stock firmware.
 
 Reads patch constants with Python's AST, without importing the contributor's

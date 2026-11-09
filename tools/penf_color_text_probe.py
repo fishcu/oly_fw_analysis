@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Bounded native COLOR-label layout probes using the stock English assets.
 
 The font/context are explicit fixtures, not captured running-camera objects.

@@ -1,3 +1,6 @@
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Scope and native GPIO-reader checks for deferred bc_ssc startup work."""
 import sys
 import unittest

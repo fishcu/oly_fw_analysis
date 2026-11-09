@@ -1,3 +1,7 @@
+/* Copyright 2026 fishku (original contributions)
+ * SPDX-License-Identifier: Apache-2.0
+ * Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
+ */
 /* PEN-F 3101 HSL: raw development. */
 /* Snapshot current-profile H/L after RAW Data Edit prepares its parameters.
  * Same capture-owner pool and transport as normal recording; no allocation.

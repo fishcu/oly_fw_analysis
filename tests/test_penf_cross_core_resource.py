@@ -1,3 +1,6 @@
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Native CPU1 request dispatch; IRQ entry/wakeup and kernel queues are isolated."""
 import struct
 import sys

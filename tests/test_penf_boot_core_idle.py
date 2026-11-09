@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Native write, core parking and bounded timer eligibility checks."""
 from pathlib import Path
 import sys

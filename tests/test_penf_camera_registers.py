@@ -1,3 +1,6 @@
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Native camera configuration copies callbacks and registers scoped IRQs."""
 import sys
 from pathlib import Path

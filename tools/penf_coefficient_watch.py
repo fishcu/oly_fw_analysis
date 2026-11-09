@@ -1,3 +1,6 @@
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Exact CPU-access guard for the first Red-lightness experiment.
 
 This is an emulator observation, not a firmware patch or hardware protection.

@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Check cmdada's SYSDUMP wrapper against E-M10 I 1.4 native flash READ.
 
 Extracts and assembles the wrapper from a pinned, separately supplied source.

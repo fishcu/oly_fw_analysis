@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Extract PEN-F 3101 inline text symbols; optionally verify native lookup.
 
 Read-only firmware analysis. The four-level raster decoder is inferred from

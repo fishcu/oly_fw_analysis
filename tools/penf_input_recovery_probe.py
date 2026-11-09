@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Offline PEN-F input and SD-client probes; no device access or image output.
 
 Native instructions run until an explicit boundary or an unknown access. SD

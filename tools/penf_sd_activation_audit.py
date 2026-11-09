@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Pinned evidence for the missing SD selector and reviewed indirect starts.
 
 Raw reference searches are candidate searches, not whole-program reachability

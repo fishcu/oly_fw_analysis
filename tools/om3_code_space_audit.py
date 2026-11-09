@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Qualify the published OM-3 V22 padding against native section boundaries.
 
 Read-only inputs; decoded memory experiments only. Storage reads and one loaded

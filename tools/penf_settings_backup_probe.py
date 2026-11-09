@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Native settings schema/export/reset/envelope probes; no camera or patch.
 
 The RAM fixtures model initialized arrays. The envelope load reads a supplied

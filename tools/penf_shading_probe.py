@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Read-only shading investigation; bounded native calls, no flashable output.
 
 The counterfactual changes five table words in host memory only. Synthetic

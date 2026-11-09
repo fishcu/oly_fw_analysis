@@ -1,3 +1,6 @@
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Opt-in real HTTP integration against 127.0.0.1 only (not a camera).
 
 python3 -m unittest discover -s tests -p check_loopback.py -v

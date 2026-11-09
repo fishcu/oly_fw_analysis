@@ -1,3 +1,7 @@
+/* Copyright 2026 fishku (original contributions)
+ * SPDX-License-Identifier: Apache-2.0
+ * Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
+ */
 /* PEN-F 3101 HSL: editor storage. */
 /* Persistent COLOR1/2/3 publication. All helpers and the live source reside
  * in settings section2, alongside the stock APIs/callers they extend.

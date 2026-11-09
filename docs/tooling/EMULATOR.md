@@ -36,8 +36,10 @@ only the pinned original or known patched content. Subsequent builds may omit
 manifest records configuration and source/binary hashes.
 
 GNU sources retain their upstream notices. The native wrapper
-[mn103_runner.c](../../tools/mn103_runner.c) is GPL-3.0-or-later. Preserve the
-corresponding source and license obligations if distributing a built engine.
+[mn103_runner.c](../../tools/mn103_runner.c), simulator patch and
+[preparation script](../../tools/prepare_mn103_sim.py) are GPL-3.0-or-later.
+Preserve the corresponding source and license obligations if distributing a
+built engine. See [licenses and attribution](../../RIGHTS-AND-PROVENANCE.md).
 
 ## Input and execution contract
 

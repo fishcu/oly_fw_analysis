@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Bounded external photographic-flash reconnaissance, not a firmware patch.
 
 Execute a received-device-info parser and GPIO wrapper with synthetic RAM and

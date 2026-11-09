@@ -1,3 +1,6 @@
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Bounded PEN-F setting names and the offline HSL1 prototype protocol.
 
 The native IDs are pinned in parameter-coverage.json, with the HSL1 wire

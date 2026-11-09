@@ -1,3 +1,6 @@
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Recipe round trips, restore artifacts and read-only commands; no real camera."""
 from contextlib import redirect_stderr, redirect_stdout
 from copy import deepcopy

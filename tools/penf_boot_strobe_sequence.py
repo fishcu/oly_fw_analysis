@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Fresh A-mode PEN-F boot with two scoped strobe-sequencer control writes.
 
 Accepts only the reviewed initialization writes, with no readback, interrupt,

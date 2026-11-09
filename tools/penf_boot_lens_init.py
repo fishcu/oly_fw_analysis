@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Continue native startup through five reviewed lens-interface zero writes.
 
 These are instruction-scoped write sinks, not a simulated working lens. Native

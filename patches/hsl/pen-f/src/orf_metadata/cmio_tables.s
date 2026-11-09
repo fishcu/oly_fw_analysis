@@ -1,3 +1,7 @@
+/* Copyright 2026 fishku (original contributions)
+ * SPDX-License-Identifier: Apache-2.0
+ * Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
+ */
 /* PEN-F 3101 HSL: orf metadata. */
 /* Captured HSL -> native CMIO P coefficients; called by the metadata hook.
  * a0: 72-byte destination, a1: captured 12 packed H/L bytes,

@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Continue native boot after Alex, mapping only reviewed application storage.
 
 The first record-buffer allocation is admitted after native allocation. Section

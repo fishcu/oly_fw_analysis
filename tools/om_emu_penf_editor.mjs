@@ -1,3 +1,6 @@
+// Copyright 2026 fishku (original contributions)
+// SPDX-License-Identifier: Apache-2.0
+// Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 // PEN-F editor probe for flatpanda/om-emu d24ff9dd20b98304541494d0199a5e6415eebdba.
 // Exposes two existing UI_IN keys. The firmware handles their press/release;
 // no direct GUI event, firmware change, device connection or download is made.

@@ -1,3 +1,7 @@
+/* Copyright 2026 fishku (original contributions)
+ * SPDX-License-Identifier: Apache-2.0
+ * Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
+ */
 /* PEN-F 3101 HSL: orf metadata. */
 /* At the one stock rec_raw_make_header call to export CMIO T.
  * Preserve its original call convention. The captured owner is a caller

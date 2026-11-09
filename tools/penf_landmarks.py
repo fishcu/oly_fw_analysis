@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Generate exact-build PEN-F 3101 research landmarks and bounded disassembly.
 
 Literal matches and opcode-pattern matches are candidates, not semantic xrefs.

@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Independently audit the supplied OM-3 V22 manifest, without executing its code.
 
 Reads stock firmware and JSON only. Reconstructs encoded/decoded release hashes

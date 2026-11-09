@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Complete native capture-to-processing conversion and COLOR copy lifetime.
 
 Uses the stock descriptor +124 capture pointer, stock table initialization,

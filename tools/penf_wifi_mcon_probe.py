@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Offline PEN-F 3101 Wi-Fi numeric-setting handler contracts.
 
 Runs native query parsing and setting writes against the existing captured

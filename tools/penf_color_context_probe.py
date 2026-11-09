@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Offline COLOR task ownership and native request/reply context contracts.
 
 Task 64's real entry wrapper runs the framework pump. The GUI worker has a

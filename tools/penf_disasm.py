@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Read-only windows and reference candidates for the exact PEN-F 3101 main block.
 
 The caller must choose instruction-aligned window boundaries. A raw-byte call

@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Read-only OM-5 / E-M1 II / E-M1 III / E-M5 III burst comparison.
 
 Pins archived stock containers, extracts six rate descriptors per camera and

@@ -1,3 +1,6 @@
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Execute the startup input-registration wrapper with its retained marker.
 
 Fixtures reproduce the two RAM words observed before USTART3. They do not

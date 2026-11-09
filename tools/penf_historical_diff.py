@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Validate and compare archived PEN-F 3100 stock with the supplied video hack.
 
 Produces evidence, decoded main blocks and disassembly; no patched update.

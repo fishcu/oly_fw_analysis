@@ -1,3 +1,7 @@
+/* Copyright 2026 fishku (original contributions)
+ * SPDX-License-Identifier: Apache-2.0
+ * Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
+ */
 SECTIONS {
 .range_wheel_encode 0x602fc3a7 : { *(.range_wheel_encode) }
 .range_value_label 0x60c84c75 : { *(.range_value_label) }

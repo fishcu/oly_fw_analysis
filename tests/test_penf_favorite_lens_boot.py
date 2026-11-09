@@ -1,3 +1,6 @@
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Native favorite-lens startup validation and RAM-default behavior.
 
 Only the lower storage read is supplied. No saved camera data or flash writes

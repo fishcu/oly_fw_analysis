@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Offline flash-access policy probes. No camera access or firmware output.
 
 Run the actual guard, backend mode selection, and direct page-program prefix.

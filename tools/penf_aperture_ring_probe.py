@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Bounded execution of azqeurio's PEN-F aperture-ring hooks, entirely offline.
 
 Requires the original release EXE as a data source and the pinned stock main.

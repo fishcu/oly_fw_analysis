@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Native recovery excerpts with COLOR code/data and proposed caves inaccessible.
 
 Also follows the diagnostic flash command up to its I/O request. All tests

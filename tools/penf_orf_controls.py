@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Make same-size PEN-F ORF metadata controls without rewriting image data.
 
 These test whether development honors the existing COLOR saturation metadata.

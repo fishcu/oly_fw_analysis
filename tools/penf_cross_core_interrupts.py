@@ -1,3 +1,6 @@
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """One reviewed CPU0-to-CPU1 IRQ120 wakeup; physical wake timing is hypothetical."""
 import struct
 

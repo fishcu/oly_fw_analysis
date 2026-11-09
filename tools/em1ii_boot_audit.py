@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Offline E-M1 II startup/SD comparison, with bounded native client probes.
 
 Pins six locally archived stock images. No device access, patch generation,

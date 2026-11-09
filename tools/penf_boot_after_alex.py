@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Continue after Alex with a scoped core-control write hypothesis.
 
 The native CPUSW write of 8 to private halfword 8040 is accepted. Physical

@@ -1,3 +1,7 @@
+/* Copyright 2026 fishku (original contributions)
+ * SPDX-License-Identifier: Apache-2.0
+ * Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
+ */
 SECTIONS {
 .backup_export_hook 0x602c1829 : { *(.backup_export_hook) }
 .backup_header_hook 0x602c1e8f : { *(.backup_header_hook) }

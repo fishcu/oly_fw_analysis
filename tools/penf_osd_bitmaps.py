@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Extract bounded PEN-F 3101 bitmap assets without modifying firmware.
 
 Supports the inferred format-3 byte-palette RLE stream, with six 10-bit

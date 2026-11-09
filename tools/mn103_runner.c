@@ -1,3 +1,7 @@
+/* Copyright 2026 fishku (original contributions)
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ * Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
+ */
 /* Offline MN103 execution harness around GNU libsim. GPL-3.0-or-later.
    Input protocol is private to penf_emulator.py; no camera/device access. */
 #include "defs.h"

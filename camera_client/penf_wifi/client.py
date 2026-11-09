@@ -1,3 +1,6 @@
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Explicit camera operations; reads never initiate a remote-mode transition."""
 from .protocol import (CAPABILITY, UNAVAILABLE, ClientError, Setting, integer,
                        named, profile_settings, scalar, signed, xml_root, validate_plan)

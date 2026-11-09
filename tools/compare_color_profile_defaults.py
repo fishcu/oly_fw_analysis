@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Pinned, offline COLOR preset comparison. Does not modify firmware or a camera.
 
 Checks native per-profile settings reads against the default arrays, exports

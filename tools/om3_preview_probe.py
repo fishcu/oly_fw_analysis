@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Execute V22's OM-3 preview wrapper and descriptor reader with modeled I/O.
 
 No camera connection or firmware output. The real producer and USB sender are

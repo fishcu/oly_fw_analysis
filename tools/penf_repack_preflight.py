@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Offline packaging/acceptance preflight. Saves JSON only, never update images.
 
 Real main components are assembled only in memory. Native updater writes are

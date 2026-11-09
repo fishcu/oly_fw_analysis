@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Rebuild the specified PEN-F HSL release from exact stock and assembly source.
 
 No network or camera access. The default build requires byte equality with the

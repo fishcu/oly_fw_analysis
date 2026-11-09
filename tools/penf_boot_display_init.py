@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Continue boot with the exact native display-state storage mapped as RAM.
 
 Only 8ff001a4..8ff001af is added, at its native initializer. Its current,

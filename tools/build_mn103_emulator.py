@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Build the pinned GNU MN103 core and offline harness locally (no network).
 
 For a fresh checkout, supply --archive with the upstream tar.gz named in

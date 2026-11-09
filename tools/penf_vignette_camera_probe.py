@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Bounded native probes for a highlight-protected PEN-F vignette.
 
 No camera access or firmware export. Produces analysis data, not a patch.

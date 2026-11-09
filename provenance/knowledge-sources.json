@@ -2,12 +2,12 @@
   {
     "path": "CONTRIBUTING.md",
     "sources": [],
-    "sha256": "13cd11732f65a73bcb2ab8aa3a15f979711d5ad672a72a8cf8019c742113dbf3"
+    "sha256": "9aa50556ea3d2888f9d4da87d26685a087bd32c0fb1d68a6eb385bbd58668ab0"
   },
   {
     "path": "README.md",
     "sources": [],
-    "sha256": "33323e6373c2ba9988e6887af2b85d4e14b001f386bfc1ef779cfd5cbc818802"
+    "sha256": "572fd20f7fc6902453aace9c9391c6e41d08abe411263433a777fa1a1cc91863"
   },
   {
     "path": "REPRODUCING.md",
@@ -17,7 +17,7 @@
   {
     "path": "RIGHTS-AND-PROVENANCE.md",
     "sources": [],
-    "sha256": "7b324fe9c4e6fbefa28bebf68dc5b33245a8f3ed51c60f4913d280896e0e97f9"
+    "sha256": "984b4c0d06db38dc5c1dbf0eb552a7bfcd4b0b1483f89128b558a8489700192a"
   },
   {
     "path": "docs/README.md",

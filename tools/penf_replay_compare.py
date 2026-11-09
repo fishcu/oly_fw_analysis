@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Compare complete replay bytes, allowing only explicitly changed source pins.
 
 Streaming comparison avoids loading two multi-million-record traces into RAM.

@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Documented MAC transfer semantics and the camera's context self-test.
 
 Reference: Panasonic MN103001G/F01K manual pp. 3-6, 3-8, 3-9.

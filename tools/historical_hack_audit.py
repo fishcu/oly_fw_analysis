@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Exact diffs and bounded native execution of three independently obtained hacks.
 
 No generated update files. Historical downloads are read-only inputs.

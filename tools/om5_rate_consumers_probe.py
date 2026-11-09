@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Read-only native comparison of OM-5 / E-M1 III electronic rate consumers.
 
 Runs registered setting APIs, typed getters, mode lookup and the bounded

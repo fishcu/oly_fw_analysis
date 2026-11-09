@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Native task127 StlRdy1 callback -> StlRdy2 entry, with explicit busy masks.
 
 No camera or firmware writes. The lower worker's status words are supplied

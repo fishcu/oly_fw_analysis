@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Convert a same-build OE firmware modification to an om-emu RAM overlay.
 
 Reads two separately obtained update files; writes JSON, never a firmware BIN.

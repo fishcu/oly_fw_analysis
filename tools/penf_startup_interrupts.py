@@ -1,3 +1,6 @@
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Bounded CPU0 task-context interrupt hypothesis for reviewed USTART3 sites.
 
 Keeps the earlier idle model unchanged. Timer cadence is native instruction

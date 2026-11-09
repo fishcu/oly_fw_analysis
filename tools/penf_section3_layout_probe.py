@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Execute the section-3 loader with an explicit, successful logical-flash model.
 
 Only JSON reports are saved. This checks native address/length selection and

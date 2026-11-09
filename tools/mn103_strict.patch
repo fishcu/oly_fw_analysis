@@ -1,3 +1,9 @@
+SPDX-License-Identifier: GPL-3.0-or-later
+Modifications: Copyright 2026 fishku
+GNU simulator source context retains its upstream copyrights and notices.
+License: LICENSES/GPL-3.0.txt
+Source: binutils-gdb 87ffb882e0f4d73401a0746177ffabb8e8bbe4ac
+
 --- a/sim/mn10300/interp.c
 +++ b/sim/mn10300/interp.c
 @@ -17,6 +17,10 @@

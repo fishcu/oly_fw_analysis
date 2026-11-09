@@ -1,3 +1,6 @@
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Protocol/state tests with an explicitly simulated camera; no camera network I/O."""
 from contextlib import redirect_stderr, redirect_stdout
 import io

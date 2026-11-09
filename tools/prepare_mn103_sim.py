@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Apply the small, reproducible strict-mode changes to our pinned GNU tree."""
 import difflib
 import hashlib
@@ -12,6 +15,13 @@ ORIGINAL_SHA256 = {
     'interp.c': 'f6c34c6c81ff67bda52d6b57d0ea47954587e36908923cd7e4e59a90424cd37b',
     'mn10300.igen': '355754c61879dc24bf6128bbba5a7931355731000e8cb213082b9b9cd4df0129',
 }
+PATCH_NOTICE = '''SPDX-License-Identifier: GPL-3.0-or-later
+Modifications: Copyright 2026 fishku
+GNU simulator source context retains its upstream copyrights and notices.
+License: LICENSES/GPL-3.0.txt
+Source: binutils-gdb 87ffb882e0f4d73401a0746177ffabb8e8bbe4ac
+
+'''
 
 
 def main():
@@ -115,7 +125,7 @@ unsigned penf_fault_address, penf_fault_pc;
             target.write_text(updated)
         changes.extend(difflib.unified_diff(original.splitlines(True), updated.splitlines(True),
                                           fromfile=f'a/sim/mn10300/{name}', tofile=f'b/sim/mn10300/{name}'))
-    (ROOT / 'tools/mn103_strict.patch').write_text(''.join(changes))
+    (ROOT / 'tools/mn103_strict.patch').write_text(PATCH_NOTICE + ''.join(changes))
     print('Strict-mode patch applied; source diff saved to tools/mn103_strict.patch')
 
 

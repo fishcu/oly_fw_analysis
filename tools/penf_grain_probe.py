@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Bounded PEN-F grain configuration probes; no pixels, camera I/O or BIN export.
 
 Original MN103 instructions configure synthetic requests and write to captured

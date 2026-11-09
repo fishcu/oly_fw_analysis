@@ -1,3 +1,7 @@
+/* Copyright 2026 fishku (original contributions)
+ * SPDX-License-Identifier: Apache-2.0
+ * Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
+ */
 SECTIONS {
 .native_orf_hook 0x6053caff : { *(.native_orf_hook) }
 .native_orf_export 0x601cade0 : { *(.native_orf_export) }

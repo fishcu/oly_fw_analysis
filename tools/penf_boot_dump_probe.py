@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Offline PEN-F diagnostic dump qualification; never connects to a camera.
 
 Runs stock instructions with synthetic RAM/controller responses. Stops before

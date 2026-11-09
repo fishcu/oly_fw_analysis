@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Offline native updater experiments. No camera, USB, or real flash access.
 
 Starts at reviewed functions with synthetic callers, not physical SD activation.

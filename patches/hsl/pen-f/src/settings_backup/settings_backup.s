@@ -1,3 +1,7 @@
+/* Copyright 2026 fishku (original contributions)
+ * SPDX-License-Identifier: Apache-2.0
+ * Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
+ */
 /* PEN-F 3101 HSL: settings backup. */
 /* Named settings backup and restore extension.
  * Camera named-record extension: 2,PENF_HSL_V1,<36 packed bytes as hex>\r\n.

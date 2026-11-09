@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Fresh PEN-F boot with A selected through ADC channel 7's native decoder.
 
 Only that channel's sample changes from 900 to 415. The stock channel table

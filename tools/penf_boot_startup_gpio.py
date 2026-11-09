@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Task-context IRQ continuation with scoped GPIO97 output-sample hypothesis."""
 import hashlib
 from dataclasses import replace

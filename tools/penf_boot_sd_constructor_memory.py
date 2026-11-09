@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Admit native section-constructor allocations from reviewed fixed pools.
 
 Native allocation/bitmap operations execute. Only requested bytes of a newly

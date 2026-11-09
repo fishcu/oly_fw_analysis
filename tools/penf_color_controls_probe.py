@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Offline COLOR input routing and settings-bank contracts, without a patch.
 
 Fixtures supply a selected GUI state and initialized object pointers. They do

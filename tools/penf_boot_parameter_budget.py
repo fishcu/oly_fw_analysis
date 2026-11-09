@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Run the reviewed parameter initialization with a larger native work budget.
 
 Uses penf_boot_parameter_init's CLI and identical boot assumptions. The only

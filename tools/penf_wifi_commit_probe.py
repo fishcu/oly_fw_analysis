@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Offline PEN-F Wi-Fi setting application and mode-restore contracts.
 
 Runs the stock raw CGI setter or the application's public-setter prefix,

@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Continue USTART3 with its natively allocated API log mapped as bounded RAM.
 
 Only the requested 16380 bytes are promoted, after allocation has executed.

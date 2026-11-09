@@ -19,5 +19,11 @@ Submit source and findings without vendor binaries, private photos/settings or
 forum archives. Link to public references. Prefer reproducible probes over large
 copied disassemblies; include the input hash and instruction boundaries.
 
+Original contributions are accepted under Apache-2.0, except contributions to
+the identified GPL components, which use GPL-3.0-or-later. Preserve third-party
+notices and identify any material offered under different terms. Only contribute
+material you have the right to submit under those terms. See
+[licenses and attribution](RIGHTS-AND-PROVENANCE.md).
+
 A successful checksum, emulator run or test on another model is not proof that
 a modification is safe to flash. Describe the tested behavior precisely.

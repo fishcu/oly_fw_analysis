@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Execute stock PEN-F sharpness configuration and capture its register uploads.
 
 Synthetic requests, original CPU instructions, write-capture MMIO. Does not

@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Read-only structural atlas of pinned PEN-F 3101; no patch or device access.
 
 Byte statistics are descriptive, not a code/data classifier or free-space proof.

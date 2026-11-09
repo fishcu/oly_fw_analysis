@@ -33,4 +33,8 @@ Ready-to-install PEN-F HSL packages are available under
 [17 October 2026](https://github.com/fishcu/oly_fw_analysis/releases/tag/alpha-20261017)
 and [13 October 2026](https://github.com/fishcu/oly_fw_analysis/releases/tag/alpha-20261013).
 Each includes the patched firmware, stock restore, instructions and checksums.
-See [license information](RIGHTS-AND-PROVENANCE.md) before reusing code.
+
+Original project contributions use [Apache 2.0](LICENSE), with
+[documented exceptions](RIGHTS-AND-PROVENANCE.md) for the GNU simulator
+integration, font-derived artwork and third-party material. The license does
+not cover vendor firmware in release archives.

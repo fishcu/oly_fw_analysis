@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Counterfactual SD activation inside a fresh native boot replay.
 
 Change one runtime task-start argument, never firmware bytes. Native kernel

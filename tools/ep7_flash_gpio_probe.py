@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Verify E-P7's missing external-flash GPIO routes using stock initializers.
 
 No MMIO is mapped: an attempted hardware access stops the native experiment.

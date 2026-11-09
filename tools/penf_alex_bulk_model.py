@@ -1,3 +1,6 @@
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Bounded extension of the hypothetical Alex peer through its bootstrap upload.
 
 No device I/O or auxiliary CPU emulation. DMA consumes only three pinned native

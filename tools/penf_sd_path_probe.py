@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Connected offline SD transactions after explicit client/service entry.
 
 Native client, service, decoder, validator, flash wrapper and reply consumer.

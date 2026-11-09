@@ -1,3 +1,6 @@
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Bounded hypothetical serial peer for seven native 'alex' startup commands.
 
 The reply script comes from native expected-reply constants, not captured hardware.

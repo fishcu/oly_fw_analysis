@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Offline native HSL configuration and hardware-table submission probes.
 
 Synthetic request/context, not a full capture. MMIO is write-capture memory,

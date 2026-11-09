@@ -1,3 +1,7 @@
+/* Copyright 2026 fishku (original contributions)
+ * SPDX-License-Identifier: Apache-2.0
+ * Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
+ */
 /* PEN-F 3101 HSL: orf metadata. */
 /* Carry-preserving encoded delta, with exactly n writable bytes.
  * a0 destination, a1 old plaintext, a2 new plaintext, d0 count,

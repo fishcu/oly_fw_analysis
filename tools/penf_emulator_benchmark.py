@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Measure a fresh connected replay, including native transport and artifacts.
 
 No checkpoint resume and no changes to the driver's modeled hardware behavior.

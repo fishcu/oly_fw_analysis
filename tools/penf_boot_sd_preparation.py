@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Constructed SD-start prerequisites, using native loader/setup bodies.
 
 Fresh replay; temporary harness CALL instructions do not modify firmware.

@@ -1,3 +1,6 @@
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Explicit, optional runtime hardware hypotheses. No camera/device access.
 
 IRQ entry uses the base MN103 frame from the pinned GNU dv-mn103cpu.c and

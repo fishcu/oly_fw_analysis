@@ -1,3 +1,7 @@
+/* Copyright 2026 fishku (original contributions)
+ * SPDX-License-Identifier: Apache-2.0
+ * Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
+ */
 /* PEN-F 3101 HSL: wifi. */
 /* Remote profile edits through the native application event path.
  * set_mcon mode = native ID, value = 0x485Axxxx, A=0/S,1/H,2/L.

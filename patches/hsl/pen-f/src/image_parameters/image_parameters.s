@@ -1,3 +1,7 @@
+/* Copyright 2026 fishku (original contributions)
+ * SPDX-License-Identifier: Apache-2.0
+ * Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
+ */
 /* PEN-F 3101 HSL: image parameters. */
 /* PEN-F 3101 image-owned H/L reader: all 16 native operation records.
  * The corresponding constructor edits allocate/zero the 24-byte trailer.

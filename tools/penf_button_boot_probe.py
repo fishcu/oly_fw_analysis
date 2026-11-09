@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Compare explicit held/released OK levels during the existing bounded boot.
 
 No camera access. Other type-2 buttons are supplied at their native release

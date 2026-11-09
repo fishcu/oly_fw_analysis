@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Scoped camera clock-gate latch hypothesis during native subsystem startup.
 
 Register 9b000500 retains native enable writes; writes to 9b000504 clear the

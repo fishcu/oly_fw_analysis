@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Bounded native capture allocation, COLOR snapshots and buffer reuse.
 
 Offline only. Native pool bookkeeping, slot allocation, capture population,

@@ -1,3 +1,7 @@
+/* Copyright 2026 fishku (original contributions)
+ * SPDX-License-Identifier: Apache-2.0
+ * Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
+ */
 /* PEN-F 3101 HSL: editor storage. */
 /* Packed H/L storage through native bank APIs.
  * One existing part-1 COLOR word per sector: 0x4831CCVV (H1 format).

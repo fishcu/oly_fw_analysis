@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Conditional continuation: treat reviewed 8040 writes as core-idle points.
 
 Only existing native-kernel-idle sites receive modeled timer interrupts. A peer

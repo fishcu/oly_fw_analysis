@@ -92,83 +92,83 @@
     },
     {
       "path": "camera_client/penf_wifi/__init__.py",
-      "sha256": "8e920a2601e808e6c313d484bb0ff2b08ca3553308d3d703442b684432411c8c",
-      "bytes": 98,
+      "sha256": "8aa82697117eaae56a9602a2ce0df5f9ced6c4768f2b9f63489ece19247d1cb1",
+      "bytes": 251,
       "original_source": {
         "path": "camera_client/penf_wifi/__init__.py",
         "sha256": "8e920a2601e808e6c313d484bb0ff2b08ca3553308d3d703442b684432411c8c"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "camera_client/penf_wifi/__main__.py",
-      "sha256": "1e4969ebdca14387746f6fb0781599fbab3e2683ddc00d492a40f1f104869e1d",
-      "bytes": 10365,
+      "sha256": "1fe5cc495a04e47e9d24e391adb78e97165137d68f6ca4393b64b73dafe9bfaa",
+      "bytes": 10518,
       "original_source": {
         "path": "camera_client/penf_wifi/__main__.py",
         "sha256": "1e4969ebdca14387746f6fb0781599fbab3e2683ddc00d492a40f1f104869e1d"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "camera_client/penf_wifi/client.py",
-      "sha256": "4179c80f8d80e59bfbf2ef2967466afcd3457964f06c97afcde0d6e6504ce539",
-      "bytes": 9339,
+      "sha256": "f1e323f6d63fe93f09a8c869eeb51f7ed6d0c04d64d65482281f51a9b8397899",
+      "bytes": 9492,
       "original_source": {
         "path": "camera_client/penf_wifi/client.py",
         "sha256": "4179c80f8d80e59bfbf2ef2967466afcd3457964f06c97afcde0d6e6504ce539"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "camera_client/penf_wifi/protocol.py",
-      "sha256": "b21f5f709875985fe4ea858bf5d591c64f3daa704e3aaf0b85e11283495fe6dd",
-      "bytes": 6866,
+      "sha256": "22daf5df784d7c1938f6c5db91c62cf6672e0237a229db92c0fa70666a6fa284",
+      "bytes": 7019,
       "original_source": {
         "path": "camera_client/penf_wifi/protocol.py",
         "sha256": "b21f5f709875985fe4ea858bf5d591c64f3daa704e3aaf0b85e11283495fe6dd"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "camera_client/penf_wifi/recipes.py",
-      "sha256": "fafc801ddacf35ad29dec485c625179b9035474f0681f573f4fa70505b132103",
-      "bytes": 4715,
+      "sha256": "0984781b829966cb1c92953ce74f3af70659b2630b4d62bab6095dd92f7f8094",
+      "bytes": 4868,
       "original_source": {
         "path": "camera_client/penf_wifi/recipes.py",
         "sha256": "fafc801ddacf35ad29dec485c625179b9035474f0681f573f4fa70505b132103"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "camera_client/penf_wifi/storage.py",
-      "sha256": "d5b5f76e7d2f72f2eba36b069b21815bf7d9d4824e294dcbce4c8932dfc17b79",
-      "bytes": 3853,
+      "sha256": "34e984c2b093e3894fb0731c273fdc3bf450e15e1e86af7369ad3e2f80eee542",
+      "bytes": 4006,
       "original_source": {
         "path": "camera_client/penf_wifi/storage.py",
         "sha256": "d5b5f76e7d2f72f2eba36b069b21815bf7d9d4824e294dcbce4c8932dfc17b79"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "camera_client/penf_wifi/transport.py",
-      "sha256": "0f1edc462eb3363dfcf54a7a03b400c961580760b13584f7c138336f405de1c6",
-      "bytes": 6400,
+      "sha256": "08d00cd63875e5fa9f78f2adb4d17f30ceafb6cbaf12fd2b06199e9aacefb77e",
+      "bytes": 6553,
       "original_source": {
         "path": "camera_client/penf_wifi/transport.py",
         "sha256": "0f1edc462eb3363dfcf54a7a03b400c961580760b13584f7c138336f405de1c6"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "camera_client/tests/check_loopback.py",
-      "sha256": "fd786de825cf69e7edcd0ae930d8b7605491efb031932e1c36299db80ae69489",
-      "bytes": 6612,
+      "sha256": "b9df0acbe0537d0ebcc0d4698ee1edd508094ca4dc47bb441d37b0bdba4057e2",
+      "bytes": 6765,
       "original_source": {
         "path": "camera_client/tests/check_loopback.py",
         "sha256": "fd786de825cf69e7edcd0ae930d8b7605491efb031932e1c36299db80ae69489"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "camera_client/tests/fixtures/native-readers.json",
@@ -178,8 +178,8 @@
     },
     {
       "path": "camera_client/tests/test_client.py",
-      "sha256": "f5ef9c38395a7e55387d73a042a4093e6ab5e7f8dccfe6dd6a107b9b89c9dc5a",
-      "bytes": 18457,
+      "sha256": "0420395ffefad5e83e12f0fcf6e87abc52e6de4c067dcc292d630755c28566e6",
+      "bytes": 18610,
       "original_source": {
         "path": "camera_client/tests/test_client.py",
         "sha256": "4e490f2f1cd39b27f5edcfd7dd22c8ff4a6d2f1c0614e67a4d2753801e2e5af8"
@@ -188,18 +188,18 @@
     },
     {
       "path": "camera_client/tests/test_transport.py",
-      "sha256": "ff57491d1316cf95dc017753fe3a1195dfd291c8de34ca1450c4f4ea4ac54f4b",
-      "bytes": 8399,
+      "sha256": "227b8a8750547ed1efcadbd5cf30109cdbed2ec6e4a3243d0812e7da7db7c742",
+      "bytes": 8552,
       "original_source": {
         "path": "camera_client/tests/test_transport.py",
         "sha256": "ff57491d1316cf95dc017753fe3a1195dfd291c8de34ca1450c4f4ea4ac54f4b"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "camera_client/tests/test_workflow.py",
-      "sha256": "a7f8235dd2d5c13007414a565e06bd3b1958f3de04eb5c11f7090eb7e05cb1b4",
-      "bytes": 12300,
+      "sha256": "7378941990ce280524b33670a2729e9ca6f1dcd8faafe36624537e2d83de24e8",
+      "bytes": 12453,
       "original_source": {
         "path": "camera_client/tests/test_workflow.py",
         "sha256": "f4a1410848ee692334132eed2774766eedee2f3e72853d5068c8618020bdf490"
@@ -208,8 +208,8 @@
     },
     {
       "path": "docs/tooling/EMULATOR.md",
-      "sha256": "2d9679822226be9ef38178a332d94411cf100eed580bb6e9c9abce977867eb6d",
-      "bytes": 6635,
+      "sha256": "f01c36f149d4a36bb4ec47fab387dbebaae47be8db577dd737ea721436ed2a1e",
+      "bytes": 6776,
       "original_source": {
         "path": "docs/tooling/EMULATOR.md",
         "sha256": "c40b741a7ff2f59d38d8b36f2defa8d6b3c42eeec68a2146e0370911bb724608"
@@ -231,8 +231,8 @@
     {
       "path": "patches/hsl/pen-f/build.py",
       "origin": "original documentation, fixture or utility",
-      "sha256": "f41ed8535ea02513e211c45fbb13fb0eaca0fd120334b8d1ca350fc4f4cfcd50",
-      "bytes": 9467
+      "sha256": "bb7bb040bc97639a93e86b3919be35febff290a15c85c055ca3a05c4c4c88c53",
+      "bytes": 9620
     },
     {
       "path": "patches/hsl/pen-f/patch.json",
@@ -250,8 +250,8 @@
         "path": "analysis/hsl_range7_release_20261015/assembly/extended/penf_hsl_all_raw_ui.s",
         "sha256": "468525fa1bbce62131a2da1f4031292752c4d99af7b79191237ddabbfcae0deb"
       },
-      "sha256": "341bc820001025dc474adfba4c1279409187c1da89ce930215f562b534d032f9",
-      "bytes": 12660,
+      "sha256": "3b2cab08b73b0cfa50b61d71a4202a2f44ee1679603322d0f0d29f8744b48ab1",
+      "bytes": 12820,
       "adapted": true
     },
     {
@@ -260,8 +260,8 @@
         "path": "analysis/hsl_range7_release_20261015/assembly/extended/penf_hsl_all_profiles_transport.s",
         "sha256": "d0580ceedb5dd8439d08bdc75b91ec29366c9674cc2e524e5e581b5a9047702a"
       },
-      "sha256": "893a21e59d9f825119db98145b3afee0c20af773c5f8f72bec7d69fe6fb4d138",
-      "bytes": 5045,
+      "sha256": "fae35cf541c71108ab66675f83ff352d87d580838ceb36163fcb7ba6534e466b",
+      "bytes": 5205,
       "adapted": true
     },
     {
@@ -270,8 +270,8 @@
         "path": "analysis/hsl_range7_release_20261015/assembly/extended/patch.ld",
         "sha256": "e94f30df456411644ca305b99db65202a755fbca31f709952be54b9d57bf2f6d"
       },
-      "sha256": "58329b22c40cec3b9a2b2f11ebc89e7fcbc5abdbb71756846762641e4f77b08c",
-      "bytes": 2730,
+      "sha256": "f8ce720dc7bf12fb788029d3804cda96e8bf6dd608215960e2bd6c3d916af279",
+      "bytes": 2890,
       "adapted": true
     },
     {
@@ -280,8 +280,8 @@
         "path": "analysis/hsl_range7_release_20261015/assembly/extended/penf_hsl_persistent_cells.s",
         "sha256": "684a4c2380198f0fe8029cebd195d8559177ada8d739a5cf3c1f4724a2f969b1"
       },
-      "sha256": "0e67c12c5e6f86090c753a7bb1f19250b4dc2351e6ce96bbeb5b5b458abe5c2d",
-      "bytes": 2405,
+      "sha256": "b9caf7e6fa2dca835c12dfe12deabfabe70b265b15397c05909e04aa1546bdce",
+      "bytes": 2565,
       "adapted": true
     },
     {
@@ -290,8 +290,8 @@
         "path": "analysis/hsl_range7_release_20261015/assembly/extended/penf_hsl_all_profiles_routes.s",
         "sha256": "88b64bf8f0f0555cb192524ffe59902406d2bdcf124635d59ef5b3708e0d8696"
       },
-      "sha256": "ec98ab3cfee5e9c8eb17129f3071c063da965482fd787b095e9dfbdecdf1cf38",
-      "bytes": 2535,
+      "sha256": "1c3a030e82815dc09f477338bce457769ef90f0924502bf3e50cd7ba10d0e021",
+      "bytes": 2695,
       "adapted": true
     },
     {
@@ -300,8 +300,8 @@
         "path": "analysis/hsl_range7_release_20261015/assembly/extended/penf_hsl_range7.s",
         "sha256": "b90eb9996c390f11298a59efe12c9a237eb1d924d0a236b0576ba8f5d4f6f474"
       },
-      "sha256": "d86067a12f4d365c92e0b78ddb8f9d094021fde84511e786152341c92f5f1bf8",
-      "bytes": 1253,
+      "sha256": "94bf369f1d27462176770c9b335e599c885566b14dbf03eaed25e8450c1ffa4c",
+      "bytes": 1413,
       "adapted": true
     },
     {
@@ -310,8 +310,8 @@
         "path": "analysis/hsl_range7_release_20261015/assembly/extended/inline.ld",
         "sha256": "3c87dddc2a9c03d1f326e32d4ebdc98440ba7e6ab5b5d54776054f3f3a3b2f84"
       },
-      "sha256": "5359b42b21119ae1304da29310e94e715025f0938880e9085eeb13d499dd786c",
-      "bytes": 411,
+      "sha256": "4d9c7dd445d0e84612d7aeba26afbf12d453fd9d57f26ecd45eecfa40ff22860",
+      "bytes": 571,
       "adapted": true
     },
     {
@@ -320,8 +320,8 @@
         "path": "analysis/hl_record_fix_release_20261010/qualification/assembly/consumer/patch.s",
         "sha256": "6563cbece36b8eb2db017e1c33a6a86c07063acf8333293e119318daf2a26342"
       },
-      "sha256": "9709f31c13db45432c985c1b364960cda5e719081635e5bdf2194b774f29054a",
-      "bytes": 2248,
+      "sha256": "8ae03a02cbe26c43636abb5798d78ef2ec2b60ea0ade568097fc84727bfa9ca9",
+      "bytes": 2408,
       "adapted": true
     },
     {
@@ -330,9 +330,9 @@
         "path": "analysis/hl_record_fix_release_20261010/qualification/assembly/consumer/patch.ld",
         "sha256": "35d162f273ef86d38b14b9d208cc145f0d2049a33889c3b4c2c78bf64a83de71"
       },
-      "sha256": "35d162f273ef86d38b14b9d208cc145f0d2049a33889c3b4c2c78bf64a83de71",
-      "bytes": 181,
-      "adapted": false
+      "sha256": "886a49259214f4ee6de31938302149a4a1e8870ec25033273ff28a5db5fdb3c5",
+      "bytes": 341,
+      "adapted": true
     },
     {
       "path": "patches/hsl/pen-f/src/orf_metadata/cmio_stream.s",
@@ -340,8 +340,8 @@
         "path": "analysis/hsl_orf_native_20261013/release/assembly/penf_cmio_stream.s",
         "sha256": "3dfef657ffcbcef6dfae2cfa2079c07d947c63eb113b683a4765b9030d601323"
       },
-      "sha256": "9db915c44627e8670bb9b38359a237cfd1dd0adff510d3a8180ae2bd7c8d5c44",
-      "bytes": 3422,
+      "sha256": "fb814b47e6e0d2d9681f92090a8b8546f3cd148346523ea0e1e54a1ef443700b",
+      "bytes": 3582,
       "adapted": true
     },
     {
@@ -350,8 +350,8 @@
         "path": "analysis/hsl_orf_native_20261013/release/assembly/penf_cmio_weights.s",
         "sha256": "a2a9df8aca7c32ac18de703805e823e903fd1b31c0244294a1f66b4322c84bfb"
       },
-      "sha256": "5308451ded14b80e806da3b44f086fcc83ffb87f2f18bdfb293f3c2589513c55",
-      "bytes": 1510,
+      "sha256": "fe90a67dd7620140d2e8524224f2acf0225b77ad7e8ddbd5351b2a99f9930422",
+      "bytes": 1670,
       "adapted": true
     },
     {
@@ -360,9 +360,9 @@
         "path": "analysis/hsl_orf_native_20261013/release/assembly/native-orf.ld",
         "sha256": "3d598de885b30e7b531f30707c8e2a850b413d7eb258d517534cbac20339cfc6"
       },
-      "sha256": "3d598de885b30e7b531f30707c8e2a850b413d7eb258d517534cbac20339cfc6",
-      "bytes": 492,
-      "adapted": false
+      "sha256": "9e48c29ab01e377c4ae7605088e768bef423fe68eaa6d666533d7d27bc77b5e5",
+      "bytes": 652,
+      "adapted": true
     },
     {
       "path": "patches/hsl/pen-f/src/orf_metadata/orf_metadata.s",
@@ -370,8 +370,8 @@
         "path": "analysis/hsl_orf_native_20261013/release/assembly/penf_hsl_native_orf.s",
         "sha256": "72430087ff9249b400e43e01f297853a80a3cd055ceb1adcfe4a53bba3e559bc"
       },
-      "sha256": "f164954dd1d1fe02260ba814c128c57069534dace6720f14dcf9a3763e476fef",
-      "bytes": 1805,
+      "sha256": "34e27bb13c21d389362681c901092a035d92f6a49c2c4688843e6b63a2195967",
+      "bytes": 1965,
       "adapted": true
     },
     {
@@ -380,9 +380,9 @@
         "path": "analysis/hsl_all_raw_20261012/release/assembly/raw.ld",
         "sha256": "cba860cf3b99daaa2873669ffa46b5baef434dcc20f5546fcab893be1da764d2"
       },
-      "sha256": "cba860cf3b99daaa2873669ffa46b5baef434dcc20f5546fcab893be1da764d2",
-      "bytes": 208,
-      "adapted": false
+      "sha256": "d08dd94d16d2503043c004cf837679beb6b1363b4a595add06c7f8dff041e86f",
+      "bytes": 368,
+      "adapted": true
     },
     {
       "path": "patches/hsl/pen-f/src/raw_development/raw_development.s",
@@ -390,8 +390,8 @@
         "path": "analysis/hsl_all_raw_20261012/release/assembly/penf_hsl_all_raw.s",
         "sha256": "8bf261ef0f06cefabe489a41dd6aa7a2200334836500aaac383b83c25a9edfe6"
       },
-      "sha256": "b68d6ef9d2dbbf8cd0cb7d6b68fc0be819bb8d70597b4253b7f917ce346341bb",
-      "bytes": 970,
+      "sha256": "3aa0277ee70c31b0671dcf7aa361d3c7400605201ba812a9be3211253d526aa2",
+      "bytes": 1130,
       "adapted": true
     },
     {
@@ -400,9 +400,9 @@
         "path": "analysis/hsl_backup_release_20261013/assembly/patch.ld",
         "sha256": "4b449e2cdccd73e4b5d6dc335b53e5a907038e35db353b79f0886b5bb2531b5a"
       },
-      "sha256": "4b449e2cdccd73e4b5d6dc335b53e5a907038e35db353b79f0886b5bb2531b5a",
-      "bytes": 854,
-      "adapted": false
+      "sha256": "d178b1924829571d36c6e35ad5f4be71776a3ea5efe37d644ef1e551b6cc4866",
+      "bytes": 1014,
+      "adapted": true
     },
     {
       "path": "patches/hsl/pen-f/src/settings_backup/settings_backup.s",
@@ -410,8 +410,8 @@
         "path": "analysis/hsl_backup_release_20261013/assembly/penf_hsl_backup.s",
         "sha256": "c64ae57814f6cf475719c149cf35f1bb0ed8c03ad449cf697084f988e15c3780"
       },
-      "sha256": "3f27e98c8ab58f80db0a743942f5fb742b1c8eceaf0a669dbeae4115ece9297d",
-      "bytes": 6249,
+      "sha256": "e02159cbbc40e8076be104011dbf90474c071c54b7265945695ce7b083fd23dd",
+      "bytes": 6409,
       "adapted": true
     },
     {
@@ -420,9 +420,9 @@
         "path": "analysis/penf_wifi_linked_20261015/assembly/recipe.ld",
         "sha256": "1da4def13a0161e2e0e761b7d78b8a751fb1478d39bad8ce1f0415b261007155"
       },
-      "sha256": "1da4def13a0161e2e0e761b7d78b8a751fb1478d39bad8ce1f0415b261007155",
-      "bytes": 800,
-      "adapted": false
+      "sha256": "9eb474dc8c7926635cd825fa24f45a0f62e5cd8fba188738e2c4860bd9b616ae",
+      "bytes": 960,
+      "adapted": true
     },
     {
       "path": "patches/hsl/pen-f/src/wifi/wifi.s",
@@ -430,8 +430,8 @@
         "path": "analysis/penf_wifi_linked_20261015/assembly/recipe.s",
         "sha256": "2066326007e0ecdf740e908baf3c9d1865c5a0da361f0aaed181834608e9b028"
       },
-      "sha256": "54ff7ffd4dd264245bd8c580bf034022201a9810e100858d9139e5919be3543c",
-      "bytes": 5320,
+      "sha256": "370d6a5c808115b003f5ec206253f93dfb8bd399c530288c4e21c0beddc3d449",
+      "bytes": 5480,
       "adapted": true
     },
     {
@@ -452,268 +452,268 @@
     },
     {
       "path": "tests/test_oly_container.py",
-      "sha256": "e4e80ada8514fc7e0d80e97ea9686830c6b41f055a14d8c0463b045f2144c26d",
-      "bytes": 2863,
+      "sha256": "2a3b976a837bf2243aff9aefdd9fe31d67c4f4edc672a91403905485a3e04cfd",
+      "bytes": 3016,
       "original_source": {
         "path": "tests/test_oly_container.py",
         "sha256": "e4e80ada8514fc7e0d80e97ea9686830c6b41f055a14d8c0463b045f2144c26d"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tests/test_penf_alex_bulk_model.py",
-      "sha256": "8ecaea4a676ffc98f675e68b077dc0f1e277d8b5ce3642c0b245b50958dedfdf",
-      "bytes": 7136,
+      "sha256": "ab28db02d16c453ab37e4c1100dc261acff4e055e7e51d82b19419de2c5b4f23",
+      "bytes": 7289,
       "original_source": {
         "path": "tests/test_penf_alex_bulk_model.py",
         "sha256": "8ecaea4a676ffc98f675e68b077dc0f1e277d8b5ce3642c0b245b50958dedfdf"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tests/test_penf_alex_model.py",
-      "sha256": "3ed1e68698f4c6d61a3e5d7154adf6f2a28621ab459eb47736a14a404994346d",
-      "bytes": 2631,
+      "sha256": "ec2330d4f1ab549ccc990a75cfc1038941040e342ebc4c96d0037d271423dca1",
+      "bytes": 2784,
       "original_source": {
         "path": "tests/test_penf_alex_model.py",
         "sha256": "3ed1e68698f4c6d61a3e5d7154adf6f2a28621ab459eb47736a14a404994346d"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tests/test_penf_api_initializer.py",
-      "sha256": "33b85ac3b94f46bd293c5ad603daa301a4888bab47c63e004b252607c1ba9994",
-      "bytes": 2315,
+      "sha256": "4f8f737ed4057f309ac3a5e6e31c269ad49c2e3408909acba498a387dda1db67",
+      "bytes": 2468,
       "original_source": {
         "path": "tests/test_penf_api_initializer.py",
         "sha256": "33b85ac3b94f46bd293c5ad603daa301a4888bab47c63e004b252607c1ba9994"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tests/test_penf_api_log_startup.py",
-      "sha256": "16cee99aa3d7003dd33c9404f4f1bfd6129d54a088652803eeded53775b7f90a",
-      "bytes": 2647,
+      "sha256": "d86c7756f0151e81bf939fb2fc73f7c37aee978222c5024ce56fcf02c38d013e",
+      "bytes": 2800,
       "original_source": {
         "path": "tests/test_penf_api_log_startup.py",
         "sha256": "16cee99aa3d7003dd33c9404f4f1bfd6129d54a088652803eeded53775b7f90a"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tests/test_penf_bcssc_handshake.py",
-      "sha256": "a4db89da7d3345cc596024e5f2b374071b0a091d60c4a2800ef17bbb3467a825",
-      "bytes": 2668,
+      "sha256": "79e6854dbd6a0de6218daadf0e5bb98c7619b025a4d85f11fb5f9ffe3ece64d7",
+      "bytes": 2821,
       "original_source": {
         "path": "tests/test_penf_bcssc_handshake.py",
         "sha256": "a4db89da7d3345cc596024e5f2b374071b0a091d60c4a2800ef17bbb3467a825"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tests/test_penf_bcssc_reply.py",
-      "sha256": "284ec5880a79faf24cdb66a302b6ed19276d2c3c8b2f63320d77e9ff5d1851b4",
-      "bytes": 2571,
+      "sha256": "51e2b643387af5285c9d3804251d537bfdd9f651544c37760783bd7ebcd5935d",
+      "bytes": 2724,
       "original_source": {
         "path": "tests/test_penf_bcssc_reply.py",
         "sha256": "284ec5880a79faf24cdb66a302b6ed19276d2c3c8b2f63320d77e9ff5d1851b4"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tests/test_penf_boot_after_alex.py",
-      "sha256": "bbae59e6121c5ec48b96381fe852867b9c6c3ffad26874aeca7c955d779f2ed7",
-      "bytes": 1629,
+      "sha256": "038dc0c98b6afda3b7f2edc463d9b17d6d43c12d399e5f24a353b98bfa86aeb2",
+      "bytes": 1782,
       "original_source": {
         "path": "tests/test_penf_boot_after_alex.py",
         "sha256": "bbae59e6121c5ec48b96381fe852867b9c6c3ffad26874aeca7c955d779f2ed7"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tests/test_penf_boot_api_log.py",
-      "sha256": "14f4610624575da0a17c16eeecaf1d69c39e882c765a775214ddca3d62504729",
-      "bytes": 3459,
+      "sha256": "b05244acff5793ff14baf556a023cfd7bc9b062ff95d2a4bdb79702f32164325",
+      "bytes": 3612,
       "original_source": {
         "path": "tests/test_penf_boot_api_log.py",
         "sha256": "14f4610624575da0a17c16eeecaf1d69c39e882c765a775214ddca3d62504729"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tests/test_penf_boot_application.py",
-      "sha256": "e6a02f22f3522574c8d45c0fceb69f5c608609ba4803db1c6e136dc80711e82a",
-      "bytes": 2471,
+      "sha256": "137506bd79439ab8900f32afff92d447aeae354184bf67b11806c706f7a1b683",
+      "bytes": 2624,
       "original_source": {
         "path": "tests/test_penf_boot_application.py",
         "sha256": "e6a02f22f3522574c8d45c0fceb69f5c608609ba4803db1c6e136dc80711e82a"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tests/test_penf_boot_checkpoints.py",
-      "sha256": "d12e1e85d6474e1f0140825c413d42b38b42b9c4d4522ac10c31e97f68abe66e",
-      "bytes": 2908,
+      "sha256": "3cef94bfb04205ecc6ebba8f8b26581f5ae3f9190b6ef28c1c773fc8138a4b07",
+      "bytes": 3061,
       "original_source": {
         "path": "tests/test_penf_boot_checkpoints.py",
         "sha256": "d12e1e85d6474e1f0140825c413d42b38b42b9c4d4522ac10c31e97f68abe66e"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tests/test_penf_boot_console_idle.py",
-      "sha256": "032a7f2e3205c09427d27f1073f44a7215ccc4e6727c2eb3cceeca1a35e0c6fb",
-      "bytes": 4101,
+      "sha256": "6c2ed325cb5563ea760c3cfe293a7f6d43e8a85a1b0c47c449925f1024879dc2",
+      "bytes": 4254,
       "original_source": {
         "path": "tests/test_penf_boot_console_idle.py",
         "sha256": "032a7f2e3205c09427d27f1073f44a7215ccc4e6727c2eb3cceeca1a35e0c6fb"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tests/test_penf_boot_core_idle.py",
-      "sha256": "1089c4beea138aaca5eb6eaf32a9da7655366e331db329b1df233482778d8154",
-      "bytes": 1879,
+      "sha256": "2302a99151a22b12866485b6225bd8412917da4ec571b910fa80c962d8b1be58",
+      "bytes": 2032,
       "original_source": {
         "path": "tests/test_penf_boot_core_idle.py",
         "sha256": "1089c4beea138aaca5eb6eaf32a9da7655366e331db329b1df233482778d8154"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tests/test_penf_boot_display_init.py",
-      "sha256": "8e5947a721e8ba055b2562f4b570ac09857814160bbf627c1c203f3b1a28f248",
-      "bytes": 2700,
+      "sha256": "39bd93eed3aa67f84907129efbe953415778066090f50e26c0f538d8e0506c0c",
+      "bytes": 2853,
       "original_source": {
         "path": "tests/test_penf_boot_display_init.py",
         "sha256": "8e5947a721e8ba055b2562f4b570ac09857814160bbf627c1c203f3b1a28f248"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tests/test_penf_boot_lens_init.py",
-      "sha256": "dc7b3f033ab92f158ea5ec3b3224a180401021dbad66b761f56bc1c7bde1f6dc",
-      "bytes": 2127,
+      "sha256": "e53669fb7ac10847338b109b419d31bd77ccb3ba8975d6e2719cb624881e7b50",
+      "bytes": 2280,
       "original_source": {
         "path": "tests/test_penf_boot_lens_init.py",
         "sha256": "dc7b3f033ab92f158ea5ec3b3224a180401021dbad66b761f56bc1c7bde1f6dc"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tests/test_penf_boot_models.py",
-      "sha256": "d0c910d9f30f54416deb93b22a4a4d9d7ee14f4fb79bbd23028c8208cd49c0be",
-      "bytes": 3575,
+      "sha256": "32d6eefc028b37d47bb7c1cc47eea416ff8b3375c8b96970a7086d7e540d4026",
+      "bytes": 3728,
       "original_source": {
         "path": "tests/test_penf_boot_models.py",
         "sha256": "d0c910d9f30f54416deb93b22a4a4d9d7ee14f4fb79bbd23028c8208cd49c0be"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tests/test_penf_boot_path.py",
-      "sha256": "98594747068c2203f2b1b29bcb98b760406111f1f90ef453ba1632e2d7582731",
-      "bytes": 3423,
+      "sha256": "69987c3ac394d34c25aa53dd229cb810d7c15c98a1e9ebd8a44faf3a5834fb78",
+      "bytes": 3576,
       "original_source": {
         "path": "tests/test_penf_boot_path.py",
         "sha256": "98594747068c2203f2b1b29bcb98b760406111f1f90ef453ba1632e2d7582731"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tests/test_penf_boot_retained_state.py",
-      "sha256": "fea26f08eaabc92a12d1825fc7a2bef5c7df2c034cba6b9e49ba50cac6d26f94",
-      "bytes": 4031,
+      "sha256": "43851b7821a33bea2b6cdd92055945da671efe3b957897b39337149ee55b20fc",
+      "bytes": 4184,
       "original_source": {
         "path": "tests/test_penf_boot_retained_state.py",
         "sha256": "fea26f08eaabc92a12d1825fc7a2bef5c7df2c034cba6b9e49ba50cac6d26f94"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tests/test_penf_boot_strobe_init.py",
-      "sha256": "48e1a55636ff467d2b20a6fbba3de7bb9deb7c826f238910f06217d271f5b0ce",
-      "bytes": 4905,
+      "sha256": "5067aba3a77f2e8f26b6b737d4415a2d69684ff98951e0d9424668f40cb3d872",
+      "bytes": 5058,
       "original_source": {
         "path": "tests/test_penf_boot_strobe_init.py",
         "sha256": "48e1a55636ff467d2b20a6fbba3de7bb9deb7c826f238910f06217d271f5b0ce"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tests/test_penf_boot_usf_init.py",
-      "sha256": "6eecf49f171a801770fda85107712b8566af7ce1fb2cbcd90da1df03a1112ff4",
-      "bytes": 2426,
+      "sha256": "a4c3cb78fab9c1269051b6edbee515d425ada076ef6a687d533b49016f3d0881",
+      "bytes": 2579,
       "original_source": {
         "path": "tests/test_penf_boot_usf_init.py",
         "sha256": "6eecf49f171a801770fda85107712b8566af7ce1fb2cbcd90da1df03a1112ff4"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tests/test_penf_camera_clock.py",
-      "sha256": "ea88c0a8dc931f6a225477f530a332176227975cd04f7fba1355f9f4bcdfd836",
-      "bytes": 1770,
+      "sha256": "1151e32d865406e9399ab2e40f7c5a110c03dc40d94d1e7a6c790b81c9833e0b",
+      "bytes": 1923,
       "original_source": {
         "path": "tests/test_penf_camera_clock.py",
         "sha256": "ea88c0a8dc931f6a225477f530a332176227975cd04f7fba1355f9f4bcdfd836"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tests/test_penf_camera_enable.py",
-      "sha256": "cba1a1987edb8780a1815e08f1baabbc7ef3018e0312077e57ca9059a321e34f",
-      "bytes": 1592,
+      "sha256": "0ede53504170a5bd9127003fc1e39cdfbf8a437b49b6b635239fd55c794b3b4d",
+      "bytes": 1745,
       "original_source": {
         "path": "tests/test_penf_camera_enable.py",
         "sha256": "cba1a1987edb8780a1815e08f1baabbc7ef3018e0312077e57ca9059a321e34f"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tests/test_penf_camera_gates.py",
-      "sha256": "f731c8ed45f74ce913b460f3e6121f4b84ce7f4eb18d1edebec326a1f7806fb9",
-      "bytes": 2377,
+      "sha256": "c39d130ec028ed02171a028615d922c8ded0d9895cd702b7b11485fa550f2cec",
+      "bytes": 2530,
       "original_source": {
         "path": "tests/test_penf_camera_gates.py",
         "sha256": "f731c8ed45f74ce913b460f3e6121f4b84ce7f4eb18d1edebec326a1f7806fb9"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tests/test_penf_camera_registers.py",
-      "sha256": "1f157c5a8a6b8eb572517519ff3b819d571fd1bcca69d33457e0b93a1753a8e0",
-      "bytes": 2619,
+      "sha256": "4fae37d2904ead3e64880a59932234d6778f7fba6e5a5ded180bd54470984c21",
+      "bytes": 2772,
       "original_source": {
         "path": "tests/test_penf_camera_registers.py",
         "sha256": "1f157c5a8a6b8eb572517519ff3b819d571fd1bcca69d33457e0b93a1753a8e0"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tests/test_penf_camera_units.py",
-      "sha256": "2cef21827652422567996c28d612448eb607e6c6cb5c1fb9b9377d982a7a16f0",
-      "bytes": 3706,
+      "sha256": "5559b0cd153779afce48c61c8a8605ec97ba0591656772f5faaeb3151345b617",
+      "bytes": 3859,
       "original_source": {
         "path": "tests/test_penf_camera_units.py",
         "sha256": "2cef21827652422567996c28d612448eb607e6c6cb5c1fb9b9377d982a7a16f0"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tests/test_penf_coefficient_watch.py",
-      "sha256": "9d528a5350a81bdcc6a7543ea1d83e9fddb20abe5cab95f1e5473ce4a59dd5a5",
-      "bytes": 2128,
+      "sha256": "f54853d8747679d764f833525c2f69f77c44adeb39aec5fd62ea4f85f26be857",
+      "bytes": 2281,
       "original_source": {
         "path": "tests/test_penf_coefficient_watch.py",
         "sha256": "9d528a5350a81bdcc6a7543ea1d83e9fddb20abe5cab95f1e5473ce4a59dd5a5"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tests/test_penf_color_emulator.py",
-      "sha256": "07e5cadde08b48f2a20c9b0a45ec873f390c89192ed97ab15409a9f36e5f0414",
-      "bytes": 5493,
+      "sha256": "346531604dd9f94d0956836f0c96294d2ee58abf4375303b9607b6e68f368538",
+      "bytes": 5646,
       "original_source": {
         "path": "tests/test_penf_color_emulator.py",
         "sha256": "723c06e9f490225f7cc7b86f40f26562b9e752a366162e499a3e8870ce4faead"
@@ -722,48 +722,48 @@
     },
     {
       "path": "tests/test_penf_cross_core_interrupts.py",
-      "sha256": "7aee5e6d91b90e910b00376f024ee31474030fb21050eeef427d8145d2158dd2",
-      "bytes": 6469,
+      "sha256": "fd636ba5ec3fb74b760de79fe74bd0d58f303055bce8d99dde847ebf533504da",
+      "bytes": 6622,
       "original_source": {
         "path": "tests/test_penf_cross_core_interrupts.py",
         "sha256": "7aee5e6d91b90e910b00376f024ee31474030fb21050eeef427d8145d2158dd2"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tests/test_penf_cross_core_resource.py",
-      "sha256": "e0f53d3895df0b46b27fd5cafa2febe568a7ca7983b355589eadb57aa135e1fe",
-      "bytes": 3453,
+      "sha256": "1b854fdba960fa4830edc098830661099cb682aee2a332cf0eb6cb05f1b69bb5",
+      "bytes": 3606,
       "original_source": {
         "path": "tests/test_penf_cross_core_resource.py",
         "sha256": "e0f53d3895df0b46b27fd5cafa2febe568a7ca7983b355589eadb57aa135e1fe"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tests/test_penf_cross_core_semaphore.py",
-      "sha256": "67d71afdc9a93b22e7d237df72d5465125246760c461e6e86f9954e0fc59726a",
-      "bytes": 4274,
+      "sha256": "5e6c7808c2670a789bfe4ee8f9b6f9dcd042ef35dedd6c61a985eb633b5f199a",
+      "bytes": 4427,
       "original_source": {
         "path": "tests/test_penf_cross_core_semaphore.py",
         "sha256": "67d71afdc9a93b22e7d237df72d5465125246760c461e6e86f9954e0fc59726a"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tests/test_penf_emulator.py",
-      "sha256": "6fbdfa3c5b572f9fd4e98e8145b6650fadffe2cd0331f4c0a3c285b1a1724f4b",
-      "bytes": 8430,
+      "sha256": "5573c5f10dcf194899c444b2ed4fceda2e0657bf0aa5b5c0a430d7b4935d790e",
+      "bytes": 8583,
       "original_source": {
         "path": "tests/test_penf_emulator.py",
         "sha256": "6fbdfa3c5b572f9fd4e98e8145b6650fadffe2cd0331f4c0a3c285b1a1724f4b"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tests/test_penf_emulator_performance.py",
-      "sha256": "d45249f952a04841e5df3cd49b9366d3468c8d118eebde8fd89fd05f307cb9a7",
-      "bytes": 3604,
+      "sha256": "ee752de3145c92e1230fac7272bd0884910dc5f82b76303ac6f8529181f0dcec",
+      "bytes": 3757,
       "original_source": {
         "path": "tests/test_penf_emulator_performance.py",
         "sha256": "4e14f1483cffe39e4afb77e56bd128436da54bd87e666c2982ac20e4b82f5b7f"
@@ -772,213 +772,213 @@
     },
     {
       "path": "tests/test_penf_favorite_lens_boot.py",
-      "sha256": "0b3f81978e058da696681c2b92bd99f4d06cd117676b1806c9f565e544749eb4",
-      "bytes": 3904,
+      "sha256": "fc23a879bb764ff86dbcc794e12e1b9871c12e7bf0317013507f8f3dee9a9976",
+      "bytes": 4057,
       "original_source": {
         "path": "tests/test_penf_favorite_lens_boot.py",
         "sha256": "0b3f81978e058da696681c2b92bd99f4d06cd117676b1806c9f565e544749eb4"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tests/test_penf_mac_context.py",
-      "sha256": "80a72deca411a52cf5929cf11a4568166ecf3aec187f436d2e593683d7961562",
-      "bytes": 3327,
+      "sha256": "e9f6547864e58706463d6779e94ba24cf5b2bbab5b7a104beb927fb9e3fea207",
+      "bytes": 3480,
       "original_source": {
         "path": "tests/test_penf_mac_context.py",
         "sha256": "80a72deca411a52cf5929cf11a4568166ecf3aec187f436d2e593683d7961562"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tests/test_penf_mode_dial_adc.py",
-      "sha256": "81e649b2bc54faf7654391bd5d0b394de87e74bd6fb76dccff3c39c73e5e2f97",
-      "bytes": 1951,
+      "sha256": "c339d27e05332d43abf11c07e44d0a0aa956cd32613e0324fe40d6192305e07c",
+      "bytes": 2104,
       "original_source": {
         "path": "tests/test_penf_mode_dial_adc.py",
         "sha256": "81e649b2bc54faf7654391bd5d0b394de87e74bd6fb76dccff3c39c73e5e2f97"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tests/test_penf_parameter_banks.py",
-      "sha256": "cb86b0e2e6267af693c63a8e1c32d3b330aa43025fb25fff1f97f0e1af312313",
-      "bytes": 3281,
+      "sha256": "2290657d0e60141a4a506ae0554359965ee135e47572f678444f3947bfb70ba2",
+      "bytes": 3434,
       "original_source": {
         "path": "tests/test_penf_parameter_banks.py",
         "sha256": "cb86b0e2e6267af693c63a8e1c32d3b330aa43025fb25fff1f97f0e1af312313"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tests/test_penf_parameter_reset.py",
-      "sha256": "32d9b4c5c0be955ca6811853f6e8aaabd5922c2b38c30c5f6c074991baf16f29",
-      "bytes": 2525,
+      "sha256": "cba6e9b710928e6fbd810835dfe90edc24300c2c3eaca3f847b8d618d1339109",
+      "bytes": 2678,
       "original_source": {
         "path": "tests/test_penf_parameter_reset.py",
         "sha256": "32d9b4c5c0be955ca6811853f6e8aaabd5922c2b38c30c5f6c074991baf16f29"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tests/test_penf_power_startup_gpio.py",
-      "sha256": "5381b3e910016d777b59d10659b8a88feff3f67120c641427524c6da73ebccee",
-      "bytes": 2483,
+      "sha256": "0de6308e540fe89eaae809964694fa4b9d15f72ead32df816aa31a6be95b7938",
+      "bytes": 2636,
       "original_source": {
         "path": "tests/test_penf_power_startup_gpio.py",
         "sha256": "5381b3e910016d777b59d10659b8a88feff3f67120c641427524c6da73ebccee"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tests/test_penf_probe.py",
-      "sha256": "1b1cdab8158106536ad024ca3f806ab08b47ab389dcd70014c8ad098f7761ac7",
-      "bytes": 1526,
+      "sha256": "1e2983708c20a89e401b1025183b793e589b851251007947cc8359440da0ea3b",
+      "bytes": 1679,
       "original_source": {
         "path": "tests/test_penf_probe.py",
         "sha256": "1b1cdab8158106536ad024ca3f806ab08b47ab389dcd70014c8ad098f7761ac7"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tests/test_penf_remote_semaphore_interrupts.py",
-      "sha256": "e2d664566a8f522dbf87d3d17c74c3a44c0f90927961b0b40565d8fbca066299",
-      "bytes": 5835,
+      "sha256": "96e7292a2b3e77ae815838a0676375f80d252a10c314a61acb934225377a86c9",
+      "bytes": 5988,
       "original_source": {
         "path": "tests/test_penf_remote_semaphore_interrupts.py",
         "sha256": "e2d664566a8f522dbf87d3d17c74c3a44c0f90927961b0b40565d8fbca066299"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tests/test_penf_resource_storage.py",
-      "sha256": "7df530473ed129fe11ef1b19f11dbc9319383c49f1b15352967a31fc9f3dc4a0",
-      "bytes": 4364,
+      "sha256": "5fecf742f99022e5810f7c1f76534ebae0d6366157736d9e5f82a0e7e0c4242f",
+      "bytes": 4517,
       "original_source": {
         "path": "tests/test_penf_resource_storage.py",
         "sha256": "7df530473ed129fe11ef1b19f11dbc9319383c49f1b15352967a31fc9f3dc4a0"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tests/test_penf_runtime_model.py",
-      "sha256": "649b92763f74ae5155f25abf586bbdabde6bcece15ad05061e2b4dee8f8b9f15",
-      "bytes": 2450,
+      "sha256": "fce8bc113e3a1a228ff5b2fa7f90ccfca08e4a092fd090fe4f8c5cfbd4537162",
+      "bytes": 2603,
       "original_source": {
         "path": "tests/test_penf_runtime_model.py",
         "sha256": "649b92763f74ae5155f25abf586bbdabde6bcece15ad05061e2b4dee8f8b9f15"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tests/test_penf_runtime_path.py",
-      "sha256": "cfc86035ececfcee5d512c2eb00b876198ec6b950c2476d0c3af92781fabe048",
-      "bytes": 4938,
+      "sha256": "f28ff4c56edc022f347981f4cec081a830224511f87ef8ab3c0646d74e9c73e8",
+      "bytes": 5091,
       "original_source": {
         "path": "tests/test_penf_runtime_path.py",
         "sha256": "cfc86035ececfcee5d512c2eb00b876198ec6b950c2476d0c3af92781fabe048"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tests/test_penf_sd_dependencies.py",
-      "sha256": "ed6b9356f2c93d5583aac7dcb9921452975b1eb3c66478d5635230c6c605072d",
-      "bytes": 10999,
+      "sha256": "44ca2996d5d9c8bd48c96268f4cae12746abe86681e2f145191e07de5c18ba87",
+      "bytes": 11152,
       "original_source": {
         "path": "tests/test_penf_sd_dependencies.py",
         "sha256": "ed6b9356f2c93d5583aac7dcb9921452975b1eb3c66478d5635230c6c605072d"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tests/test_penf_sd_mount.py",
-      "sha256": "dfd77d897620e93d4ce9f9838bd0ac55983562425f2cf63ce7132686ac4ae8d5",
-      "bytes": 1792,
+      "sha256": "8d0731f1a5157aa414f73de5ed866c32156a3acbe9e55addd167ac12ed551b4f",
+      "bytes": 1945,
       "original_source": {
         "path": "tests/test_penf_sd_mount.py",
         "sha256": "dfd77d897620e93d4ce9f9838bd0ac55983562425f2cf63ce7132686ac4ae8d5"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tests/test_penf_section_completion.py",
-      "sha256": "053b93b7c2503bbd5417ef31b805b0d788dae0c0fa22abb1493b8f11f0f20161",
-      "bytes": 4565,
+      "sha256": "88b7bade25df61686d1cd7719750ca3a0aaac36b16ea974d5549dcb18d093a62",
+      "bytes": 4718,
       "original_source": {
         "path": "tests/test_penf_section_completion.py",
         "sha256": "053b93b7c2503bbd5417ef31b805b0d788dae0c0fa22abb1493b8f11f0f20161"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tests/test_penf_semaphore_release.py",
-      "sha256": "f4d01fd5055f9c9b929b01cd3498867c63dedbdbb7277bcb56d65d5cfd988633",
-      "bytes": 5449,
+      "sha256": "c029359793e245adebc250f4c2b8da90d576a68ed34466136c9ec927c5949407",
+      "bytes": 5602,
       "original_source": {
         "path": "tests/test_penf_semaphore_release.py",
         "sha256": "f4d01fd5055f9c9b929b01cd3498867c63dedbdbb7277bcb56d65d5cfd988633"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tests/test_penf_startup_gpio.py",
-      "sha256": "32c97cc32aa244fa99b00f1f9e6db7ff575ebd1ce1e0ece0f7cf44cd2bb43746",
-      "bytes": 2180,
+      "sha256": "dc69edc968afcf5f5fe771c631b125e8488cb10647e6f5be081b3d0e87cb4ca2",
+      "bytes": 2333,
       "original_source": {
         "path": "tests/test_penf_startup_gpio.py",
         "sha256": "32c97cc32aa244fa99b00f1f9e6db7ff575ebd1ce1e0ece0f7cf44cd2bb43746"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tests/test_penf_startup_input_gate.py",
-      "sha256": "aa78cb6cad18b9a6db2fed5f3d45d5966f413924572e09ba32fc4861f60947df",
-      "bytes": 1664,
+      "sha256": "a01e42c9f4998a4f44b6426f0cf39ec084936948b1c2e73693cf9d7208da2604",
+      "bytes": 1817,
       "original_source": {
         "path": "tests/test_penf_startup_input_gate.py",
         "sha256": "aa78cb6cad18b9a6db2fed5f3d45d5966f413924572e09ba32fc4861f60947df"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tests/test_penf_startup_interrupts.py",
-      "sha256": "10f1630210729b2c07ad04be123455f0633aa78f692886fbed05923991ac1afc",
-      "bytes": 4729,
+      "sha256": "82ed11384890341cceb97b0939f2cd2edde0486039d51329590ec124cb25e20e",
+      "bytes": 4882,
       "original_source": {
         "path": "tests/test_penf_startup_interrupts.py",
         "sha256": "10f1630210729b2c07ad04be123455f0633aa78f692886fbed05923991ac1afc"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tests/test_penf_strobe_sequence.py",
-      "sha256": "79feb15bb05ed65d23790d7f003330208c17a46229d6b456b893319999d17c50",
-      "bytes": 1444,
+      "sha256": "5d4275dd50fcca0e9e7f90a8db43701eca270ce4d5993fad3e3a5f4944b5748b",
+      "bytes": 1597,
       "original_source": {
         "path": "tests/test_penf_strobe_sequence.py",
         "sha256": "79feb15bb05ed65d23790d7f003330208c17a46229d6b456b893319999d17c50"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tests/test_penf_timer_rotation.py",
-      "sha256": "4a86f9131dad64db93bae8a164e098386d55442d70996586157907afe5d1a81d",
-      "bytes": 2785,
+      "sha256": "305c8a8b4cf7d2581e2ec10a8837e5394f5fd3409941cfa0de8bd1235c654650",
+      "bytes": 2938,
       "original_source": {
         "path": "tests/test_penf_timer_rotation.py",
         "sha256": "4a86f9131dad64db93bae8a164e098386d55442d70996586157907afe5d1a81d"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tests/test_penf_wlan_startup.py",
-      "sha256": "adef7bd196ccd987882533f1fb74d59ad01eb901c1161ad57233c22e54d69538",
-      "bytes": 2879,
+      "sha256": "a05a1d02d011397a8df1b876dbebadfe0a2695c520470af6a106d4f5ce56758f",
+      "bytes": 3032,
       "original_source": {
         "path": "tests/test_penf_wlan_startup.py",
         "sha256": "adef7bd196ccd987882533f1fb74d59ad01eb901c1161ad57233c22e54d69538"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tools/README.md",
@@ -992,20 +992,20 @@
     },
     {
       "path": "tools/build_mn103_emulator.py",
-      "sha256": "9eb92cb6b3820371e534c283216a8826023f06bd74b538a757a06c7fb116a366",
-      "bytes": 3691,
+      "sha256": "135fbd566ec5db7681fcb4831e07cc6dbd3d6f9fcbc6bce7579b80af024c7502",
+      "bytes": 3844,
       "original_source": {
         "path": "tools/build_mn103_emulator.py",
         "sha256": "9eb92cb6b3820371e534c283216a8826023f06bd74b538a757a06c7fb116a366"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [],
       "entry_point": true
     },
     {
       "path": "tools/compare_color_generations.py",
-      "sha256": "c332f3d222a25b0d7934f872effc977963464b2b93ab5737e7deaef596ea7ad6",
-      "bytes": 12853,
+      "sha256": "1db37355091f0d65bacb089999fae7fb1dc60fb0939bcb3f5eb6d361cb5382be",
+      "bytes": 13006,
       "original_source": {
         "path": "tools/compare_color_generations.py",
         "sha256": "5796326e3d3b272f012b4d4175b4a644c52bd4e79518d698f9412aede1f2bcba"
@@ -1018,13 +1018,13 @@
     },
     {
       "path": "tools/compare_color_profile_defaults.py",
-      "sha256": "eaab47adbd0e994b000fffd9f6a36a12e245e0a31bc345133eecf225f2d410ab",
-      "bytes": 9527,
+      "sha256": "f76fc2b218cfa96d913be33914efc1e2d277e17b55544959aff8811c4d0905e7",
+      "bytes": 9680,
       "original_source": {
         "path": "tools/compare_color_profile_defaults.py",
         "sha256": "eaab47adbd0e994b000fffd9f6a36a12e245e0a31bc345133eecf225f2d410ab"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "compare_color_generations"
       ],
@@ -1032,13 +1032,13 @@
     },
     {
       "path": "tools/compare_external_flash.py",
-      "sha256": "17809588c49bb0cd910c6d0c192a66350f5347d764eaea8fe0d3f9e0d1e652ea",
-      "bytes": 5390,
+      "sha256": "4243e1ba3ccdb5155846219c081e0a396e5716fde825b0af6cbb4420466a9b68",
+      "bytes": 5543,
       "original_source": {
         "path": "tools/compare_external_flash.py",
         "sha256": "17809588c49bb0cd910c6d0c192a66350f5347d764eaea8fe0d3f9e0d1e652ea"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_disasm",
         "penf_external_flash_probe",
@@ -1050,13 +1050,13 @@
     },
     {
       "path": "tools/em10_dump_probe.py",
-      "sha256": "325b8e8feb31e01d04583d23169f98a128c42e5f24abb616ce81cfb800a2bebc",
-      "bytes": 8419,
+      "sha256": "bdd2adad41168c20b4ad76089ac89756cb50152c9efa79823d3f6afc7269b9fe",
+      "bytes": 8572,
       "original_source": {
         "path": "tools/em10_dump_probe.py",
         "sha256": "325b8e8feb31e01d04583d23169f98a128c42e5f24abb616ce81cfb800a2bebc"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_boot_emulator",
         "penf_emulator",
@@ -1066,13 +1066,13 @@
     },
     {
       "path": "tools/em10_source_audit.py",
-      "sha256": "b4b7ae79e34457d8778fbe990096e9e0d12735366dd042211f2cc1449eced4dc",
-      "bytes": 5608,
+      "sha256": "fd627581fac2aecd1a6461a75564acf3a258857bce6ff666f04b8e10ac93c3a8",
+      "bytes": 5761,
       "original_source": {
         "path": "tools/em10_source_audit.py",
         "sha256": "b4b7ae79e34457d8778fbe990096e9e0d12735366dd042211f2cc1449eced4dc"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "oly_container"
       ],
@@ -1080,13 +1080,13 @@
     },
     {
       "path": "tools/em1ii_boot_audit.py",
-      "sha256": "19c7941e6b6465e1ef8b997e104fcde513aef3608869e6cd7545e076380d5e55",
-      "bytes": 21326,
+      "sha256": "9eee31c1116d1b271e979343a18f8906a31f7494246ec149be9be8e1ffc39b1b",
+      "bytes": 21479,
       "original_source": {
         "path": "tools/em1ii_boot_audit.py",
         "sha256": "19c7941e6b6465e1ef8b997e104fcde513aef3608869e6cd7545e076380d5e55"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "oly_container",
         "oly_sd_selector_comparison",
@@ -1099,13 +1099,13 @@
     },
     {
       "path": "tools/ep7_flash_gpio_probe.py",
-      "sha256": "c60b076a4451a1a6a0a087955347b64396ddd29c6da251d67d752bb2537cf19f",
-      "bytes": 3111,
+      "sha256": "2d9ed6c21c648bdb83a1f6291eff06c1e5fa5ea913d05f8864d188b4910ba454",
+      "bytes": 3264,
       "original_source": {
         "path": "tools/ep7_flash_gpio_probe.py",
         "sha256": "c60b076a4451a1a6a0a087955347b64396ddd29c6da251d67d752bb2537cf19f"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "compare_external_flash",
         "penf_hsl_context_probe",
@@ -1116,13 +1116,13 @@
     },
     {
       "path": "tools/historical_hack_audit.py",
-      "sha256": "ffa863277e6b598d80231f2c553103af0a3421483f15f4ca0b9a685c4082443d",
-      "bytes": 7041,
+      "sha256": "4c7e2690e05bc824072f4570218075542c03d4c5d01a67f0a0dbe3b715fe0298",
+      "bytes": 7194,
       "original_source": {
         "path": "tools/historical_hack_audit.py",
         "sha256": "ffa863277e6b598d80231f2c553103af0a3421483f15f4ca0b9a685c4082443d"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "oly_container",
         "penf_disasm",
@@ -1139,8 +1139,8 @@
         "path": "tools/ida49_batch_driver.py",
         "sha256": "57d962cf733becb74134dd6115d20628468ec1de52b45c6fabf1b4792040cdf9"
       },
-      "sha256": "603474ddd7fca008f93dc21cdcb772bd3ea565d3b0ce99e2846b17620035bf91",
-      "bytes": 2230,
+      "sha256": "1c74ff2f0769fcd08a417ab4ee3d6e997193813c8cccdbf44ef11706d7ddfd11",
+      "bytes": 2383,
       "adapted": true
     },
     {
@@ -1152,20 +1152,20 @@
     {
       "path": "tools/ida/prepare.py",
       "origin": "original documentation, fixture or utility",
-      "sha256": "ca1d3ac78e37226d67cd0c9be1f53351d87304dbac7a92b2bef49f1a1b0187a2",
-      "bytes": 3446
+      "sha256": "b3c15c151e3b393fbcc923a9498358b81e6dac0b9b639db2e182360865919faa",
+      "bytes": 3599
     },
     {
       "path": "tools/ida/wine.py",
       "origin": "original documentation, fixture or utility",
-      "sha256": "7e916f1dea49ae2c0c29247bda1c28259cf3bd366afa9831911e046a7ef45f2a",
-      "bytes": 2683
+      "sha256": "a213ada9eeaef66d0a865270d16762ab18fb0e252ed2fd469163e7aec4f52b3c",
+      "bytes": 2836
     },
     {
       "path": "tools/ida/wineserver",
       "origin": "original documentation, fixture or utility",
-      "sha256": "384feff1954e65c7abe3b45e3945524745fdaf1d5fc1ec70f65d0fc0f9d2fa6c",
-      "bytes": 38
+      "sha256": "df34153a062047e0b7e96edc3a687ddfd47b4c721e1162d9c3f99a640d0225f1",
+      "bytes": 191
     },
     {
       "path": "tools/inputs.json",
@@ -1175,57 +1175,57 @@
     },
     {
       "path": "tools/mn103_runner.c",
-      "sha256": "b718fec171d0fad6d58a5818399e44593cef549a888ab67d3041e455d2d61e9c",
-      "bytes": 6532,
+      "sha256": "93094c3b5a73e221fa2e1e7bbd508062609c8b704737564cef4d9123eb32ff8b",
+      "bytes": 6698,
       "original_source": {
         "path": "tools/mn103_runner.c",
         "sha256": "b718fec171d0fad6d58a5818399e44593cef549a888ab67d3041e455d2d61e9c"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tools/mn103_strict.patch",
-      "sha256": "e9553dc2f6de26c97955c696ddb84b0e7eacd0613b673058c9b5ddacd39262a8",
-      "bytes": 10583,
+      "sha256": "26283b057b03549c3073e4066187ab76b5c7d72bd8018adad810af6d70f88738",
+      "bytes": 10829,
       "original_source": {
         "path": "tools/mn103_strict.patch",
         "sha256": "e9553dc2f6de26c97955c696ddb84b0e7eacd0613b673058c9b5ddacd39262a8"
       },
-      "adapted": false
+      "adapted": true
     },
     {
       "path": "tools/oly_container.py",
-      "sha256": "ab842e186049074848a24dda432e8a5b85d52390fd22af9d059bf630def9cb6b",
-      "bytes": 8788,
+      "sha256": "27a6b3439b7c24eddb3b63bbbe0bd7dcd100fef131a63235e678158c224f9105",
+      "bytes": 8941,
       "original_source": {
         "path": "tools/oly_container.py",
         "sha256": "ab842e186049074848a24dda432e8a5b85d52390fd22af9d059bf630def9cb6b"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [],
       "entry_point": true
     },
     {
       "path": "tools/oly_release_inspect.py",
-      "sha256": "3ab025e9ede0f6070207850e74c6b5999f664fe0e4a381b801928b769d219ec3",
-      "bytes": 5362,
+      "sha256": "17123b2762c69f4d7d2285f5cac53a3a6d39baee1979f39761698f0a449ff7b3",
+      "bytes": 5515,
       "original_source": {
         "path": "tools/oly_release_inspect.py",
         "sha256": "3ab025e9ede0f6070207850e74c6b5999f664fe0e4a381b801928b769d219ec3"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [],
       "entry_point": true
     },
     {
       "path": "tools/oly_sd_selector_comparison.py",
-      "sha256": "b1af9adeb0b94b815d4bccfb9f94afca02874188115dbd927a8df6b26a66ff79",
-      "bytes": 19823,
+      "sha256": "3c1b07567ca6ba3052686ed77885f1e94cd666ffe40e13974d7ee4035b55ace6",
+      "bytes": 19976,
       "original_source": {
         "path": "tools/oly_sd_selector_comparison.py",
         "sha256": "b1af9adeb0b94b815d4bccfb9f94afca02874188115dbd927a8df6b26a66ff79"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_disasm",
         "penf_emulator",
@@ -1238,13 +1238,13 @@
     },
     {
       "path": "tools/om3_code_space_audit.py",
-      "sha256": "3c144d002219a9a8ab713408359c4b528961f99dd29698e16b96937a94faa0d0",
-      "bytes": 14472,
+      "sha256": "d83390e4e793c9ef62f06207461cbe9700a4eb4df150add104e51aaf9a2df806",
+      "bytes": 14625,
       "original_source": {
         "path": "tools/om3_code_space_audit.py",
         "sha256": "3c144d002219a9a8ab713408359c4b528961f99dd29698e16b96937a94faa0d0"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "oly_container",
         "om3_patch_audit",
@@ -1256,13 +1256,13 @@
     },
     {
       "path": "tools/om3_patch_audit.py",
-      "sha256": "3bf7b1ab37f85f4311d37a43df6ef4b3cab6f9b94cb79f4dfd65c2ffae55bc13",
-      "bytes": 11120,
+      "sha256": "ae55e8fbf1d4ef92c0909fdbf8dad1ed37691d2faf24747a8bb5085fdbd6027c",
+      "bytes": 11273,
       "original_source": {
         "path": "tools/om3_patch_audit.py",
         "sha256": "3bf7b1ab37f85f4311d37a43df6ef4b3cab6f9b94cb79f4dfd65c2ffae55bc13"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "oly_container"
       ],
@@ -1270,13 +1270,13 @@
     },
     {
       "path": "tools/om3_preview_probe.py",
-      "sha256": "3fc00f14dd2a6d5dab17c9c7534a6f5589ea8121a17080a4b26f60632e0c248d",
-      "bytes": 6790,
+      "sha256": "71d45e315fc3ccac5fbcd733152316e6d589dc9f01bf31be30df4fc18dbcf5ee",
+      "bytes": 6943,
       "original_source": {
         "path": "tools/om3_preview_probe.py",
         "sha256": "3fc00f14dd2a6d5dab17c9c7534a6f5589ea8121a17080a4b26f60632e0c248d"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "om3_tethering_probe",
         "penf_emulator",
@@ -1286,13 +1286,13 @@
     },
     {
       "path": "tools/om3_tethering_probe.py",
-      "sha256": "caa29c3de0302a8a05158f807c5404b4e538527c0cdf82332fdec027e170ae0d",
-      "bytes": 8377,
+      "sha256": "5bb4ac5307370d982db81e49bf3d2597cb4e111ac2461668305a8ed13021af7f",
+      "bytes": 8530,
       "original_source": {
         "path": "tools/om3_tethering_probe.py",
         "sha256": "caa29c3de0302a8a05158f807c5404b4e538527c0cdf82332fdec027e170ae0d"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_boot_emulator",
         "penf_emulator",
@@ -1302,8 +1302,8 @@
     },
     {
       "path": "tools/om5_burst_audit.py",
-      "sha256": "0b2b1b56a054176916bec86bb6856c1e7655e6a895342bbd086d78c6280bb973",
-      "bytes": 9381,
+      "sha256": "d2df773ad394b4aca705593d0562e053fbc2655b809f9640471d348868832e09",
+      "bytes": 9534,
       "original_source": {
         "path": "tools/om5_burst_audit.py",
         "sha256": "a2a1573a26e7f4a411d7dd7aeb5eb2d3ff6540af0aa91f60bfc89abce5496d16"
@@ -1319,13 +1319,13 @@
     },
     {
       "path": "tools/om5_image_pool_probe.py",
-      "sha256": "23ec64a4923f28f154da13ce3ea4daf8b311462302cfadd6d5d28870eef59173",
-      "bytes": 11078,
+      "sha256": "a9d37496a3b032f47579e8556d90a26b5cb101b25ca1ea81e3e02c486bb5329d",
+      "bytes": 11231,
       "original_source": {
         "path": "tools/om5_image_pool_probe.py",
         "sha256": "23ec64a4923f28f154da13ce3ea4daf8b311462302cfadd6d5d28870eef59173"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "oly_container",
         "om5_burst_audit",
@@ -1339,13 +1339,13 @@
     },
     {
       "path": "tools/om5_rate_consumers_probe.py",
-      "sha256": "de410897b3001895e29e47e58941d0fadb9267c1dc89c67427a26c3bdb4ccf7c",
-      "bytes": 17244,
+      "sha256": "01b1921136b25be1910fff8a3d656f200e9e345902e840d3b5622247883ab471",
+      "bytes": 17397,
       "original_source": {
         "path": "tools/om5_rate_consumers_probe.py",
         "sha256": "de410897b3001895e29e47e58941d0fadb9267c1dc89c67427a26c3bdb4ccf7c"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "oly_container",
         "om5_burst_audit",
@@ -1357,13 +1357,13 @@
     },
     {
       "path": "tools/om5_runtime_buffer_probe.py",
-      "sha256": "3024dd20dc8960af6f16792e7d8060db96d973ee62913a5c38476537e048e851",
-      "bytes": 14327,
+      "sha256": "cb7414f28505594cf01e91e47c543057065ed1ff6898f9d61bef321be83a2948",
+      "bytes": 14480,
       "original_source": {
         "path": "tools/om5_runtime_buffer_probe.py",
         "sha256": "3024dd20dc8960af6f16792e7d8060db96d973ee62913a5c38476537e048e851"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "oly_container",
         "om5_burst_audit",
@@ -1377,8 +1377,8 @@
     {
       "path": "tools/om_emu_overlay.py",
       "origin": "original documentation, fixture or utility",
-      "sha256": "a0db6eb81f44be5af6264d043071e40a45dfafe191f518f99f56afe65ef52782",
-      "bytes": 3499,
+      "sha256": "3848319ccdd2e359d8fbf7bfb0f5994b0423b01f030b5f2c4712c27152d1948a",
+      "bytes": 3652,
       "local_imports": [
         "oly_container"
       ],
@@ -1387,32 +1387,32 @@
     {
       "path": "tools/om_emu_penf_editor.mjs",
       "origin": "original documentation, fixture or utility",
-      "sha256": "18af063ab886995c0947ba66caa6eff0251a2b3e00f61ea87e5060ed2c920a7a",
-      "bytes": 3922,
+      "sha256": "b33d513d8a565ce6b04a68146445a50777aa761b628c1af26a3844246260c868",
+      "bytes": 4078,
       "local_imports": [],
       "entry_point": true
     },
     {
       "path": "tools/om_firmware_catalog.py",
-      "sha256": "292fd0a444d30c5abdf4ddfbd7bd90a3c10569de629c7306c66230f7e69c3d63",
-      "bytes": 6547,
+      "sha256": "82e101a46688ac8b8bf9f11d0d4d803a90bdd2a4b3734ad449f4ea647d098609",
+      "bytes": 6700,
       "original_source": {
         "path": "tools/om_firmware_catalog.py",
         "sha256": "292fd0a444d30c5abdf4ddfbd7bd90a3c10569de629c7306c66230f7e69c3d63"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [],
       "entry_point": true
     },
     {
       "path": "tools/penf_alex_bulk_model.py",
-      "sha256": "e1be5b5336ac6f2937fc6d807f1c4a36999b957b7ba90e2cc1b60f74ca20bcdc",
-      "bytes": 11078,
+      "sha256": "5b01dfc06da4aacb33289b9511d50c17dba0fce447d942562f2a54d76445f92b",
+      "bytes": 11231,
       "original_source": {
         "path": "tools/penf_alex_bulk_model.py",
         "sha256": "e1be5b5336ac6f2937fc6d807f1c4a36999b957b7ba90e2cc1b60f74ca20bcdc"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_alex_model",
         "penf_emulator"
@@ -1421,25 +1421,25 @@
     },
     {
       "path": "tools/penf_alex_model.py",
-      "sha256": "01b1bf1b89a3c097b9326664c75be8aa12cf2351535c1daee0de46b0a28ee4eb",
-      "bytes": 9292,
+      "sha256": "df73f42a6f04931257b478360c842498d273e5ee274ca2aec07df1a75841d5b2",
+      "bytes": 9445,
       "original_source": {
         "path": "tools/penf_alex_model.py",
         "sha256": "01b1bf1b89a3c097b9326664c75be8aa12cf2351535c1daee0de46b0a28ee4eb"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [],
       "entry_point": false
     },
     {
       "path": "tools/penf_aperture_ring_probe.py",
-      "sha256": "33c1a2297e8415e261d28974a754630f95c3ca564e54ff8f7f5446505f2ea129",
-      "bytes": 10232,
+      "sha256": "cba097a39a7f5cdb3c393bbbbff2941c9c6f4ec5ccb09a1dbed3c076f2faf318",
+      "bytes": 10385,
       "original_source": {
         "path": "tools/penf_aperture_ring_probe.py",
         "sha256": "33c1a2297e8415e261d28974a754630f95c3ca564e54ff8f7f5446505f2ea129"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "oly_release_inspect",
         "penf_emulator",
@@ -1449,13 +1449,13 @@
     },
     {
       "path": "tools/penf_boot_after_alex.py",
-      "sha256": "c3e32a3974a7ce6a476d76f558dbaa2d3a72c9aec2012e7690d4e0d53f4f92eb",
-      "bytes": 3348,
+      "sha256": "6176a6cf950dfb0d86e527515e7b083fd5b609b34f17c96d2953e7e943b0e70e",
+      "bytes": 3501,
       "original_source": {
         "path": "tools/penf_boot_after_alex.py",
         "sha256": "c3e32a3974a7ce6a476d76f558dbaa2d3a72c9aec2012e7690d4e0d53f4f92eb"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_alex_bulk_model",
         "penf_boot_audit",
@@ -1467,13 +1467,13 @@
     },
     {
       "path": "tools/penf_boot_api_log.py",
-      "sha256": "fcf2f8bfcb760a986e5ff431f5aee566a9e1c45b5d9432b1057e98f2645127a4",
-      "bytes": 6478,
+      "sha256": "604372c8e5ea3c736e74b8719389e9f74036185fe1b680579133d03c3eb85a04",
+      "bytes": 6631,
       "original_source": {
         "path": "tools/penf_boot_api_log.py",
         "sha256": "fcf2f8bfcb760a986e5ff431f5aee566a9e1c45b5d9432b1057e98f2645127a4"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_boot_audit",
         "penf_boot_core_idle",
@@ -1486,13 +1486,13 @@
     },
     {
       "path": "tools/penf_boot_application.py",
-      "sha256": "fdc8513ffff044927ccf7f13775170e5639758b74e513d6c5705bdb6d18ae128",
-      "bytes": 5378,
+      "sha256": "2fc4d8892b90ee428846c1ac041e2c3fcafe546deb7e4e5a1e1a176541137dec",
+      "bytes": 5531,
       "original_source": {
         "path": "tools/penf_boot_application.py",
         "sha256": "fdc8513ffff044927ccf7f13775170e5639758b74e513d6c5705bdb6d18ae128"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_boot_audit",
         "penf_boot_core_idle",
@@ -1504,13 +1504,13 @@
     },
     {
       "path": "tools/penf_boot_audit.py",
-      "sha256": "6d2a7093098f747193d40decc3f2f122c52783f94f4594ea0086cebdde3a2979",
-      "bytes": 13217,
+      "sha256": "44b41ff7431ca9a7fa8819b0576fac63eb076b0eccf94fb570ffe14c66f9e446",
+      "bytes": 13370,
       "original_source": {
         "path": "tools/penf_boot_audit.py",
         "sha256": "6d2a7093098f747193d40decc3f2f122c52783f94f4594ea0086cebdde3a2979"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_disasm",
         "penf_emulator"
@@ -1519,13 +1519,13 @@
     },
     {
       "path": "tools/penf_boot_camera_clock.py",
-      "sha256": "7f42cbdb8a1368ff27970cd109e48a4932de64b4851c9b2a4ad99e767e617753",
-      "bytes": 5715,
+      "sha256": "af65a4f8cd90828f777f619997a0920055064c2b179f53795f01737e6f9787f6",
+      "bytes": 5868,
       "original_source": {
         "path": "tools/penf_boot_camera_clock.py",
         "sha256": "7f42cbdb8a1368ff27970cd109e48a4932de64b4851c9b2a4ad99e767e617753"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_boot_emulator",
         "penf_boot_strobe_sequence",
@@ -1535,13 +1535,13 @@
     },
     {
       "path": "tools/penf_boot_camera_enable.py",
-      "sha256": "ec2db0741cabc069aa4f94e3c7bc2d285fca6d82e3ee2c856e9aab8955679593",
-      "bytes": 3885,
+      "sha256": "09e0fb0c30db84ee8cadb10c0060b0681d216715d9178332b7f5f1e092a3bd47",
+      "bytes": 4038,
       "original_source": {
         "path": "tools/penf_boot_camera_enable.py",
         "sha256": "ec2db0741cabc069aa4f94e3c7bc2d285fca6d82e3ee2c856e9aab8955679593"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_boot_camera_clock",
         "penf_boot_emulator",
@@ -1551,13 +1551,13 @@
     },
     {
       "path": "tools/penf_boot_camera_gates.py",
-      "sha256": "c73bfa75ae9af32b6bf809d7192439b92d3ba5413f96916fae855f81ea8ba078",
-      "bytes": 8099,
+      "sha256": "7f0659b01bb609d860bd9fb074ef46ec2440e835398c921f4f8ef484b1aac2e5",
+      "bytes": 8252,
       "original_source": {
         "path": "tools/penf_boot_camera_gates.py",
         "sha256": "c73bfa75ae9af32b6bf809d7192439b92d3ba5413f96916fae855f81ea8ba078"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_boot_camera_registers",
         "penf_boot_emulator",
@@ -1567,13 +1567,13 @@
     },
     {
       "path": "tools/penf_boot_camera_registers.py",
-      "sha256": "7f028664b5e23e9f080df13b876e507a0748d79983c2168cf5d4d98263445891",
-      "bytes": 6432,
+      "sha256": "86e73f9feaf04f347abb916524f45f6f7c9136feaa5a7273925e5ebdb31d58ec",
+      "bytes": 6585,
       "original_source": {
         "path": "tools/penf_boot_camera_registers.py",
         "sha256": "7f028664b5e23e9f080df13b876e507a0748d79983c2168cf5d4d98263445891"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_boot_camera_enable",
         "penf_boot_emulator",
@@ -1583,13 +1583,13 @@
     },
     {
       "path": "tools/penf_boot_camera_units.py",
-      "sha256": "315bac5bea0f0dbaeecf5b1b60eccab305b1f893614a222c275e7826b2065f84",
-      "bytes": 4300,
+      "sha256": "0577013114318c8da3f4d65a59c69a29f02952f8f98357f54f54b1845cc5ec49",
+      "bytes": 4453,
       "original_source": {
         "path": "tools/penf_boot_camera_units.py",
         "sha256": "315bac5bea0f0dbaeecf5b1b60eccab305b1f893614a222c275e7826b2065f84"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_boot_camera_gates",
         "penf_boot_emulator",
@@ -1599,13 +1599,13 @@
     },
     {
       "path": "tools/penf_boot_console_idle.py",
-      "sha256": "7d9245c1617a215f7b96d04179da635e0f574b15d287e734885098f9d41068f6",
-      "bytes": 5170,
+      "sha256": "338c6c7dba3f04c543fc61d3030f8ea3b09382b4c852ab22c670e6947278cb05",
+      "bytes": 5323,
       "original_source": {
         "path": "tools/penf_boot_console_idle.py",
         "sha256": "7d9245c1617a215f7b96d04179da635e0f574b15d287e734885098f9d41068f6"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_boot_audit",
         "penf_boot_core_idle",
@@ -1618,13 +1618,13 @@
     },
     {
       "path": "tools/penf_boot_core_idle.py",
-      "sha256": "da32b83e01625fa8be711b5323c1ef69e444e8380ad54d06da980a794ed9f0a8",
-      "bytes": 4203,
+      "sha256": "ec7f2e38ffe5c0055ce76352e8b3280e21f4caba19f9eb254733a105ef0f70ce",
+      "bytes": 4356,
       "original_source": {
         "path": "tools/penf_boot_core_idle.py",
         "sha256": "da32b83e01625fa8be711b5323c1ef69e444e8380ad54d06da980a794ed9f0a8"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_boot_after_alex",
         "penf_boot_audit",
@@ -1637,13 +1637,13 @@
     },
     {
       "path": "tools/penf_boot_cross_core.py",
-      "sha256": "e6f3b8f7929bfa5e8d10577c31b304cfcfe2f75e61781f2811218b91b16306fd",
-      "bytes": 4207,
+      "sha256": "58dd1d6a52d41dea80726e25dcf47e04dcc3855e5de5ac5fa81bcf14d7631159",
+      "bytes": 4360,
       "original_source": {
         "path": "tools/penf_boot_cross_core.py",
         "sha256": "e6f3b8f7929bfa5e8d10577c31b304cfcfe2f75e61781f2811218b91b16306fd"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_boot_emulator",
         "penf_boot_favorite_lens",
@@ -1655,13 +1655,13 @@
     },
     {
       "path": "tools/penf_boot_display_init.py",
-      "sha256": "3c152ceac70fb5ce33a70df927a9a6bf948c3463b9867636ac3d75fe574b9f46",
-      "bytes": 5611,
+      "sha256": "3d68d9b6eb193422e1ed7c889b1242b3c179096dd2a538544b55af3ef23dc3ad",
+      "bytes": 5764,
       "original_source": {
         "path": "tools/penf_boot_display_init.py",
         "sha256": "3c152ceac70fb5ce33a70df927a9a6bf948c3463b9867636ac3d75fe574b9f46"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_boot_audit",
         "penf_boot_core_idle",
@@ -1674,13 +1674,13 @@
     },
     {
       "path": "tools/penf_boot_dump_probe.py",
-      "sha256": "07b930e202f1384532f6e1b43c14c3ecce88179965a12fdec09653fa2b36bca5",
-      "bytes": 14219,
+      "sha256": "c4218a69794f923a586f54e64b6262c713f6b8b5f71eea59ae27888854b6c5e1",
+      "bytes": 14372,
       "original_source": {
         "path": "tools/penf_boot_dump_probe.py",
         "sha256": "07b930e202f1384532f6e1b43c14c3ecce88179965a12fdec09653fa2b36bca5"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_diagnostic_lifetime_probe",
         "penf_emulator",
@@ -1690,13 +1690,13 @@
     },
     {
       "path": "tools/penf_boot_emulator.py",
-      "sha256": "13388e8da2ceaf640e513af09568f22c7f0de90650fb4df8f2fc6249a0ce9ebb",
-      "bytes": 72589,
+      "sha256": "cd79af8b516079ea7b5ba92c58fa6ea1041128ae9e08fbf14feec524476404d6",
+      "bytes": 72742,
       "original_source": {
         "path": "tools/penf_boot_emulator.py",
         "sha256": "13388e8da2ceaf640e513af09568f22c7f0de90650fb4df8f2fc6249a0ce9ebb"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_alex_model",
         "penf_emulator",
@@ -1706,13 +1706,13 @@
     },
     {
       "path": "tools/penf_boot_favorite_lens.py",
-      "sha256": "7410a0d6f977bf6c5b41bc65259182bba5de67cfd0dd822baec9d803a4623753",
-      "bytes": 3905,
+      "sha256": "60db8704d45a58464711c03bf79c36ef0d9864db1823310fb4bcbb1d296faa35",
+      "bytes": 4058,
       "original_source": {
         "path": "tools/penf_boot_favorite_lens.py",
         "sha256": "7410a0d6f977bf6c5b41bc65259182bba5de67cfd0dd822baec9d803a4623753"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_boot_emulator",
         "penf_boot_resources",
@@ -1722,13 +1722,13 @@
     },
     {
       "path": "tools/penf_boot_lens_init.py",
-      "sha256": "7c34fe9b45a57e10fd692e6b9e01a52dd1abf74b0d0eea2c066055776bfdd3e6",
-      "bytes": 5765,
+      "sha256": "bc909855660a901d4b1908a82bf997786a6815e29ffdc5ddb5baf121fb3afa45",
+      "bytes": 5918,
       "original_source": {
         "path": "tools/penf_boot_lens_init.py",
         "sha256": "7c34fe9b45a57e10fd692e6b9e01a52dd1abf74b0d0eea2c066055776bfdd3e6"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_boot_application",
         "penf_boot_audit",
@@ -1741,13 +1741,13 @@
     },
     {
       "path": "tools/penf_boot_mode_dial.py",
-      "sha256": "0c232398c0e66ba62ff64e3402b4c5b4d8fbac60a66b46e8dee741e5aae2e8c3",
-      "bytes": 3866,
+      "sha256": "50432fc96bc3a7fae3104effa1ae36470f5d1be6f27816a1e0cf47441f461fad",
+      "bytes": 4019,
       "original_source": {
         "path": "tools/penf_boot_mode_dial.py",
         "sha256": "0c232398c0e66ba62ff64e3402b4c5b4d8fbac60a66b46e8dee741e5aae2e8c3"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_boot_emulator",
         "penf_boot_retained_state",
@@ -1757,13 +1757,13 @@
     },
     {
       "path": "tools/penf_boot_parameter_budget.py",
-      "sha256": "fd9c6499500b36348ef80cc156d4bcdc1d51b3bdaa222955526d5153c7857d49",
-      "bytes": 1757,
+      "sha256": "9667db1c104d803fa708dd4511f95c1bf3b8c5a453e3ba62bf70751f2ff67d0a",
+      "bytes": 1910,
       "original_source": {
         "path": "tools/penf_boot_parameter_budget.py",
         "sha256": "fd9c6499500b36348ef80cc156d4bcdc1d51b3bdaa222955526d5153c7857d49"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_boot_emulator",
         "penf_boot_parameter_init",
@@ -1773,13 +1773,13 @@
     },
     {
       "path": "tools/penf_boot_parameter_init.py",
-      "sha256": "4730807aec0d140aefc60da3ad762bdfa74db3d3eca2f06ee2d04e3ef8009417",
-      "bytes": 3983,
+      "sha256": "ceda4fd487725aaba10e58cb499118752396a25890ab66924ec7475ca17a4461",
+      "bytes": 4136,
       "original_source": {
         "path": "tools/penf_boot_parameter_init.py",
         "sha256": "4730807aec0d140aefc60da3ad762bdfa74db3d3eca2f06ee2d04e3ef8009417"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_boot_api_log",
         "penf_boot_audit",
@@ -1792,13 +1792,13 @@
     },
     {
       "path": "tools/penf_boot_remote_semaphore.py",
-      "sha256": "144a6e75e43ea899b0be8b2f15fb33d50754fc25c549d01c69d63ef8d83c80e6",
-      "bytes": 3409,
+      "sha256": "355dafd33cd3e7c3f9c1bacae8dee184d66cf2ae3290116320f272e2f90dbfff",
+      "bytes": 3562,
       "original_source": {
         "path": "tools/penf_boot_remote_semaphore.py",
         "sha256": "144a6e75e43ea899b0be8b2f15fb33d50754fc25c549d01c69d63ef8d83c80e6"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_boot_cross_core",
         "penf_boot_emulator",
@@ -1809,13 +1809,13 @@
     },
     {
       "path": "tools/penf_boot_resources.py",
-      "sha256": "1eada4d0a9ad566f413c1812173bab36637af943ee1d9988bbfe5ecb02915f1d",
-      "bytes": 4435,
+      "sha256": "f570df367bbd92d782da4026d446bf68b398ac9be946db4f12064523d2acb4ca",
+      "bytes": 4588,
       "original_source": {
         "path": "tools/penf_boot_resources.py",
         "sha256": "1eada4d0a9ad566f413c1812173bab36637af943ee1d9988bbfe5ecb02915f1d"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_boot_emulator",
         "penf_boot_startup_gpio",
@@ -1826,13 +1826,13 @@
     },
     {
       "path": "tools/penf_boot_retained_state.py",
-      "sha256": "a2edf008eb776f5161f0724bc67a8b648da62b569fbcb51741a1a80861fff0e6",
-      "bytes": 6342,
+      "sha256": "0cad886ace54c16bc92cfbabea34ad45ca43e82b9fa1de5b2ecd619f71e512f3",
+      "bytes": 6495,
       "original_source": {
         "path": "tools/penf_boot_retained_state.py",
         "sha256": "a2edf008eb776f5161f0724bc67a8b648da62b569fbcb51741a1a80861fff0e6"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_boot_emulator",
         "penf_boot_section_completion",
@@ -1843,13 +1843,13 @@
     },
     {
       "path": "tools/penf_boot_sd_client.py",
-      "sha256": "d97a2693390fc342bbdc58539f2d8af1d7705b2ef558c0f508a80461ba284ab2",
-      "bytes": 9023,
+      "sha256": "c543d59e8cfd296aaeecbd8521efcfb90c11c4e895e7a8ebed6b26e35b363f6b",
+      "bytes": 9176,
       "original_source": {
         "path": "tools/penf_boot_sd_client.py",
         "sha256": "d97a2693390fc342bbdc58539f2d8af1d7705b2ef558c0f508a80461ba284ab2"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_boot_emulator",
         "penf_boot_sd_constructor_memory",
@@ -1860,13 +1860,13 @@
     },
     {
       "path": "tools/penf_boot_sd_constructor_memory.py",
-      "sha256": "20a6cb50d5d783d2cc96c3ee9744efaeea6a7d761c045f57f59df613be883335",
-      "bytes": 4697,
+      "sha256": "d90fa4ab805c468a94c86db2da9933db91f6c2c3c5b0b1218bb228b444cd890c",
+      "bytes": 4850,
       "original_source": {
         "path": "tools/penf_boot_sd_constructor_memory.py",
         "sha256": "20a6cb50d5d783d2cc96c3ee9744efaeea6a7d761c045f57f59df613be883335"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_boot_emulator",
         "penf_boot_sd_preparation",
@@ -1876,13 +1876,13 @@
     },
     {
       "path": "tools/penf_boot_sd_dependencies.py",
-      "sha256": "c49864e6858613cb450df666f6c9dd48dc5ea9aa2dfdb8f02e0f2730a3113a1d",
-      "bytes": 3676,
+      "sha256": "e2b0fbcdfddca9152640a3dd174f5b4cb1f74c450cd54d9b301697007ad122f5",
+      "bytes": 3829,
       "original_source": {
         "path": "tools/penf_boot_sd_dependencies.py",
         "sha256": "c49864e6858613cb450df666f6c9dd48dc5ea9aa2dfdb8f02e0f2730a3113a1d"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_boot_camera_units",
         "penf_boot_emulator",
@@ -1892,13 +1892,13 @@
     },
     {
       "path": "tools/penf_boot_sd_filesystem.py",
-      "sha256": "96ef2a0135d477def67a45f3bb0c8dcea159b0268580c3cd4d77be4c96f234d4",
-      "bytes": 12189,
+      "sha256": "0ae0fa8c0f908f6f7ec55b7d7f55d893dad3b44b4fdf3eb855198735073bfb04",
+      "bytes": 12342,
       "original_source": {
         "path": "tools/penf_boot_sd_filesystem.py",
         "sha256": "96ef2a0135d477def67a45f3bb0c8dcea159b0268580c3cd4d77be4c96f234d4"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_boot_emulator",
         "penf_boot_sd_client",
@@ -1909,13 +1909,13 @@
     },
     {
       "path": "tools/penf_boot_sd_mount.py",
-      "sha256": "0ecc3e2d1d6457ebaec75841185e05f51d587bdd8e60bc53fe923804c8665b38",
-      "bytes": 7624,
+      "sha256": "6f893b499db06a7e8cb9c7ea2c57542a841effcfef82dde05f95b2c4ce6678de",
+      "bytes": 7777,
       "original_source": {
         "path": "tools/penf_boot_sd_mount.py",
         "sha256": "0ecc3e2d1d6457ebaec75841185e05f51d587bdd8e60bc53fe923804c8665b38"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_boot_emulator",
         "penf_boot_sd_filesystem",
@@ -1927,13 +1927,13 @@
     },
     {
       "path": "tools/penf_boot_sd_preparation.py",
-      "sha256": "9e5ea24e4be6b936092a2d70986969c8a56cea79296eb0d15f0ae66beb68a067",
-      "bytes": 6867,
+      "sha256": "1e9b1b06a320806b8b58294588de92d42621c48268af818462e7335108126ddf",
+      "bytes": 7020,
       "original_source": {
         "path": "tools/penf_boot_sd_preparation.py",
         "sha256": "9e5ea24e4be6b936092a2d70986969c8a56cea79296eb0d15f0ae66beb68a067"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_boot_emulator",
         "penf_boot_sd_dependencies",
@@ -1943,13 +1943,13 @@
     },
     {
       "path": "tools/penf_boot_section_completion.py",
-      "sha256": "21625df69226c8941b20e1d77ec8be95a6b990ed23fb98bc6cfd0ee49f495eb0",
-      "bytes": 7021,
+      "sha256": "53aad4aa732c1be6e740a5751791028dd18e3559a1f51e9633b2fc27efdf83be",
+      "bytes": 7174,
       "original_source": {
         "path": "tools/penf_boot_section_completion.py",
         "sha256": "21625df69226c8941b20e1d77ec8be95a6b990ed23fb98bc6cfd0ee49f495eb0"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_boot_emulator",
         "penf_boot_semaphore_release",
@@ -1960,13 +1960,13 @@
     },
     {
       "path": "tools/penf_boot_semaphore_release.py",
-      "sha256": "44b6cbbe4f8553cb36229ab151fb4d876d159238496d4443a823a07c06228cda",
-      "bytes": 3499,
+      "sha256": "e0d70ba4154b0926b3ae339ff9c4da1f6d7cc1b5d0f91953259563468228e7cd",
+      "bytes": 3652,
       "original_source": {
         "path": "tools/penf_boot_semaphore_release.py",
         "sha256": "44b6cbbe4f8553cb36229ab151fb4d876d159238496d4443a823a07c06228cda"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_boot_emulator",
         "penf_boot_remote_semaphore",
@@ -1977,13 +1977,13 @@
     },
     {
       "path": "tools/penf_boot_startup_gpio.py",
-      "sha256": "6aaa88ce9f4fc91f94120b2702d405c70a3916894e2ba9fd602038497f5a02b5",
-      "bytes": 3497,
+      "sha256": "52023467d4557b422d5d1926459a25a4f77e0e4b26d166ff07dd283a7b13d80f",
+      "bytes": 3650,
       "original_source": {
         "path": "tools/penf_boot_startup_gpio.py",
         "sha256": "6aaa88ce9f4fc91f94120b2702d405c70a3916894e2ba9fd602038497f5a02b5"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_boot_emulator",
         "penf_boot_startup_preemption",
@@ -1993,13 +1993,13 @@
     },
     {
       "path": "tools/penf_boot_startup_preemption.py",
-      "sha256": "23076572cb24c7a4baebc542ed3d111fc9a93fb10669a24d10037ec7e73a5508",
-      "bytes": 2161,
+      "sha256": "14b125174201066614a9e2a0377c4f03609678606ed0f9111125616bd6b940d5",
+      "bytes": 2314,
       "original_source": {
         "path": "tools/penf_boot_startup_preemption.py",
         "sha256": "23076572cb24c7a4baebc542ed3d111fc9a93fb10669a24d10037ec7e73a5508"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_boot_emulator",
         "penf_boot_parameter_budget",
@@ -2011,13 +2011,13 @@
     },
     {
       "path": "tools/penf_boot_strobe_init.py",
-      "sha256": "4496d56bcb9ffd9da37028652a346db97089788b46a576850463d8f6007a4874",
-      "bytes": 7936,
+      "sha256": "c77bb726b8694ebc90ade083310ff1f832fcb4084c2bc04f421f279605467bac",
+      "bytes": 8089,
       "original_source": {
         "path": "tools/penf_boot_strobe_init.py",
         "sha256": "4496d56bcb9ffd9da37028652a346db97089788b46a576850463d8f6007a4874"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_boot_audit",
         "penf_boot_core_idle",
@@ -2030,13 +2030,13 @@
     },
     {
       "path": "tools/penf_boot_strobe_sequence.py",
-      "sha256": "a4cd351493eac828d176afbe2e001a5165f37fee8b2fe74d2696da97f2e39976",
-      "bytes": 4050,
+      "sha256": "20497b0b0f80cdfb221b776d090edb1a4016c5e042ae81af68c577a6c7cc2409",
+      "bytes": 4203,
       "original_source": {
         "path": "tools/penf_boot_strobe_sequence.py",
         "sha256": "a4cd351493eac828d176afbe2e001a5165f37fee8b2fe74d2696da97f2e39976"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_boot_emulator",
         "penf_boot_mode_dial",
@@ -2046,13 +2046,13 @@
     },
     {
       "path": "tools/penf_boot_usf_init.py",
-      "sha256": "0f1d66718fa512ad7ceae0e2beac0d1ad44c19a312ab72d9723a0376992272a7",
-      "bytes": 5754,
+      "sha256": "26e9734ad6bf27808ea22013bdf24a3fb813d1cc3f572c8d4cfb28306ca9b94c",
+      "bytes": 5907,
       "original_source": {
         "path": "tools/penf_boot_usf_init.py",
         "sha256": "0f1d66718fa512ad7ceae0e2beac0d1ad44c19a312ab72d9723a0376992272a7"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_boot_audit",
         "penf_boot_console_idle",
@@ -2065,13 +2065,13 @@
     },
     {
       "path": "tools/penf_button_boot_probe.py",
-      "sha256": "43bfc70ff54d4eef6c3264f3c2988b01f85af8b7532f7485a8a17010c82a91f7",
-      "bytes": 4904,
+      "sha256": "f965279bd536d2917fb443c1b5ffd8983c078c5bad4eb894c765248e88353da7",
+      "bytes": 5057,
       "original_source": {
         "path": "tools/penf_button_boot_probe.py",
         "sha256": "43bfc70ff54d4eef6c3264f3c2988b01f85af8b7532f7485a8a17010c82a91f7"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_boot_audit",
         "penf_boot_emulator",
@@ -2082,13 +2082,13 @@
     },
     {
       "path": "tools/penf_capture_conversion_probe.py",
-      "sha256": "0f376dd07f3ae8ca3d2f4aacc36cac1b926c8700eb72913a86d8f23ef9bc9a0a",
-      "bytes": 12569,
+      "sha256": "8bffdf639762ba1e44d7eccb676f1428d11429ef518232f19f6c4f935f4d23de",
+      "bytes": 12722,
       "original_source": {
         "path": "tools/penf_capture_conversion_probe.py",
         "sha256": "0f376dd07f3ae8ca3d2f4aacc36cac1b926c8700eb72913a86d8f23ef9bc9a0a"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_image_ownership_probe"
       ],
@@ -2096,13 +2096,13 @@
     },
     {
       "path": "tools/penf_capture_readiness_probe.py",
-      "sha256": "54bd4359396c49f1b0a5eb1bcd00eae6b242ff56abceeab362126f6913a57d9e",
-      "bytes": 14644,
+      "sha256": "7132eec3be27ad3eb1fa85389057b55a99d38be0879891a5a5cecb0c6244f8d3",
+      "bytes": 14797,
       "original_source": {
         "path": "tools/penf_capture_readiness_probe.py",
         "sha256": "54bd4359396c49f1b0a5eb1bcd00eae6b242ff56abceeab362126f6913a57d9e"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "oly_container",
         "penf_capture_transition_probe",
@@ -2115,13 +2115,13 @@
     },
     {
       "path": "tools/penf_capture_transition_probe.py",
-      "sha256": "b562fcf26eaab08c3099860eaa6e7384f736a8daef909de040bf1026cffd9145",
-      "bytes": 6770,
+      "sha256": "81845d7a76000d4c526642f21eebd9642d1e2c68bb5f0764b03179efb9e721ad",
+      "bytes": 6923,
       "original_source": {
         "path": "tools/penf_capture_transition_probe.py",
         "sha256": "b562fcf26eaab08c3099860eaa6e7384f736a8daef909de040bf1026cffd9145"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "oly_container",
         "penf_disasm",
@@ -2133,13 +2133,13 @@
     },
     {
       "path": "tools/penf_code_space_audit.py",
-      "sha256": "8a9c4fa9237526a3a0633a7d059e10d3e817a6d1919c1c0978ad57d923df1898",
-      "bytes": 7367,
+      "sha256": "57682fe125b52ace5ab16fe4c51a0ecd8bb5cd032f2620b9973121dc55e09f64",
+      "bytes": 7520,
       "original_source": {
         "path": "tools/penf_code_space_audit.py",
         "sha256": "8a9c4fa9237526a3a0633a7d059e10d3e817a6d1919c1c0978ad57d923df1898"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "oly_container",
         "penf_emulator"
@@ -2148,13 +2148,13 @@
     },
     {
       "path": "tools/penf_code_space_load_probe.py",
-      "sha256": "bfc70835eb6d1918ee0de5cd33f57c721443c1c861cb2a6d4a14ad4bd773fa1b",
-      "bytes": 5865,
+      "sha256": "1416520fef9e344d97844af3b7f1ca59716279c1e77da4f3bac28d5092054a6c",
+      "bytes": 6018,
       "original_source": {
         "path": "tools/penf_code_space_load_probe.py",
         "sha256": "bfc70835eb6d1918ee0de5cd33f57c721443c1c861cb2a6d4a14ad4bd773fa1b"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_emulator",
         "penf_probe",
@@ -2164,8 +2164,8 @@
     },
     {
       "path": "tools/penf_code_space_reference_audit.py",
-      "sha256": "ec3d2d716de2f5d073cf82932b2fb66d4a5337c5b11f36f02d95497a40440944",
-      "bytes": 8110,
+      "sha256": "be2725cdbf386882088827f1c8eabe547d290a75784e223a2879db425b4af3a2",
+      "bytes": 8263,
       "original_source": {
         "path": "tools/penf_code_space_reference_audit.py",
         "sha256": "3e0e8ae5a032623f38b8faecbe0044e0dacd83102e769877923c85d2c5e69e68"
@@ -2181,25 +2181,25 @@
     },
     {
       "path": "tools/penf_coefficient_watch.py",
-      "sha256": "e96ff99be39d35cbe3c85c8855015b8ce4f377a0c51cb3d33ea2ce673c0b15b4",
-      "bytes": 2241,
+      "sha256": "9fca64c1cd590ee22f5385162ca8dd37284e27ad342092585dd765176c4dce77",
+      "bytes": 2394,
       "original_source": {
         "path": "tools/penf_coefficient_watch.py",
         "sha256": "e96ff99be39d35cbe3c85c8855015b8ce4f377a0c51cb3d33ea2ce673c0b15b4"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [],
       "entry_point": false
     },
     {
       "path": "tools/penf_color_context_probe.py",
-      "sha256": "178e6fc1e42d17d137b5f12fe000705e02d340fd8c396bc511317e0127165655",
-      "bytes": 12595,
+      "sha256": "400188f8fb20b7b90e4d6bce07da5282fa9110d5a0b559238178da2d81b0eeb5",
+      "bytes": 12748,
       "original_source": {
         "path": "tools/penf_color_context_probe.py",
         "sha256": "178e6fc1e42d17d137b5f12fe000705e02d340fd8c396bc511317e0127165655"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_color_controls_probe",
         "penf_color_request_probe",
@@ -2211,13 +2211,13 @@
     },
     {
       "path": "tools/penf_color_controls_probe.py",
-      "sha256": "962b6fe692c17490da2cdf092d5241ba37087340ffea935d9a01785475f80d49",
-      "bytes": 12401,
+      "sha256": "268447e33200d19ba522f110aa6e852159698e15c411acf0541bd917727955a0",
+      "bytes": 12554,
       "original_source": {
         "path": "tools/penf_color_controls_probe.py",
         "sha256": "962b6fe692c17490da2cdf092d5241ba37087340ffea935d9a01785475f80d49"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_disasm",
         "penf_emulator",
@@ -2227,13 +2227,13 @@
     },
     {
       "path": "tools/penf_color_edit_probe.py",
-      "sha256": "7337149d3beb55990e51de0813fcda4011768d44a684ca16f73192722532ba60",
-      "bytes": 16845,
+      "sha256": "68b29d4bc87c2e1c33060fff0f7b6f48bf6bfcd56f2f28067b482c64d10ade42",
+      "bytes": 16998,
       "original_source": {
         "path": "tools/penf_color_edit_probe.py",
         "sha256": "7337149d3beb55990e51de0813fcda4011768d44a684ca16f73192722532ba60"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_profile_context_probe"
       ],
@@ -2241,8 +2241,8 @@
     },
     {
       "path": "tools/penf_color_fixtures.py",
-      "sha256": "b613c57786dd41fd15c6b276b38077fa8630383f85cf2570c83c8fa14638d9bd",
-      "bytes": 5825,
+      "sha256": "43accabc174a96153c4be2b2ba53262cb3f9df6641b4d18d31b353612a14a90e",
+      "bytes": 5978,
       "local_imports": [
         "oly_container",
         "penf_emulator"
@@ -2256,13 +2256,13 @@
     },
     {
       "path": "tools/penf_color_notification_probe.py",
-      "sha256": "675cda652bc938a83260de6c8a35f488cc5d71adb26bfeeed6f78b01c75aafca",
-      "bytes": 23571,
+      "sha256": "eecae23de248cd0f3885cb0b5ee319ca098bdcdb14cb910b93ed10ff31917f98",
+      "bytes": 23724,
       "original_source": {
         "path": "tools/penf_color_notification_probe.py",
         "sha256": "675cda652bc938a83260de6c8a35f488cc5d71adb26bfeeed6f78b01c75aafca"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_color_edit_probe",
         "penf_color_refresh_probe"
@@ -2271,13 +2271,13 @@
     },
     {
       "path": "tools/penf_color_refresh_probe.py",
-      "sha256": "dfe520e027db1a3300c752300e7937d8fbfcf34a1ef0ede0485e7aa74964b493",
-      "bytes": 20000,
+      "sha256": "6002589dcb0c6c23ec5f13cf5e7aca554097249a0c09240d492d3ddf41ce71a9",
+      "bytes": 20153,
       "original_source": {
         "path": "tools/penf_color_refresh_probe.py",
         "sha256": "dfe520e027db1a3300c752300e7937d8fbfcf34a1ef0ede0485e7aa74964b493"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_color_edit_probe",
         "penf_recovery_isolation_probe"
@@ -2286,13 +2286,13 @@
     },
     {
       "path": "tools/penf_color_request_probe.py",
-      "sha256": "8d2b8bf9422e4a21d1c16d0a7840aa69ea0177ed41a4099b57a05a117084c07c",
-      "bytes": 20373,
+      "sha256": "482fb28f1cecddd01080aef28b7744536cc18f2e180768d730ca01d1732a92f9",
+      "bytes": 20526,
       "original_source": {
         "path": "tools/penf_color_request_probe.py",
         "sha256": "8d2b8bf9422e4a21d1c16d0a7840aa69ea0177ed41a4099b57a05a117084c07c"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_color_notification_probe",
         "penf_emulator"
@@ -2301,13 +2301,13 @@
     },
     {
       "path": "tools/penf_color_state_probe.py",
-      "sha256": "53942b13968f8b79229084ad25464918f9282a87c022c83069107d6b155743fc",
-      "bytes": 22232,
+      "sha256": "b90bfefa2cc5ee295b994ed92bf24edc3281a1f341fadfaa3ec20de23504c840",
+      "bytes": 22385,
       "original_source": {
         "path": "tools/penf_color_state_probe.py",
         "sha256": "53942b13968f8b79229084ad25464918f9282a87c022c83069107d6b155743fc"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_color_context_probe",
         "penf_color_request_probe",
@@ -2318,8 +2318,8 @@
     },
     {
       "path": "tools/penf_color_table_patch.py",
-      "sha256": "c2e2e7c9b9ec2fafb15ad4c56f94751383b0fc23611c8a3a6e2e50104152f326",
-      "bytes": 11533,
+      "sha256": "84a8d52c050230ce892503cdee72d09e1e00143eae4e99bf14d9be069332dbfc",
+      "bytes": 11686,
       "original_source": {
         "path": "tools/penf_color_table_patch.py",
         "sha256": "a1e7118a5becaab551333cf38e17c761eb4f1ba8d68b8f245db23763a6b46e7c"
@@ -2335,13 +2335,13 @@
     },
     {
       "path": "tools/penf_color_text_probe.py",
-      "sha256": "62fdd8943b9fdddf5fe3fd29bddf046ca93809ad0b492d4b3176c5c416823dc4",
-      "bytes": 7058,
+      "sha256": "a7e590334572d54a0cb767bf1500336f505db0af86273f4a504e882027738916",
+      "bytes": 7211,
       "original_source": {
         "path": "tools/penf_color_text_probe.py",
         "sha256": "62fdd8943b9fdddf5fe3fd29bddf046ca93809ad0b492d4b3176c5c416823dc4"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_diagnostic_lifetime_probe",
         "penf_emulator",
@@ -2354,13 +2354,13 @@
     },
     {
       "path": "tools/penf_compact_ownership_probe.py",
-      "sha256": "d744b70019906eae7d599a3603dce5cd0061f8644ec4f1ddaf877f311d9c5084",
-      "bytes": 14496,
+      "sha256": "18db365ffab46a59e80d42a8a1e0abc71e45d35e50d9791fd4527ae3df174a18",
+      "bytes": 14649,
       "original_source": {
         "path": "tools/penf_compact_ownership_probe.py",
         "sha256": "d744b70019906eae7d599a3603dce5cd0061f8644ec4f1ddaf877f311d9c5084"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_image_ownership_probe"
       ],
@@ -2368,13 +2368,13 @@
     },
     {
       "path": "tools/penf_creative_jobs_probe.py",
-      "sha256": "59a071d8d8aca42df2c5b5f8e5486ae6e39b4d9e5728fb226ee2f0f8a8242b44",
-      "bytes": 19509,
+      "sha256": "70b2575982c0163a849a2301068c524802686f9c3bdbc1b943dc2dd70c5fafcd",
+      "bytes": 19662,
       "original_source": {
         "path": "tools/penf_creative_jobs_probe.py",
         "sha256": "59a071d8d8aca42df2c5b5f8e5486ae6e39b4d9e5728fb226ee2f0f8a8242b44"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_disasm",
         "penf_emulator",
@@ -2388,13 +2388,13 @@
     },
     {
       "path": "tools/penf_cross_core_interrupts.py",
-      "sha256": "f1e91079cb9d083b33c5b20a27e6a3115a4504373486d434ddcc25b7b0f7fecd",
-      "bytes": 7242,
+      "sha256": "f0323b29d9a172d9af6846378fbcdd90ec0a5cb01b1b3e596b3d8df4ec7292be",
+      "bytes": 7395,
       "original_source": {
         "path": "tools/penf_cross_core_interrupts.py",
         "sha256": "f1e91079cb9d083b33c5b20a27e6a3115a4504373486d434ddcc25b7b0f7fecd"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_emulator",
         "penf_startup_interrupts"
@@ -2403,13 +2403,13 @@
     },
     {
       "path": "tools/penf_diagnostic_lifetime_probe.py",
-      "sha256": "87869c3deb0513e8142bcd9d35291884cfb2739aab0ec72ef89982e5b1e6c125",
-      "bytes": 10877,
+      "sha256": "f45d947cda57fc2b3a618d29c68cf26cbfbbf764763690ff7ea6d7315cee10e9",
+      "bytes": 11030,
       "original_source": {
         "path": "tools/penf_diagnostic_lifetime_probe.py",
         "sha256": "87869c3deb0513e8142bcd9d35291884cfb2739aab0ec72ef89982e5b1e6c125"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_disasm",
         "penf_emulator",
@@ -2421,13 +2421,13 @@
     },
     {
       "path": "tools/penf_disasm.py",
-      "sha256": "7b9bd8a01bccb1b569aba0533a0db4f88ee32e4767ce227b8e91ff840e62b148",
-      "bytes": 3232,
+      "sha256": "62ba962da9d8584120ec32052a69df9b64ab287d56f526649fccc5d219f4ee23",
+      "bytes": 3385,
       "original_source": {
         "path": "tools/penf_disasm.py",
         "sha256": "7b9bd8a01bccb1b569aba0533a0db4f88ee32e4767ce227b8e91ff840e62b148"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "oly_container",
         "penf_landmarks"
@@ -2436,13 +2436,13 @@
     },
     {
       "path": "tools/penf_emulator.py",
-      "sha256": "0b8bcb4fdd562b078393da414313886ae69e741058ba597c829efe945c59ea4a",
-      "bytes": 14642,
+      "sha256": "b63e768e366309b0f5d2a02af5e5e8a4ea7c4f6bb2f4763a1b94f101b4ebe79c",
+      "bytes": 14795,
       "original_source": {
         "path": "tools/penf_emulator.py",
         "sha256": "0b8bcb4fdd562b078393da414313886ae69e741058ba597c829efe945c59ea4a"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_landmarks"
       ],
@@ -2450,13 +2450,13 @@
     },
     {
       "path": "tools/penf_emulator_benchmark.py",
-      "sha256": "55cc057a631a750f902e9dd84a995d3be1c847972ebc3892bf0bea8cdf8b5873",
-      "bytes": 2491,
+      "sha256": "42f05266f4e3e4608328fc562aa6e33371d933d9a4a3619531473f69967317a2",
+      "bytes": 2644,
       "original_source": {
         "path": "tools/penf_emulator_benchmark.py",
         "sha256": "55cc057a631a750f902e9dd84a995d3be1c847972ebc3892bf0bea8cdf8b5873"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_emulator"
       ],
@@ -2464,13 +2464,13 @@
     },
     {
       "path": "tools/penf_external_flash_probe.py",
-      "sha256": "65231fa16bef9bf4e4d7ab8d8e90a53fa4f890e63a790f29f65989e1d463d60a",
-      "bytes": 6839,
+      "sha256": "e183d445481b6acff3627608d9a8edddddad6b2ce81bb7e7bab848b0269fd8f2",
+      "bytes": 6992,
       "original_source": {
         "path": "tools/penf_external_flash_probe.py",
         "sha256": "65231fa16bef9bf4e4d7ab8d8e90a53fa4f890e63a790f29f65989e1d463d60a"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_disasm",
         "penf_emulator",
@@ -2482,13 +2482,13 @@
     },
     {
       "path": "tools/penf_firmware_atlas.py",
-      "sha256": "2c84afcb3e4744a8641d5e591e644102a259e0b90a1536408d5b7b21cc515c00",
-      "bytes": 16452,
+      "sha256": "f71528369ea77b3c2d3817fbd84504383b0ce162385d2314a3572c7ec9864071",
+      "bytes": 16605,
       "original_source": {
         "path": "tools/penf_firmware_atlas.py",
         "sha256": "2c84afcb3e4744a8641d5e591e644102a259e0b90a1536408d5b7b21cc515c00"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "oly_container",
         "penf_code_space_reference_audit",
@@ -2498,13 +2498,13 @@
     },
     {
       "path": "tools/penf_flash_guard_probe.py",
-      "sha256": "27d449491f134eaee4d26b4bdbc6d2605145d0ec376c9147b99aed53d9ebbd7a",
-      "bytes": 6905,
+      "sha256": "98ff491e7f47f3f91b6c8d43b95eb64937b5e0513acc5a933c5eba7040649a41",
+      "bytes": 7058,
       "original_source": {
         "path": "tools/penf_flash_guard_probe.py",
         "sha256": "27d449491f134eaee4d26b4bdbc6d2605145d0ec376c9147b99aed53d9ebbd7a"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_disasm",
         "penf_emulator",
@@ -2515,8 +2515,8 @@
     },
     {
       "path": "tools/penf_grain_probe.py",
-      "sha256": "ec9ce0766f5b314f0932dbd085f99d2c241f71ea381143d555129ab0cf75ca11",
-      "bytes": 9084,
+      "sha256": "ece0a7b0ce836080a97231eae0ab72a5b188efaeee2b88406f9703e384e68ceb",
+      "bytes": 9237,
       "original_source": {
         "path": "tools/penf_grain_probe.py",
         "sha256": "fe4ea699d27c42b6f3880fc1555925d14319533e25906d15dbd58f798534970d"
@@ -2533,13 +2533,13 @@
     },
     {
       "path": "tools/penf_historical_diff.py",
-      "sha256": "7ef5c89ba881da118c074a6273ea4e34aa140c5b45b0a7ef7287988b113f4bdf",
-      "bytes": 5128,
+      "sha256": "c1f96ac9b75d2fcee25f6052a43067acf0c002cdb26719a41ead4afccb8c0bb4",
+      "bytes": 5281,
       "original_source": {
         "path": "tools/penf_historical_diff.py",
         "sha256": "7ef5c89ba881da118c074a6273ea4e34aa140c5b45b0a7ef7287988b113f4bdf"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "oly_container",
         "penf_disasm",
@@ -2549,8 +2549,8 @@
     },
     {
       "path": "tools/penf_hsl_context_probe.py",
-      "sha256": "3bd2366abdadea4c7b43dd6f4c0329696f342a806123fef59fa2ad6e93ff4db5",
-      "bytes": 17372,
+      "sha256": "fd89f34b9e4b8037b93e4f5c8d0dcf5422dafd5f92ea8c0f792f1e13fcef4dcb",
+      "bytes": 17525,
       "original_source": {
         "path": "tools/penf_hsl_context_probe.py",
         "sha256": "abb54192e89083a2eb0526030815916a8390423827188bd5128f5a99a60d3822"
@@ -2570,13 +2570,13 @@
     },
     {
       "path": "tools/penf_image_completion_probe.py",
-      "sha256": "1439e2c1b31a3da5be4b5770ae874576584cc801b6ca5c6216f3b44e1798d233",
-      "bytes": 15492,
+      "sha256": "f6bf8a4311c42dbc2a817fbb96166439192556f629c0a9b8d8eea9529e13b1c5",
+      "bytes": 15645,
       "original_source": {
         "path": "tools/penf_image_completion_probe.py",
         "sha256": "1439e2c1b31a3da5be4b5770ae874576584cc801b6ca5c6216f3b44e1798d233"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_compact_ownership_probe",
         "penf_image_ownership_probe"
@@ -2585,13 +2585,13 @@
     },
     {
       "path": "tools/penf_image_ownership_probe.py",
-      "sha256": "4f192ccc390e38225135b3ab370cfac289697df80c9fc1647b9ccb3100355ad3",
-      "bytes": 22551,
+      "sha256": "5191ca6536f6f536cfe037156b844f4b91a6ad9ff084dbb8dd988b8def54daeb",
+      "bytes": 22704,
       "original_source": {
         "path": "tools/penf_image_ownership_probe.py",
         "sha256": "4f192ccc390e38225135b3ab370cfac289697df80c9fc1647b9ccb3100355ad3"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_color_refresh_probe",
         "penf_profile_context_probe"
@@ -2600,8 +2600,8 @@
     },
     {
       "path": "tools/penf_input_recovery_probe.py",
-      "sha256": "f126d3624cd36aa25e6b0a1afa716af0ff227da5dfdb21dc97c1f72e466244e0",
-      "bytes": 13689,
+      "sha256": "eb205f1f27ee2cc745d2f131520ca9e617e7e395d39b61e1e59991bdf95f1d8f",
+      "bytes": 13842,
       "original_source": {
         "path": "tools/penf_input_recovery_probe.py",
         "sha256": "c19a8b57c6da69b26dba98481477d90becdbd644b206b5e64eef8d6d05f80aff"
@@ -2616,13 +2616,13 @@
     },
     {
       "path": "tools/penf_landmarks.py",
-      "sha256": "4bc6cdf4e20c87a757840df9365cfce0dcaf9262742a7fbb5a792e357f53774b",
-      "bytes": 4038,
+      "sha256": "73b3394045e19f15996ca495af5c2e5f93dcf7a036038650bffc5dc069cb08d7",
+      "bytes": 4191,
       "original_source": {
         "path": "tools/penf_landmarks.py",
         "sha256": "4bc6cdf4e20c87a757840df9365cfce0dcaf9262742a7fbb5a792e357f53774b"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "oly_container"
       ],
@@ -2630,25 +2630,25 @@
     },
     {
       "path": "tools/penf_orf_controls.py",
-      "sha256": "9b4f77f88fb62dc722e024b9089d2198e25e728d242eb5d12d2ba98f4be1ed29",
-      "bytes": 7717,
+      "sha256": "0db63332833b6bc97a2b7a7d974a183bb73525c884d7ae96de8e11b2cca33d35",
+      "bytes": 7870,
       "original_source": {
         "path": "tools/penf_orf_controls.py",
         "sha256": "9b4f77f88fb62dc722e024b9089d2198e25e728d242eb5d12d2ba98f4be1ed29"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [],
       "entry_point": false
     },
     {
       "path": "tools/penf_orf_native_cmio.py",
-      "sha256": "cb55d52a8e8b6d2db32da53cdd803e760302bd3a0ded68b9e19174131fba17c3",
-      "bytes": 5104,
+      "sha256": "3cf4c6763d24b2e12a9bda25d2c25e06b25d0e5dac490f59275e8298a82d0dca",
+      "bytes": 5257,
       "original_source": {
         "path": "tools/penf_orf_native_cmio.py",
         "sha256": "cb55d52a8e8b6d2db32da53cdd803e760302bd3a0ded68b9e19174131fba17c3"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_emulator",
         "penf_orf_controls"
@@ -2657,13 +2657,13 @@
     },
     {
       "path": "tools/penf_osd_bitmaps.py",
-      "sha256": "4b3280dc5d78e872cd8f14a57a52512e1807eda0d6c81823aef9f40afb0be1c7",
-      "bytes": 7223,
+      "sha256": "47d94268d529a3a24d56c2bcce29b74546854f08ec9fe404d4f5fd6f72b21e8b",
+      "bytes": 7376,
       "original_source": {
         "path": "tools/penf_osd_bitmaps.py",
         "sha256": "4b3280dc5d78e872cd8f14a57a52512e1807eda0d6c81823aef9f40afb0be1c7"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_code_space_reference_audit",
         "penf_osd_symbols"
@@ -2672,13 +2672,13 @@
     },
     {
       "path": "tools/penf_osd_symbols.py",
-      "sha256": "c9430d9501f66c6d3298f1ecd082219e45b7c5df3b1897fa329fa8d17963db83",
-      "bytes": 10271,
+      "sha256": "847226721509ccf92ee543737601f6e3ff7186dd1ce5b731118bd92c22f51f61",
+      "bytes": 10424,
       "original_source": {
         "path": "tools/penf_osd_symbols.py",
         "sha256": "c9430d9501f66c6d3298f1ecd082219e45b7c5df3b1897fa329fa8d17963db83"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_emulator",
         "penf_probe"
@@ -2687,13 +2687,13 @@
     },
     {
       "path": "tools/penf_preset_startup_audit.py",
-      "sha256": "8c49ae2dca6db52c4b8f3e33f632af1978594cbceff5e8d1d301fd72cc7be172",
-      "bytes": 13184,
+      "sha256": "ba47cea74df565e03d5d0fd74a998a337d5f1694048a9364a97e5af2711c1ab1",
+      "bytes": 13337,
       "original_source": {
         "path": "tools/penf_preset_startup_audit.py",
         "sha256": "8c49ae2dca6db52c4b8f3e33f632af1978594cbceff5e8d1d301fd72cc7be172"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "oly_container",
         "penf_disasm",
@@ -2703,13 +2703,13 @@
     },
     {
       "path": "tools/penf_probe.py",
-      "sha256": "0675c35dbb8d9ac3301384eae8d93fd1eb305a1824113d96185ef144528287a5",
-      "bytes": 2405,
+      "sha256": "3a4de44a87678e7723588f6c4959ee26d76d82beaeecab6928b0f93afcc94ba9",
+      "bytes": 2558,
       "original_source": {
         "path": "tools/penf_probe.py",
         "sha256": "0675c35dbb8d9ac3301384eae8d93fd1eb305a1824113d96185ef144528287a5"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_boot_emulator",
         "penf_emulator"
@@ -2718,13 +2718,13 @@
     },
     {
       "path": "tools/penf_processing_dispatch_probe.py",
-      "sha256": "76d7b295fae02c3e182ecfc0d015893fff3f6f93983c2d68c1a562d13ff08afb",
-      "bytes": 8996,
+      "sha256": "6779506d39a035d65de2bf8e14ab1e6fbfdeb00678ab176fcabef88507a61066",
+      "bytes": 9149,
       "original_source": {
         "path": "tools/penf_processing_dispatch_probe.py",
         "sha256": "76d7b295fae02c3e182ecfc0d015893fff3f6f93983c2d68c1a562d13ff08afb"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_processing_job_probe"
       ],
@@ -2732,13 +2732,13 @@
     },
     {
       "path": "tools/penf_processing_job_probe.py",
-      "sha256": "86320b5b78c7a9a87d3a02394390bf5b8453efd198e4f3079c8b347c15f6ce5a",
-      "bytes": 15325,
+      "sha256": "b11ac196492d9e4d826eaa027d65275126755e034565fa0ad295155860cc1f2e",
+      "bytes": 15478,
       "original_source": {
         "path": "tools/penf_processing_job_probe.py",
         "sha256": "86320b5b78c7a9a87d3a02394390bf5b8453efd198e4f3079c8b347c15f6ce5a"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_capture_conversion_probe",
         "penf_image_completion_probe"
@@ -2747,13 +2747,13 @@
     },
     {
       "path": "tools/penf_processing_lifecycle_probe.py",
-      "sha256": "ae53f1a501c66f45da1c6947eaee891f7f2f7cdc44aec8eeb2ed0d9608c813cc",
-      "bytes": 13433,
+      "sha256": "e7d783a01f1ae96c05d3434704e9e6482997224aa0854e6606b58d55e48b29cf",
+      "bytes": 13586,
       "original_source": {
         "path": "tools/penf_processing_lifecycle_probe.py",
         "sha256": "ae53f1a501c66f45da1c6947eaee891f7f2f7cdc44aec8eeb2ed0d9608c813cc"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_processing_dispatch_probe",
         "penf_processing_job_probe"
@@ -2762,13 +2762,13 @@
     },
     {
       "path": "tools/penf_profile_context_probe.py",
-      "sha256": "30b8b2630811ae4618ace28080d812d66d28c5ba57aa6843292d4d0367592f9c",
-      "bytes": 31443,
+      "sha256": "87ecabad47509be1aa27f8353dbbdc0e0e1cd9c6cef6971437d1058953d78442",
+      "bytes": 31596,
       "original_source": {
         "path": "tools/penf_profile_context_probe.py",
         "sha256": "30b8b2630811ae4618ace28080d812d66d28c5ba57aa6843292d4d0367592f9c"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_profile_followup_probe"
       ],
@@ -2776,13 +2776,13 @@
     },
     {
       "path": "tools/penf_profile_followup_probe.py",
-      "sha256": "ebe042c7407e043c9bff29a3ce21a49a4ce7ff4206861cc57f403a23e10a485e",
-      "bytes": 15474,
+      "sha256": "d60adbc3461260bae810f749c71043a4c7a6623cdd84b0f607629b6ae98bc62b",
+      "bytes": 15627,
       "original_source": {
         "path": "tools/penf_profile_followup_probe.py",
         "sha256": "ebe042c7407e043c9bff29a3ce21a49a4ce7ff4206861cc57f403a23e10a485e"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_disasm",
         "penf_probe",
@@ -2792,13 +2792,13 @@
     },
     {
       "path": "tools/penf_profile_lifecycle_probe.py",
-      "sha256": "8baae0dce6b1acede2630aca4a79a3109d5e6f752ef2244ef78390ef281a4159",
-      "bytes": 17158,
+      "sha256": "972dce51336c0696e35a1df27077b879fc2b01466e175216bdade79c8cce50d0",
+      "bytes": 17311,
       "original_source": {
         "path": "tools/penf_profile_lifecycle_probe.py",
         "sha256": "8baae0dce6b1acede2630aca4a79a3109d5e6f752ef2244ef78390ef281a4159"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_color_controls_probe",
         "penf_diagnostic_lifetime_probe",
@@ -2810,13 +2810,13 @@
     },
     {
       "path": "tools/penf_recovery_isolation_probe.py",
-      "sha256": "4204aa3c8bd273f759311f1b950e345ad74166c83564c1eb0891a5c766aa95d4",
-      "bytes": 7485,
+      "sha256": "1ebccfa88ba29a6139485117dcc3575ec39cbd19d1663840ce7c984f47f658fb",
+      "bytes": 7638,
       "original_source": {
         "path": "tools/penf_recovery_isolation_probe.py",
         "sha256": "4204aa3c8bd273f759311f1b950e345ad74166c83564c1eb0891a5c766aa95d4"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_disasm",
         "penf_emulator",
@@ -2829,13 +2829,13 @@
     },
     {
       "path": "tools/penf_remote_semaphore_interrupts.py",
-      "sha256": "b2ead36b0c87aa636526f5a43518eaf830435b1c11e95c3f03b6aab4c63f6588",
-      "bytes": 7921,
+      "sha256": "3af4dd6965442efb879c9b17a4c6533ae3e53e02fab6b19a0fce58e58cd33810",
+      "bytes": 8074,
       "original_source": {
         "path": "tools/penf_remote_semaphore_interrupts.py",
         "sha256": "b2ead36b0c87aa636526f5a43518eaf830435b1c11e95c3f03b6aab4c63f6588"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_cross_core_interrupts"
       ],
@@ -2843,13 +2843,13 @@
     },
     {
       "path": "tools/penf_repack_preflight.py",
-      "sha256": "860a4abb211592e028a569098e686c0a1121523e8556d90edf527155eefa6ffe",
-      "bytes": 8905,
+      "sha256": "8e431e0b05f749c9a8d468efc1e480637a8f9a595db4d53b0d93ce197bb68157",
+      "bytes": 9058,
       "original_source": {
         "path": "tools/penf_repack_preflight.py",
         "sha256": "860a4abb211592e028a569098e686c0a1121523e8556d90edf527155eefa6ffe"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "oly_container",
         "penf_emulator",
@@ -2861,25 +2861,25 @@
     },
     {
       "path": "tools/penf_replay_compare.py",
-      "sha256": "fd7a88c4280d212d48a2e469bac1c15e5e487081bb92386272e0fa227be28487",
-      "bytes": 3774,
+      "sha256": "e47805adc019f17562376fa9e15d108158d24ab12e5a166d569571e005a62239",
+      "bytes": 3927,
       "original_source": {
         "path": "tools/penf_replay_compare.py",
         "sha256": "fd7a88c4280d212d48a2e469bac1c15e5e487081bb92386272e0fa227be28487"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [],
       "entry_point": true
     },
     {
       "path": "tools/penf_resource_storage.py",
-      "sha256": "1e7d0c289204f638641c359ab101f4f68ff50bc62b819d1362d302d2080515ac",
-      "bytes": 4887,
+      "sha256": "7641198f3acf0ca76151dd6b73d107b66cc62664896582463ec1b860d0f8f6c3",
+      "bytes": 5040,
       "original_source": {
         "path": "tools/penf_resource_storage.py",
         "sha256": "1e7d0c289204f638641c359ab101f4f68ff50bc62b819d1362d302d2080515ac"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "oly_container",
         "penf_emulator"
@@ -2888,13 +2888,13 @@
     },
     {
       "path": "tools/penf_runtime_model.py",
-      "sha256": "d477f36902f382e2a74dbeb8762804673d364ec932e67add3ec712d920f3c2c7",
-      "bytes": 6803,
+      "sha256": "dcb9f6cdc8883dfc31e530933dc932919c62a684cc41acd6359bec72520aab7e",
+      "bytes": 6956,
       "original_source": {
         "path": "tools/penf_runtime_model.py",
         "sha256": "d477f36902f382e2a74dbeb8762804673d364ec932e67add3ec712d920f3c2c7"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_emulator"
       ],
@@ -2902,13 +2902,13 @@
     },
     {
       "path": "tools/penf_sd_activation_audit.py",
-      "sha256": "e456854dddd748d8165fcc12993d88c1dec25ae0c07edfff499625c4fd39f919",
-      "bytes": 11253,
+      "sha256": "f63ff6a95dd520605b8a7b341cb58731c782c5d13f8c80237d1d5440e0978552",
+      "bytes": 11406,
       "original_source": {
         "path": "tools/penf_sd_activation_audit.py",
         "sha256": "e456854dddd748d8165fcc12993d88c1dec25ae0c07edfff499625c4fd39f919"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_disasm",
         "penf_landmarks"
@@ -2917,13 +2917,13 @@
     },
     {
       "path": "tools/penf_sd_debug_probe.py",
-      "sha256": "7ba80c8ddf554c0bbed58219e300117c6e275822492ee1fa16a784b11647dcba",
-      "bytes": 12628,
+      "sha256": "fb6ee949e6205ffb07700e8aa4fc7bc15037f2e40bc4565aa8a3c271039138b1",
+      "bytes": 12781,
       "original_source": {
         "path": "tools/penf_sd_debug_probe.py",
         "sha256": "7ba80c8ddf554c0bbed58219e300117c6e275822492ee1fa16a784b11647dcba"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_emulator",
         "penf_landmarks",
@@ -2933,13 +2933,13 @@
     },
     {
       "path": "tools/penf_sd_path_probe.py",
-      "sha256": "514f00b1be60af78d8b93ccaab9c9dc8b5c1f67bf184ea1dc65f007c93a3e438",
-      "bytes": 17351,
+      "sha256": "cad704b5c1f4e8bacce78fa24030140caf0cdf50fcfc8db2a71877ff39e2a45d",
+      "bytes": 17504,
       "original_source": {
         "path": "tools/penf_sd_path_probe.py",
         "sha256": "514f00b1be60af78d8b93ccaab9c9dc8b5c1f67bf184ea1dc65f007c93a3e438"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "oly_container",
         "penf_emulator",
@@ -2954,13 +2954,13 @@
     },
     {
       "path": "tools/penf_section3_layout_probe.py",
-      "sha256": "96b2f62d49f402a8aa0ff7e5fa772f4143573def80f8175a6c1dd4f676f7fa3c",
-      "bytes": 6069,
+      "sha256": "695bedfd843678520d8a356e45e8acc972254b543813247e444003ff1154cd00",
+      "bytes": 6222,
       "original_source": {
         "path": "tools/penf_section3_layout_probe.py",
         "sha256": "96b2f62d49f402a8aa0ff7e5fa772f4143573def80f8175a6c1dd4f676f7fa3c"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_emulator",
         "penf_probe",
@@ -2970,13 +2970,13 @@
     },
     {
       "path": "tools/penf_semaphore_release_interrupts.py",
-      "sha256": "68845d3ebdb5c062df4874104a2cd5baca6dd206b8d18567f070cbe18ee4c20b",
-      "bytes": 4276,
+      "sha256": "dc6f1033f9249f25e330535b9c52aa18effdb580ffa1bdad12f039fa504f5d1a",
+      "bytes": 4429,
       "original_source": {
         "path": "tools/penf_semaphore_release_interrupts.py",
         "sha256": "68845d3ebdb5c062df4874104a2cd5baca6dd206b8d18567f070cbe18ee4c20b"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_remote_semaphore_interrupts"
       ],
@@ -2984,13 +2984,13 @@
     },
     {
       "path": "tools/penf_settings_backup_probe.py",
-      "sha256": "ea4dd550d692bffde2ad33f4b51e1b02d6f10c6c91c2d880f60c17114e10be78",
-      "bytes": 15315,
+      "sha256": "9ea882871598e6ba26412d1b70c5e68e837fd0ada3bb62c053dadd1794376a4d",
+      "bytes": 15468,
       "original_source": {
         "path": "tools/penf_settings_backup_probe.py",
         "sha256": "ea4dd550d692bffde2ad33f4b51e1b02d6f10c6c91c2d880f60c17114e10be78"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "oly_container",
         "penf_code_space_reference_audit",
@@ -3004,13 +3004,13 @@
     },
     {
       "path": "tools/penf_shading_probe.py",
-      "sha256": "4684cd3471c103b62afbee2fabb6d134820f39cfa4012b37e606d80f684d561d",
-      "bytes": 9026,
+      "sha256": "ed5f9294eba9d7b73cb66dd62dbd94fd6ab9ff2504d5b484547b260aa0739e3e",
+      "bytes": 9179,
       "original_source": {
         "path": "tools/penf_shading_probe.py",
         "sha256": "4684cd3471c103b62afbee2fabb6d134820f39cfa4012b37e606d80f684d561d"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_disasm",
         "penf_emulator",
@@ -3022,13 +3022,13 @@
     },
     {
       "path": "tools/penf_sharpening_probe.py",
-      "sha256": "9fbd070977c49a4fae8c1396a41002ea66e5cd733e61cb9f1a63be7967e5bcc4",
-      "bytes": 8475,
+      "sha256": "5f158cc1ee91e1027b0722e233010b04dee009d8cdf606e2e6dc30e48ccb93b4",
+      "bytes": 8628,
       "original_source": {
         "path": "tools/penf_sharpening_probe.py",
         "sha256": "9fbd070977c49a4fae8c1396a41002ea66e5cd733e61cb9f1a63be7967e5bcc4"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_disasm",
         "penf_emulator",
@@ -3039,13 +3039,13 @@
     },
     {
       "path": "tools/penf_startup_interrupts.py",
-      "sha256": "ec09321e19607337120e57c2048b4d60bc8e56b0a7e134565ebc92602579101b",
-      "bytes": 6028,
+      "sha256": "12ae1f764f956fde42c7d0fa236c623e38cc2c2c9b5281f6b537981d0675aae3",
+      "bytes": 6181,
       "original_source": {
         "path": "tools/penf_startup_interrupts.py",
         "sha256": "ec09321e19607337120e57c2048b4d60bc8e56b0a7e134565ebc92602579101b"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_boot_core_idle",
         "penf_emulator"
@@ -3054,8 +3054,8 @@
     },
     {
       "path": "tools/penf_update_probe.py",
-      "sha256": "3bbcb99a993adcddb6f27ed64f5542f9d35eb43cc8a0bd0d9256a326726a82b9",
-      "bytes": 10469,
+      "sha256": "36e64d4498247c4058ec30cf12d17f5f95b5f800bcec0bafe438ae768266421d",
+      "bytes": 10622,
       "original_source": {
         "path": "tools/penf_update_probe.py",
         "sha256": "a8100d28e9c173f3d821781931e57635c2f2bca6ed2cf6ca5fb5fd4be0555120"
@@ -3070,8 +3070,8 @@
     },
     {
       "path": "tools/penf_vignette_camera_probe.py",
-      "sha256": "47daa5e1dfddba19359ed910679b10373bcee95feff2b9efe6c888c55e7c729c",
-      "bytes": 19271,
+      "sha256": "24cae4c6ce3b29c2bf92031b9b8d258dd7375660e8ca9513d92a23097dcc69f5",
+      "bytes": 19424,
       "original_source": {
         "path": "tools/penf_vignette_camera_probe.py",
         "sha256": "1d2dd151b29951b2264fd303863b1234840d9d9b1785c8858b1f3ea99a0b8a08"
@@ -3090,13 +3090,13 @@
     },
     {
       "path": "tools/penf_wifi_commit_probe.py",
-      "sha256": "eb2d66741a777ad3da082881e0d9e1f82486b8be433640b5b4627283543aca74",
-      "bytes": 6294,
+      "sha256": "68f42048191703e0c29369c5094d76e1c0ae670a9cb3240d7bcf0b55649ead92",
+      "bytes": 6447,
       "original_source": {
         "path": "tools/penf_wifi_commit_probe.py",
         "sha256": "eb2d66741a777ad3da082881e0d9e1f82486b8be433640b5b4627283543aca74"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_landmarks",
         "penf_profile_context_probe",
@@ -3106,13 +3106,13 @@
     },
     {
       "path": "tools/penf_wifi_mcon_probe.py",
-      "sha256": "0b32ecdc4c7ad95b250b00e61f890f0763dacbf0744ea0bc1d7e653ce22d24ac",
-      "bytes": 7462,
+      "sha256": "bb49bd67db3ac1cb8f3a7d1a3ca79b8cbb9b535f6e28519abd380125231c42b3",
+      "bytes": 7615,
       "original_source": {
         "path": "tools/penf_wifi_mcon_probe.py",
         "sha256": "0b32ecdc4c7ad95b250b00e61f890f0763dacbf0744ea0bc1d7e653ce22d24ac"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "oly_container",
         "penf_landmarks",
@@ -3122,13 +3122,13 @@
     },
     {
       "path": "tools/penf_wifi_mcon_restart_probe.py",
-      "sha256": "a4209436852d81adc2ebdea6096e82deb2c0562c70c4da9adad053ab00a6ac5c",
-      "bytes": 4995,
+      "sha256": "fc888806ce209619d312fc09a19a52c949b9fa991658fc6f819566d67d6a5e76",
+      "bytes": 5148,
       "original_source": {
         "path": "tools/penf_wifi_mcon_restart_probe.py",
         "sha256": "a4209436852d81adc2ebdea6096e82deb2c0562c70c4da9adad053ab00a6ac5c"
       },
-      "adapted": false,
+      "adapted": true,
       "local_imports": [
         "penf_landmarks",
         "penf_profile_context_probe",
@@ -3138,8 +3138,8 @@
     },
     {
       "path": "tools/prepare_mn103_sim.py",
-      "sha256": "1649926873cc5908b7e735cd22dde0ea3c77ad4d32e1d04ca379c972a381b27e",
-      "bytes": 5021,
+      "sha256": "34affac1b75378afe5cd51a24abc1ad17c5f7e85ff0fd76731e7a6e28dfb77d3",
+      "bytes": 5463,
       "original_source": {
         "path": "tools/prepare_mn103_sim.py",
         "sha256": "7257b4746123594883d0905a4c4e14fd4796307e6910419853f7639d0de0acd1"
@@ -3150,16 +3150,16 @@
     },
     {
       "path": "tools/regenerate_disassembly.py",
-      "sha256": "2569da5cacaad91c03b3ec92db7adc11e270b34d3489ca1ec6eaa271d93a8f8c",
-      "bytes": 3236,
+      "sha256": "11051d8064517048ebe5e5f950753e5c88ba6f583e13968e0ea5fbba30d1366e",
+      "bytes": 3389,
       "origin": "original documentation, fixture or utility",
       "local_imports": [],
       "entry_point": true
     },
     {
       "path": "tools/run_checks.py",
-      "sha256": "095fd72b9bf725e2013dbc4032707ee973c19459aec1b655866b8227082e8955",
-      "bytes": 2177,
+      "sha256": "5ebc6e13786bdc1881d8f293f1dc07a97d30a30956d582b6979762faa94b03c3",
+      "bytes": 2330,
       "origin": "original documentation, fixture or utility",
       "local_imports": [
         "penf_emulator"

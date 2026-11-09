@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Read-only OM-5/E-M1 III rate initialization and Pro Capture queue audit.
 
 Runs stock startup fragments, full rate qualification, queue construction and

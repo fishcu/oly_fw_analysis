@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Run the SD prefix after explicit native section preparation.
 
 PENF_SD_DEFER_CONSTRUCTORS=1 is a separate dependency-isolation control.

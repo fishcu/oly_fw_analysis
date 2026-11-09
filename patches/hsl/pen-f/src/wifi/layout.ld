@@ -1,3 +1,7 @@
+/* Copyright 2026 fishku (original contributions)
+ * SPDX-License-Identifier: Apache-2.0
+ * Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
+ */
 SECTIONS {
 .wifi_ingress_hook 0x60aa26f0 : { *(.wifi_ingress_hook) }
 .wifi_receiver_hook 0x607ab916 : { *(.wifi_receiver_hook) }

@@ -1,3 +1,7 @@
+/* Copyright 2026 fishku (original contributions)
+ * SPDX-License-Identifier: Apache-2.0
+ * Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
+ */
 /* PEN-F 3101 HSL: editor storage. */
 /* PEN-F 3101 all-profile H/L snapshot transport.
  * Consolidated snapshot transport and recording copy; one serialized GUI

@@ -1,3 +1,7 @@
+/* Copyright 2026 fishku (original contributions)
+ * SPDX-License-Identifier: Apache-2.0
+ * Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
+ */
 SECTIONS {
 .hsl_set_hook 0x6073659d : { *(.hsl_set_hook) }
 .hsl_get_pointer 0x609a4668 : { *(.hsl_get_pointer) }

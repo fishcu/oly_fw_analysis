@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Query OM's public firmware catalog, or inspect a saved response offline.
 
 Uses placeholder identifiers; never connects to a camera. Optional download

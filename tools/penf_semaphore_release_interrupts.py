@@ -1,3 +1,6 @@
+# Copyright 2026 fishku (original contributions)
+# SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """One native flash acquire/release pair, preserving outstanding IRQ contexts."""
 from penf_remote_semaphore_interrupts import RemoteSemaphoreInterrupts
 
