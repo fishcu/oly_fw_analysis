@@ -9,6 +9,7 @@ camera with the same processor.
 | Update files | [Components, decoding and checksums](format/CONTAINERS.md) · [Address spaces and section loading](format/pen-f/ADDRESS_SPACES.md) |
 | Startup and recovery | [Startup structure](boot/pen-f/STARTUP.md) · [SD update and recovery limits](boot/pen-f/RECOVERY.md) · [Flash readers](boot/pen-f/FLASH_READERS.md) · [Buttons and dials](boot/pen-f/INPUTS.md) |
 | Camera interfaces | [USB firmware update](protocols/pen-f/USB_UPDATE.md) · [Settings backup](protocols/pen-f/SETTINGS_BACKUP.md) · [Wi-Fi settings](protocols/pen-f/WIFI.md) · [Stock SD debug switch and shell](protocols/pen-f/WIFI_DEBUG.md) |
+| Stock PTP observations | [E-M5 III MTP and E-M1 III control-mode exposure/capture results](protocols/ptp/STOCK_EXPOSURE_CAPTURE.md) |
 | OM-3 tethering | [USB startup selectors, live view and image transfer](protocols/om-3/TETHERING.md) |
 | E-M10 I research | [Boot and recovery](boot/e-m10/RECOVERY.md) · [SD plugins and system emulator](tooling/e-m10/PLUGINS.md) · [Image-processing extensions](color/e-m10/PROCESSING.md) |
 | Color processing | [Modes and generations](color/MODES.md) · [HSL tables and scales](color/pen-f/HSL_TABLES.md) · [Processing jobs](color/pen-f/CREATIVE_PROCESSING_JOBS.md) |

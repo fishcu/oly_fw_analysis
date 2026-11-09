@@ -1,0 +1,36 @@
+{
+  "schema": 1,
+  "kind": "sanitized_hardware_observation_provenance",
+  "observation_date": "2026-11-08",
+  "prepared_with_ai_assistance": true,
+  "source": "Contributor-owned unmodified cameras; host transport logs and owner observations retained privately.",
+  "public_evidence": "analysis/ptp-stock-hardware.json",
+  "public_evidence_sha256": "504bc60a5839d688ccbd14d0a2f0094c66a79cc1775de21fb117832f373cb9de",
+  "original_identity": "Private source map records original file locations and whole-file hashes; neither map nor original hashes are submitted.",
+  "sanitization": [
+    "Entire serial-bearing DeviceInfo data containers and raw USB chunks omitted, including UTF-16/PTP identity strings.",
+    "Only explicitly selected decoded identity/version/advertised-operation/property fields retained; serial fields omitted.",
+    "All OS inventories, process records, host paths/names, timestamps finer than date, binaries and private images omitted.",
+    "Retained containers are unchanged and keep original lengths/transaction IDs. This is an excerpted dataset, not a complete raw trace.",
+    "No serial hashes or other identifier-derived hashes published.",
+    "Raw ExposureTime40 is the explicitly scoped protocol result; no unrelated setting values included."
+  ],
+  "limits": [
+    "No exact installed firmware hash/internal build was obtained.",
+    "E-M1 III body firmware was not obtained.",
+    "PTP DeviceVersion1.00 is not the body firmware version.",
+    "No bus-analyzer capture or raw USB descriptor dump."
+  ],
+  "contribution_terms": {
+    "license": "CC0-1.0",
+    "legal_code": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+    "scope": [
+      "Contributor-held rights in original writing in docs/protocols/ptp/STOCK_EXPOSURE_CAPTURE.md",
+      "Contributor-held rights in only the new Stock PTP observations index row in docs/README.md",
+      "Contributor-held rights in original explanatory provenance in provenance/stock-usb-hardware.json",
+      "Contributor-held rights, if any, in analysis/ptp-stock-hardware.json, including selection and arrangement"
+    ],
+    "notice": "The contributor dedicates all contributor-held rights in the original contribution identified above under CC0 1.0. No attribution requirement is imposed for that original material. Existing upstream/community credits and AI-assistance disclosure are retained as provenance.",
+    "rights_limit": "This dedication covers only rights the contributor owns and can grant. It does not relicense pre-existing upstream content or the repository as a whole, nor assert rights over Olympus or other third-party material. No ownership of bare facts or vendor-generated protocol values is asserted. Private original logs are not included."
+  }
+}
