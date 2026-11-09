@@ -264,6 +264,19 @@
       "docs/protocols/pen-f/WIFI_DEBUG.md",
       "docs/protocols/pen-f/DEBUG_FILES.md"
     ],
-    "probe": "tools/penf_sd_debug_probe.py"
+    "probe": "tools/penf_sd_debug_probe.py",
+    "independent_followups": [
+      {
+        "date": "2026-11-07",
+        "subject": "PEN-F diagnostic boot-dump qualification",
+        "attribution": "Independent PEN-F audit motivated by the reported shell route; not a contributor claim.",
+        "finding": "docs/boot/pen-f/FLASH_READERS.md",
+        "probe": "tools/penf_boot_dump_probe.py",
+        "native_cases": 25,
+        "result_sha256": "828b56336afa9c8aa93177c53473e574f7e95deb51ec5a0392554195c75a71b2",
+        "source_sha256": "07b930e202f1384532f6e1b43c14c3ecce88179965a12fdec09653fa2b36bca5",
+        "result": "Stock dump is not qualified as read-only: maintenance writes, allocation exhaustion, missing flash serialization and output loss. No physical test."
+      }
+    ]
   }
 ]

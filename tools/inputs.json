@@ -247,5 +247,14 @@
       "--out": "Fresh JSON output path"
     },
     "scope": "19 bounded native CSV/parameter/network-construction/queue/logging cases; no device access or firmware output."
+  },
+  "penf_boot_dump": {
+    "tool": "tools/penf_boot_dump_probe.py",
+    "input": "native_penf.main",
+    "engine": "native_penf.engine",
+    "arguments": {
+      "--out": "Fresh JSON output path"
+    },
+    "scope": "25 bounded native allocation, flash-read, maintenance-selection, lock and output cases; no camera access, DMA or flash writes."
   }
 }

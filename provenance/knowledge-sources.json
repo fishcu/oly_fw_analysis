@@ -22,7 +22,7 @@
   {
     "path": "docs/README.md",
     "sources": [],
-    "sha256": "eb23d57614035afd1ba4df9dbdd6a2a20e44acdee4a13e8bc5a4dc705e69d416"
+    "sha256": "6333da6b4f24c788a4b568d6a9e8dd98cc256abba1ac0a50f28172e39d67bd7f"
   },
   {
     "path": "docs/boot/e-m10/RECOVERY.md",
@@ -45,6 +45,20 @@
       }
     ],
     "sha256": "afe1c4b4ca11f5b4d9ed614d28a610501c5f20ef1dcc918e1c4f8deb1dd087a4"
+  },
+  {
+    "path": "docs/boot/pen-f/FLASH_READERS.md",
+    "sources": [
+      {
+        "source_document": "docs/safety/PENF_BOOT_DUMP_QUALIFICATION.md",
+        "sha256": "f08f7ec8cc60fa52a019229b7cf35fecb4a0b246e3cde7be8830c7f06d396f65"
+      },
+      {
+        "source_document": "analysis/penf_boot_dump_20261107/native.json",
+        "sha256": "828b56336afa9c8aa93177c53473e574f7e95deb51ec5a0392554195c75a71b2"
+      }
+    ],
+    "sha256": "9176e1440b150a892d1c57ea68e206104db1a0fc23975d2bf98581532a9126c8"
   },
   {
     "path": "docs/boot/pen-f/FUNCTION_MAP.md",
@@ -160,9 +174,17 @@
       {
         "source_document": "research/community/enduity/2026-11-04-debug-mode/ANALYSIS.md",
         "sha256": "16147320989114b6b0e33eaec6bf4dbba4099540f457d326d45dd1f044c88495"
+      },
+      {
+        "source_document": "docs/safety/PENF_BOOT_DUMP_QUALIFICATION.md",
+        "sha256": "f08f7ec8cc60fa52a019229b7cf35fecb4a0b246e3cde7be8830c7f06d396f65"
+      },
+      {
+        "source_document": "analysis/penf_boot_dump_20261107/native.json",
+        "sha256": "828b56336afa9c8aa93177c53473e574f7e95deb51ec5a0392554195c75a71b2"
       }
     ],
-    "sha256": "24e87eb5157d201cc52fb4b42255ac610d611fa4fdae7bb22ab58c39308430be"
+    "sha256": "aaa83cdf9dfe25e46dba2c2de2a73f8293f1e27b6e600906c0a229eee9583bca"
   },
   {
     "path": "docs/boot/pen-f/STARTUP.md",
@@ -750,9 +772,17 @@
       {
         "source_document": "research/community/enduity/2026-11-04-debug-mode/ANALYSIS.md",
         "sha256": "16147320989114b6b0e33eaec6bf4dbba4099540f457d326d45dd1f044c88495"
+      },
+      {
+        "source_document": "docs/safety/PENF_BOOT_DUMP_QUALIFICATION.md",
+        "sha256": "f08f7ec8cc60fa52a019229b7cf35fecb4a0b246e3cde7be8830c7f06d396f65"
+      },
+      {
+        "source_document": "analysis/penf_boot_dump_20261107/native.json",
+        "sha256": "828b56336afa9c8aa93177c53473e574f7e95deb51ec5a0392554195c75a71b2"
       }
     ],
-    "sha256": "3a8f1bc8fa1cac7c9f228eabc70651e16a22c122643be709a74cae11b50c108d"
+    "sha256": "d64545c2a0739f0fbef9f4c65950f995122e932de1f184bf7318f0ab7386cf82"
   },
   {
     "path": "docs/safety/CODE_SPACE.md",

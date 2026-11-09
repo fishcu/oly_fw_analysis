@@ -19,6 +19,7 @@
     "tools/om3_tethering_probe.py",
     "tools/om5_image_pool_probe.py",
     "tools/om_firmware_catalog.py",
+    "tools/penf_boot_dump_probe.py",
     "tools/penf_boot_sd_mount.py",
     "tools/penf_capture_readiness_probe.py",
     "tools/penf_code_space_load_probe.py",
@@ -976,8 +977,8 @@
     },
     {
       "path": "tools/README.md",
-      "sha256": "81525587aa3073eddeb91411e080d7bcca3d689a5bfeb132259818f659a48912",
-      "bytes": 9525,
+      "sha256": "15a1b0d454ff3d08d72ef020bd1bed6950629c83d2fdec8674f7fd4b853cf260",
+      "bytes": 9745,
       "original_source": {
         "path": "tools/README.md",
         "sha256": "424400d690dd53e89cf48e325bd662f7f41d02f6814b97a02b5b1c1c5b0b7f96"
@@ -1163,8 +1164,8 @@
     },
     {
       "path": "tools/inputs.json",
-      "sha256": "eee42e6946c02602d3e9bc533796e424a3cb823ea0b998dc2dd0a893feaa2415",
-      "bytes": 10969,
+      "sha256": "c95c9a0730e7fbcb167ba6f16399964d7660bb7cd78184bb6636b4751400e4fd",
+      "bytes": 11318,
       "origin": "original documentation, fixture or utility"
     },
     {
@@ -1619,6 +1620,22 @@
         "penf_emulator"
       ],
       "entry_point": false
+    },
+    {
+      "path": "tools/penf_boot_dump_probe.py",
+      "sha256": "07b930e202f1384532f6e1b43c14c3ecce88179965a12fdec09653fa2b36bca5",
+      "bytes": 14219,
+      "original_source": {
+        "path": "tools/penf_boot_dump_probe.py",
+        "sha256": "07b930e202f1384532f6e1b43c14c3ecce88179965a12fdec09653fa2b36bca5"
+      },
+      "adapted": false,
+      "local_imports": [
+        "penf_diagnostic_lifetime_probe",
+        "penf_emulator",
+        "penf_probe"
+      ],
+      "entry_point": true
     },
     {
       "path": "tools/penf_boot_emulator.py",

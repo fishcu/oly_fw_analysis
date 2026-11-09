@@ -63,7 +63,11 @@ been independently captured.
 This supplies a plausible external route to already mapped diagnostic readers,
 including flash-reading code. It does **not** qualify every shell command for
 physical use: some write storage or use shared scratch memory. Lower flash-read
-behavior and allocation failure still need review before a boot-dump procedure.
+review found that the stock dump command can enter flash maintenance and has
+locking and allocation-failure problems. See
+[flash readers and diagnostic dumps](../../boot/pen-f/FLASH_READERS.md).
+The transmit ring is 8 KiB and can lose unread output; shell access alone does
+not establish a safe or complete boot-dump procedure.
 
 ## Related parameter F981
 

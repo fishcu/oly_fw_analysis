@@ -44159,6 +44159,486 @@
     ]
   },
   {
+    "path": "analysis/penf_boot_dump_20261107/assembly/allocation-reporter.asm",
+    "start": "0x60023a62",
+    "stop_exclusive": "0x60023b28",
+    "segments": [
+      {
+        "start": "0x60023a62",
+        "stop_exclusive": "0x60023b28"
+      }
+    ],
+    "aliases": [],
+    "listing_sha256s": [
+      "bbad88744dd43515fba0debf5211d4e392c5cb9213f24f13483066ca5c37222b"
+    ],
+    "input_images": [
+      {
+        "sha256": "a2eb1d1f1afe47cce148e9aae0a04dfb82547d9de9437d342e012341140913f4",
+        "bytes": 21364672,
+        "filenames": [
+          "00_0100_403a0020.decoded.bin"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "analysis/penf_boot_dump_20261107/assembly/allocator-release.asm",
+    "start": "0x600238e2",
+    "stop_exclusive": "0x60023943",
+    "segments": [
+      {
+        "start": "0x600238e2",
+        "stop_exclusive": "0x60023943"
+      }
+    ],
+    "aliases": [],
+    "listing_sha256s": [
+      "209ba4cdb5c74d752966e0b01d94acfc2a93909f94a012eecd69750f42fbdc32"
+    ],
+    "input_images": [
+      {
+        "sha256": "a2eb1d1f1afe47cce148e9aae0a04dfb82547d9de9437d342e012341140913f4",
+        "bytes": 21364672,
+        "filenames": [
+          "00_0100_403a0020.decoded.bin"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "analysis/penf_boot_dump_20261107/assembly/allocator.asm",
+    "start": "0x6002352d",
+    "stop_exclusive": "0x60023733",
+    "segments": [
+      {
+        "start": "0x6002352d",
+        "stop_exclusive": "0x60023733"
+      }
+    ],
+    "aliases": [],
+    "listing_sha256s": [
+      "2ad5d6f2dbd2502d6ab2e3d1c0f7df3c709d419e8a019ac8e0748e8ae224c3b3"
+    ],
+    "input_images": [
+      {
+        "sha256": "a2eb1d1f1afe47cce148e9aae0a04dfb82547d9de9437d342e012341140913f4",
+        "bytes": 21364672,
+        "filenames": [
+          "00_0100_403a0020.decoded.bin"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "analysis/penf_boot_dump_20261107/assembly/block-replacement-and-map.asm",
+    "start": "0x600217a6",
+    "stop_exclusive": "0x600218de",
+    "segments": [
+      {
+        "start": "0x600217a6",
+        "stop_exclusive": "0x600218de"
+      }
+    ],
+    "aliases": [],
+    "listing_sha256s": [
+      "3a5519dbab0a2fa4b2908b58f402d95c62b9b1d0fb5c645e422a27dcd29379b7"
+    ],
+    "input_images": [
+      {
+        "sha256": "a2eb1d1f1afe47cce148e9aae0a04dfb82547d9de9437d342e012341140913f4",
+        "bytes": 21364672,
+        "filenames": [
+          "00_0100_403a0020.decoded.bin"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "analysis/penf_boot_dump_20261107/assembly/dump-command.asm",
+    "start": "0x60072bbf",
+    "stop_exclusive": "0x60072d3b",
+    "segments": [
+      {
+        "start": "0x60072bbf",
+        "stop_exclusive": "0x60072d3b"
+      }
+    ],
+    "aliases": [],
+    "listing_sha256s": [
+      "6cba4e7a05722ea79f2b105e660afa6f822e572301d842370a6fea3df7557cbc"
+    ],
+    "input_images": [
+      {
+        "sha256": "a2eb1d1f1afe47cce148e9aae0a04dfb82547d9de9437d342e012341140913f4",
+        "bytes": 21364672,
+        "filenames": [
+          "00_0100_403a0020.decoded.bin"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "analysis/penf_boot_dump_20261107/assembly/erase.asm",
+    "start": "0x60022029",
+    "stop_exclusive": "0x6002209c",
+    "segments": [
+      {
+        "start": "0x60022029",
+        "stop_exclusive": "0x6002209c"
+      }
+    ],
+    "aliases": [],
+    "listing_sha256s": [
+      "80c0a1040d6cf93a552880de97547ae5d7d71b94809c9296fb49aa94e578d117"
+    ],
+    "input_images": [
+      {
+        "sha256": "a2eb1d1f1afe47cce148e9aae0a04dfb82547d9de9437d342e012341140913f4",
+        "bytes": 21364672,
+        "filenames": [
+          "00_0100_403a0020.decoded.bin"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "analysis/penf_boot_dump_20261107/assembly/lock.asm",
+    "start": "0x600226d0",
+    "stop_exclusive": "0x60022720",
+    "segments": [
+      {
+        "start": "0x600226d0",
+        "stop_exclusive": "0x60022720"
+      }
+    ],
+    "aliases": [],
+    "listing_sha256s": [
+      "11b00b7644d39cebe9788d27497bf6267a81cacf47bc3af968711c3815747854"
+    ],
+    "input_images": [
+      {
+        "sha256": "a2eb1d1f1afe47cce148e9aae0a04dfb82547d9de9437d342e012341140913f4",
+        "bytes": 21364672,
+        "filenames": [
+          "00_0100_403a0020.decoded.bin"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "analysis/penf_boot_dump_20261107/assembly/locked-reader.asm",
+    "start": "0x600224c2",
+    "stop_exclusive": "0x600226be",
+    "segments": [
+      {
+        "start": "0x600224c2",
+        "stop_exclusive": "0x600226be"
+      }
+    ],
+    "aliases": [],
+    "listing_sha256s": [
+      "5ac5cb52495592954f5d018adb4d416fb571f2aa2b3ada4f5f10fb32a796eb87"
+    ],
+    "input_images": [
+      {
+        "sha256": "a2eb1d1f1afe47cce148e9aae0a04dfb82547d9de9437d342e012341140913f4",
+        "bytes": 21364672,
+        "filenames": [
+          "00_0100_403a0020.decoded.bin"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "analysis/penf_boot_dump_20261107/assembly/mapped-and-spare-readers.asm",
+    "start": "0x600219b5",
+    "stop_exclusive": "0x60021c4f",
+    "segments": [
+      {
+        "start": "0x600219b5",
+        "stop_exclusive": "0x60021c4f"
+      }
+    ],
+    "aliases": [],
+    "listing_sha256s": [
+      "d4d5ce0841394bc6c5925f77653be1b4ee4e9f0a549d7a6dbeb5e3b3c79c4675"
+    ],
+    "input_images": [
+      {
+        "sha256": "a2eb1d1f1afe47cce148e9aae0a04dfb82547d9de9437d342e012341140913f4",
+        "bytes": 21364672,
+        "filenames": [
+          "00_0100_403a0020.decoded.bin"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "analysis/penf_boot_dump_20261107/assembly/physical-reader.asm",
+    "start": "0x60021c4f",
+    "stop_exclusive": "0x60021d1c",
+    "segments": [
+      {
+        "start": "0x60021c4f",
+        "stop_exclusive": "0x60021d1c"
+      }
+    ],
+    "aliases": [],
+    "listing_sha256s": [
+      "f7a9edec4c04c17d5af19ff54423aaf113f046f47bdc8a06bdcbb53a608ce162"
+    ],
+    "input_images": [
+      {
+        "sha256": "a2eb1d1f1afe47cce148e9aae0a04dfb82547d9de9437d342e012341140913f4",
+        "bytes": 21364672,
+        "filenames": [
+          "00_0100_403a0020.decoded.bin"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "analysis/penf_boot_dump_20261107/assembly/print-forwarder.asm",
+    "start": "0x600429d1",
+    "stop_exclusive": "0x600429fd",
+    "segments": [
+      {
+        "start": "0x600429d1",
+        "stop_exclusive": "0x600429fd"
+      }
+    ],
+    "aliases": [],
+    "listing_sha256s": [
+      "9dbd9dec3d0eb223a3e8b21234de8567445c880f040861b76bb005ec1a44a691"
+    ],
+    "input_images": [
+      {
+        "sha256": "a2eb1d1f1afe47cce148e9aae0a04dfb82547d9de9437d342e012341140913f4",
+        "bytes": 21364672,
+        "filenames": [
+          "00_0100_403a0020.decoded.bin"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "analysis/penf_boot_dump_20261107/assembly/read-helpers.asm",
+    "start": "0x6002209c",
+    "stop_exclusive": "0x6002221e",
+    "segments": [
+      {
+        "start": "0x6002209c",
+        "stop_exclusive": "0x6002221e"
+      }
+    ],
+    "aliases": [],
+    "listing_sha256s": [
+      "2f95b4c409765e468e92ae444d4174a9e02ce07d1c9ebcf74a48f40071959f17"
+    ],
+    "input_images": [
+      {
+        "sha256": "a2eb1d1f1afe47cce148e9aae0a04dfb82547d9de9437d342e012341140913f4",
+        "bytes": 21364672,
+        "filenames": [
+          "00_0100_403a0020.decoded.bin"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "analysis/penf_boot_dump_20261107/assembly/runtime-state-gate.asm",
+    "start": "0x600215df",
+    "stop_exclusive": "0x600215f1",
+    "segments": [
+      {
+        "start": "0x600215df",
+        "stop_exclusive": "0x600215f1"
+      }
+    ],
+    "aliases": [],
+    "listing_sha256s": [
+      "f4713d72f7449eb7b83baf57fd81d4247b2724253177c55662fd1794a54c1598"
+    ],
+    "input_images": [
+      {
+        "sha256": "a2eb1d1f1afe47cce148e9aae0a04dfb82547d9de9437d342e012341140913f4",
+        "bytes": 21364672,
+        "filenames": [
+          "00_0100_403a0020.decoded.bin"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "analysis/penf_boot_dump_20261107/assembly/separate-capture-ring.asm",
+    "start": "0x60022fec",
+    "stop_exclusive": "0x6002302a",
+    "segments": [
+      {
+        "start": "0x60022fec",
+        "stop_exclusive": "0x6002302a"
+      }
+    ],
+    "aliases": [],
+    "listing_sha256s": [
+      "709d932f6585773eef634d35985e1ec77b06e7f12494be53009921d002cac6a4"
+    ],
+    "input_images": [
+      {
+        "sha256": "a2eb1d1f1afe47cce148e9aae0a04dfb82547d9de9437d342e012341140913f4",
+        "bytes": 21364672,
+        "filenames": [
+          "00_0100_403a0020.decoded.bin"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "analysis/penf_boot_dump_20261107/assembly/slot-scan.asm",
+    "start": "0x60023b28",
+    "stop_exclusive": "0x60023ba2",
+    "segments": [
+      {
+        "start": "0x60023b28",
+        "stop_exclusive": "0x60023ba2"
+      }
+    ],
+    "aliases": [],
+    "listing_sha256s": [
+      "a21348db37ba8bd3c0c5947eaf7c91c8953633e14efaf610e3bfd56506a9f511"
+    ],
+    "input_images": [
+      {
+        "sha256": "a2eb1d1f1afe47cce148e9aae0a04dfb82547d9de9437d342e012341140913f4",
+        "bytes": 21364672,
+        "filenames": [
+          "00_0100_403a0020.decoded.bin"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "analysis/penf_boot_dump_20261107/assembly/socket-send.asm",
+    "start": "0x60a82cb0",
+    "stop_exclusive": "0x60a82d2b",
+    "segments": [
+      {
+        "start": "0x60a82cb0",
+        "stop_exclusive": "0x60a82d2b"
+      }
+    ],
+    "aliases": [],
+    "listing_sha256s": [
+      "2ddda42fdaeff199fd2275c2a2ca18a1a640a88a5e6d2d018ec852c27cb239af"
+    ],
+    "input_images": [
+      {
+        "sha256": "a2eb1d1f1afe47cce148e9aae0a04dfb82547d9de9437d342e012341140913f4",
+        "bytes": 21364672,
+        "filenames": [
+          "00_0100_403a0020.decoded.bin"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "analysis/penf_boot_dump_20261107/assembly/tcp-send-loop.asm",
+    "start": "0x60a83770",
+    "stop_exclusive": "0x60a8382d",
+    "segments": [
+      {
+        "start": "0x60a83770",
+        "stop_exclusive": "0x60a8382d"
+      }
+    ],
+    "aliases": [],
+    "listing_sha256s": [
+      "5d1a8fa199cd46896f134399c1c681a2d1fbb087ba173ebd0f3c51cac6b3fafd"
+    ],
+    "input_images": [
+      {
+        "sha256": "a2eb1d1f1afe47cce148e9aae0a04dfb82547d9de9437d342e012341140913f4",
+        "bytes": 21364672,
+        "filenames": [
+          "00_0100_403a0020.decoded.bin"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "analysis/penf_boot_dump_20261107/assembly/uart-out.asm",
+    "start": "0x6006d1ba",
+    "stop_exclusive": "0x6006d22c",
+    "segments": [
+      {
+        "start": "0x6006d1ba",
+        "stop_exclusive": "0x6006d22c"
+      }
+    ],
+    "aliases": [],
+    "listing_sha256s": [
+      "cf41d1259b5c8614d13b5c0277f27cb794212988754387f7fa9f5e24c9724ae5"
+    ],
+    "input_images": [
+      {
+        "sha256": "a2eb1d1f1afe47cce148e9aae0a04dfb82547d9de9437d342e012341140913f4",
+        "bytes": 21364672,
+        "filenames": [
+          "00_0100_403a0020.decoded.bin"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "analysis/penf_boot_dump_20261107/assembly/wifi-listener.asm",
+    "start": "0x60aaa820",
+    "stop_exclusive": "0x60aaa8d3",
+    "segments": [
+      {
+        "start": "0x60aaa820",
+        "stop_exclusive": "0x60aaa8d3"
+      }
+    ],
+    "aliases": [],
+    "listing_sha256s": [
+      "0838631e0eaadaf69329b8669340b014d8d79e02d45c87aa9223254ba2a2cbee"
+    ],
+    "input_images": [
+      {
+        "sha256": "a2eb1d1f1afe47cce148e9aae0a04dfb82547d9de9437d342e012341140913f4",
+        "bytes": 21364672,
+        "filenames": [
+          "00_0100_403a0020.decoded.bin"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "analysis/penf_boot_dump_20261107/assembly/wifi-tx.asm",
+    "start": "0x60aaa554",
+    "stop_exclusive": "0x60aaa5d5",
+    "segments": [
+      {
+        "start": "0x60aaa554",
+        "stop_exclusive": "0x60aaa5d5"
+      }
+    ],
+    "aliases": [],
+    "listing_sha256s": [
+      "e31c647fe6a8c0c27c0afceb0590ad1238075c8494fa8ac7c700c92d1a25521b"
+    ],
+    "input_images": [
+      {
+        "sha256": "a2eb1d1f1afe47cce148e9aae0a04dfb82547d9de9437d342e012341140913f4",
+        "bytes": 21364672,
+        "filenames": [
+          "00_0100_403a0020.decoded.bin"
+        ]
+      }
+    ]
+  },
+  {
     "path": "analysis/penf_sd_dispatch/verified-final/accessory_queue_adapter.asm",
     "start": "0x602eed18",
     "stop_exclusive": "0x602eed43",
