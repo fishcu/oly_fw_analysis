@@ -22,7 +22,7 @@
   {
     "path": "docs/README.md",
     "sources": [],
-    "sha256": "6333da6b4f24c788a4b568d6a9e8dd98cc256abba1ac0a50f28172e39d67bd7f"
+    "sha256": "a9e6b12c8242c4537c1195452b538d729cbcece469feb4a982a3fafd4d31ef6f"
   },
   {
     "path": "docs/boot/e-m10/RECOVERY.md",
@@ -641,6 +641,32 @@
     "sha256": "8799ae212fdf30087ea7eaa154a38e3571d117e05701408676cafc636d7d3add"
   },
   {
+    "path": "docs/features/pen-f/APERTURE_RING.md",
+    "sources": [
+      {
+        "source_document": "research/community/azqeurio/2026-11-07-intake/ANALYSIS.md",
+        "sha256": "28f9acd1673490d3d275a00bb2ec48894f8b37ceeb4c19d6395f532fba27d798"
+      },
+      {
+        "source_document": "analysis/azqeurio_aperture_20261107/native.json",
+        "sha256": "bfb1f74bcc79cbe6fa27268871780c253066df1ee45c021c15acdf85f082dfb1"
+      },
+      {
+        "source_document": "analysis/azqeurio_aperture_20261107/inventory.json",
+        "sha256": "1ca74087330fd750fc0de25642f552a7c02e7405bfaafbdd0639c3764277743d"
+      },
+      {
+        "source_document": "analysis/azqeurio_aperture_20261107/container-check.json",
+        "sha256": "aee4448a4e309bdc7afa54f74b24fa9ea839f1d881c121283b409dfc8f52b004"
+      },
+      {
+        "source_document": "analysis/azqeurio_aperture_20261107/hsl-overlap.json",
+        "sha256": "852f09f98481fe907b3b3ca4365e3cdbdae50aca74a848e5238403cd0d2ce96c"
+      }
+    ],
+    "sha256": "d10068bb694b988b8c6df89fdf15da147c2b047c39d9d853133157de5ea5547c"
+  },
+  {
     "path": "docs/format/CONTAINERS.md",
     "sources": [
       {
@@ -895,7 +921,7 @@
   {
     "path": "provenance/README.md",
     "sources": [],
-    "sha256": "123615b6f34f0fa185bd7f699b5b24b014dd1ad2cc61edfb1fb053086995f1df"
+    "sha256": "b53485804532e16e1f1f309d3eaeec3a9b381b6bbe3724c66151937b8780b856"
   },
   {
     "path": "provenance/SOURCES.md",

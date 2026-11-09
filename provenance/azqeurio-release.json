@@ -1,0 +1,555 @@
+{
+  "release": "https://github.com/azqeurio/om-c-firmware/releases/tag/dbv0.3.2",
+  "asset_sha256": "994927d6ccfe31cf6b944ac509186e10f51bf739082e2799104d04460a316435",
+  "models": [
+    {
+      "model": "OM-1",
+      "version": "1.9",
+      "id": "om1-1.9",
+      "source_sha256": "342954a48b60bb900614791d6c44d2ba88a67e7a0e03a065069160daa5fbd75a",
+      "source_file": "OLY_E_143_1900_0000_0000.BIN",
+      "feature_ids": [
+        "korean",
+        "ring-native",
+        "sh2-four-rates",
+        "shutter-sound",
+        "wifi-5ghz"
+      ],
+      "ring_implementation": "native-descriptor-ring-table-gate-v5",
+      "ring_payload_sha256": "eef37cca4e169bed1d8152a350ba9dcb25ba83cef83d61dfea07df9e799e833f",
+      "ring_patch_records": 10,
+      "ring_changed_records": 10,
+      "ring_changed_bytes": 1488
+    },
+    {
+      "model": "OM-1 Mark II",
+      "version": "1.3",
+      "id": "om1ii-1.3",
+      "source_sha256": "f60b5bbd305e67caf5d1b5e80eb426f6d911de244abb3aaa68f420ef61e05449",
+      "source_file": "OLY_E_146_1300_0000_0000.BIN",
+      "feature_ids": [
+        "korean",
+        "ring-native",
+        "wifi-5ghz",
+        "shutter-sound"
+      ],
+      "ring_implementation": "native-descriptor-ring-table-gate-v5",
+      "ring_payload_sha256": "db939db6c6d40e83a209670ff8d35143437e0cefd0fcf32f8b087dee5b746438",
+      "ring_patch_records": 10,
+      "ring_changed_records": 10,
+      "ring_changed_bytes": 1474
+    },
+    {
+      "model": "OM-3",
+      "version": "1.1",
+      "id": "om3-1.1",
+      "source_sha256": "8c133084414533159f587bf46bfb4152714c4074312a47c8d8503e33d605696d",
+      "source_file": "OLY_E_147_1100_0000_0000.BIN",
+      "feature_ids": [
+        "korean",
+        "ring-native",
+        "shutter-sound"
+      ],
+      "ring_implementation": "native-descriptor-ring-table-gate-v5",
+      "ring_payload_sha256": "4223a84edc5efd3e2006867e1943c176d2d62c0661d55eda2f4a17c1a9545af3",
+      "ring_patch_records": 10,
+      "ring_changed_records": 10,
+      "ring_changed_bytes": 1478
+    },
+    {
+      "model": "OM-5",
+      "version": "1.2",
+      "id": "om5-1.2",
+      "source_sha256": "a0c91f3ac7caaf0925b2af609e711183cf3b5982b3333224bcef26c0c5943d11",
+      "source_file": "OLY_E_144_1200_0000_0000.BIN",
+      "feature_ids": [
+        "korean",
+        "ring-native",
+        "wifi-5ghz"
+      ],
+      "ring_implementation": "native-descriptor-ring-table-gate-v5",
+      "ring_payload_sha256": "2b8efd142293294e37bee204a150e04af617c144e840a1aa25e6c34a7c14785a",
+      "ring_patch_records": 12,
+      "ring_changed_records": 12,
+      "ring_changed_bytes": 1632
+    },
+    {
+      "model": "OM-5 Mark II",
+      "version": "1.1",
+      "id": "om5ii-1.1",
+      "source_sha256": "9de5d77e1d290fa2ed4ebc7d75cee0ed490befbc89566722467d1d421d66d637",
+      "source_file": "OLY_E_148_1100_0000_0000.BIN",
+      "feature_ids": [
+        "korean",
+        "ring-native"
+      ],
+      "ring_implementation": "om5ii-native-ring-v1",
+      "ring_payload_sha256": "a80ea91d3eb451f3363578b9b465fc7dfbdd292dbd59d0fb3ecef0e826f70318",
+      "ring_patch_records": 12,
+      "ring_changed_records": 12,
+      "ring_changed_bytes": 1632
+    },
+    {
+      "model": "E-M1X",
+      "version": "2.4",
+      "id": "em1x-2.4",
+      "source_sha256": "275995ec4cbe58fc40d0a54f670fd4308e2261584fa4c0b1089206a4250cb712",
+      "source_file": "OLY_E_134_2400_0000_0000.BIN",
+      "feature_ids": [
+        "ring-native",
+        "wifi-5ghz",
+        "em1x-auto-iso-25600"
+      ],
+      "ring_implementation": "native-descriptor-ring-table-gate-v5",
+      "ring_payload_sha256": "feb42ef80ee35518332270722660a84d7b8cd894bdd799f1de09d8975056593c",
+      "ring_patch_records": 12,
+      "ring_changed_records": 12,
+      "ring_changed_bytes": 1631
+    },
+    {
+      "model": "E-M1 Mark III",
+      "version": "1.6",
+      "id": "em1iii-1.6",
+      "source_sha256": "4f9ea315a2f2280dd5746abc39b5e4b038f183836eadfbe9d96b266e49a09aac",
+      "source_file": "OLY_E_139_1600_0000_0000.BIN",
+      "feature_ids": [
+        "ring-native",
+        "wifi-5ghz"
+      ],
+      "ring_implementation": "native-descriptor-ring-table-gate-v5",
+      "ring_payload_sha256": "e0430b7bfaa09bfcbfccd85173b2ec0af0926ba5e67830db305285f8efae10dd",
+      "ring_patch_records": 12,
+      "ring_changed_records": 12,
+      "ring_changed_bytes": 1633
+    },
+    {
+      "model": "E-M5 Mark III",
+      "version": "1.7",
+      "id": "em5iii-1.7",
+      "source_sha256": "939260fc22b4217fce64274eb5a6707d307a499804d8a316b6b39019c4afded2",
+      "source_file": "OLY_E_137_1700_0000_0000.BIN",
+      "feature_ids": [
+        "ring-native"
+      ],
+      "ring_implementation": "native-descriptor-ring-table-gate-v5",
+      "ring_payload_sha256": "53cd9ddf56725cdf7374c2c8ba1fecfeae9495ba9abe238f3d6595487220b6d6",
+      "ring_patch_records": 12,
+      "ring_changed_records": 12,
+      "ring_changed_bytes": 1631
+    },
+    {
+      "model": "E-M10 Mark IV",
+      "version": "1.1",
+      "id": "em10iv-1.1",
+      "source_sha256": "73b42ea52db8d7cd59b4450e93175529438b0bce6baa793ce009d5bc73d212cd",
+      "source_file": "OLY_E_140_1100_0000_0000.BIN",
+      "feature_ids": [
+        "ring-native"
+      ],
+      "ring_implementation": "native-descriptor-ring-table-gate-v5",
+      "ring_payload_sha256": "8eb6c3bc209c2e59e6244a8468e95f34fb5fad3cb8e2a90c306d4b7f3cbda319",
+      "ring_patch_records": 11,
+      "ring_changed_records": 11,
+      "ring_changed_bytes": 1620
+    },
+    {
+      "model": "E-P7",
+      "version": "1.1",
+      "id": "ep7-1.1",
+      "source_sha256": "9d1610124ad98f6edae4540182205f06c9c703d9033ef0c4f19847193f95eaeb",
+      "source_file": "OLY_E_142_1100_0000_0000.BIN",
+      "feature_ids": [
+        "ep7-controls",
+        "ring-native"
+      ],
+      "ring_implementation": "native-descriptor-ring-table-gate-v5",
+      "ring_payload_sha256": "5a96ee399935d5ca706bdb92f54d2c34e2cf6df13f91edbef089dd839df84e09",
+      "ring_patch_records": 11,
+      "ring_changed_records": 11,
+      "ring_changed_bytes": 1620
+    },
+    {
+      "model": "E-PL9",
+      "version": "1.1",
+      "id": "epl9-1.1",
+      "source_sha256": "aefab05396c43ecba0551b94a5d31f7e52350c18d6f4bf1d02d75761108e6028",
+      "source_file": "OLY_E_133_1101_0000_0000.BIN",
+      "feature_ids": [
+        "ring-native"
+      ],
+      "ring_implementation": "native-descriptor-ring-table-gate-v5",
+      "ring_payload_sha256": "305f9f8c516df43492c256994791ed4c3b9c7d03e0d1c92ed7a6b8b24880d831",
+      "ring_patch_records": 14,
+      "ring_changed_records": 14,
+      "ring_changed_bytes": 1959
+    },
+    {
+      "model": "E-PL5",
+      "version": "1.6",
+      "id": "epl5-1.6",
+      "source_sha256": "1355c2b8beaaae348654a208e1c0220a9a9273bd88dac408fd6fd01a0ccd0c01",
+      "source_file": "OLY_E_100_1600_0000_0000.BIN",
+      "feature_ids": [
+        "ring-native"
+      ],
+      "ring_implementation": "ring-rom-capability-cache-gate-ring-port-all-100-resident-candidate-primary-polls-0-2-6",
+      "ring_payload_sha256": "07b4bda6db78ea9557c08692342eafbb78bb6ee1f9a32f8c0fa284fb55cd4fd4",
+      "ring_patch_records": 9,
+      "ring_changed_records": 8,
+      "ring_changed_bytes": 1395
+    },
+    {
+      "model": "E-P5",
+      "version": "1.8",
+      "id": "ep5-1.8",
+      "source_sha256": "cc59a4e13b3bf6c46405bd396975cb9c93a7634b7a4a36822259b1fc498b5cfd",
+      "source_file": "OLY_E_108_1800_0000_0000.BIN",
+      "feature_ids": [
+        "ring-native"
+      ],
+      "ring_implementation": "ring-rom-capability-cache-gate-ring-port-all-108-resident-candidate-primary-polls-0-2-6",
+      "ring_payload_sha256": "302c76d4a8b654075121fa42f837f81b4ff959060b0bd774338c2de45a291ebb",
+      "ring_patch_records": 9,
+      "ring_changed_records": 8,
+      "ring_changed_bytes": 1395
+    },
+    {
+      "model": "E-M1 Mark I",
+      "version": "4.6",
+      "id": "em1-4.6",
+      "source_sha256": "0fa4b14cb6361eddfbe6f9e94b4f5e3ded428a522fda79d2ce747bab34b21339",
+      "source_file": "OLY_E_109_4600_0000_0000.BIN",
+      "feature_ids": [
+        "ring-native"
+      ],
+      "ring_implementation": "ring-rom-capability-cache-gate-ring-port-all-109-resident-candidate-primary-polls-0-2-6",
+      "ring_payload_sha256": "61fd194adb1b23f44a087ca587d66a9744e91aeba4421046a4137491445d916b",
+      "ring_patch_records": 13,
+      "ring_changed_records": 12,
+      "ring_changed_bytes": 2616
+    },
+    {
+      "model": "E-PL6",
+      "version": "1.4",
+      "id": "epl6-1.4",
+      "source_sha256": "f7b76ac82d545148bfc1c00bc165fb855b2e7d044dcaae1033601496e1bd116f",
+      "source_file": "OLY_E_112_1400_0000_0000.BIN",
+      "feature_ids": [
+        "ring-native"
+      ],
+      "ring_implementation": "ring-rom-capability-cache-gate-ring-port-all-112-resident-candidate-primary-polls-0-2-6",
+      "ring_payload_sha256": "c1d9f8a2ad2f6613daff041cedc829f15a13ea6a00a3c05cfc5c8adf2037ef0a",
+      "ring_patch_records": 9,
+      "ring_changed_records": 8,
+      "ring_changed_bytes": 1395
+    },
+    {
+      "model": "E-M10 Mark I",
+      "version": "1.4",
+      "id": "em10-1.4",
+      "source_sha256": "84d81b2dbd80ea2e94ec70e35acbba0e3193ccee8b51db14976fd0d9c4e3590c",
+      "source_file": "OLY_E_113_1400_0000_0000.BIN",
+      "feature_ids": [
+        "ring-native"
+      ],
+      "ring_implementation": "ring-rom-capability-cache-gate-ring-port-all-113-resident-candidate-native-polls-69-81-84",
+      "ring_payload_sha256": "2078eb4c8a758cac99822b8c42929652c1745e0abc99244055fe3c2ebd75e52d",
+      "ring_patch_records": 9,
+      "ring_changed_records": 8,
+      "ring_changed_bytes": 1202
+    },
+    {
+      "model": "E-PL7",
+      "version": "1.4",
+      "id": "epl7-1.4",
+      "source_sha256": "cd9b09af9705e31570252fd7501f92fc11c1e6fd555e30e103f4f05e9944501b",
+      "source_file": "OLY_E_115_1400_0000_0000.BIN",
+      "feature_ids": [
+        "ring-native"
+      ],
+      "ring_implementation": "ring-rom-capability-cache-gate-ring-port-all-115-resident-candidate-primary-polls-0-2-6",
+      "ring_payload_sha256": "82d48762de2b9a9d39848834f93f4c9744ac2b6e010266223a30a87a319a45ff",
+      "ring_patch_records": 9,
+      "ring_changed_records": 8,
+      "ring_changed_bytes": 1680
+    },
+    {
+      "model": "E-M5 Mark II",
+      "version": "4.1",
+      "id": "em5ii-4.1",
+      "source_sha256": "c03050db130b051e446fa08dec1ad6f29afc890308888383428f4938a57edef0",
+      "source_file": "OLY_E_118_4100_0000_0000.BIN",
+      "feature_ids": [
+        "ring-native"
+      ],
+      "ring_implementation": "ring-rom-capability-cache-gate-ring-port-all-118-resident-candidate-primary-polls-0-2-6",
+      "ring_payload_sha256": "6698c57ac59bae6547f3a6a97bb2c5326432f0beed9467de534ab9e5a8047205",
+      "ring_patch_records": 13,
+      "ring_changed_records": 12,
+      "ring_changed_bytes": 2616
+    },
+    {
+      "model": "E-M10 Mark II",
+      "version": "1.4",
+      "id": "em10ii-1.4",
+      "source_sha256": "ff9d302318ecf6e06c0b31c181fc6a185e93623e819749db31cec7977fa92052",
+      "source_file": "OLY_E_120_1400_0000_0000.BIN",
+      "feature_ids": [
+        "ring-native"
+      ],
+      "ring_implementation": "ring-rom-capability-cache-gate-ring-port-all-120-resident-candidate-primary-polls-0-2-6",
+      "ring_payload_sha256": "39d02372b6e6792b96cf2a7d49cd834aa012f23799e670e1fc25ef215e94dd03",
+      "ring_patch_records": 12,
+      "ring_changed_records": 11,
+      "ring_changed_bytes": 2285
+    },
+    {
+      "model": "PEN-F",
+      "version": "3.1",
+      "id": "penf-3.1",
+      "source_sha256": "77398610b379f80238117f31a6d5bbf65d608b49ec563666c64d84367e969f2c",
+      "source_file": "OLY_E_122_3101_0000_0000.BIN",
+      "feature_ids": [
+        "ring-native"
+      ],
+      "ring_implementation": "ring-rom-capability-cache-gate-ring-port-all-122-resident-candidate-primary-polls-0-2-6",
+      "ring_payload_sha256": "ad737d6df55272ddf79fe3e2564ca6a62d9495f48f18b4fbe183649512133931",
+      "ring_patch_records": 17,
+      "ring_changed_records": 16,
+      "ring_changed_bytes": 3416
+    },
+    {
+      "model": "E-PL8",
+      "version": "1.1",
+      "id": "epl8-1.1",
+      "source_sha256": "923aab3d8e761c3b4a3108bcc6059b10ff6a9055a0630e0aea8a4707c59daeeb",
+      "source_file": "OLY_E_126_1100_0000_0000.BIN",
+      "feature_ids": [
+        "ring-native"
+      ],
+      "ring_implementation": "ring-rom-capability-cache-gate-ring-port-all-126-resident-candidate-primary-polls-0-2-6",
+      "ring_payload_sha256": "35c7e6a1e7c09f5326e1fb2ac6f9ee11eb7f04f850f55e0924d952b9654b6b5b",
+      "ring_patch_records": 9,
+      "ring_changed_records": 8,
+      "ring_changed_bytes": 1680
+    },
+    {
+      "model": "E-M1 Mark II",
+      "version": "3.7",
+      "id": "em1ii-3.7",
+      "source_sha256": "691a8a8e90af75b3848b70856a3a49ef24d72394cdfd2766fa37bdfe6325de70",
+      "source_file": "OLY_E_125_3700_0000_0000.BIN",
+      "feature_ids": [
+        "ring-native"
+      ],
+      "ring_implementation": "native-descriptor-ring-table-gate-v5-selected-av-slot4",
+      "ring_payload_sha256": "125c0fc7aff743037fe6a5f4398695796b27ac9d1571c9a144d1557ecd67d8a5",
+      "ring_patch_records": 12,
+      "ring_changed_records": 12,
+      "ring_changed_bytes": 1456
+    },
+    {
+      "model": "E-M10 Mark III",
+      "version": "1.2",
+      "id": "em10iii-1.2",
+      "source_sha256": "a2283338a79f8d0fa212d9a6d2677b9b686f6a9cd4bd664fd9b0709af63f94e1",
+      "source_file": "OLY_E_130_1200_0000_0000.BIN",
+      "feature_ids": [
+        "ring-native"
+      ],
+      "ring_implementation": "native-descriptor-ring-table-gate-v5-native-variable-response-bounds",
+      "ring_payload_sha256": "ea94a362227de5d10b5e0630c38353f7bc0bc19119a94e9f7fa541f9014ddaf6",
+      "ring_patch_records": 15,
+      "ring_changed_records": 15,
+      "ring_changed_bytes": 1972
+    }
+  ],
+  "penf_sites": [
+    {
+      "label": "loader_patch",
+      "block": 0,
+      "offset": 388,
+      "address": "0x600211a4",
+      "bytes": 6,
+      "changed": 0,
+      "old_sha256": "36137758333541c357070f6f2aea5f828e8a39d2e6eb1dba9869194582dde84e",
+      "new_sha256": "36137758333541c357070f6f2aea5f828e8a39d2e6eb1dba9869194582dde84e"
+    },
+    {
+      "label": "payload_cave",
+      "block": 0,
+      "offset": 258032,
+      "address": "0x60060010",
+      "bytes": 3903,
+      "changed": 3323,
+      "old_sha256": "0a9f273716af3aef2a499b4d81ddfaffb53691bf8f55c399c3fa99e0186a1b9e",
+      "new_sha256": "ad737d6df55272ddf79fe3e2564ca6a62d9495f48f18b4fbe183649512133931"
+    },
+    {
+      "label": "reset_hook",
+      "block": 0,
+      "offset": 1277902,
+      "address": "0x60158fee",
+      "bytes": 8,
+      "changed": 8,
+      "old_sha256": "c95811db9659d75fc4f0fc8bb88a110c01254b5d64bdbf273bf80d075181980b",
+      "new_sha256": "099544934505faea680981ca064f48d2b131e9f75d32c53be7ebd2027b3cf8b5",
+      "jump_target": "0x600602fc"
+    },
+    {
+      "label": "init_hook",
+      "block": 0,
+      "offset": 1310384,
+      "address": "0x60160ed0",
+      "bytes": 8,
+      "changed": 8,
+      "old_sha256": "dd1c230cc9e1dd05101c842001913639135eadca3717e5faeffe2a7ccbcd3bff",
+      "new_sha256": "8cef0caa8b4ed00941a9cff8f18c8d4487bc7156d501ed695258f57b757e31f0",
+      "jump_target": "0x60060310"
+    },
+    {
+      "label": "parser_hook",
+      "block": 0,
+      "offset": 1327710,
+      "address": "0x6016527e",
+      "bytes": 6,
+      "changed": 6,
+      "old_sha256": "0ed70dc9a59999849c1781a5d2133db6bb6b9bd94c3983bb11373ba84929248d",
+      "new_sha256": "8a02e0d21796fd31722c0603cee1c53f6d0624157f7db16a1196f379230afbb1",
+      "jump_target": "0x60060510"
+    },
+    {
+      "label": "request_hook",
+      "block": 0,
+      "offset": 1387957,
+      "address": "0x60173dd5",
+      "bytes": 6,
+      "changed": 6,
+      "old_sha256": "89f84c3d32c997d5109e0644f384ee2ad1d811a5ac28552dd22f356ae5be0537",
+      "new_sha256": "1a3c1f13eadb196770723d0a6b90635b2a103a432c47b29b735a6d264d63f8e0",
+      "jump_target": "0x60060330"
+    },
+    {
+      "label": "callback_hook",
+      "block": 0,
+      "offset": 1387976,
+      "address": "0x60173de8",
+      "bytes": 7,
+      "changed": 7,
+      "old_sha256": "2d226c264cbc6b40fb90d3d55a070f9a952a059fd966a4194062314597c413c3",
+      "new_sha256": "2fe1ad3134972af5d8fe551e33a530955f65f8717b6ec183e53824cf3e7c8361",
+      "jump_target": "0x600602c4"
+    },
+    {
+      "label": "guard_hook",
+      "block": 0,
+      "offset": 1388146,
+      "address": "0x60173e92",
+      "bytes": 7,
+      "changed": 6,
+      "old_sha256": "48d4382f3c279425b5f55c6f1303c0461e033d28f40fedf6f5a804605577769d",
+      "new_sha256": "62a2993423d5f5af1c566191ea591759032105184bd2406b71a0950abad9b478",
+      "jump_target": "0x600603e0"
+    },
+    {
+      "label": "input_hook",
+      "block": 0,
+      "offset": 6015820,
+      "address": "0x605ddb6c",
+      "bytes": 7,
+      "changed": 6,
+      "old_sha256": "d02e35810b2cb6fcdb0066b1e0e6f7b80b05bd18ddd495483da2326b18628dbc",
+      "new_sha256": "6f2714bdfaa247eb1897e83f38c8c1ecb35a26d21c13a299d66d955c748b6c09",
+      "jump_target": "0x600600c0"
+    },
+    {
+      "label": "primary_status_dispatch_hook",
+      "block": 0,
+      "offset": 1396520,
+      "address": "0x60175f48",
+      "bytes": 6,
+      "changed": 6,
+      "old_sha256": "897f1a0aabc8d7c8fd3897c32e5b7139769dff7455710b0cb923c867c7e26042",
+      "new_sha256": "57e1a59d9ce7a1921c63f5470f61ef6248acb6d00908845c1348b8e94309e7c0",
+      "jump_target": "0x60060890"
+    },
+    {
+      "label": "primary_status_guard_60171cc3",
+      "block": 0,
+      "offset": 1379491,
+      "address": "0x60171cc3",
+      "bytes": 7,
+      "changed": 6,
+      "old_sha256": "9b05c1ea0463b9460a077b78cefce1919879746dafdc487237f18914dbc13ac8",
+      "new_sha256": "b1fc9dab1b409321380121cae65b0520ad905e334d3e1603d673739287956d48",
+      "jump_target": "0x60060940"
+    },
+    {
+      "label": "primary_status_guard_60174468",
+      "block": 0,
+      "offset": 1389640,
+      "address": "0x60174468",
+      "bytes": 7,
+      "changed": 6,
+      "old_sha256": "d3064ad47507843edb3b60777d976cbff4835db680e3f7fa3ea3d1b032efcbf2",
+      "new_sha256": "ff84c5e0ba16876f52736f61e6f13a15a6e73eca4252f50b41bbe6d009eff63c",
+      "jump_target": "0x60060a70"
+    },
+    {
+      "label": "primary_status_guard_60174de5",
+      "block": 0,
+      "offset": 1392069,
+      "address": "0x60174de5",
+      "bytes": 7,
+      "changed": 6,
+      "old_sha256": "2179ec49108cd626d991e80906fefd6f30fa12de6b9b41c6f729e0430180c77b",
+      "new_sha256": "e9445dde0d52118d03cc7614590df56362a69aaebf777490bd2d4cd181668487",
+      "jump_target": "0x60060ba0"
+    },
+    {
+      "label": "primary_status_guard_60174e4c",
+      "block": 0,
+      "offset": 1392172,
+      "address": "0x60174e4c",
+      "bytes": 7,
+      "changed": 6,
+      "old_sha256": "4cbad7924dcc96c0e599caa478d8c9078daaf8ac77009c12036082943daeccce",
+      "new_sha256": "efebbe0d80f12f29a5b4252f2027d01fa3167ce6a62b0db7ca2122062574f4c7",
+      "jump_target": "0x60060cd0"
+    },
+    {
+      "label": "callback_a_error_hook",
+      "block": 0,
+      "offset": 1379354,
+      "address": "0x60171c3a",
+      "bytes": 5,
+      "changed": 5,
+      "old_sha256": "7e785f89a8311899532b0ecf935500cb2fcc9074beee6848e99b73c3e502bef7",
+      "new_sha256": "276b0b9723b354c726239847223621e0948ea1eb7844228a236e9d3c4f72ffb3",
+      "jump_target": "0x60060e00"
+    },
+    {
+      "label": "callback_b_error_hook",
+      "block": 0,
+      "offset": 1389503,
+      "address": "0x601743df",
+      "bytes": 5,
+      "changed": 5,
+      "old_sha256": "eb4dfab7b64586b65b01cce7e1b890a207da5c12d1bf791dd75d98f5f3f77c36",
+      "new_sha256": "092feab88af54f93a6006c5542907ddb1750fe298392fb233c7ab2d65ffa5794",
+      "jump_target": "0x60060e70"
+    },
+    {
+      "label": "selector_error_hook",
+      "block": 0,
+      "offset": 1391974,
+      "address": "0x60174d86",
+      "bytes": 6,
+      "changed": 6,
+      "old_sha256": "99599b484d64f31a8f554d13b905a175b1285183bdc3dc221b9e4af1bf806555",
+      "new_sha256": "879badbb70d6b38f9225c2cebdd8f7f7c6a774e92e4f6b0f2ace1de4e2272ddf",
+      "jump_target": "0x60060ee0"
+    }
+  ],
+  "method": "Read JSON only; program not executed; no camera access"
+}

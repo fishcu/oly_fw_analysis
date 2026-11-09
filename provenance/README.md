@@ -22,6 +22,8 @@ can refer to different internal builds.
   camera research.
 - [Community reports](community-reports.json): attributed contributions, publication
   dates, source identities and the scope of independent verification.
+- [Aperture-ring release inventory](azqeurio-release.json): azqeurio's model/feature
+  database and PEN-F patch locations, summarized without executable payloads.
 
 Container metadata checks establish structure, not authenticity or safe camera
 execution. A historical mirror's availability can change. Public download URLs

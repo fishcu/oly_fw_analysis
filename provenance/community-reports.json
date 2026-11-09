@@ -278,5 +278,168 @@
         "result": "Stock dump is not qualified as read-only: maintenance writes, allocation exhaustion, missing flash serialization and output loss. No physical test."
       }
     ]
+  },
+  {
+    "id": "azqeurio-ring-dbv032",
+    "authors": [
+      {
+        "handle": "jun0727",
+        "platform": "Reddit"
+      },
+      {
+        "handle": "azqeurio",
+        "platform": "GitHub"
+      }
+    ],
+    "announcement": {
+      "url": "https://www.reddit.com/r/M43/comments/1xgqgwx/made_firmware_twick_tool_for_olyom_cameras/",
+      "published": "2026-10-27T11:54:16+00:00",
+      "author": "/u/jun0727"
+    },
+    "release": {
+      "tag": "dbv0.3.2",
+      "published": "2026-10-31T21:12:40Z",
+      "url": "https://github.com/azqeurio/om-c-firmware/releases/tag/dbv0.3.2",
+      "asset_url": "https://github.com/azqeurio/om-c-firmware/releases/download/dbv0.3.2/db.firmware.0.3.2.exe",
+      "asset_bytes": 162739250,
+      "asset_sha256": "994927d6ccfe31cf6b944ac509186e10f51bf739082e2799104d04460a316435"
+    },
+    "repository_tree": "9165af1a2cab36f42054b0028ffda723190355bf",
+    "hardware_reports": [
+      {
+        "author": "47h9n5yj8d-arch",
+        "platform": "GitHub",
+        "published": "2026-11-01T23:09:12Z",
+        "url": "https://github.com/azqeurio/om-c-firmware/issues/7",
+        "title": "4/3 Leica lens' aperture rings doesn't work"
+      },
+      {
+        "author": "NekoSkwama",
+        "platform": "GitHub",
+        "published": "2026-10-29T14:18:12Z",
+        "url": "https://github.com/azqeurio/om-c-firmware/issues/4",
+        "title": "Exposure preview doesn't update when changing aperture from aperture ring"
+      },
+      {
+        "author": "/u/NekoSkwama",
+        "platform": "Reddit",
+        "url": "https://www.reddit.com/r/M43/comments/1xgqgwx/made_firmware_twick_tool_for_olyom_cameras/19rqsr1471v0k/",
+        "published": null,
+        "updated": "2026-10-27T18:38:11+00:00",
+        "time_note": "RSS updated may be an edit; missing published is not inferred"
+      },
+      {
+        "author": "/u/NekoSkwama",
+        "platform": "Reddit",
+        "url": "https://www.reddit.com/r/M43/comments/1xgqgwx/made_firmware_twick_tool_for_olyom_cameras/19rqtalrivuip/",
+        "published": null,
+        "updated": "2026-10-27T18:50:22+00:00",
+        "time_note": "RSS updated may be an edit; missing published is not inferred"
+      },
+      {
+        "author": "/u/NekoSkwama",
+        "platform": "Reddit",
+        "url": "https://www.reddit.com/r/M43/comments/1xgqgwx/made_firmware_twick_tool_for_olyom_cameras/19rqubw03oj7p/",
+        "published": null,
+        "updated": "2026-10-27T19:13:35+00:00",
+        "time_note": "RSS updated may be an edit; missing published is not inferred"
+      },
+      {
+        "author": "/u/tetsuhito",
+        "platform": "Reddit",
+        "url": "https://www.reddit.com/r/M43/comments/1xgqgwx/made_firmware_twick_tool_for_olyom_cameras/19rqejvkf8nyd/",
+        "published": null,
+        "updated": "2026-10-27T13:19:50+00:00",
+        "time_note": "RSS updated may be an edit; missing published is not inferred"
+      },
+      {
+        "author": "/u/EmotionalCouple9032",
+        "platform": "Reddit",
+        "url": "https://www.reddit.com/r/M43/comments/1xgqgwx/made_firmware_twick_tool_for_olyom_cameras/19rtbagr8y3ib/",
+        "published": null,
+        "updated": "2026-10-29T04:28:06+00:00",
+        "time_note": "RSS updated may be an edit; missing published is not inferred"
+      },
+      {
+        "author": "/u/Atharis",
+        "platform": "Reddit",
+        "url": "https://www.reddit.com/r/M43/comments/1xgqgwx/made_firmware_twick_tool_for_olyom_cameras/19rs72emstj5w/",
+        "published": null,
+        "updated": "2026-10-28T13:26:16+00:00",
+        "time_note": "RSS updated may be an edit; missing published is not inferred"
+      },
+      {
+        "author": "/u/EmotionalCouple9032",
+        "platform": "Reddit",
+        "url": "https://www.reddit.com/r/M43/comments/1xgqgwx/made_firmware_twick_tool_for_olyom_cameras/19rtb3kfwbr5x/",
+        "published": null,
+        "updated": "2026-10-29T04:23:48+00:00",
+        "time_note": "RSS updated may be an edit; missing published is not inferred"
+      },
+      {
+        "author": "/u/EmotionalCouple9032",
+        "platform": "Reddit",
+        "url": "https://www.reddit.com/r/M43/comments/1xgqgwx/made_firmware_twick_tool_for_olyom_cameras/19ruwgjjn1sn5/",
+        "published": null,
+        "updated": "2026-10-30T01:49:50+00:00",
+        "time_note": "RSS updated may be an edit; missing published is not inferred"
+      },
+      {
+        "author": "/u/Wind_Steps",
+        "platform": "Reddit",
+        "url": "https://www.reddit.com/r/M43/comments/1xgqgwx/made_firmware_twick_tool_for_olyom_cameras/19rrzug3267no/",
+        "published": null,
+        "updated": "2026-10-28T10:44:22+00:00",
+        "time_note": "RSS updated may be an edit; missing published is not inferred"
+      },
+      {
+        "author": "/u/EmotionalCouple9032",
+        "platform": "Reddit",
+        "url": "https://www.reddit.com/r/M43/comments/1xgqgwx/made_firmware_twick_tool_for_olyom_cameras/19rub4if5y0xs/",
+        "published": null,
+        "updated": "2026-10-29T17:51:31+00:00",
+        "time_note": "RSS updated may be an edit; missing published is not inferred"
+      },
+      {
+        "author": "/u/PuzzleheadedExam9315",
+        "platform": "Reddit",
+        "url": "https://www.reddit.com/r/M43/comments/1xgqgwx/made_firmware_twick_tool_for_olyom_cameras/19rzuaik5vmtg/",
+        "published": null,
+        "updated": "2026-11-01T20:16:52+00:00",
+        "time_note": "RSS updated may be an edit; missing published is not inferred"
+      },
+      {
+        "author": "/u/NekoSkwama",
+        "platform": "Reddit",
+        "url": "https://www.reddit.com/r/M43/comments/1xgqgwx/made_firmware_twick_tool_for_olyom_cameras/19rqicov95qgz/",
+        "published": null,
+        "updated": "2026-10-27T14:45:03+00:00",
+        "time_note": "RSS updated may be an edit; missing published is not inferred"
+      }
+    ],
+    "verification": {
+      "case_count": 100,
+      "report_sha256": "bfb1f74bcc79cbe6fa27268871780c253066df1ee45c021c15acdf85f082dfb1",
+      "stock_main_sha256": "a2eb1d1f1afe47cce148e9aae0a04dfb82547d9de9437d342e012341140913f4",
+      "patched_main_sha256": "fc70d367c734c1700ba757f0b5152c23416b25d6ec5233785554039074387a9d",
+      "full_container_sha256": "dcd94de26e9dff7e22690861954ebb0ef88e6ff05d960c42218401aaeabded0a",
+      "method": [
+        "Exact old-byte checks",
+        "Bounded native instructions with lens availability, mode and parameter getter models",
+        "Independent in-memory container reconstruction matches advertised digest",
+        "No physical camera or Windows program execution"
+      ],
+      "limits": [
+        "No boot, timing, lens hardware or preview validation",
+        "Absolute f-number calibration unresolved",
+        "No combined HSL firmware test"
+      ]
+    },
+    "finding": "docs/features/pen-f/APERTURE_RING.md",
+    "tools": [
+      "tools/oly_release_inspect.py",
+      "tools/penf_aperture_ring_probe.py"
+    ],
+    "rights_note": "Repository tree has no project license or patcher source; original tools and factual analysis shared, third-party patch payloads not included"
   }
 ]

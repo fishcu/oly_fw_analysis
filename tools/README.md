@@ -50,6 +50,7 @@ firmware and emulator. `--loopback` separately enables local HTTP tests.
 | E-M10 I flash reader | [em10_dump_probe.py](em10_dump_probe.py) | Assemble cmdada's hash-pinned wrapper and execute stock READ with modeled sector I/O. Checks calling convention, address translation and error returns; needs MN103 assembler/linker and native runner. |
 | OM-3 preview | [om3_preview_probe.py](om3_preview_probe.py) | Execute V22 preview wrapper and descriptor reader with modeled synchronization/copy/sender. Checks buffer guards and ring bookkeeping, without a USB session. |
 | External flash | [compare_external_flash.py](compare_external_flash.py), [ep7_flash_gpio_probe.py](ep7_flash_gpio_probe.py) | Cross-model external-flash capability/GPIO differences. Synthetic replies do not establish which electrical hardware is present. |
+| Panasonic aperture rings | [oly_release_inspect.py](oly_release_inspect.py), [penf_aperture_ring_probe.py](penf_aperture_ring_probe.py) | Read azqeurio's pinned release as data; inventory model patches and execute PEN-F ring-input/packet hooks with explicit models. Never executes the Windows EXE or accesses a camera. |
 
 The remaining modules are the import closure of these entry points: shared
 native-call fixtures, state models, parsers and supporting analyses. Their

@@ -14,11 +14,13 @@
     "tools/ida/prepare.py",
     "tools/ida/wine.py",
     "tools/oly_container.py",
+    "tools/oly_release_inspect.py",
     "tools/om3_code_space_audit.py",
     "tools/om3_preview_probe.py",
     "tools/om3_tethering_probe.py",
     "tools/om5_image_pool_probe.py",
     "tools/om_firmware_catalog.py",
+    "tools/penf_aperture_ring_probe.py",
     "tools/penf_boot_dump_probe.py",
     "tools/penf_boot_sd_mount.py",
     "tools/penf_capture_readiness_probe.py",
@@ -977,8 +979,8 @@
     },
     {
       "path": "tools/README.md",
-      "sha256": "15a1b0d454ff3d08d72ef020bd1bed6950629c83d2fdec8674f7fd4b853cf260",
-      "bytes": 9745,
+      "sha256": "1d311c811cfc23cac5103a5a93b278af5152772941294ce5f29dc7c5f6b6a150",
+      "bytes": 10068,
       "original_source": {
         "path": "tools/README.md",
         "sha256": "424400d690dd53e89cf48e325bd662f7f41d02f6814b97a02b5b1c1c5b0b7f96"
@@ -1164,8 +1166,8 @@
     },
     {
       "path": "tools/inputs.json",
-      "sha256": "c95c9a0730e7fbcb167ba6f16399964d7660bb7cd78184bb6636b4751400e4fd",
-      "bytes": 11318,
+      "sha256": "206dbd37250fbccde62a6975c302fd9fcd3dae36edbfd98aaf8d402eb2a8c117",
+      "bytes": 11989,
       "origin": "original documentation, fixture or utility"
     },
     {
@@ -1195,6 +1197,18 @@
       "original_source": {
         "path": "tools/oly_container.py",
         "sha256": "ab842e186049074848a24dda432e8a5b85d52390fd22af9d059bf630def9cb6b"
+      },
+      "adapted": false,
+      "local_imports": [],
+      "entry_point": true
+    },
+    {
+      "path": "tools/oly_release_inspect.py",
+      "sha256": "3ab025e9ede0f6070207850e74c6b5999f664fe0e4a381b801928b769d219ec3",
+      "bytes": 5362,
+      "original_source": {
+        "path": "tools/oly_release_inspect.py",
+        "sha256": "3ab025e9ede0f6070207850e74c6b5999f664fe0e4a381b801928b769d219ec3"
       },
       "adapted": false,
       "local_imports": [],
@@ -1395,6 +1409,22 @@
       "adapted": false,
       "local_imports": [],
       "entry_point": false
+    },
+    {
+      "path": "tools/penf_aperture_ring_probe.py",
+      "sha256": "33c1a2297e8415e261d28974a754630f95c3ca564e54ff8f7f5446505f2ea129",
+      "bytes": 10232,
+      "original_source": {
+        "path": "tools/penf_aperture_ring_probe.py",
+        "sha256": "33c1a2297e8415e261d28974a754630f95c3ca564e54ff8f7f5446505f2ea129"
+      },
+      "adapted": false,
+      "local_imports": [
+        "oly_release_inspect",
+        "penf_emulator",
+        "penf_probe"
+      ],
+      "entry_point": true
     },
     {
       "path": "tools/penf_boot_after_alex.py",

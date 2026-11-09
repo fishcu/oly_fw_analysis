@@ -256,5 +256,19 @@
       "--out": "Fresh JSON output path"
     },
     "scope": "25 bounded native allocation, flash-read, maintenance-selection, lock and output cases; no camera access, DMA or flash writes."
+  },
+  "azqeurio_aperture_ring": {
+    "release_exe": {
+      "tag": "dbv0.3.2",
+      "published": "2026-10-31T21:12:40Z",
+      "url": "https://github.com/azqeurio/om-c-firmware/releases/tag/dbv0.3.2",
+      "asset_url": "https://github.com/azqeurio/om-c-firmware/releases/download/dbv0.3.2/db.firmware.0.3.2.exe",
+      "asset_bytes": 162739250,
+      "asset_sha256": "994927d6ccfe31cf6b944ac509186e10f51bf739082e2799104d04460a316435"
+    },
+    "included": false,
+    "stock_main": "native_penf.main",
+    "engine": "native_penf.engine",
+    "scope": "EXE read as archive data only; no application execution; native hook cases use explicit synthetic lens/mode state"
   }
 }
