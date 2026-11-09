@@ -22,7 +22,7 @@
   {
     "path": "docs/README.md",
     "sources": [],
-    "sha256": "a9e6b12c8242c4537c1195452b538d729cbcece469feb4a982a3fafd4d31ef6f"
+    "sha256": "2deae4cd74577d47c7176a208a36847e7976346dec254ec40212091af5361a80"
   },
   {
     "path": "docs/boot/e-m10/RECOVERY.md",
@@ -851,6 +851,32 @@
     "sha256": "d0f4c4d757447ee4281ba64658d2a11bccc68c3f2842e91bb52affb6705c4a05"
   },
   {
+    "path": "docs/tooling/OM_EMU.md",
+    "sources": [
+      {
+        "source_document": "research/community/flatpanda/2026-11-09-intake/ANALYSIS.md",
+        "sha256": "d7336401f803098e151cda5287902babf862b1a9e49178b80e0d858246a795dc"
+      },
+      {
+        "source_document": "analysis/om_emu_20261109/verification.json",
+        "sha256": "fefe2ca0fe17555eb68a9cfa7d04a0daa28759a2fea1af9e43253ae3aa4e64c4"
+      },
+      {
+        "source_document": "analysis/om_emu_20261109/modelcheck-E122-unsandboxed.log",
+        "sha256": "f40725770f52d2e074ea3ee53972d8e4c0bb27c53380324f58a5bd94b47c24f2"
+      },
+      {
+        "source_document": "analysis/om_emu_20261109/public-probe-stock/report.json",
+        "sha256": "4a83f61a86b1de8ea1b343e4d7160a5da2c5129ced3bb8b548ffa63e2fdb6ded"
+      },
+      {
+        "source_document": "analysis/om_emu_20261109/public-probe-hsl/report.json",
+        "sha256": "6d47355ec410cdd193e61bc0077a2c0c7bb3a383ae83ea74edad99d90a87beaa"
+      }
+    ],
+    "sha256": "cebdee56eada73d4109f8d68dd8d248a926cafd1b0379fa1444a6a0cdd00c8de"
+  },
+  {
     "path": "docs/tooling/e-m10/PLUGINS.md",
     "sources": [
       {
@@ -881,6 +907,32 @@
       }
     ],
     "sha256": "54c0f1e2bb0ee1b6acbac5cc77207150a6462503f3feed258bf90dfccb8e0d1d"
+  },
+  {
+    "path": "docs/tooling/pen-f/OM_EMU.md",
+    "sources": [
+      {
+        "source_document": "research/community/flatpanda/2026-11-09-intake/ANALYSIS.md",
+        "sha256": "d7336401f803098e151cda5287902babf862b1a9e49178b80e0d858246a795dc"
+      },
+      {
+        "source_document": "analysis/om_emu_20261109/verification.json",
+        "sha256": "fefe2ca0fe17555eb68a9cfa7d04a0daa28759a2fea1af9e43253ae3aa4e64c4"
+      },
+      {
+        "source_document": "analysis/om_emu_20261109/modelcheck-E122-unsandboxed.log",
+        "sha256": "f40725770f52d2e074ea3ee53972d8e4c0bb27c53380324f58a5bd94b47c24f2"
+      },
+      {
+        "source_document": "analysis/om_emu_20261109/public-probe-stock/report.json",
+        "sha256": "4a83f61a86b1de8ea1b343e4d7160a5da2c5129ced3bb8b548ffa63e2fdb6ded"
+      },
+      {
+        "source_document": "analysis/om_emu_20261109/public-probe-hsl/report.json",
+        "sha256": "6d47355ec410cdd193e61bc0077a2c0c7bb3a383ae83ea74edad99d90a87beaa"
+      }
+    ],
+    "sha256": "ab73ca0342d468cda788cf0c5057af3935c73624f972d3cf89ad420e09e96dee"
   },
   {
     "path": "docs/tooling/pen-f/RESOURCES.md",
@@ -939,6 +991,6 @@
         "sha256": "ac7244e438e5467fb725c43c44b0705b6cb16bc3311b57fd3aa271264459e7f1"
       }
     ],
-    "sha256": "f86a51cc06e5ddf288258428086e5d273b97069d537f8f2decddfb29d84bec21"
+    "sha256": "7c40929f84611fb682be768b8b1cd86e9156ddd0e10c094ae797210ddd62e462"
   }
 ]

@@ -51,6 +51,7 @@ firmware and emulator. `--loopback` separately enables local HTTP tests.
 | OM-3 preview | [om3_preview_probe.py](om3_preview_probe.py) | Execute V22 preview wrapper and descriptor reader with modeled synchronization/copy/sender. Checks buffer guards and ring bookkeeping, without a USB session. |
 | External flash | [compare_external_flash.py](compare_external_flash.py), [ep7_flash_gpio_probe.py](ep7_flash_gpio_probe.py) | Cross-model external-flash capability/GPIO differences. Synthetic replies do not establish which electrical hardware is present. |
 | Panasonic aperture rings | [oly_release_inspect.py](oly_release_inspect.py), [penf_aperture_ring_probe.py](penf_aperture_ring_probe.py) | Read azqeurio's pinned release as data; inventory model patches and execute PEN-F ring-input/packet hooks with explicit models. Never executes the Windows EXE or accesses a camera. |
+| Interactive UI emulation | [om_emu_overlay.py](om_emu_overlay.py), [om_emu_penf_editor.mjs](om_emu_penf_editor.mjs) | Convert same-build main/resource changes to a RAM overlay and expose PEN-F picture-function inputs in a separately obtained om-emu checkout. Node.js 26+; see [setup and limits](../docs/tooling/pen-f/OM_EMU.md). |
 
 The remaining modules are the import closure of these entry points: shared
 native-call fixtures, state models, parsers and supporting analyses. Their

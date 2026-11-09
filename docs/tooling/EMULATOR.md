@@ -9,6 +9,9 @@ camera emulator.
 For a complementary system model, see cmdada's
 [E-M10 I emulator and plugin work](e-m10/PLUGINS.md). It reaches a rendered GUI
 with modeled peripherals; its published revision also begins at main, not reset.
+For interactive menus across newer models, see [flatpanda's om-emu](OM_EMU.md)
+and the [PEN-F editor integration](pen-f/OM_EMU.md). That tool runs selected
+firmware services with modeled hardware rather than a complete reset boot.
 
 ## Build
 

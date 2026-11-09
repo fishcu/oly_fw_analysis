@@ -5,6 +5,21 @@ A forum report is attributed evidence, not a substitute for a reproducible trace
 Archived links identify the cited snapshot; they are not a claim of continued
 availability at the original host.
 
+## Interactive firmware emulator
+
+- [flatpanda/om-emu](https://github.com/flatpanda/om-emu/tree/d24ff9dd20b98304541494d0199a5e6415eebdba),
+  revision by flatpanda dated November 9, 2026; contributors include xulfr.
+  [Browser player](https://flatpanda.github.io/om-emu/web/index.html),
+  [architecture](https://github.com/flatpanda/om-emu/blob/d24ff9dd20b98304541494d0199a5e6415eebdba/emu/ARCHITECTURE.md),
+  and [model declarations](https://github.com/flatpanda/om-emu/blob/d24ff9dd20b98304541494d0199a5e6415eebdba/emu/src/fw/models.mjs).
+  The [general reference](../docs/tooling/OM_EMU.md) and
+  [PEN-F checks](../docs/tooling/pen-f/OM_EMU.md) distinguish executed UI paths
+  from hardware and startup models.
+- [xulfr's C3D/color-wheel finding](https://github.com/flatpanda/om-emu/pull/3),
+  November 2, 2026, merged as
+  `d81f26bb0dfab2705a9f5927b3f55a65042e9ad4`. The report concerns OM-3's GPU
+  display layer; applying it to PEN-F's missing wheel is an inference.
+
 ## Firmware and prior research
 
 - [OM System firmware catalog](https://fw01.om-digitalsolutions.net/ww_inform/fcache.do):

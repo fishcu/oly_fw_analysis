@@ -15,7 +15,7 @@ camera with the same processor.
 | Profile integration | [Editor and display](color/pen-f/EDITOR.md) · [Saved settings](color/pen-f/SETTINGS_STORAGE.md) · [Per-image parameters](color/pen-f/CAPTURE_PARAMETERS.md) · [ORF metadata](color/pen-f/ORF_METADATA.md) |
 | Other image effects | [Grain](color/pen-f/GRAIN.md) · [Sharpening](color/pen-f/SHARPENING.md) · [Creative shading](color/pen-f/SHADING.md) |
 | Other camera features | [Silent burst and Pro Capture](features/om-5/BURST.md) · [Panasonic aperture rings](features/pen-f/APERTURE_RING.md) · [External flash](features/FLASH.md) · [Published firmware hacks](features/HISTORICAL_HACKS.md) |
-| Modification techniques | [Code placement](safety/CODE_SPACE.md) · [Validation](safety/VALIDATION.md) · [Resource graphics](tooling/pen-f/RESOURCES.md) · [MN103 emulator](tooling/EMULATOR.md) |
+| Modification techniques | [Code placement](safety/CODE_SPACE.md) · [Validation](safety/VALIDATION.md) · [Resource graphics](tooling/pen-f/RESOURCES.md) · [MN103 native-call harness](tooling/EMULATOR.md) · [Interactive om-emu](tooling/OM_EMU.md) · [PEN-F editor probe](tooling/pen-f/OM_EMU.md) |
 | Source builds | [PEN-F HSL](../patches/hsl/pen-f/README.md) · [IDA/MN103 setup and automation](tooling/ida/README.md) |
 
 For address-level PEN-F 3101 work, use the [startup function map](boot/pen-f/FUNCTION_MAP.md),

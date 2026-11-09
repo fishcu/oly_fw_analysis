@@ -19,6 +19,8 @@
     "tools/om3_preview_probe.py",
     "tools/om3_tethering_probe.py",
     "tools/om5_image_pool_probe.py",
+    "tools/om_emu_overlay.py",
+    "tools/om_emu_penf_editor.mjs",
     "tools/om_firmware_catalog.py",
     "tools/penf_aperture_ring_probe.py",
     "tools/penf_boot_dump_probe.py",
@@ -58,7 +60,8 @@
     "python": "3.12 tested",
     "Pillow": "resource/atlas modules only; standard library for container/client",
     "mn103_binutils": "GNU 2.45 tested for HSL assembly/linking; tools supplied separately",
-    "ida": "Optional IDA 4.9/MN103 installation; Linux automation also needs 32-bit Wine, Xvfb, Bubblewrap, XTest and xwininfo"
+    "ida": "Optional IDA 4.9/MN103 installation; Linux automation also needs 32-bit Wine, Xvfb, Bubblewrap, XTest and xwininfo",
+    "om_emu": "Optional separate om-emu checkout and Node.js 26+; E122 editor integration tested at d24ff9dd"
   },
   "files": [
     {
@@ -205,8 +208,8 @@
     },
     {
       "path": "docs/tooling/EMULATOR.md",
-      "sha256": "883a35c74b2ebf16f19d3614dc69396062a7e7d6cc12e5f5ffb05760ed881a9f",
-      "bytes": 6404,
+      "sha256": "2d9679822226be9ef38178a332d94411cf100eed580bb6e9c9abce977867eb6d",
+      "bytes": 6635,
       "original_source": {
         "path": "docs/tooling/EMULATOR.md",
         "sha256": "c40b741a7ff2f59d38d8b36f2defa8d6b3c42eeec68a2146e0370911bb724608"
@@ -979,8 +982,8 @@
     },
     {
       "path": "tools/README.md",
-      "sha256": "1d311c811cfc23cac5103a5a93b278af5152772941294ce5f29dc7c5f6b6a150",
-      "bytes": 10068,
+      "sha256": "6c42b257faf793f00e9339d9a4ac3e3373aa866f8a37e984ff7f4b17c6507ea7",
+      "bytes": 10401,
       "original_source": {
         "path": "tools/README.md",
         "sha256": "424400d690dd53e89cf48e325bd662f7f41d02f6814b97a02b5b1c1c5b0b7f96"
@@ -1370,6 +1373,24 @@
         "penf_probe"
       ],
       "entry_point": false
+    },
+    {
+      "path": "tools/om_emu_overlay.py",
+      "origin": "original documentation, fixture or utility",
+      "sha256": "a0db6eb81f44be5af6264d043071e40a45dfafe191f518f99f56afe65ef52782",
+      "bytes": 3499,
+      "local_imports": [
+        "oly_container"
+      ],
+      "entry_point": true
+    },
+    {
+      "path": "tools/om_emu_penf_editor.mjs",
+      "origin": "original documentation, fixture or utility",
+      "sha256": "18af063ab886995c0947ba66caa6eff0251a2b3e00f61ea87e5060ed2c920a7a",
+      "bytes": 3922,
+      "local_imports": [],
+      "entry_point": true
     },
     {
       "path": "tools/om_firmware_catalog.py",

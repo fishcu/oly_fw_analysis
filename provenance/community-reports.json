@@ -441,5 +441,87 @@
       "tools/penf_aperture_ring_probe.py"
     ],
     "rights_note": "Repository tree has no project license or patcher source; original tools and factual analysis shared, third-party patch payloads not included"
+  },
+  {
+    "id": "flatpanda-om-emu-d24ff9dd",
+    "author": "flatpanda",
+    "contributors": [
+      "flatpanda",
+      "xulfr"
+    ],
+    "platform": "GitHub and GitHub Pages",
+    "repository": "https://github.com/flatpanda/om-emu",
+    "site": "https://flatpanda.github.io/om-emu/",
+    "player": "https://flatpanda.github.io/om-emu/web/index.html",
+    "revision": "d24ff9dd20b98304541494d0199a5e6415eebdba",
+    "revision_author_time": "2026-11-09T00:39:52-08:00",
+    "retrieved_date": "2026-11-09",
+    "repository_created_at": "2026-10-22T16:52:25Z",
+    "publication_note": "Revision time and repository creation are metadata, not a dated forum announcement.",
+    "source_license": {
+      "repository_license_file_found": false,
+      "github_detected_license": null,
+      "note": "Inspect individual upstream notices before code reuse; linking/independent analysis here is separate from redistribution."
+    },
+    "inputs": {
+      "stock_BIN_sha256": "77398610b379f80238117f31a6d5bbf65d608b49ec563666c64d84367e969f2c",
+      "main_payload_sha256": "a2eb1d1f1afe47cce148e9aae0a04dfb82547d9de9437d342e012341140913f4",
+      "hsl_release_BIN_sha256": "4f9a36e6742728ded3d9b443915355f1d1eea0371e1da673f322de970994f717"
+    },
+    "verification": {
+      "date": "2026-11-09",
+      "host": "Linux x86_64; Node.js 26.11.1; headless Chrome",
+      "passed": [
+        "upstream test-pure.mjs",
+        "stock E122 modelcheck --no-port TFT and EVF",
+        "live register/task/stand-in inspection",
+        "browser file-load and menu navigation",
+        "HSL main/resource overlay accepted",
+        "native picture-function inputs open COLOR editor",
+        "stock main-dial edit writes saturation property 931",
+        "patched resource draws Value"
+      ],
+      "unresolved": [
+        "stock wheel and polygon absent",
+        "HSL headings absent; full HSL switch/edit behavior not established",
+        "PEN-F nonvolatile persistence unported",
+        "complete boot/updater path not executed",
+        "camera ISP pixel pipeline not emulated",
+        "menu background graphics and other visual-fidelity differences identified by reviewer"
+      ],
+      "physical_camera_access": false,
+      "browser_network": {
+        "requests": 155,
+        "methods": [
+          "GET"
+        ],
+        "outside_site_origin": 0,
+        "firmware_uploaded": false
+      },
+      "modelcheck": {
+        "wall_seconds": 20.47,
+        "max_rss_kib": 764380
+      },
+      "input_adapter": "two native UI_IN key descriptions; no synthetic GUI event",
+      "visual_review": {
+        "basis": "User spot review of emulator screenshots against familiarity with the camera UI; not an independently measured pixel comparison.",
+        "finding": "Menu background graphics and other visual details are incomplete, beyond the missing COLOR wheel and HSL headings."
+      }
+    },
+    "related_contribution": {
+      "author": "xulfr",
+      "commit": "d81f26bb0dfab2705a9f5927b3f55a65042e9ad4",
+      "author_time": "2026-11-02T17:55:16+00:00",
+      "url": "https://github.com/flatpanda/om-emu/pull/3",
+      "finding": "OM-3 COLOR wheel uses unmodeled C3D/GPU/OpenVG path; analogous PEN-F cause remains an inference."
+    },
+    "findings": [
+      "docs/tooling/OM_EMU.md",
+      "docs/tooling/pen-f/OM_EMU.md"
+    ],
+    "tools": [
+      "tools/om_emu_overlay.py",
+      "tools/om_emu_penf_editor.mjs"
+    ]
   }
 ]
