@@ -16,9 +16,21 @@ scripts comprise its execution suite. Historical reports in this directory and
 `analysis/button-af/FEATURE-SPEC.md` describe different checkpoints. Do not add
 their test counts together or interpret a BOUNDARY as a successful feature test.
 
+## Hardware phase (added 10 November 2026)
+
+[HARDWARE-PHASE-PLAN.md](HARDWARE-PHASE-PLAN.md) sets out staged camera work,
+starting with stock-firmware recovery rehearsal.
+[HARDWARE-STAGE0-RECORD.md](HARDWARE-STAGE0-RECORD.md) records the stock inputs,
+update routes, exit criteria and the 9 November task-context mutex repair
+(`task-context-mutex2`, `native-mutex-context1`, `task-context-placement1`).
+[HARDWARE-STAGE1-2-LOG.md](HARDWARE-STAGE1-2-LOG.md) is the owner's log template
+for stock-only stages 1 and 2. The proposed changed-byte table from
+`task-context-placement1` is omitted because it contains stock bytes; its
+manifest keeps the hash. No image has been built or flashed.
+
 ## Included and excluded material
 
-`scripts/` contains 74 Java Ghidra scripts and the Python/PowerShell
+`scripts/` contains 110 Java Ghidra scripts and the Python/PowerShell
 helpers. Root Python files support the earlier container/decompilation and
 Human-detection investigation. `recorded-evidence/` contains compact recorded
 outcomes and original manifests. `import-manifest.json` hashes the imported
@@ -44,9 +56,11 @@ From this directory:
 python run_offline.py --check-recorded
 ```
 
-This checks file hashes, original full-run source identities and selected
-recorded outcomes. It does not execute the firmware or independently reproduce
-the recorded emulator results. The later conditional transport probe has a
+This checks imported current-file hashes, archived original full-run source
+identities in `recorded-evidence/live-source-snapshot/`, and selected recorded
+outcomes. Three current scripts have since been refactored; the historical run
+does not establish execution results for those revised scripts. It does not
+execute the firmware or independently reproduce the recorded emulator results. The later conditional transport probe has a
 separate manifest and is not silently counted in the original full run.
 
 ## Reproduce native execution

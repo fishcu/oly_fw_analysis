@@ -1,5 +1,11 @@
 # Reading the OM-3 decompilation
 
+The latest local continuation is in
+[the stage-0 verification record](HARDWARE-STAGE0-RECORD.md#completed-verification)
+(updated 9 November): task-context mutex repair, 28/28 profile edges, native
+context refusal, and native section-loading/diff checks. These remain offline
+results under documented fixtures; no installable image exists.
+
 For the current independent AF-button profile investigation, read the
 [feature specification and findings](analysis/button-af/FEATURE-SPEC.md#current-evidence-and-limits)
 and its linked evidence manifests. Updated 7 November 2026: the research

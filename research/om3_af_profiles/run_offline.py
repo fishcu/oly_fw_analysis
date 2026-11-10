@@ -29,8 +29,8 @@ def check_recorded():
             raise ValueError(f"Imported file changed: {name}")
     base = json.loads((ROOT / "recorded-evidence/live-evidence-manifest.json").read_text())
     for name, expected in base["source_hashes"].items():
-        if digest(ROOT / "scripts" / name) != expected:
-            raise ValueError(f"Original full-run source changed: {name}")
+        if digest(ROOT / "recorded-evidence/live-source-snapshot" / name) != expected:
+            raise ValueError(f"Archived original full-run source changed: {name}")
     counts = {"integration/core-ram-settings-results.txt": 11,
               "live-profiles/live-profile-results.txt": 15,
               "live-component/native-codec-results.txt": 3,
@@ -39,7 +39,8 @@ def check_recorded():
         rows = (ROOT / "recorded-evidence" / name).read_text().splitlines()
         if len(rows) != count or not all(r.startswith("PASS ") for r in rows):
             raise ValueError(f"Recorded result scope changed: {name}")
-    print("Imported hashes and recorded source/result identities match; no firmware execution performed.")
+    print("Imported current-file hashes and archived historical source/result identities match; no firmware execution performed.")
+    print("Historical source identities do not establish execution results for the current revised scripts.")
     print(base["status"])
 
 

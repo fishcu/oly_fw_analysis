@@ -1,4 +1,4 @@
-# AF acceptance-gate closure assessment — 8 November 2026
+# AF acceptance-gate closure assessment — 9 November 2026
 
 This review covers the four acceptance gates in
 [FEATURE-SPEC.md](analysis/button-af/FEATURE-SPEC.md#current-evidence-and-limits).
@@ -28,17 +28,22 @@ was built, and no camera was accessed.
   initialization, preserved constructor-created objects, the queue-10 receiver
   and verified native missing-device callbacks then let the lower capture chain
   activate: **coarse 4 / active 14, one start observer**. An original AF-ON press
-  returns with its owned-cache / Subject Detect checks intact. Release reaches
-  the old bump-heap limit; bounded free-space reuse is tested and the complete
-  original button/SCP matrix is running. Normal boot, real hardware acquisition,
+  returns with its owned-cache / Subject Detect checks intact. Bounded heap
+  reuse and native queue-92/94/95 scheduling let the engine-routed original
+  button/SCP matrix complete **28/28** under the declared fixtures. Normal boot, real hardware acquisition,
   input timing and the inherited OS/device fixtures remain unproved.
 - **Where focus is driven.** AF-ON's `setAflState` produces GUI lock-state and
   live-view power-saving notifications. The AF worker's `LOCK_START` comes from
   AF-command queue 95 entries 42 and 44. Run 6 now observes an original
-  AF-ON press enqueue **0x2a (42)**. Its downstream processing is still open: the
-  current scheduler services tasks on blocking receives, so a returning press
-  leaves this asynchronous command queued. Handler returns alone do not close
-  the AF-consumer / acquisition or synchronization proof.
+  AF-ON press enqueue **0x2a (42)**. Later probes execute the downstream
+  **LOCK_START** chain and native acknowledgement with queue-92 scheduling and
+  persistent blocked-task contexts. Only the first AF-ON press submits
+  LOCK_START: later starts await a display-output completion in the fixture.
+  These software results do not establish physical acquisition or synchronization.
+- **Deployment follow-up:** the newer local installer, live alias audit and
+  interrupt-context finding are in
+  [HARDWARE-STAGE0-RECORD.md](HARDWARE-STAGE0-RECORD.md). The task-context
+  mutex replacement is checked separately from the earlier 28/28 installer.
 - **Still open:** acceptance gates 2–4 (orientation, synchronisation, installation
   and recovery), normal boot, physical AF acquisition and camera safety.
 
@@ -2261,3 +2266,19 @@ these runs fabricates an AF reply, acknowledgement or focus result.
 Every acceptance gate stays open. The safe camera work is still stock-firmware
 observation and characterising the recovery path. The research image must not be
 installed.
+
+
+## 9 November continuation: interrupt installer repaired
+
+The actual local updates and PR head were reviewed before continuing. The newer
+stage-0 work identified an interrupt-context mutex-create defect. Its revised
+wrapper/installer now passes **28/28** engine-routed profile edges with one
+feature mutex created in task context (`task-context-mutex2`). An isolated native
+kernel probe confirms the E_CTX refusal (`native-mutex-context1`), and a native
+loader/proposed-diff probe verifies all three uncompressed section loads and
+3,612 proposed changed bytes with section 7 unchanged (`task-context-placement1`).
+See [the stage-0 record](HARDWARE-STAGE0-RECORD.md#completed-verification) for exact
+scope, source snapshots, hashes and the revised next work. The 28/28 result still
+has one LOCK_START submission and the display-completion limitation. No camera
+was accessed and no installable image was emitted. Every complete gate remains
+open; **NO-GO** is unchanged.

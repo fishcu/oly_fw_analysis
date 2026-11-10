@@ -1,0 +1,12 @@
+AUDITED blocks=8
+ACCESS-STATE-CACHED-R              20
+ACCESS-STATE-CACHED-W              19
+ACCESS-STOCK-CACHED-R              2
+ACCESS-STOCK-UNCACHED-R            10
+REL-KNOWN-STATE-CACHED-R           1
+REL-UNKNOWN-BASE                   29
+STACK-ACCESS                       48
+STATE-VIA-CACHED-ALIAS             40
+TARGET-NOT-FUNCTION-START          1
+TARGET-PLACED                      91
+TARGET-STOCK-FUNCTION              12

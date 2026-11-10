@@ -1,0 +1,4 @@
+IMAGE:boot-time mutex initializer and section-4 constructor patch reverted to stock (no new code at boot)
+HOOK-RUN native-loaded-without-section7 installed=255 fields=610b9197 610b96f0 610b962a 610b9653 
+HOOK-RUN native-loaded-install installed=1 fields=6031eb80 6031ec99 6031edb2 6031eecb 
+TASK-CONTEXT feature mutex create at 6031eae9

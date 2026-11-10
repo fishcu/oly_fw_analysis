@@ -1,0 +1,40 @@
+SECTION7-STOCK record=6131bd50 field=6131bd5c restored to stock 610b9197 (wrapper 6031eb80 to be installed at run time)
+SECTION7-STOCK record=6131bd60 field=6131bd6c restored to stock 610b96f0 (wrapper 6031ec98 to be installed at run time)
+SECTION7-STOCK record=6131c290 field=6131c29c restored to stock 610b962a (wrapper 6031edb0 to be installed at run time)
+SECTION7-STOCK record=6131c2a0 field=6131c2ac restored to stock 610b9653 (wrapper 6031eec8 to be installed at run time)
+GAP-CHECK 6031ead0..6031eb80 in use up to 6031eb4a (54 B free)
+PLACEMENT (emulator scratch) code 700d3e00..700d3e6f (111 B) + table 700d3e70..700d3ea0 (48 B): total 160 B
+INSTALLER size=111 bytes at 700d3e00; hook 6017a5fc patched to jmp
+HOOK-RUN control-section7-not-loaded installed=0 fields=610b9197 610b96f0 610b962a 610b9653 
+FIXTURE:section-7 loaded bit set (image bytes present; loader not run by harness)
+HOOK-RUN control-one-field-not-stock installed=0 fields=610b9197 610b96f0 12345678 610b9653 
+HOOK-RUN install installed=1 fields=6031eb80 6031ec98 6031edb0 6031eec8 
+RUNTIME-REDIRECT installed: all four fields hold the wrappers; section 7 image bytes unchanged
+HOOK-RUN fast-path before edge 0 event 01000002 installed=1 fields=6031eb80 6031ec98 6031edb0 6031eec8 
+HOOK-RUN fast-path before edge 1 event 01050007 installed=1 fields=6031eb80 6031ec98 6031edb0 6031eec8 
+HOOK-RUN fast-path before edge 2 event 01050008 installed=1 fields=6031eb80 6031ec98 6031edb0 6031eec8 
+HOOK-RUN fast-path before edge 3 event 01000003 installed=1 fields=6031eb80 6031ec98 6031edb0 6031eec8 
+HOOK-RUN fast-path before edge 4 event 01000002 installed=1 fields=6031eb80 6031ec98 6031edb0 6031eec8 
+HOOK-RUN fast-path before edge 5 event 01050007 installed=1 fields=6031eb80 6031ec98 6031edb0 6031eec8 
+HOOK-RUN fast-path before edge 6 event 01050008 installed=1 fields=6031eb80 6031ec98 6031edb0 6031eec8 
+HOOK-RUN fast-path before edge 7 event 01000003 installed=1 fields=6031eb80 6031ec98 6031edb0 6031eec8 
+HOOK-RUN fast-path before edge 8 event 01000002 installed=1 fields=6031eb80 6031ec98 6031edb0 6031eec8 
+HOOK-RUN fast-path before edge 9 event 01050007 installed=1 fields=6031eb80 6031ec98 6031edb0 6031eec8 
+HOOK-RUN fast-path before edge 10 event 01050008 installed=1 fields=6031eb80 6031ec98 6031edb0 6031eec8 
+HOOK-RUN fast-path before edge 11 event 01000003 installed=1 fields=6031eb80 6031ec98 6031edb0 6031eec8 
+HOOK-RUN fast-path before edge 12 event 01000002 installed=1 fields=6031eb80 6031ec98 6031edb0 6031eec8 
+HOOK-RUN fast-path before edge 13 event 01050007 installed=1 fields=6031eb80 6031ec98 6031edb0 6031eec8 
+HOOK-RUN fast-path before edge 14 event 01050008 installed=1 fields=6031eb80 6031ec98 6031edb0 6031eec8 
+HOOK-RUN fast-path before edge 15 event 01000003 installed=1 fields=6031eb80 6031ec98 6031edb0 6031eec8 
+HOOK-RUN fast-path before edge 16 event 01000002 installed=1 fields=6031eb80 6031ec98 6031edb0 6031eec8 
+HOOK-RUN fast-path before edge 17 event 01050007 installed=1 fields=6031eb80 6031ec98 6031edb0 6031eec8 
+HOOK-RUN fast-path before edge 18 event 01050008 installed=1 fields=6031eb80 6031ec98 6031edb0 6031eec8 
+HOOK-RUN fast-path before edge 19 event 01000003 installed=1 fields=6031eb80 6031ec98 6031edb0 6031eec8 
+HOOK-RUN fast-path before edge 20 event 01000002 installed=1 fields=6031eb80 6031ec98 6031edb0 6031eec8 
+HOOK-RUN fast-path before edge 21 event 01050007 installed=1 fields=6031eb80 6031ec98 6031edb0 6031eec8 
+HOOK-RUN fast-path before edge 22 event 01050008 installed=1 fields=6031eb80 6031ec98 6031edb0 6031eec8 
+HOOK-RUN fast-path before edge 23 event 01000003 installed=1 fields=6031eb80 6031ec98 6031edb0 6031eec8 
+HOOK-RUN fast-path before edge 24 event 01000002 installed=1 fields=6031eb80 6031ec98 6031edb0 6031eec8 
+HOOK-RUN fast-path before edge 25 event 01050007 installed=1 fields=6031eb80 6031ec98 6031edb0 6031eec8 
+HOOK-RUN fast-path before edge 26 event 01050008 installed=1 fields=6031eb80 6031ec98 6031edb0 6031eec8 
+HOOK-RUN fast-path before edge 27 event 01000003 installed=1 fields=6031eb80 6031ec98 6031edb0 6031eec8 

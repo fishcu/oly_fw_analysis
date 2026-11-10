@@ -1,0 +1,1 @@
+PASS proposed byte diff, disjoint placement, native sections 1/2/4 whole-load identity, deferred IRQ install, runtime redirect and task-context create-once; no normal-boot/hardware/packaging proof

@@ -1,0 +1,2 @@
+PASS native60030659 packet attr=2 nest=1 context1=0 returns ffffffe7 (-25); root stack restored; no modeled create or allocation
+PASS native60030659 packet attr=2 nest=0 context1=1 returns ffffffe7 (-25); root stack restored; no modeled create or allocation

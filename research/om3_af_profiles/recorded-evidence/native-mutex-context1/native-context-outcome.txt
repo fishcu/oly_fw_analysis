@@ -1,0 +1,1 @@
+PASS both stock context-rejection branches; supplied kernel/core/context unit fixture; physical IRQ and successful native allocation untested
