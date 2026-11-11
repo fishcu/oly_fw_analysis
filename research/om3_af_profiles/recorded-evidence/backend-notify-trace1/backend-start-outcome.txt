@@ -1,0 +1,2 @@
+OBSERVATION COMPLETE: one labelled stock-reset connection; deliberate stop before button execution
+No new reply, event, backend pointer or lifecycle state supplied by this subclass.

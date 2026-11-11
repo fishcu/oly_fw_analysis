@@ -1,0 +1,18 @@
+{
+ "created": "2026-11-07",
+ "status": "BOUNDARY",
+ "outcome": "BOUNDARY event-114 connection reaches native transport 6007a7b5 through modelled message buffers and the stock task-207 loop (port=2 length=36); no submission, peer reply or AF completion tested",
+ "scope": "Conditional supplemental probe. Extends OM3CaptureConnectedProof past kernel service 600303db. Explicit kernel models: message-buffer create/send/receive (600303db, 60037598, 6003727e), dispatch disable/enable (60031521/60031609), event-flag wait (60038ea5, polling returns timeout, positive timeout is a boundary), command guard (6004d35e/6004d43f). Static message buffers (218, ROM 0x6003bab4) and event flags (ROM 0x6003ab34) loaded with structural checks. Stock init 6004cfd9 run natively before first RPC; boot ordering not established. Never-written request bytes 6-7 copied as zero. Stock task-207 loop 610615f5 executed natively in a separate saved-register context and stack. Stops at transport 6007a7b5; no submission, peer reply, completion event or AF acquisition is supplied.",
+ "not_included_in": "readiness/live-runs/20261107-063654 full run",
+ "sha256": {
+  "scripts/OM3CaptureKernelModelProof.java": "677c85333834960e5bf303d08f096dad3e46ba8c3e37637ee955bea2927449f2",
+  "scripts/OM3CaptureConnectedProof.java": "7a60ccfc4941b960d6c0e8f1dee0444728d561c922edd0dd7959fa7cf999717f",
+  "scripts/OM3CaptureFactoryProof.java": "ed1a970dfd71ce7fdd127d58654641c4ecdc3b1e13b0082201c5cbd173716574",
+  "scripts/OM3ReceiverStartupProof.java": "3f97d1f20fc722129c4dd0bbad768e662a65a97658428a4c9a97cf2098af59f8",
+  "analysis/decoded/00_0100_50000020.decoded.bin": "5e8d376e9111a44ac0352f26030d7c1b17026d42c45f3600cfa02a0e8c5b7d59",
+  "analysis\\button-af\\readiness\\capture-kernel-model\\kernel-model-outcome.txt": "ca5b4991aa7cec68452006211f36d3bee1e43e8bfe91f5a12001d0e95bd4d179",
+  "analysis\\button-af\\readiness\\capture-kernel-model\\capture-connection-trace.txt": "fc787021e532a18eeb00a3b0186d529b4e638549473c0c21ee78d107ec1cb110"
+ },
+ "rerun": "2026-11-07, same headless invocation as capture-link (log: ../capture-link/run.log)",
+ "manifest_refreshed": "2026-11-07"
+}

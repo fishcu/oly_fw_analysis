@@ -1,0 +1,8 @@
+/analysis/**
+!/analysis/button-af/
+!/analysis/button-af/FEATURE-SPEC.md
+/firmware/
+/ghidra-projects/
+/tooling/
+/reference/
+/runs/

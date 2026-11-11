@@ -1,0 +1,17 @@
+{
+  "reply_queue_word": 1032,
+  "reply_requested": true,
+  "correlation_word": "00000002",
+  "command": 29,
+  "command_hex": "0x1d",
+  "payload_pointer": "62a9704c",
+  "dispatch_entry": {
+    "index": 29,
+    "hex": "0x1d",
+    "table_address": "0x6031e298",
+    "handler": "603c641a",
+    "export_exists": true,
+    "classification": "specialized-handler"
+  },
+  "guard": "may be deferred if context+0x94 bit 0x8000 is set"
+}

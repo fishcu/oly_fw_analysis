@@ -1,0 +1,1 @@
+PASS isolated controls c0-c3, task-context create-once, ready fast path, callee-saved registers and root stack; no full matrix or hardware claim

@@ -1,0 +1,157 @@
+{
+  "payload_sha256": "5e8d376e9111a44ac0352f26030d7c1b17026d42c45f3600cfa02a0e8c5b7d59",
+  "base": "0x60021020",
+  "method": "Read-only bounded decode; equality and continuity, not reachability proof. Carry example is a mathematical reproduction of inspected p-code, not a new capture run.",
+  "listings": [
+    {
+      "file": "setting-getter.asm",
+      "start": "60063356",
+      "requested_end_exclusive": "600633d0",
+      "actual_end_exclusive": "0x600633d1",
+      "instructions": 54,
+      "bytes": 123,
+      "sha256": "25d8559eeada1f4b11b57e64010760b4d130063af87db14998aaa321d55e286f"
+    },
+    {
+      "file": "setting-value-dispatch.asm",
+      "start": "60063a20",
+      "requested_end_exclusive": "60063aec",
+      "actual_end_exclusive": "0x60063aec",
+      "instructions": 84,
+      "bytes": 204,
+      "sha256": "9fa260634fd1bb6e237d69a96df1b396cbe4d395c2c13b5e599331cffcedbab3"
+    },
+    {
+      "file": "setting-metadata-lookup.asm",
+      "start": "600624d3",
+      "requested_end_exclusive": "60062536",
+      "actual_end_exclusive": "0x60062536",
+      "instructions": 35,
+      "bytes": 99,
+      "sha256": "0a57aff8aa644f132b493d01722f9969ace9c91fdcd310cb243c50e04bb35cd1"
+    },
+    {
+      "file": "normalize-helper.asm",
+      "start": "6004c266",
+      "requested_end_exclusive": "6004c29e",
+      "actual_end_exclusive": "0x6004c29e",
+      "instructions": 20,
+      "bytes": 56,
+      "sha256": "523637c90aa842eb672e3f16840d334b9937771975e2c63ced2f9a77bb48d3fa"
+    },
+    {
+      "file": "connection-tail-callers.asm",
+      "start": "60ae7412",
+      "requested_end_exclusive": "60ae7820",
+      "actual_end_exclusive": "0x60ae7820",
+      "instructions": 398,
+      "bytes": 1038,
+      "sha256": "898733aa30621f4f086bbdebb18c9c229cda2873a612ec7c0f6b87cc0945df6e"
+    },
+    {
+      "file": "event-flag-delete.asm",
+      "start": "60031027",
+      "requested_end_exclusive": "60031149",
+      "actual_end_exclusive": "0x60031149",
+      "instructions": 118,
+      "bytes": 290,
+      "sha256": "af2977c10a73c51fca7bfc0c9c2325245dc44e30644d8723d247ef1204adff9a"
+    },
+    {
+      "file": "waiter-release.asm",
+      "start": "6003480e",
+      "requested_end_exclusive": "600348d0",
+      "actual_end_exclusive": "0x600348d0",
+      "instructions": 90,
+      "bytes": 194,
+      "sha256": "77c1d677562ade44eb161f82dbd51c6e9efec9e5d07c2a459f9722d243b59b46"
+    },
+    {
+      "file": "diagnostic-reporter.asm",
+      "start": "60068a54",
+      "requested_end_exclusive": "60068f4c",
+      "actual_end_exclusive": "0x60068f4c",
+      "instructions": 451,
+      "bytes": 1272,
+      "sha256": "4d7fe36986e3d09ed409c23a63e6ddae770f66f641e4aa370944858d05359dfc"
+    },
+    {
+      "file": "cache-miss-report.asm",
+      "start": "601efff9",
+      "requested_end_exclusive": "601f0048",
+      "actual_end_exclusive": "0x601f0048",
+      "instructions": 31,
+      "bytes": 79,
+      "sha256": "dbf1e5456335fbd9699c044ae6c6ca032146c6e61144de331c5f0e475f944d9a"
+    },
+    {
+      "file": "multiply-site.asm",
+      "start": "601e8201",
+      "requested_end_exclusive": "601e8275",
+      "actual_end_exclusive": "0x601e8275",
+      "instructions": 36,
+      "bytes": 116,
+      "sha256": "a872a9fb96ae4bb352e8db83d3975b0dc8bf5bd4d8aa5387e9eaa394047c5c56"
+    },
+    {
+      "file": "raw-mode-getter.asm",
+      "start": "6031c0eb",
+      "requested_end_exclusive": "6031c16f",
+      "actual_end_exclusive": "0x6031c171",
+      "instructions": 38,
+      "bytes": 134,
+      "sha256": "f1f765581a3dbefda6a191516152d7857177708b5d352adfc90c502bda5caa4b"
+    },
+    {
+      "file": "core-address-alias.asm",
+      "start": "60061507",
+      "requested_end_exclusive": "6006151d",
+      "actual_end_exclusive": "0x6006151d",
+      "instructions": 8,
+      "bytes": 22,
+      "sha256": "3071d6f95be6cb30a07fb9559dafc353df84936f4c98e4487fe20e8b20764158"
+    },
+    {
+      "file": "normalize-callers.asm",
+      "start": "60c0d365",
+      "requested_end_exclusive": "60c0d3c1",
+      "actual_end_exclusive": "0x60c0d3c1",
+      "instructions": 31,
+      "bytes": 92,
+      "sha256": "85c84cf3663bac7ef50d3e29df20588ff04e24019573418598628fb9abc7a6cf"
+    },
+    {
+      "file": "mode-data-pointer-init.asm",
+      "start": "6031b32d",
+      "requested_end_exclusive": "6031b354",
+      "actual_end_exclusive": "0x6031b359",
+      "instructions": 7,
+      "bytes": 44,
+      "sha256": "341de75bbb7f28faa9cf401a9625009c5d4f1272a72f05af2336e1f7d6fa8203"
+    },
+    {
+      "file": "mode-data-pointer-clear.asm",
+      "start": "6031bb62",
+      "requested_end_exclusive": "6031bb7a",
+      "actual_end_exclusive": "0x6031bb7a",
+      "instructions": 4,
+      "bytes": 24,
+      "sha256": "9faaf9b761ab875925a9c5703e638b5d6f39ea3aa85525df66f8c1180a36baf5"
+    }
+  ],
+  "inputs": {
+    "scripts/OM3HumanWindows.java": "cad927d4a5ca4120b07d21d8d0c6449249a8879e0cbbe6ebd3c4e49285ec28b3",
+    "scripts/OM3OfflinePlanPcode.java": "8270be3c3ecdbcbc3009c8bca3b67e7aa1698da2b363b103ea9e301a0ac4482d",
+    "scripts/OM3CaptureResetProof.java": "215fd668008a232dba2b58c6c268a900d15e6cdf166ae5451a1ff10a1751cde5",
+    "scripts/OM3FullShooting.java": "30b345f0efcbc0925387d73ddcff7adc64a4a5a33560f2b2147e4502876065ae",
+    "tooling/ghidra_12.2_PUBLIC/Ghidra/Extensions/MN10300/data/languages/mn103_base.sinc": "39c5c0d76aef3443cd4197186a4b136dcde44ec959fa15191960872cb2714295",
+    "tooling/ghidra_12.2_PUBLIC/Ghidra/Extensions/MN10300/data/languages/mn103.sinc": "b458d41d1614d9e1b1cdb288e3d6ad1555a1a37beafd647407bf16d1fdada123",
+    "tooling/ghidra_12.2_PUBLIC/Ghidra/Extensions/MN10300/data/languages/mn103_mn10300.sla": "bb1cffa48935719774930f4068a1c1fd3be675a341cb198a48e4e803af04ab9b",
+    "analysis/button-af/readiness/capture-reset/timeout-trace.txt": "42515d47b4889695937ce9020246dd8da7314fad2a680bb15abde764bc9fd126"
+  },
+  "outputs": {
+    "pcode.txt": "ae90611fe5c578126350412b5aee18759f3c067028e8a9e3b7e43e987fd0a3f3",
+    "carry-reproduction.json": "661c7beafb224755a89d365bae20a5282a700a6ab00d1196c7f5192bb4137c67",
+    "verify_evidence.py": "b65c5eb85e73658523acae4507da3cad9a0106d23dde6a8ea7320f13bfca809f"
+  }
+}

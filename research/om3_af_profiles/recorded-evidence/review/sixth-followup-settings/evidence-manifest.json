@@ -1,0 +1,141 @@
+{
+  "payload": "analysis\\decoded\\00_0100_50000020.decoded.bin",
+  "payload_sha256": "5e8d376e9111a44ac0352f26030d7c1b17026d42c45f3600cfa02a0e8c5b7d59",
+  "base": "0x60021020",
+  "method": "Ghidra read-only bounded linear decode; byte equality and continuity verified, not reachability proof",
+  "listings": [
+    {
+      "file": "ui-default-reader.asm",
+      "start": "60404f35",
+      "requested_end_exclusive": "60404f80",
+      "actual_end_exclusive": "0x60404f80",
+      "instructions": 34,
+      "bytes_verified": 75,
+      "sha256": "312f2748cbcb879d4dab85cdf0b171da035a050109776342311564bb281bee41"
+    },
+    {
+      "file": "ui-default-apply.asm",
+      "start": "604047d9",
+      "requested_end_exclusive": "60404921",
+      "actual_end_exclusive": "0x60404921",
+      "instructions": 146,
+      "bytes_verified": 328,
+      "sha256": "afb3de7901f54a9622173550d5a4ba05e4e5741c99dc51fdc9054409498b14da"
+    },
+    {
+      "file": "ui-setting-bridge.asm",
+      "start": "6041931e",
+      "requested_end_exclusive": "60419446",
+      "actual_end_exclusive": "0x60419446",
+      "instructions": 139,
+      "bytes_verified": 296,
+      "sha256": "9d8a7f1f439e24eaf32ac7d985a4f9dbc5538102b0cde5f96fc8f49a9f0bae2b"
+    },
+    {
+      "file": "ui-key-mapper.asm",
+      "start": "60419446",
+      "requested_end_exclusive": "60419696",
+      "actual_end_exclusive": "0x60419696",
+      "instructions": 214,
+      "bytes_verified": 592,
+      "sha256": "31d355da312c89188f4a7cedf8601bb194b09bb34ab7e8560d0cdeb63c348a8f"
+    },
+    {
+      "file": "ui-index-mapper.asm",
+      "start": "60419696",
+      "requested_end_exclusive": "60419709",
+      "actual_end_exclusive": "0x60419709",
+      "instructions": 40,
+      "bytes_verified": 115,
+      "sha256": "5820c79b7f02031856bb95309e9a0e7c89f54d99092e3e90ac8f2eebc4921b1c"
+    },
+    {
+      "file": "core-bridge.asm",
+      "start": "6041a1f9",
+      "requested_end_exclusive": "6041a240",
+      "actual_end_exclusive": "0x6041a241",
+      "instructions": 28,
+      "bytes_verified": 72,
+      "sha256": "35d47eb20ccbc671b8848aaf68d8e09ef7cad15af7a747a6fa495e6c771b54dd"
+    },
+    {
+      "file": "core-registration.asm",
+      "start": "60062536",
+      "requested_end_exclusive": "600625d4",
+      "actual_end_exclusive": "0x600625d4",
+      "instructions": 74,
+      "bytes_verified": 158,
+      "sha256": "6a520b27e418b32bfe74a0609af5a8343e2788a9d40230112cc969c5f3f2169c"
+    },
+    {
+      "file": "core-map-init.asm",
+      "start": "6006229b",
+      "requested_end_exclusive": "60062431",
+      "actual_end_exclusive": "0x60062431",
+      "instructions": 112,
+      "bytes_verified": 406,
+      "sha256": "ae924cdc2d788d166160f9f90a0a6f9ab5678298ecb89ee34fd1fa9631d346ef"
+    },
+    {
+      "file": "reset-frontends.asm",
+      "start": "603f0182",
+      "requested_end_exclusive": "603f03a0",
+      "actual_end_exclusive": "0x603f03a3",
+      "instructions": 177,
+      "bytes_verified": 545,
+      "sha256": "2aa245bcc938a8223cb5dd0406a80fad6916a583fe567ade327e6f9ff4c722bf"
+    },
+    {
+      "file": "ui-init-reset.asm",
+      "start": "603f0db6",
+      "requested_end_exclusive": "603f0e80",
+      "actual_end_exclusive": "0x603f0e83",
+      "instructions": 67,
+      "bytes_verified": 205,
+      "sha256": "57fe9c607c3feb522e37181b11aa552698964bc01865d046eb31b18b89fa6026"
+    },
+    {
+      "file": "setting-width-alignment.asm",
+      "start": "60061333",
+      "requested_end_exclusive": "6006137b",
+      "actual_end_exclusive": "0x6006137c",
+      "instructions": 28,
+      "bytes_verified": 73,
+      "sha256": "82b45a5d552069d4295268e928bacc580ab3eaf813b45b00b46ee78d61d64710"
+    },
+    {
+      "file": "reset-status-reader.asm",
+      "start": "60063aec",
+      "requested_end_exclusive": "60063afc",
+      "actual_end_exclusive": "0x60063afc",
+      "instructions": 4,
+      "bytes_verified": 16,
+      "sha256": "6925b8b6251432e3ceff15eb589af32b64e361e4265a1361dad66236fc6e0cb0"
+    },
+    {
+      "file": "ui-write-suppression.asm",
+      "start": "60419e0c",
+      "requested_end_exclusive": "60419e13",
+      "actual_end_exclusive": "0x60419e15",
+      "instructions": 2,
+      "bytes_verified": 9,
+      "sha256": "7ee76922098a05e1f718079c66b5a6517bb3f1054820b0ecbe03c3b7c23993ad"
+    },
+    {
+      "file": "ui-hash-constructor.asm",
+      "start": "603f215a",
+      "requested_end_exclusive": "603f21af",
+      "actual_end_exclusive": "0x603f21af",
+      "instructions": 43,
+      "bytes_verified": 85,
+      "sha256": "0821ac082104acac5a11363b9115dce471ed514019b04953eb12b72b4d57c912"
+    }
+  ],
+  "inputs": {
+    "scripts/OM3HumanWindows.java": "cad927d4a5ca4120b07d21d8d0c6449249a8879e0cbbe6ebd3c4e49285ec28b3",
+    "scripts/OM3CoreRAMSettingsProof.java": "01059c2c6e448be234c4fb53ec02be6f8610422e86caf54dcc4b73313cbbe691",
+    "scripts/OM3FullShooting.java": "30b345f0efcbc0925387d73ddcff7adc64a4a5a33560f2b2147e4502876065ae",
+    "scripts/OM3LiveShooting.java": "71e57deed16203c8ec5511ca40a4e28f29a4ba1a31a3f677bafa34d75b4be85c",
+    "scripts/OM3CaptureTimeoutProof.java": "55e7c94c3fadee88133dcfd38f556870147a4215f53c3c00a69bb4f75ac8741a"
+  }
+}

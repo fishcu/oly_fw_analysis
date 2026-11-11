@@ -1,0 +1,24 @@
+{
+  "title": "Capture-reset probe rerun with the carry-fixed MN10300 language",
+  "date": "2026-11-07",
+  "scenario": "Labelled stock-reset (not a normal boot). SCPU modelled as silent.",
+  "probe": "scripts/OM3CaptureResetProof.java (unchanged)",
+  "instruction_cap": "2,000,000 per native call -- NOT raised; the only change from capture-reset/ is the fixed MN10300 SLEIGH language (see ../../../review/carry-fix/).",
+  "baseline": "../capture-reset/ (stuck in 0x6004c266 at the instruction cap; 0 AF-queue sends)",
+  "outcome_summary": "0x6004c266 now terminates; connection reaches an AF command-queue-95 send carrying reply buffer 1032, then blocks on a receive of buffer 1032 (timeout=ffffffff). No 'Native bound exceeded'. backend=0 (not connected). See rerun-outcome.txt.",
+  "key_observations": {
+    "queue_95_send_bytes": "08040000 02000000 1d000000 4c70a962 (word0=0x0408=1032 reply buffer id; +08 command index=0x1d/29; +0c payload ptr=0x62a9704c)",
+    "command_decode": "command 0x1d/29 -> handler 0x603c641a (specialized-handler, NOT the AF start/end family 0x2a/0x2b/0x2c). Part of the connection/capture handshake, not an AF focus request. See captured-envelope-decode.json.",
+    "terminating_boundary": "Message-buffer receive would block id=1032 timeout=ffffffff",
+    "final_connection_log": "CONNECTION:boundary state=12 backend=00000000 requested=62b71778"
+  },
+  "not_established": "Normal boot; successful SCPU exchange; original button handlers; backend connection; AF acquisition. Readiness unchanged (NO-GO). No firmware image changed.",
+  "sha256": {
+    "rerun-outcome.txt": "01b62d15d9e348d3128b5954656658b15e4e172c32d481bfe5e6c3cb11f2f19f",
+    "captured-envelope-decode.json": "72464ff750ab9e85c3a21bc90979eab2c8e9f6f635fcaecd818adda747e188e9",
+    "reset-scenario.txt": "80bc0563de90abbfde8decf1b2b89a125a312361467e0e52ff4871512d591787",
+    "af-sends.txt": "d5e0e4d55022fdb47c35250dd0e3b9c93bb73857e2d7aae59511d957106fb11e",
+    "console.txt": "ea96844437421efa69355b0da84bfd7c8401d11f2ff3e44771432b9a6d5518f6",
+    "timeout-trace.txt": "81f5a40fd79c2b4132f6514e37fe416a98f08f7fe5da72488152d9291582e3f1"
+  }
+}

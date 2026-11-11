@@ -1,0 +1,22 @@
+{
+ "created": "2026-11-07",
+ "status": "BOUNDARY",
+ "outcome": "BOUNDARY harness: with the SCPU modelled as silent, task 207's wait on flag 225 returns timeout (-50); the stock code replies status fffe to buffer 1028, deletes it, logs damage_info and continues the connection natively until registry lookup 605712de is asked for key 00 (record byte +0x2a read at 60570f98, not set in the harness; the 65 valid keys are the static ROM table 606ea406) and reports stock diagnostic 0e004504 (line 0x56b); original button handlers not reached; no AF queue 94/95 sends observed",
+ "scope": "Supplemental probe extending OM3CaptureLinkProof. Positive-timeout event-flag waits that are not satisfied return the stock timeout code -50 (models a silent SCPU; no reply bytes supplied). Port-2 task not run. Added models: message-buffer delete 60031149, damage_info recorder 60024d0e logged and skipped. AF send helpers and mbf 94/95 sends are logged. Also logs the mode record and stack code pointers on entry to 0x60570f8e (AF-MODE-RECORD lines). Logs reads of the mode settings and the raw mode code returned by 0x6031c0eb (AF-MODE-SETTING-READ, AF-RAW-MODE-GETTER, AF-RAW-MODE-CODE).",
+ "not_included_in": "readiness/live-runs/20261107-063654 full run",
+ "sha256": {
+  "scripts/OM3CaptureTimeoutProof.java": "55e7c94c3fadee88133dcfd38f556870147a4215f53c3c00a69bb4f75ac8741a",
+  "scripts/OM3CaptureLinkProof.java": "4941ab1f1d40c843ff8fe4442c26697c9e7649a3a7d931fcbe98689407dba4d8",
+  "scripts/OM3CaptureKernelModelProof.java": "677c85333834960e5bf303d08f096dad3e46ba8c3e37637ee955bea2927449f2",
+  "scripts/OM3CaptureConnectedProof.java": "7a60ccfc4941b960d6c0e8f1dee0444728d561c922edd0dd7959fa7cf999717f",
+  "scripts/OM3CaptureFactoryProof.java": "ed1a970dfd71ce7fdd127d58654641c4ecdc3b1e13b0082201c5cbd173716574",
+  "scripts/OM3ReceiverStartupProof.java": "3f97d1f20fc722129c4dd0bbad768e662a65a97658428a4c9a97cf2098af59f8",
+  "analysis/decoded/00_0100_50000020.decoded.bin": "5e8d376e9111a44ac0352f26030d7c1b17026d42c45f3600cfa02a0e8c5b7d59",
+  "analysis\\button-af\\readiness\\capture-timeout\\timeout-outcome.txt": "93f7ad4c483dceb8ac153ca58c1e42e7616e8bb473660c601d4b840e56abd530",
+  "analysis\\button-af\\readiness\\capture-timeout\\timeout-trace.txt": "0d0c801cbda20465b48d33f5a85509efd5df417114a4553c2b901c54edea01ea",
+  "analysis\\button-af\\readiness\\capture-timeout\\af-sends.txt": "0d7863852325d8d658cf194b3527080db20d7686d8391b89cb7941463b8adcc4",
+  "analysis\\button-af\\readiness\\capture-timeout\\run.log": "610f2b141ad39dd58e132a243243a17a66224e50ecaeb37750014807f40c274c",
+  "scripts/OM3Disasm.java": "d536a2a2b026a85c4a0cb0ae60b5047f508c548af7a4c4c95a99110dd1cf0e00"
+ },
+ "manifest_refreshed": "2026-11-07"
+}

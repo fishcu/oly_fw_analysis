@@ -1,0 +1,980 @@
+{
+  "scope": "BOUNDARY before complete mode-sequence connection snapshot\nSupplied stock-constructed inputs 0x1a4 then 0x1a1, with a native queue drain between them. Original button inputs/context are conditional fixtures. No completion reply, backend pointer or lifecycle value supplied. Inherited reset, OS models and silent SCPU remain fixtures.",
+  "native_queue10_exchange": [],
+  "constructor_group_proof": "Native group 60215410; ROM table 60f1a6b4; 49 unique entries observed.\nRepresentative member-function descriptors verified at 6036c024, 6036c548, 6036d17c.\nVisits: {1622057601=1, 1622257048=1, 1622339359=1, 1622341675=1, 1622788469=1, 1622921586=1, 1622921936=1, 1622932751=1, 1622933220=1, 1622933576=1, 1622937980=1, 1622938336=1, 1622967789=1, 1623148647=1, 1623166749=1, 1623397094=1, 1623635619=1, 1623638304=1, 1623642135=1, 1623816810=1, 1623847533=1, 1623851445=1, 1623851740=1, 1623852199=1, 1623852685=1, 1623853160=1, 1623853653=1, 1623879476=1, 1623890130=1, 1623988000=1, 1623988213=1, 1623988369=1, 1623988525=1, 1623988681=1, 1623989152=1, 1623989370=1, 1623989526=1, 1624291403=1, 1624378047=1, 1624976007=1, 1625010592=1, 1625019989=1, 1625021534=1, 1625022508=1, 1625026308=1, 1625027510=1, 1625078720=1, 1625084456=1, 1625136580=1}\nSubtype key=026c; request key=0269\nNo completion event, reply or active/requested backend field supplied.\n",
+  "original_trace_label_correction": "life/state/parent labels in generic state() are valid only for the simple-component layout; use the class-aware snapshots below for the public backend.",
+  "line_counts": {
+    "OBSERVER": 83,
+    "CONSTRUCTOR-GROUP": 1,
+    "ENTER-STATE4": 1
+  },
+  "snapshots": [],
+  "backend_events": [],
+  "backend_state_path": [],
+  "public_start_observer_activity": [],
+  "mode_input_trace": [],
+  "protocol_initialization": [
+    "CONSTRUCTOR-GROUP completed 49 stock section-6 constructors after 13 stock section-2 pool constructors"
+  ],
+  "router_snapshot": [],
+  "button_results": [],
+  "bounded_decodes": [
+    {
+      "directory": "analysis/review/backend-start",
+      "label": "backend-result-handler",
+      "start": "60c6a0eb",
+      "requested_end_exclusive": "60c6a260",
+      "decoded_end_exclusive": "60c6a260",
+      "instructions": 195
+    },
+    {
+      "directory": "analysis/review/backend-start",
+      "label": "backend-dispatch",
+      "start": "60cb8f68",
+      "requested_end_exclusive": "60cb8fb5",
+      "decoded_end_exclusive": "60cb8fb5",
+      "instructions": 31
+    },
+    {
+      "directory": "analysis/review/backend-start",
+      "label": "component-state-diagnostic",
+      "start": "60dbd56c",
+      "requested_end_exclusive": "60dbd5f2",
+      "decoded_end_exclusive": "60dbd5f2",
+      "instructions": 45
+    },
+    {
+      "directory": "analysis/review/backend-start",
+      "label": "component-state4",
+      "start": "60db113d",
+      "requested_end_exclusive": "60db1175",
+      "decoded_end_exclusive": "60db1175",
+      "instructions": 16
+    },
+    {
+      "directory": "analysis/review/backend-start",
+      "label": "component-state4-c",
+      "start": "60dbb18e",
+      "requested_end_exclusive": "60dbb1c8",
+      "decoded_end_exclusive": "60dbb1ca",
+      "instructions": 19
+    },
+    {
+      "directory": "analysis/review/backend-start",
+      "label": "router-start-request",
+      "start": "60db30ec",
+      "requested_end_exclusive": "60db31c0",
+      "decoded_end_exclusive": "60db31c1",
+      "instructions": 74
+    },
+    {
+      "directory": "analysis/review/backend-start",
+      "label": "router-promote-and-wait",
+      "start": "60db3d96",
+      "requested_end_exclusive": "60db3e42",
+      "decoded_end_exclusive": "60db3e45",
+      "instructions": 63
+    },
+    {
+      "directory": "analysis/review/backend-start",
+      "label": "component-list-fetch",
+      "start": "60dbd8ef",
+      "requested_end_exclusive": "60dbd96f",
+      "decoded_end_exclusive": "60dbd973",
+      "instructions": 54
+    },
+    {
+      "directory": "analysis/review/backend-start",
+      "label": "request-type-key-constructor",
+      "start": "60dbdc5e",
+      "requested_end_exclusive": "60dbdcca",
+      "decoded_end_exclusive": "60dbdcca",
+      "instructions": 29
+    },
+    {
+      "directory": "analysis/review/backend-start",
+      "label": "request-base-constructor",
+      "start": "60aed053",
+      "requested_end_exclusive": "60aed071",
+      "decoded_end_exclusive": "60aed071",
+      "instructions": 10
+    },
+    {
+      "directory": "analysis/review/backend-start",
+      "label": "component-ready-event-match",
+      "start": "60dbabe4",
+      "requested_end_exclusive": "60dbac7e",
+      "decoded_end_exclusive": "60dbac7e",
+      "instructions": 75
+    },
+    {
+      "directory": "analysis/review/backend-start",
+      "label": "component-fallback-dispatch",
+      "start": "60dbd764",
+      "requested_end_exclusive": "60dbd81e",
+      "decoded_end_exclusive": "60dbd81e",
+      "instructions": 98
+    },
+    {
+      "directory": "analysis/review/backend-start",
+      "label": "backend-component-list",
+      "start": "60c6ad36",
+      "requested_end_exclusive": "60c6ad6f",
+      "decoded_end_exclusive": "60c6ad6f",
+      "instructions": 29
+    },
+    {
+      "directory": "analysis/review/backend-start",
+      "label": "diagnostic-state-setter",
+      "start": "60dbd63b",
+      "requested_end_exclusive": "60dbd64b",
+      "decoded_end_exclusive": "60dbd64b",
+      "instructions": 5
+    },
+    {
+      "directory": "analysis/review/backend-start",
+      "label": "start-result-isA",
+      "start": "60bbbbed",
+      "requested_end_exclusive": "60bbbc02",
+      "decoded_end_exclusive": "60bbbc02",
+      "instructions": 13
+    },
+    {
+      "directory": "analysis/review/backend-start",
+      "label": "backend-state-dispatch",
+      "start": "60daec87",
+      "requested_end_exclusive": "60daed36",
+      "decoded_end_exclusive": "60daed36",
+      "instructions": 53
+    },
+    {
+      "directory": "analysis/review/backend-start",
+      "label": "backend-entry-state3",
+      "start": "60daf66f",
+      "requested_end_exclusive": "60daf68c",
+      "decoded_end_exclusive": "60daf68c",
+      "instructions": 8
+    },
+    {
+      "directory": "analysis/review/backend-start",
+      "label": "backend-state3-events",
+      "start": "60daf69f",
+      "requested_end_exclusive": "60daf7a5",
+      "decoded_end_exclusive": "60daf7a5",
+      "instructions": 98
+    },
+    {
+      "directory": "analysis/review/backend-start",
+      "label": "base-start-acknowledgement",
+      "start": "60dba55c",
+      "requested_end_exclusive": "60dba647",
+      "decoded_end_exclusive": "60dba647",
+      "instructions": 83
+    },
+    {
+      "directory": "analysis/review/backend-start",
+      "label": "base-c-start-acknowledgement",
+      "start": "60dbb01a",
+      "requested_end_exclusive": "60dbb108",
+      "decoded_end_exclusive": "60dbb108",
+      "instructions": 93
+    },
+    {
+      "directory": "analysis/review/backend-start",
+      "label": "component-start-state-bridge",
+      "start": "60dbd8ac",
+      "requested_end_exclusive": "60dbd8ef",
+      "decoded_end_exclusive": "60dbd8ef",
+      "instructions": 24
+    },
+    {
+      "directory": "analysis/review/backend-start",
+      "label": "backend-shared-event-table",
+      "start": "60daf7a5",
+      "requested_end_exclusive": "60daf89f",
+      "decoded_end_exclusive": "60daf89f",
+      "instructions": 90
+    },
+    {
+      "directory": "analysis/review/backend-start",
+      "label": "backend-state14-wait-observer",
+      "start": "60db0895",
+      "requested_end_exclusive": "60db094a",
+      "decoded_end_exclusive": "60db094a",
+      "instructions": 63
+    },
+    {
+      "directory": "analysis/review/backend-start",
+      "label": "backend-state18-entry",
+      "start": "60db0beb",
+      "requested_end_exclusive": "60db0c59",
+      "decoded_end_exclusive": "60db0c59",
+      "instructions": 34
+    },
+    {
+      "directory": "analysis/review/backend-start",
+      "label": "observer-registration",
+      "start": "60dbcc7f",
+      "requested_end_exclusive": "60dbcd5b",
+      "decoded_end_exclusive": "60dbcd5b",
+      "instructions": 108
+    },
+    {
+      "directory": "analysis/review/backend-start",
+      "label": "backend-start-success",
+      "start": "60daf108",
+      "requested_end_exclusive": "60daf121",
+      "decoded_end_exclusive": "60daf121",
+      "instructions": 8
+    },
+    {
+      "directory": "analysis/review/backend-start",
+      "label": "backend-start-notify-bridge",
+      "start": "60cb6779",
+      "requested_end_exclusive": "60cb678e",
+      "decoded_end_exclusive": "60cb678e",
+      "instructions": 8
+    },
+    {
+      "directory": "analysis/review/backend-start",
+      "label": "backend-observer-notification",
+      "start": "60c6abfb",
+      "requested_end_exclusive": "60c6ac25",
+      "decoded_end_exclusive": "60c6ac25",
+      "instructions": 17
+    },
+    {
+      "directory": "analysis/review/backend-start",
+      "label": "observer-notification",
+      "start": "60dbcd5b",
+      "requested_end_exclusive": "60dbce3c",
+      "decoded_end_exclusive": "60dbce3c",
+      "instructions": 116
+    },
+    {
+      "directory": "analysis/review/backend-start",
+      "label": "observer-list-getters",
+      "start": "60dbf08d",
+      "requested_end_exclusive": "60dbf0a9",
+      "decoded_end_exclusive": "60dbf0a9",
+      "instructions": 8
+    },
+    {
+      "directory": "analysis/review/backend-start",
+      "label": "router-started-callback",
+      "start": "60dbb305",
+      "requested_end_exclusive": "60dbb374",
+      "decoded_end_exclusive": "60dbb374",
+      "instructions": 40
+    },
+    {
+      "directory": "analysis/review/backend-start",
+      "label": "stock-still-backend-wiring",
+      "start": "60dd4a4f",
+      "requested_end_exclusive": "60dd4af6",
+      "decoded_end_exclusive": "60dd4af6",
+      "instructions": 55
+    },
+    {
+      "directory": "analysis/review/backend-start",
+      "label": "stock-category-wiring",
+      "start": "60db1753",
+      "requested_end_exclusive": "60db17b0",
+      "decoded_end_exclusive": "60db17b0",
+      "instructions": 33
+    },
+    {
+      "directory": "analysis/review/backend-start",
+      "label": "mode-still-category-selection",
+      "start": "60db216b",
+      "requested_end_exclusive": "60db21eb",
+      "decoded_end_exclusive": "60db21eb",
+      "instructions": 40
+    },
+    {
+      "directory": "analysis/review/backend-start",
+      "label": "stock-still-subcategory-wiring",
+      "start": "60dd39c2",
+      "requested_end_exclusive": "60dd3a4d",
+      "decoded_end_exclusive": "60dd3a4d",
+      "instructions": 49
+    },
+    {
+      "directory": "analysis/review/backend-start",
+      "label": "mode-still-selection-event",
+      "start": "60db201e",
+      "requested_end_exclusive": "60db205a",
+      "decoded_end_exclusive": "60db205a",
+      "instructions": 21
+    },
+    {
+      "directory": "analysis/review/backend-start",
+      "label": "mode-idle-events",
+      "start": "60db20d2",
+      "requested_end_exclusive": "60db215c",
+      "decoded_end_exclusive": "60db215c",
+      "instructions": 53
+    },
+    {
+      "directory": "analysis/review/backend-start",
+      "label": "still-mode-input-constructor",
+      "start": "60aebee9",
+      "requested_end_exclusive": "60aebefe",
+      "decoded_end_exclusive": "60aebefe",
+      "instructions": 6
+    },
+    {
+      "directory": "analysis/review/backend-start",
+      "label": "mode-input-base-constructors",
+      "start": "60aed053",
+      "requested_end_exclusive": "60aed0bf",
+      "decoded_end_exclusive": "60aed0bf",
+      "instructions": 38
+    },
+    {
+      "directory": "analysis/review/backend-start",
+      "label": "framework-constructor-layout",
+      "start": "60db2b08",
+      "requested_end_exclusive": "60db2bea",
+      "decoded_end_exclusive": "60db2bea",
+      "instructions": 75
+    },
+    {
+      "directory": "analysis/review/backend-start",
+      "label": "mode-pending-events",
+      "start": "60db226f",
+      "requested_end_exclusive": "60db238f",
+      "decoded_end_exclusive": "60db238f",
+      "instructions": 105
+    },
+    {
+      "directory": "analysis/review/mode-sequence",
+      "label": "mode-change-producer-iterator",
+      "start": "60afd577",
+      "requested_end_exclusive": "60afd69f",
+      "decoded_end_exclusive": "60afd69f",
+      "instructions": 111
+    },
+    {
+      "directory": "analysis/review/mode-sequence",
+      "label": "mode-subtype-producer",
+      "start": "60afce68",
+      "requested_end_exclusive": "60afcf22",
+      "decoded_end_exclusive": "60afcf22",
+      "instructions": 61
+    },
+    {
+      "directory": "analysis/review/mode-sequence",
+      "label": "mode-third-stage-range",
+      "start": "60afcf22",
+      "requested_end_exclusive": "60afcf83",
+      "decoded_end_exclusive": "60afcf83",
+      "instructions": 41
+    },
+    {
+      "directory": "analysis/review/mode-sequence",
+      "label": "photo-subtype-constructor",
+      "start": "60aebe7d",
+      "requested_end_exclusive": "60aebe92",
+      "decoded_end_exclusive": "60aebe92",
+      "instructions": 6
+    },
+    {
+      "directory": "analysis/review/mode-sequence",
+      "label": "photo-category-subtype-input",
+      "start": "60dd4740",
+      "requested_end_exclusive": "60dd47a8",
+      "decoded_end_exclusive": "60dd47a8",
+      "instructions": 42
+    },
+    {
+      "directory": "analysis/review/mode-sequence",
+      "label": "photo-category-active-entry",
+      "start": "60dd4275",
+      "requested_end_exclusive": "60dd42ae",
+      "decoded_end_exclusive": "60dd42ae",
+      "instructions": 23
+    },
+    {
+      "directory": "analysis/review/mode-sequence",
+      "label": "photo-subcategory-native-wiring",
+      "start": "60dd39c2",
+      "requested_end_exclusive": "60dd3a4d",
+      "decoded_end_exclusive": "60dd3a4d",
+      "instructions": 49
+    },
+    {
+      "directory": "analysis/review/mode-sequence",
+      "label": "photo-category-start-success",
+      "start": "60dd3fc7",
+      "requested_end_exclusive": "60dd4061",
+      "decoded_end_exclusive": "60dd4061",
+      "instructions": 57
+    },
+    {
+      "directory": "analysis/review/mode-sequence",
+      "label": "photo-subtype-entry",
+      "start": "60dd3ae9",
+      "requested_end_exclusive": "60dd3b3f",
+      "decoded_end_exclusive": "60dd3b3f",
+      "instructions": 32
+    },
+    {
+      "directory": "analysis/review/mode-sequence",
+      "label": "mode-transition-completed",
+      "start": "60db23c1",
+      "requested_end_exclusive": "60db2463",
+      "decoded_end_exclusive": "60db2463",
+      "instructions": 62
+    },
+    {
+      "directory": "analysis/review/mode-key-init",
+      "label": "photo-subtype-type-key-constructor",
+      "start": "60dcd228",
+      "requested_end_exclusive": "60dcd261",
+      "decoded_end_exclusive": "60dcd261",
+      "instructions": 17
+    },
+    {
+      "directory": "analysis/review/mode-key-init",
+      "label": "photo-category-request-routing",
+      "start": "60dcc872",
+      "requested_end_exclusive": "60dcc8b9",
+      "decoded_end_exclusive": "60dcc8b9",
+      "instructions": 30
+    },
+    {
+      "directory": "analysis/review/mode-key-init",
+      "label": "photo-subtype-base-class",
+      "start": "60aed0d5",
+      "requested_end_exclusive": "60aed0fb",
+      "decoded_end_exclusive": "60aed0fd",
+      "instructions": 14
+    },
+    {
+      "directory": "analysis/review/mode-key-init",
+      "label": "event-copy-constructor",
+      "start": "60dd7a2c",
+      "requested_end_exclusive": "60dd7a5d",
+      "decoded_end_exclusive": "60dd7a5d",
+      "instructions": 16
+    },
+    {
+      "directory": "analysis/review/mode-key-init",
+      "label": "protocol-default-event-constructor-a",
+      "start": "60dbe02c",
+      "requested_end_exclusive": "60dbe041",
+      "decoded_end_exclusive": "60dbe041",
+      "instructions": 5
+    },
+    {
+      "directory": "analysis/review/mode-key-init",
+      "label": "protocol-key117-constructor",
+      "start": "60dbef04",
+      "requested_end_exclusive": "60dbef4e",
+      "decoded_end_exclusive": "60dbef4e",
+      "instructions": 23
+    },
+    {
+      "directory": "analysis/review/mode-key-init",
+      "label": "protocol-request-key-constructor",
+      "start": "60dbf3b6",
+      "requested_end_exclusive": "60dbf3f3",
+      "decoded_end_exclusive": "60dbf3f3",
+      "instructions": 19
+    },
+    {
+      "directory": "analysis/review/mode-key-init",
+      "label": "protocol-default-event-constructor-b",
+      "start": "60dcbbc0",
+      "requested_end_exclusive": "60dcbbd5",
+      "decoded_end_exclusive": "60dcbbd5",
+      "instructions": 5
+    },
+    {
+      "directory": "analysis/review/mode-key-init",
+      "label": "protocol-default-context-constructor",
+      "start": "60dd9dc4",
+      "requested_end_exclusive": "60dd9de8",
+      "decoded_end_exclusive": "60dd9de8",
+      "instructions": 13
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "ctor-00-60aea281",
+      "start": "60aea281",
+      "requested_end_exclusive": "60aea292",
+      "decoded_end_exclusive": "60aea292",
+      "instructions": 4
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "ctor-01-60b1ad98",
+      "start": "60b1ad98",
+      "requested_end_exclusive": "60b1adab",
+      "decoded_end_exclusive": "60b1adab",
+      "instructions": 4
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "ctor-02-60b2ef1f",
+      "start": "60b2ef1f",
+      "requested_end_exclusive": "60b2ef54",
+      "decoded_end_exclusive": "60b2ef54",
+      "instructions": 12
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "ctor-03-60b2f82b",
+      "start": "60b2f82b",
+      "requested_end_exclusive": "60b2f860",
+      "decoded_end_exclusive": "60b2f860",
+      "instructions": 12
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "ctor-04-60b9c975",
+      "start": "60b9c975",
+      "requested_end_exclusive": "60b9c9d5",
+      "decoded_end_exclusive": "60b9c9d5",
+      "instructions": 23
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "ctor-05-60bbd172",
+      "start": "60bbd172",
+      "requested_end_exclusive": "60bbd2d0",
+      "decoded_end_exclusive": "60bbd2d0",
+      "instructions": 159
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "ctor-06-60bbd2d0",
+      "start": "60bbd2d0",
+      "requested_end_exclusive": "60bbd42e",
+      "decoded_end_exclusive": "60bbd42e",
+      "instructions": 159
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "ctor-07-60bbfd0f",
+      "start": "60bbfd0f",
+      "requested_end_exclusive": "60bbfee4",
+      "decoded_end_exclusive": "60bbfee4",
+      "instructions": 212
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "ctor-08-60bbfee4",
+      "start": "60bbfee4",
+      "requested_end_exclusive": "60bc0048",
+      "decoded_end_exclusive": "60bc0048",
+      "instructions": 160
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "ctor-09-60bc0048",
+      "start": "60bc0048",
+      "requested_end_exclusive": "60bc117c",
+      "decoded_end_exclusive": "60bc117c",
+      "instructions": 1738
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "ctor-10-60bc117c",
+      "start": "60bc117c",
+      "requested_end_exclusive": "60bc12e0",
+      "decoded_end_exclusive": "60bc12e0",
+      "instructions": 160
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "ctor-11-60bc12e0",
+      "start": "60bc12e0",
+      "requested_end_exclusive": "60bc15ec",
+      "decoded_end_exclusive": "60bc15ec",
+      "instructions": 332
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "ctor-12-60bc85ed",
+      "start": "60bc85ed",
+      "requested_end_exclusive": "60bc94ca",
+      "decoded_end_exclusive": "60bc94ca",
+      "instructions": 1429
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "ctor-13-60bf4867",
+      "start": "60bf4867",
+      "requested_end_exclusive": "60bf4878",
+      "decoded_end_exclusive": "60bf4878",
+      "instructions": 4
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "ctor-14-60bf8f1d",
+      "start": "60bf8f1d",
+      "requested_end_exclusive": "60bf8f30",
+      "decoded_end_exclusive": "60bf8f30",
+      "instructions": 5
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "ctor-15-60c312e6",
+      "start": "60c312e6",
+      "requested_end_exclusive": "60c3150d",
+      "decoded_end_exclusive": "60c3150d",
+      "instructions": 264
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "ctor-16-60c6b6a3",
+      "start": "60c6b6a3",
+      "requested_end_exclusive": "60c6c120",
+      "decoded_end_exclusive": "60c6c120",
+      "instructions": 1002
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "ctor-17-60c6c120",
+      "start": "60c6c120",
+      "requested_end_exclusive": "60c6d017",
+      "decoded_end_exclusive": "60c6d017",
+      "instructions": 1450
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "ctor-18-60c6d017",
+      "start": "60c6d017",
+      "requested_end_exclusive": "60c6d21c",
+      "decoded_end_exclusive": "60c6d21c",
+      "instructions": 250
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "ctor-19-60c97a6a",
+      "start": "60c97a6a",
+      "requested_end_exclusive": "60c97d3f",
+      "decoded_end_exclusive": "60c97d3f",
+      "instructions": 292
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "ctor-20-60c9f26d",
+      "start": "60c9f26d",
+      "requested_end_exclusive": "60c9f3f5",
+      "decoded_end_exclusive": "60c9f3f5",
+      "instructions": 166
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "ctor-21-60ca01b5",
+      "start": "60ca01b5",
+      "requested_end_exclusive": "60ca0214",
+      "decoded_end_exclusive": "60ca0214",
+      "instructions": 40
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "ctor-22-60ca02dc",
+      "start": "60ca02dc",
+      "requested_end_exclusive": "60ca04a7",
+      "decoded_end_exclusive": "60ca04a7",
+      "instructions": 213
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "ctor-23-60ca04a7",
+      "start": "60ca04a7",
+      "requested_end_exclusive": "60ca068d",
+      "decoded_end_exclusive": "60ca068d",
+      "instructions": 217
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "ctor-24-60ca068d",
+      "start": "60ca068d",
+      "requested_end_exclusive": "60ca0868",
+      "decoded_end_exclusive": "60ca0868",
+      "instructions": 213
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "ctor-25-60ca0868",
+      "start": "60ca0868",
+      "requested_end_exclusive": "60ca0a55",
+      "decoded_end_exclusive": "60ca0a55",
+      "instructions": 216
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "ctor-26-60ca0a55",
+      "start": "60ca0a55",
+      "requested_end_exclusive": "60ca0c36",
+      "decoded_end_exclusive": "60ca0c36",
+      "instructions": 214
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "ctor-27-60ca6f34",
+      "start": "60ca6f34",
+      "requested_end_exclusive": "60ca7103",
+      "decoded_end_exclusive": "60ca7103",
+      "instructions": 211
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "ctor-28-60ca98d2",
+      "start": "60ca98d2",
+      "requested_end_exclusive": "60ca99c4",
+      "decoded_end_exclusive": "60ca99c4",
+      "instructions": 107
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "ctor-29-60cc1720",
+      "start": "60cc1720",
+      "requested_end_exclusive": "60cc178a",
+      "decoded_end_exclusive": "60cc178a",
+      "instructions": 27
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "ctor-30-60cc17f5",
+      "start": "60cc17f5",
+      "requested_end_exclusive": "60cc1891",
+      "decoded_end_exclusive": "60cc1891",
+      "instructions": 32
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "ctor-31-60cc1891",
+      "start": "60cc1891",
+      "requested_end_exclusive": "60cc192d",
+      "decoded_end_exclusive": "60cc192d",
+      "instructions": 32
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "ctor-32-60cc192d",
+      "start": "60cc192d",
+      "requested_end_exclusive": "60cc19c9",
+      "decoded_end_exclusive": "60cc19c9",
+      "instructions": 32
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "ctor-33-60cc19c9",
+      "start": "60cc19c9",
+      "requested_end_exclusive": "60cc1a1e",
+      "decoded_end_exclusive": "60cc1a1e",
+      "instructions": 19
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "ctor-34-60cc1ba0",
+      "start": "60cc1ba0",
+      "requested_end_exclusive": "60cc1bd3",
+      "decoded_end_exclusive": "60cc1bd3",
+      "instructions": 16
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "ctor-35-60cc1c7a",
+      "start": "60cc1c7a",
+      "requested_end_exclusive": "60cc1d16",
+      "decoded_end_exclusive": "60cc1d16",
+      "instructions": 32
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "ctor-36-60cc1d16",
+      "start": "60cc1d16",
+      "requested_end_exclusive": "60cc1db2",
+      "decoded_end_exclusive": "60cc1db2",
+      "instructions": 32
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "ctor-37-60d0b84b",
+      "start": "60d0b84b",
+      "requested_end_exclusive": "60d0b89c",
+      "decoded_end_exclusive": "60d0b89c",
+      "instructions": 17
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "ctor-38-60d20abf",
+      "start": "60d20abf",
+      "requested_end_exclusive": "60d20d6d",
+      "decoded_end_exclusive": "60d20d6d",
+      "instructions": 292
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "ctor-39-60db2a87",
+      "start": "60db2a87",
+      "requested_end_exclusive": "60db2aaf",
+      "decoded_end_exclusive": "60db2aaf",
+      "instructions": 13
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "ctor-40-60dbb1a0",
+      "start": "60dbb1a0",
+      "requested_end_exclusive": "60dbb1dd",
+      "decoded_end_exclusive": "60dbb1dd",
+      "instructions": 19
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "ctor-41-60dbd655",
+      "start": "60dbd655",
+      "requested_end_exclusive": "60dbd6aa",
+      "decoded_end_exclusive": "60dbd6aa",
+      "instructions": 27
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "ctor-42-60dbdc5e",
+      "start": "60dbdc5e",
+      "requested_end_exclusive": "60dbdcca",
+      "decoded_end_exclusive": "60dbdcca",
+      "instructions": 29
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "ctor-43-60dbe02c",
+      "start": "60dbe02c",
+      "requested_end_exclusive": "60dbe041",
+      "decoded_end_exclusive": "60dbe041",
+      "instructions": 5
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "ctor-44-60dbef04",
+      "start": "60dbef04",
+      "requested_end_exclusive": "60dbef3f",
+      "decoded_end_exclusive": "60dbef3f",
+      "instructions": 19
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "ctor-45-60dbf3b6",
+      "start": "60dbf3b6",
+      "requested_end_exclusive": "60dbf3f3",
+      "decoded_end_exclusive": "60dbf3f3",
+      "instructions": 19
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "ctor-46-60dcbbc0",
+      "start": "60dcbbc0",
+      "requested_end_exclusive": "60dcbbd5",
+      "decoded_end_exclusive": "60dcbbd5",
+      "instructions": 5
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "ctor-47-60dcd228",
+      "start": "60dcd228",
+      "requested_end_exclusive": "60dcd250",
+      "decoded_end_exclusive": "60dcd250",
+      "instructions": 13
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "ctor-48-60dd9dc4",
+      "start": "60dd9dc4",
+      "requested_end_exclusive": "60dd9de8",
+      "decoded_end_exclusive": "60dd9de8",
+      "instructions": 13
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "constructor-group-dispatch",
+      "start": "602153e6",
+      "requested_end_exclusive": "60215425",
+      "decoded_end_exclusive": "60215425",
+      "instructions": 15
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "constructor-common-loop",
+      "start": "6021544a",
+      "requested_end_exclusive": "6021545c",
+      "decoded_end_exclusive": "6021545c",
+      "instructions": 8
+    },
+    {
+      "directory": "analysis/review/constructor-group",
+      "label": "section-loader-constructor-calls",
+      "start": "60046010",
+      "requested_end_exclusive": "60046060",
+      "decoded_end_exclusive": "60046062",
+      "instructions": 21
+    },
+    {
+      "directory": "analysis/review/queue10",
+      "label": "task10-entry-and-reply-loop",
+      "start": "6006587c",
+      "requested_end_exclusive": "600659c1",
+      "decoded_end_exclusive": "600659c1",
+      "instructions": 117
+    },
+    {
+      "directory": "analysis/review/queue10",
+      "label": "task10-periodic-registration",
+      "start": "6006581b",
+      "requested_end_exclusive": "6006584b",
+      "decoded_end_exclusive": "6006584b",
+      "instructions": 12
+    },
+    {
+      "directory": "analysis/review/queue10",
+      "label": "property-command-dispatch",
+      "start": "60065afb",
+      "requested_end_exclusive": "60065c76",
+      "decoded_end_exclusive": "60065c76",
+      "instructions": 145
+    },
+    {
+      "directory": "analysis/review/queue10",
+      "label": "property-get-set",
+      "start": "60065754",
+      "requested_end_exclusive": "60065809",
+      "decoded_end_exclusive": "60065809",
+      "instructions": 73
+    },
+    {
+      "directory": "analysis/review/queue10",
+      "label": "message-buffer-reference",
+      "start": "60034cc7",
+      "requested_end_exclusive": "60034dcc",
+      "decoded_end_exclusive": "60034dcc",
+      "instructions": 125
+    },
+    {
+      "directory": "analysis/review/queue10",
+      "label": "software-timer-registration",
+      "start": "6007662a",
+      "requested_end_exclusive": "60076665",
+      "decoded_end_exclusive": "60076665",
+      "instructions": 27
+    },
+    {
+      "directory": "analysis/review/queue10",
+      "label": "message-buffer-wakeup-hook",
+      "start": "6004d2a5",
+      "requested_end_exclusive": "6004d2dc",
+      "decoded_end_exclusive": "6004d2dc",
+      "instructions": 24
+    }
+  ],
+  "limitations": [
+    "Conditional reset/OS/device fixtures; not normal boot.",
+    "No original buttons run by this connection observation probe.",
+    "No camera, AF acquisition or installable firmware safety proof."
+  ]
+}

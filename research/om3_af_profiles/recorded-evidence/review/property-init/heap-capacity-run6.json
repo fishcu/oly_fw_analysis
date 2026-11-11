@@ -1,0 +1,26 @@
+{
+  "source_traces": {
+    "capture-connection-trace.txt": "742e1b5788ba7c7c50a8eefc72abebe224f10669fa18f8c1bcb2c3e50dd7e66d",
+    "mode-sequence-button-trace.txt": "3ad85dee2a54cc780b1065029c5878d3e21f1e298b26429221ededc189980a52"
+  },
+  "scope": "Reconstructed bounded modeled heap, not camera heap. Failed request896 from final multiply log.",
+  "high_water": "7003fcb0",
+  "live_allocations": 1124,
+  "live_payload_bytes": 116060,
+  "native_frees_seen": 272,
+  "largest_available_gap": 33552,
+  "gaps_at_least_896": [
+    [
+      "7002b880",
+      33552
+    ],
+    [
+      "70035740",
+      32960
+    ],
+    [
+      "7003d850",
+      2240
+    ]
+  ]
+}

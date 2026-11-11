@@ -1,0 +1,1 @@
+scenario=full-stock-reset; check value: AF-RAW-MODE-CODE line in timeout-trace.txt (native getter 6031c0eb output)

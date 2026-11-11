@@ -1,0 +1,14 @@
+MODEL:AF-task-identity-from-ROM queue=95 task=106
+MODEL:AF-task-identity-from-ROM queue=95 task=106
+MODEL:AF-task-identity-from-ROM queue=95 task=106
+AF-CONSUMERS-QUIESCENT after matrix-edge=1 rounds=0
+AF-WORKER-SUBMIT command=100 packet=630000000000080000010000dcbe0f70 payload=700fbedc bytes=718d3c60000100000000000000000000000000008b8d3c6000000000000000000000000000020000000000000000000000000000000000000000000063000000 owner=2 subject=0
+MODEL:AF-task-identity-from-ROM queue=95 task=106
+MODEL:AF-task-identity-from-ROM queue=95 task=106
+MODEL:AF-task-identity-from-ROM queue=94 task=105
+MODEL:AF-task-identity-from-ROM queue=94 task=105
+MODEL:AF-task-identity-from-ROM queue=94 task=105
+MODEL:AF-task-identity-from-ROM queue=94 task=105
+MODEL:AF-task-identity-from-ROM queue=94 task=105
+AF-INFINITE-WAIT flag=68 mask=00100000 pc=6004cea0 task=95 pending95=0 pending94=0; no completion producer supplied
+AF-TASK-BOUNDARY queue=95 pc=6004cea0 error=OM3CaptureKernelModelProof$CompletionWait: AF-INFINITE-WAIT flag=68 mask=00100000 pc=6004cea0 task=95 pending95=0 pending94=0; no completion producer supplied

@@ -1,0 +1,58 @@
+MODEL:AF-task-identity-from-ROM queue=95 task=106
+MODEL:AF-task-identity-from-ROM queue=95 task=106
+MODEL:AF-task-identity-from-ROM queue=95 task=106
+MODEL:AF-task-identity-from-ROM queue=94 task=105
+MODEL:AF-task-identity-from-ROM queue=94 task=105
+MODEL:AF-task-identity-from-ROM queue=94 task=105
+MODEL:AF-task-identity-from-ROM queue=94 task=105
+MODEL:AF-task-identity-from-ROM queue=94 task=105
+MODEL:AF-task-identity-from-ROM queue=94 task=105
+AF-CONSUMERS-QUIESCENT after matrix-edge=1 rounds=0
+AF-WORKER-SUBMIT command=100 packet=630000000000080000010000dcbe0f70 payload=700fbedc bytes=718d3c60000100000000000000000000000000008b8d3c6000000000000000000000000000020000000000000000000000000000000000000000000063000000 owner=2 subject=0
+MODEL:AF-task-identity-from-ROM queue=95 task=106
+MODEL:AF-task-identity-from-ROM queue=95 task=106
+MODEL:AF-task-identity-from-ROM queue=94 task=105
+MODEL:AF-task-identity-from-ROM queue=94 task=105
+AF-CACHE-ACCESS task=94 owner=2 active-cache=a031ea00 bytes=0e020200010001000000 subject=0
+AF-CACHE-ACCESS task=94 owner=2 active-cache=a031ea00 bytes=0e020200010001000000 subject=0
+MODEL:AF-task-identity-from-ROM queue=94 task=105
+MODEL:AF-task-identity-from-ROM queue=94 task=105
+MODEL:AF-task-identity-from-ROM queue=94 task=105
+MODEL:AF-task-identity-from-ROM queue=94 task=105
+MODEL:AF-task-identity-from-ROM queue=94 task=105
+AF-INFINITE-WAIT flag=67 mask=00000001 pc=6004cea0 task=94 pending95=0 pending94=0; no completion producer supplied
+SCHED:park queue=94 flag=67 mask=00000001 mode=1 pc=6004cea0 stack=[94, 95] (infinite wait unsatisfied; native context kept)
+MODEL:AF-task-identity-from-ROM queue=95 task=106
+MODEL:AF-task-identity-from-ROM queue=95 task=106
+SCHED:resume-parked queue=94 flag=67 mask=00000001 pattern=00000001
+MODEL:AF-task-identity-from-ROM queue=94 task=105
+MODEL:AF-task-identity-from-ROM queue=94 task=105
+MODEL:AF-task-identity-from-ROM queue=95 task=106
+MODEL:AF-task-identity-from-ROM queue=95 task=106
+AF-CONSUMERS-QUIESCENT after matrix-edge=2 rounds=1
+AF-CONSUMERS-QUIESCENT after matrix-edge=3 rounds=0
+AF-CONSUMERS-QUIESCENT after matrix-edge=4 rounds=0
+AF-CONSUMERS-QUIESCENT after matrix-edge=5 rounds=0
+AF-CONSUMERS-QUIESCENT after matrix-edge=6 rounds=0
+AF-CONSUMERS-QUIESCENT after matrix-edge=7 rounds=0
+AF-CONSUMERS-QUIESCENT after matrix-edge=8 rounds=0
+AF-CONSUMERS-QUIESCENT after matrix-edge=9 rounds=0
+AF-CONSUMERS-QUIESCENT after matrix-edge=10 rounds=0
+AF-CONSUMERS-QUIESCENT after matrix-edge=11 rounds=0
+AF-CONSUMERS-QUIESCENT after matrix-edge=12 rounds=0
+AF-CONSUMERS-QUIESCENT after matrix-edge=13 rounds=0
+AF-CONSUMERS-QUIESCENT after matrix-edge=14 rounds=0
+AF-CONSUMERS-QUIESCENT after matrix-edge=15 rounds=0
+AF-CONSUMERS-QUIESCENT after matrix-edge=16 rounds=0
+AF-CONSUMERS-QUIESCENT after matrix-edge=17 rounds=0
+AF-CONSUMERS-QUIESCENT after matrix-edge=18 rounds=0
+AF-CONSUMERS-QUIESCENT after matrix-edge=19 rounds=0
+AF-CONSUMERS-QUIESCENT after matrix-edge=20 rounds=0
+AF-CONSUMERS-QUIESCENT after matrix-edge=21 rounds=0
+AF-CONSUMERS-QUIESCENT after matrix-edge=22 rounds=0
+AF-CONSUMERS-QUIESCENT after matrix-edge=23 rounds=0
+AF-CONSUMERS-QUIESCENT after matrix-edge=24 rounds=0
+AF-CONSUMERS-QUIESCENT after matrix-edge=25 rounds=0
+AF-CONSUMERS-QUIESCENT after matrix-edge=26 rounds=0
+AF-CONSUMERS-QUIESCENT after matrix-edge=27 rounds=0
+AF-CONSUMERS-QUIESCENT after matrix-edge=28 rounds=0

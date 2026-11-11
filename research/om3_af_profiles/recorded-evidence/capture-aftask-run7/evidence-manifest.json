@@ -1,0 +1,15 @@
+{
+  "run": "capture-aftask-run7",
+  "probe": "scripts/OM3CaptureAfTaskProof.java (run6 + observation-only state-12 logging)",
+  "results_identical_to_run6": true,
+  "sha256": {
+    "scripts/OM3CaptureAfTaskProof.java": "54c2975f5ba0826148c54fc255c9829bf3d1d21d2ad22b835c5aa146c287ef5a",
+    "analysis/button-af/readiness/capture-aftask-run7/af-task-outcome.txt": "0ed88920d938ff73971f01ab6280bab3aa373d55c061d63e0708c3bcacc2e6ad",
+    "analysis/button-af/readiness/capture-aftask-run7/af-task-log.txt": "bd54ab309e42bca123eba76e57ca798756dea3dbf12588d86e3a98e50e5ed97a",
+    "analysis/button-af/readiness/capture-aftask-run7/full-shooting-results.txt": "72b8ae288a9897f1f93671506cfe9f103bf91b126a1a3f99f76fde3ca389998e",
+    "analysis/button-af/readiness/capture-aftask-run7/capture-connection-trace.txt": "05e77b74adeac556acb437f8cc49997a422401afe9dc4cfbd64a4744ef0a6cb6",
+    "analysis/button-af/readiness/capture-aftask-run7/full-shooting-trace-1.txt": "a4db0090d16552db22290bb742d8f6dc0956646ee2af78e5e58c4e2a9c304642",
+    "analysis/button-af/readiness/capture-aftask-run7/full-shooting-trace-2.txt": "8c3153f2be02ef8822bdcb03817e7c5caf6717c4162155e5ca381db6f16d4c62"
+  },
+  "not_established": ["backend activation","AF-ON response","AF start command 0x2a/0x2c","AF acquisition","normal boot"]
+}

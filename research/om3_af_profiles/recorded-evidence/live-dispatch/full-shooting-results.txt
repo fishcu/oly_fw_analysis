@@ -1,0 +1,4 @@
+RETURNED original handler 610b9197 under heap/create models and supplied shooting context; downstream AF completion not asserted
+RETURNED original handler 610b962a under heap/create models and supplied shooting context; downstream AF completion not asserted
+RETURNED original handler 610b9653 under heap/create models and supplied shooting context; downstream AF completion not asserted
+RETURNED original handler 610b96f0 under heap/create models and supplied shooting context; downstream AF completion not asserted

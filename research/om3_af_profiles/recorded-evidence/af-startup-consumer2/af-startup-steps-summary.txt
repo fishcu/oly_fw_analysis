@@ -1,0 +1,27 @@
+MODEL:current-task=1 pool-output=a3456e84 site=6004f404 (inherited task-1 value; output range widened)
+MODEL:current-task=1 pool-output=a3457084 site=6004f404 (inherited task-1 value; output range widened)
+MODEL:current-task=1 pool-output=a3457284 site=6004f404 (inherited task-1 value; output range widened)
+ERRLOG-CALL site=601f0030 code=24000615 D1=00000001 stack-args=3,15c,1e,13 (native)
+ERRLOG-CALL site=601f0030 code=24000615 D1=00000001 stack-args=3,15c,70,13 (native)
+ERRLOG-CALL site=601f0030 code=24000615 D1=00000001 stack-args=3,15c,2d,13 (native)
+ERRLOG-CALL site=601f0030 code=24000615 D1=00000001 stack-args=3,15c,44,13 (native)
+ERRLOG-CALL site=601f0030 code=24000615 D1=00000001 stack-args=3,15c,8,13 (native)
+ERRLOG-CALL site=601f0030 code=24000615 D1=00000001 stack-args=3,15c,42,13 (native)
+ERRLOG-CALL site=601f0030 code=24000615 D1=00000001 stack-args=3,15c,3d,13 (native)
+ERRLOG-CALL site=601f0030 code=24000615 D1=00000001 stack-args=3,15c,1d,13 (native)
+MODEL:current-task=1 pool-output=a3457484 site=6004f404 (inherited task-1 value; output range widened)
+SUPPLIED-INPUT:stock module init 602ef888 (startup sequence 60045907 step 60045b09) run directly; a32c9c24 before=00000000
+INPUT-FIXTURE:discarded IRQ read 97f00000 representative 0
+MODULE-INIT 602ef888 returned; a32c9c24=a3193780 a32c9c2c=a31d17b0
+SUPPLIED-INPUT:stock AF module init 608fe1b0 (startup task 602188f1 step 6021897f) run directly; context before=00000000
+MODEL:large-memset n=11800 dst=a5ee5000 value=00 site=60947242
+SUPPLIED-INPUT:stock AF worker defaults 609df7e4 (task 602188f1 step 6021898d) run directly; a33f3674 before=00
+AF-DEFAULTS returned; a33f3674=01 a33f3640=01 a33f364f=00
+AF-MODULE-INIT returned; worker context a33f3614=a33f2d5c a33f3618=a33f2d5c a33f361c=a33f2d90
+MODEL:current-task=1 pool-output=a3457684 site=6004f404 (inherited task-1 value; output range widened)
+MODEL:current-task=1 pool-output=a3457884 site=6004f404 (inherited task-1 value; output range widened)
+ERRLOG-CALL site=60903fd5 code=0f804001 D1=00000002 stack-args=3,9e9,13,0 (native)
+ERRLOG-CALL site=60903fd5 code=0f804001 D1=00000002 stack-args=3,9e9,13,0 (native)
+ERRLOG-CALL site=607115dc code=0f803003 D1=00000003 stack-args=4,3e4,20001,0 (native)
+ERRLOG-CALL site=60903fd5 code=0f804001 D1=00000002 stack-args=3,9e9,13,0 (native)
+ERRLOG-CALL site=60903fd5 code=0f804001 D1=00000002 stack-args=3,9e9,13,0 (native)

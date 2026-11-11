@@ -1,0 +1,15 @@
+PASS native section 2 whole-range load and early stock mode setter with section 4 deliberately absent; mode guard resides in the same loaded section as its hook, before owned button activity
+PASS failed native constructor mutex creation disables extension and forwards stock original-handler model without held-state change; resource retry creates mutex but requires explicit re-arm; no hardware startup assertion
+PASS live native RAM configuration, SCP=0: stock All half profile, stock Home single-point AF-ON, size, bypass and restoration; uncached extension state, immutable staging, owned mutex, modeled original bodies
+PASS live native RAM configuration, SCP=1: stock All half profile, stock Home single-point AF-ON, size, bypass and restoration; uncached extension state, immutable staging, owned mutex, modeled original bodies
+PASS live native RAM configuration, SCP=2: stock All half profile, stock Home single-point AF-ON, size, bypass and restoration; uncached extension state, immutable staging, owned mutex, modeled original bodies
+PASS live native RAM configuration, SCP=3: stock All half profile, stock Home single-point AF-ON, size, bypass and restoration; uncached extension state, immutable staging, owned mutex, modeled original bodies
+PASS live native RAM configuration, SCP=4: stock All half profile, stock Home single-point AF-ON, size, bypass and restoration; uncached extension state, immutable staging, owned mutex, modeled original bodies
+PASS live native RAM configuration, SCP=5: stock All half profile, stock Home single-point AF-ON, size, bypass and restoration; uncached extension state, immutable staging, owned mutex, modeled original bodies
+PASS live native RAM configuration, SCP=6: stock All half profile, stock Home single-point AF-ON, size, bypass and restoration; uncached extension state, immutable staging, owned mutex, modeled original bodies
+PASS integrated native RAM Home configuration: all 11 enum values x three supplied pose codes x four independent area/position enable combinations, shared focus=0; native converter oracle, AF-ON precedence and release ordering
+PASS integrated native RAM Home configuration: all 11 enum values x three supplied pose codes x four independent area/position enable combinations, shared focus=2; native converter oracle, AF-ON precedence and release ordering
+PASS 280 deterministic mixed button events across SCP Off and all six subject classes, latest SCP retained, both held orders and duplicate edges
+PASS instruction-boundary observation: 1984566 checks find current published ten-byte record unchanged until pointer replacement; does not prove cross-CPU cache ordering or lifetime of retained old pointers
+PASS owned accessor rejects invalid active pointer and executes native stock accessor fallback
+PASS both native target gates reject AF-ON before publication/original call, preserve active bytes, unlock, and recover on next valid event

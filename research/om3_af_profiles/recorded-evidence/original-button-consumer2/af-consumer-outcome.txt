@@ -1,0 +1,1 @@
+Conditional native AF consumer scheduling after original edges and before AF flag waits. Unsatisfied infinite waits remain blocked. ROM task IDs105/106 used. Quiescent schedules=0; profile matrix checks=2/28. No AF or device completion fabricated.

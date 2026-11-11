@@ -1,0 +1,4 @@
+Stock decoded SHA256=5e8d376e9111a44ac0352f26030d7c1b17026d42c45f3600cfa02a0e8c5b7d59
+Proposed in-memory decoded SHA256=4a988c57d1a15d2465292a296bfd60dd690cc0c76dd60ae8165848f847c5b325
+Changed bytes=3612; every byte justified; all changes confined to uncompressed sections 1/2/4; section 7 stock-identical; checksums not repaired; no image emitted
+FIXTURE:section-7 decoded bytes already supplied; bit 6 set explicitly (compressed loader not run)

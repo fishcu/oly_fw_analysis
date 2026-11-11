@@ -1,0 +1,32 @@
+{
+  "scope": "One stock-reset connection with inherited explicit models and silent SCPU; deliberately stops before original buttons.",
+  "sha256": {
+    "analysis/button-af/readiness/backend-start-trace1/af-sends.txt": "10448132bda28bd6b81d92a0cf50f7f5842c5555fda6da86f554f7ed9319541b",
+    "analysis/button-af/readiness/backend-start-trace1/af-task-log.txt": "6aa9578da23a8e69dc769889294ac8a0e184913501554f062798992539ddcf31",
+    "analysis/button-af/readiness/backend-start-trace1/af-task-outcome.txt": "bcfa59998bd54c69b1b1c1a921c74001e0b5b9e865b7ecb9f93114c1283cc61e",
+    "analysis/button-af/readiness/backend-start-trace1/backend-start-observations.txt": "11198ff51106ce4b3726b190f387d689c00bb32853e9cd828abbc9f12bab86b8",
+    "analysis/button-af/readiness/backend-start-trace1/backend-start-outcome.txt": "b006550dd68e909fe780f596f3d0c540b40ea7ac8f27820614d7e8eda964b3da",
+    "analysis/button-af/readiness/backend-start-trace1/backend-start-summary.json": "f9af3ade0cbd2e6330370a0a501b4d742719bc13d421346e77882649307def4a",
+    "analysis/button-af/readiness/backend-start-trace1/capture-connection-trace.txt": "86e02c16b8ac357212a5d893a9a80a38b384af5e2755471372317824f9c30c9f",
+    "analysis/button-af/readiness/backend-start-trace1/capture-factory-trace.txt": "bafd21cd769e43f564451109ef95af9c64e187badd4284a684c04891b3ad1cf1",
+    "analysis/button-af/readiness/backend-start-trace1/console.txt": "55f792811f2c5b3b9c7d1262aa06db47a4778db29a200e18bd5acce94678e9b1",
+    "analysis/button-af/readiness/backend-start-trace1/kernel-model-outcome.txt": "ac47e338224d28be23251acdb6fcff4fe51d2c6da61837a5239ae98470c22723",
+    "analysis/button-af/readiness/backend-start-trace1/link-outcome.txt": "cd97ef89033c184608b2db834756d1ffd406046b338990a50590e4714ca4e4d6",
+    "analysis/button-af/readiness/backend-start-trace1/live-profile-relocation-map.txt": "ba78ca924b150dcb710429d9ed55eacd115068de2efec046cc92591d1e669145",
+    "analysis/button-af/readiness/backend-start-trace1/reset-scenario.txt": "80bc0563de90abbfde8decf1b2b89a125a312361467e0e52ff4871512d591787",
+    "analysis/button-af/readiness/backend-start-trace1/run.log": "fe26794f37aa5541ee869edc41a6a0f260a01f175b162d09423ab2f4a7b18a96",
+    "analysis/button-af/readiness/backend-start-trace1/startup-trace.txt": "0bd6ec28af98ccc70fd5015ceb2f67f6cdc4a0ff738661ae4588ed82f2168871",
+    "analysis/button-af/readiness/backend-start-trace1/timeout-trace.txt": "86e02c16b8ac357212a5d893a9a80a38b384af5e2755471372317824f9c30c9f",
+    "scripts/OM3BackendStartTrace.java": "b1b554f3a5362386686efa5d12a98ce82c9e558451d330c5790aadd4e4139508",
+    "scripts/OM3CaptureAfTaskProof.java": "54c2975f5ba0826148c54fc255c9829bf3d1d21d2ad22b835c5aa146c287ef5a",
+    "scripts/OM3CaptureResetProof.java": "215fd668008a232dba2b58c6c268a900d15e6cdf166ae5451a1ff10a1751cde5",
+    "scripts/OM3CaptureTimeoutProof.java": "55e7c94c3fadee88133dcfd38f556870147a4215f53c3c00a69bb4f75ac8741a",
+    "scripts/OM3CaptureLinkProof.java": "4941ab1f1d40c843ff8fe4442c26697c9e7649a3a7d931fcbe98689407dba4d8",
+    "scripts/OM3CaptureKernelModelProof.java": "677c85333834960e5bf303d08f096dad3e46ba8c3e37637ee955bea2927449f2",
+    "scripts/OM3FullShooting.java": "30b345f0efcbc0925387d73ddcff7adc64a4a5a33560f2b2147e4502876065ae",
+    "scripts/summarize_backend_start.py": "508a3fdb80617f2908c864bcae2a7daf1d0a2604774cf1dcb82e7af57b8395c8",
+    "tooling/ghidra_12.2_PUBLIC/Ghidra/Extensions/MN10300/data/languages/mn103_base.sinc": "b955295524a6bdebb030e127d91296033d38aa22eeab4be3ac99a9bda2c76404",
+    "tooling/ghidra_12.2_PUBLIC/Ghidra/Extensions/MN10300/data/languages/mn103_mn10300.sla": "0892f3c043037685a90495fb98a6d8916359da3be113640906b25dfcd4538bb0",
+    "analysis/decoded/00_0100_50000020.decoded.bin": "5e8d376e9111a44ac0352f26030d7c1b17026d42c45f3600cfa02a0e8c5b7d59"
+  }
+}

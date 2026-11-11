@@ -1,0 +1,63 @@
+{
+  "observation_only": true,
+  "outcome": "OBSERVATION COMPLETE: one labelled stock-reset connection; deliberate stop before button execution\nNo new reply, event, backend pointer or lifecycle state supplied by this subclass.",
+  "line_counts": {
+    "ENTER-STATE4": 2,
+    "POST": 168,
+    "RESULT-CONSTRUCTOR": 21,
+    "BACKEND-HANDLER": 24,
+    "BACKEND-CLASS-RESULT": 12,
+    "SNAPSHOT": 4
+  },
+  "snapshots": [
+    {
+      "description": "SNAPSHOT obj=62b71778 vt=60f10f50 life=1879191280 state=1626419428 parent=00000000 event=00000000",
+      "words": {
+        "+0x94": "62b71778",
+        "+0x98": "00000000",
+        "+0xa8": "00000000",
+        "+0xb0": "70022ef0",
+        "+0xb4": "60f130e4",
+        "+0xfc": "00000004",
+        "+0x100": "0000000e",
+        "+0x108": "62b71768",
+        "+0x164": "60de4ed0",
+        "+0x168": "00000005"
+      }
+    },
+    {
+      "description": "SNAPSHOT obj=62b71f9c vt=60ebc334 life=4 state=4 parent=62b71778 event=00000000",
+      "words": {
+        "+0x94": "62b4e834",
+        "+0x98": "60de4ed0",
+        "+0xa8": "62b71778",
+        "+0xb0": "00000004",
+        "+0xb4": "00000004",
+        "+0xfc": "00000001",
+        "+0x100": "00000000",
+        "+0x108": "00000000",
+        "+0x164": "00000000",
+        "+0x168": "00000000"
+      }
+    },
+    {
+      "description": "SNAPSHOT obj=62b72f2c vt=60ebda38 life=4 state=4 parent=62b71778 event=00000000",
+      "words": {
+        "+0x94": "62b4e834",
+        "+0x98": "60de4ed0",
+        "+0xa8": "62b71778",
+        "+0xb0": "00000004",
+        "+0xb4": "00000004",
+        "+0xfc": "00000000",
+        "+0x100": "00000000",
+        "+0x108": "00000000",
+        "+0x164": "00000000",
+        "+0x168": "00000000"
+      }
+    }
+  ],
+  "type_key_observations": [
+    "SNAPSHOT key269-object=5881de6069020000010000000000000000000000000000000000000000000000 type=0269 router=obj=62b7315c vt=60f11758 life=4 state=12 parent=62b73870 event=00000000"
+  ],
+  "scope": "One stock-reset connection with inherited explicit models and silent SCPU; deliberately stops before original buttons."
+}

@@ -1,0 +1,53 @@
+CAPTURE-RESET RERUN WITH THE CARRY-FIXED MN10300 LANGUAGE (7 November)
+=====================================================================
+Labelled stock-reset scenario (not a normal boot). Same probe
+(OM3CaptureResetProof.java), same 2,000,000-instruction cap -- the cap was NOT
+raised. The only change from the baseline run (../capture-reset/) is the fixed
+MN10300 SLEIGH language. SCPU still modelled as silent.
+
+WHAT CHANGED
+------------
+Baseline (unfixed language): the last trace lines are three consecutive
+  native-call:6004c266 before the connection boundary -- the run was stuck
+  inside the u32->double converter 0x6004c266, whose normalize loop never
+  terminated because of the aliased-add carry defect, and hit the 2,000,000-
+  instruction cap there. Baseline AF-QUEUE-SEND count: 0.
+
+Carry-fixed: 0x6004c266 now terminates. The connection runs past it and:
+  - receives on buffer 207 (RPC) and buffer 1028,
+  - creates reply message buffer 1032 (0x408),
+  - SENDS a 16-byte command to AF command queue 95:
+      bytes = 08040000 02000000 1d000000 4c70a962
+      word0 = 0x00000408 = 1032 (the reply-buffer id just created)
+      (offsets 6,7 were never written by firmware; the model zero-filled them)
+  - then issues a blocking receive on buffer 1032 with timeout=0xffffffff
+    (wait forever), which would block with no peer to answer.
+
+  Terminating boundary (console): "Message-buffer receive would block id=1032
+  timeout=ffffffff". No "Native bound exceeded" this run. Final connection log:
+  CONNECTION:boundary state=12 backend=00000000 requested=62b71778
+  (backend still 0 -> the capture backend did not connect).
+
+INTERPRETATION (measured)
+-------------------------
+- Confirms the 2M-instruction cap-stop was the carry-defective non-termination
+  in 0x6004c266: baseline stalls there; the fixed run sails through it.
+- First QUEUE-95 send observed in any of these probes. Decoding the captured
+  16-byte envelope against the queue-95 dispatch map (analysis/review/queue95/,
+  decoder scripts/decode_om3_queue95.py; see captured-envelope-decode.json here)
+  gives command index 0x1d / 29 -> handler 0x603c641a, classified a
+  "specialized-handler". This is NOT the AF start/end family (0x2a/0x2b/0x2c ->
+  0x603c86d7/af3/d14). So this send is part of the CONNECTION/capture handshake,
+  NOT an AF focus request; it carries the reply-buffer id (1032), not a LOCK_START.
+  What handler 0x603c641a does is not disassembled here.
+- The run then stops at a GENUINE inter-task/peer dependency: a blocking receive
+  on buffer 1032 that only a serviced queue-95 handler (or the SCPU reply chain)
+  would satisfy. A single-context emulation schedules no such task, and the
+  harness correctly refused to fabricate a reply (BOUNDARY, not a fake success).
+
+NOT ESTABLISHED (unchanged)
+---------------------------
+Normal boot; a successful SCPU exchange; the original button handlers; AF
+acquisition; backend connection (backend=0). This relocates the gate-1 boundary
+from a tooling artifact (instruction cap) to a real peer dependency; it does not
+close gate 1. Readiness position unchanged: NO-GO. No firmware image was changed.

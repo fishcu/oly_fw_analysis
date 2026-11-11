@@ -1,0 +1,2 @@
+OBSERVATION COMPLETE: conditional native mode-selection connection; stopped before original buttons
+Supplied stock-constructed mode input 0x1a4. No completion reply, backend pointer or lifecycle value supplied by this subclass. Inherited reset, OS models and silent SCPU remain explicit fixtures.

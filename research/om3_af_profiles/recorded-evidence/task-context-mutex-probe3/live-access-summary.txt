@@ -1,0 +1,17 @@
+AUDITED live blocks=9 + ENSURE(66 B) + installer v4(105 B) + hook + 2 patched sites + table
+ACCESS-LOADED-BITS-UNCACHED-R      1
+ACCESS-STATE-UNCACHED-R            41
+ACCESS-STATE-UNCACHED-W            28
+ACCESS-STOCK-CACHED-R              2
+ACCESS-STOCK-UNCACHED-R            11
+REL-KNOWN-INSTALLER-TABLE-R        2
+REL-KNOWN-STATE-UNCACHED-R         4
+REL-KNOWN-STATE-UNCACHED-W         10
+REL-KNOWN-STOCK-UNCACHED-R         2
+REL-UNKNOWN-BASE                   42
+SPANS-BLOCK-END                    1
+STACK-ACCESS                       137
+TABLE-FIELD-SECTION7-CACHED-W      4
+TARGET-HOOK-RESUME                 1
+TARGET-NOT-FUNCTION-START          43
+TARGET-PLACED                      147

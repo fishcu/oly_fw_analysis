@@ -1,0 +1,2 @@
+RETURNED shutter half press [SCP=0]; acquisition and hardware completion not asserted
+BOUNDARY pc=70fff000: java.lang.Exception: Message-buffer receive would block id=93 timeout=ffffffff

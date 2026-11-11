@@ -1,0 +1,1 @@
+Explicit native MODE_START0 / MODE_UPDATE2 inputs to queue94 before original buttons. Not proof of their physical boot producer/timing. No worker state or AF acknowledgement written by the fixture. Prepared=true.

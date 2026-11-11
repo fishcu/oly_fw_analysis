@@ -1,0 +1,108 @@
+[
+  {
+    "input_u32": 0,
+    "correct_carry": {
+      "terminated": true,
+      "iterations": 0,
+      "bits": "0000000000000000"
+    },
+    "emitted_carry": {
+      "terminated": true,
+      "iterations": 0,
+      "bits": "0000000000000000"
+    }
+  },
+  {
+    "input_u32": 1,
+    "correct_carry": {
+      "terminated": true,
+      "iterations": 31,
+      "bits": "3ff0000000000000"
+    },
+    "emitted_carry": {
+      "terminated": false,
+      "iterations": 65,
+      "high": "0x0",
+      "low": "0x0"
+    }
+  },
+  {
+    "input_u32": 3,
+    "correct_carry": {
+      "terminated": true,
+      "iterations": 30,
+      "bits": "4008000000000000"
+    },
+    "emitted_carry": {
+      "terminated": true,
+      "iterations": 29,
+      "bits": "4018000000000000"
+    }
+  },
+  {
+    "input_u32": 4,
+    "correct_carry": {
+      "terminated": true,
+      "iterations": 29,
+      "bits": "4010000000000000"
+    },
+    "emitted_carry": {
+      "terminated": false,
+      "iterations": 65,
+      "high": "0x0",
+      "low": "0x0"
+    }
+  },
+  {
+    "input_u32": 7,
+    "correct_carry": {
+      "terminated": true,
+      "iterations": 29,
+      "bits": "401c000000000000"
+    },
+    "emitted_carry": {
+      "terminated": true,
+      "iterations": 28,
+      "bits": "402c000000000000"
+    }
+  },
+  {
+    "input_u32": 2048,
+    "correct_carry": {
+      "terminated": true,
+      "iterations": 20,
+      "bits": "40a0000000000000"
+    },
+    "emitted_carry": {
+      "terminated": true,
+      "iterations": 20,
+      "bits": "40a0000000000000"
+    }
+  },
+  {
+    "input_u32": 2147483648,
+    "correct_carry": {
+      "terminated": true,
+      "iterations": 0,
+      "bits": "41e0000000000000"
+    },
+    "emitted_carry": {
+      "terminated": true,
+      "iterations": 0,
+      "bits": "41e0000000000000"
+    }
+  },
+  {
+    "input_u32": 4294967295,
+    "correct_carry": {
+      "terminated": true,
+      "iterations": 0,
+      "bits": "41efffffffe00000"
+    },
+    "emitted_carry": {
+      "terminated": true,
+      "iterations": 0,
+      "bits": "41efffffffe00000"
+    }
+  }
+]

@@ -1,0 +1,19 @@
+{
+  "documented_at_utc": "2026-11-07T11:47:28.406398+00:00",
+  "base_manifest": "analysis\\button-af\\readiness\\live-evidence-manifest.json",
+  "base_manifest_sha256": "99575f963451d60d8388ef3cbd353b98f32c7eeab6c8a1672ce05919484f95c4",
+  "base_source_hashes_still_match": true,
+  "integrated_payload_sha256": "961f3dbb7049fb2653edb19f3bf840919651f911a23c64636985a6a637b6450a",
+  "files": {
+    "scripts\\OM3CaptureTransportProof.java": "f6adeea2d285a11b4f25206895894dce2afb0f2e56db149de33b45c523513569",
+    "analysis\\button-af\\readiness\\capture-transport\\capture-transport-outcome.txt": "3ff0b55d0e29e565c013ccc61a6df9f7f7de2961588cc732eb84df906a1e7b58",
+    "analysis\\button-af\\readiness\\capture-transport\\capture-transport-trace.txt": "4bba8791ac9edcc2c33aa43e44812a08be182a66d181772b467e37134a854996",
+    "analysis\\button-af\\readiness\\capture-transport\\run2.log": "ef15374098b9107db84e71345ae1b23bfdbd462fa40fc7195972baa511da5018",
+    "analysis\\button-af\\readiness\\backend-native\\command-wait.asm": "4e51c5faf5b8a93c7e11d170d2323b6b09b6bd20fbbd295138cfc4c4880eb899",
+    "analysis\\button-af\\readiness\\backend-native\\command40-producer.asm": "d291e289c9a0460c2cf80d4f11b5414eb58ebe4bc6992f17e652cc0e2f3b5bb4",
+    "analysis\\button-af\\readiness\\backend-native\\command8.asm": "e0ace0672ddfc64006a37d092a7f77fce6d1b766541867f97afce8f94632a3ba",
+    "analysis\\button-af\\readiness\\backend-native\\capture-task-start.asm": "5d732bdf2c579756b2eadc7a3e34bb0e4463d181d614cc2168cb93318ec7e95f"
+  },
+  "scope": "Conditional native command-40 packet construction only; explicit command guard, heap and ROM primitive models. Task-207 scheduling/RPC bypassed. Stops before transport submission. No reply or AF completion fabricated.",
+  "status": "BOUNDARY; NOT READY TO FLASH"
+}

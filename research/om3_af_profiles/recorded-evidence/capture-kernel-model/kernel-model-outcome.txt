@@ -1,0 +1,1 @@
+BOUNDARY event-114 connection reaches native transport 6007a7b5 through modelled message buffers and the stock task-207 loop (port=2 length=36); no submission, peer reply or AF completion tested

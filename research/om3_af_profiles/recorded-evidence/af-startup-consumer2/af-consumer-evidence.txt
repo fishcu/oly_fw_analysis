@@ -1,0 +1,22 @@
+MODEL:AF-task-identity-from-ROM queue=95 task=106
+MODEL:AF-task-identity-from-ROM queue=95 task=106
+MODEL:AF-task-identity-from-ROM queue=95 task=106
+MODEL:AF-task-identity-from-ROM queue=94 task=105
+MODEL:AF-task-identity-from-ROM queue=94 task=105
+MODEL:AF-task-identity-from-ROM queue=94 task=105
+MODEL:AF-task-identity-from-ROM queue=94 task=105
+MODEL:AF-task-identity-from-ROM queue=94 task=105
+MODEL:AF-task-identity-from-ROM queue=94 task=105
+AF-CONSUMERS-QUIESCENT after matrix-edge=1 rounds=0
+AF-WORKER-SUBMIT command=100 packet=630000000000080000010000dcbe0f70 payload=700fbedc bytes=718d3c60000100000000000000000000000000008b8d3c6000000000000000000000000000020000000000000000000000000000000000000000000063000000 owner=2 subject=0
+MODEL:AF-task-identity-from-ROM queue=95 task=106
+MODEL:AF-task-identity-from-ROM queue=95 task=106
+MODEL:AF-task-identity-from-ROM queue=94 task=105
+MODEL:AF-task-identity-from-ROM queue=94 task=105
+AF-CACHE-ACCESS task=94 owner=2 active-cache=a031ea00 bytes=0e020200010001000000 subject=0
+AF-CACHE-ACCESS task=94 owner=2 active-cache=a031ea00 bytes=0e020200010001000000 subject=0
+MODEL:AF-task-identity-from-ROM queue=94 task=105
+MODEL:AF-task-identity-from-ROM queue=94 task=105
+MODEL:AF-task-identity-from-ROM queue=94 task=105
+AF-TASK-BOUNDARY queue=94 pc=6004d115 error=java.lang.Exception: Message-buffer receive would block id=93 timeout=ffffffff
+AF-TASK-BOUNDARY queue=95 pc=6004cea0 error=java.lang.Exception: Message-buffer receive would block id=93 timeout=ffffffff

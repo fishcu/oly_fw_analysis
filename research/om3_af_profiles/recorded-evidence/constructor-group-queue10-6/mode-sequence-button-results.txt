@@ -1,0 +1,2 @@
+RETURNED AF-ON press; acquisition and hardware completion not asserted
+BOUNDARY pc=60dd92e0: java.lang.Exception: Heap contract

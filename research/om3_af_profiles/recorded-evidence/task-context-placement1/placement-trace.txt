@@ -1,0 +1,23 @@
+IMAGE:boot-time mutex initializer and section-4 constructor patch reverted to stock (no new code at boot)
+MODEL:5-static-data-queue-descriptors-from-stock-ROM-6003b908
+MODEL:218-static-message-buffer-descriptors-from-stock-ROM-6003bab4
+native-call:60045e6c
+GNU-multiply:60045ee2:12*0=0
+native-call:60070fd4
+MODEL:section-storage-and-cache-alias:a0134000:2011136
+native-call:60045e6c
+GNU-multiply:60045ee2:12*1=12
+native-call:60070fd4
+MODEL:section-2-storage-and-cache-alias
+native-call:60045e6c
+GNU-multiply:60045ee2:12*3=36
+native-call:60070fd4
+MODEL:section-storage-and-cache-alias:a0828000:2521088
+FIXTURE:key-port read 6007071e = no change
+FIXTURE:key-port read 60070793 = no change
+HOOK-RUN native-loaded-without-section7 installed=255 fields=610b9197 610b96f0 610b962a 610b9653 
+FIXTURE:key-port read 6007071e = no change
+FIXTURE:key-port read 60070793 = no change
+HOOK-RUN native-loaded-install installed=1 fields=6031eb80 6031ec99 6031edb2 6031eecb 
+TASK-CONTEXT feature mutex create at 6031eae9
+MODEL:owned-mutex-create:1000

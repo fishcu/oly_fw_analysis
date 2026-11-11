@@ -1,0 +1,2 @@
+BOUNDARY before complete mode-sequence connection snapshot
+Supplied stock-constructed inputs 0x1a4 then 0x1a1, with a native queue drain between them. Original button inputs/context are conditional fixtures. No completion reply, backend pointer or lifecycle value supplied. Inherited reset, OS models and silent SCPU remain fixtures.

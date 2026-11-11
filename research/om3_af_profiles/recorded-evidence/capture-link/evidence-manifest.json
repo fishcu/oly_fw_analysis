@@ -1,0 +1,19 @@
+{
+ "created": "2026-11-07",
+ "status": "BOUNDARY",
+ "outcome": "BOUNDARY hardware: native transport posted the 36-byte command-40 packet in slot a32c66b0 to data queue 2; the stock port-2 task 6007908c initialization reaches peripheral interrupt-mask register 9b8831a0 (ROM descriptor 60026900[191], logical interrupt 102, vector 77, handler 60074d3f, peripheral base 9b881b80); no device register state, interrupt, peer reply, flag-225 completion or AF acquisition supplied",
+ "scope": "Supplemental probe extending OM3CaptureKernelModelProof. Native transport 6007a7b5 (slot allocation, copy, length table). Explicit models: link spin-lock 60075f73/60075fbc, data-queue send/receive 60037413/600370b6 with five static data queues from ROM 0x6003b908. Stock port-2 receiver task 6007908c scheduled from its entry in a separate saved context when task 207 enters its positive-timeout wait on flag 225. Stops at the first peripheral register read during that task's initialization. No register state, interrupt, peer reply or completion is supplied.",
+ "not_included_in": "readiness/live-runs/20261107-063654 full run",
+ "sha256": {
+  "scripts/OM3CaptureKernelModelProof.java": "677c85333834960e5bf303d08f096dad3e46ba8c3e37637ee955bea2927449f2",
+  "scripts/OM3CaptureConnectedProof.java": "7a60ccfc4941b960d6c0e8f1dee0444728d561c922edd0dd7959fa7cf999717f",
+  "scripts/OM3CaptureFactoryProof.java": "ed1a970dfd71ce7fdd127d58654641c4ecdc3b1e13b0082201c5cbd173716574",
+  "scripts/OM3ReceiverStartupProof.java": "3f97d1f20fc722129c4dd0bbad768e662a65a97658428a4c9a97cf2098af59f8",
+  "analysis/decoded/00_0100_50000020.decoded.bin": "5e8d376e9111a44ac0352f26030d7c1b17026d42c45f3600cfa02a0e8c5b7d59",
+  "scripts/OM3CaptureLinkProof.java": "4941ab1f1d40c843ff8fe4442c26697c9e7649a3a7d931fcbe98689407dba4d8",
+  "analysis\\button-af\\readiness\\capture-link\\link-outcome.txt": "d7712a22458e71b79b7d16e551ace642f314fdf0c1f772ab664cc2f928a4bedd",
+  "analysis\\button-af\\readiness\\capture-link\\capture-connection-trace.txt": "d94f8268bc46432f6308a484a481f82937890199aa02f37a0d94071265e82956",
+  "analysis\\button-af\\readiness\\capture-link\\run.log": "cf75cea29bdc9319088f643e2fb389682ce2ed832226fd528662e1af30d61721"
+ },
+ "manifest_refreshed": "2026-11-07"
+}

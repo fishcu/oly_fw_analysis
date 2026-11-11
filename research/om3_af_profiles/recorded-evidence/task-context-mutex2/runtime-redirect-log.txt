@@ -1,0 +1,51 @@
+IMAGE:boot-time mutex initializer and section-4 constructor patch reverted to stock (no new code at boot)
+SECTION7-STOCK all four handler fields hold their stock handlers
+STATE after-boot S+6=1 S+17=0 S+20=00000000 installed=255
+FIXTURE:section-7 loaded bit set (image bytes present; loader not run by harness)
+E_CTX mutex create refused in interrupt context
+HOOK-RUN c0-v3-installer-interrupt-context installed=255 fields=610b9197 610b96f0 610b962a 610b9653 
+STATE c0 S+6=0 S+17=2 S+20=00000000 installed=255
+C0 FINDING-5 REPRODUCED: v3 installer in interrupt context -> E_CTX, S+6=0, S+17=2, no redirect
+FIXTURE:state reset after control (c0): S+6=1, S+17=0, S+20=0
+PLACEMENT ENSURE 6031ead0..6031eb12 (66 B), installer v4 6031eb12..6031eb7b (105 B): 171 of 176 B; table 607187d0 (48 B)
+HOOK-RUN c1-section7-not-loaded installed=255 fields=610b9197 610b96f0 610b962a 610b9653 
+STATE c1 S+6=1 S+17=0 S+20=00000000 installed=255
+HOOK-RUN c2-one-field-not-stock installed=255 fields=610b9197 610b96f0 12345678 610b9653 
+STATE c2 S+6=1 S+17=0 S+20=00000000 installed=255
+HOOK-RUN install installed=1 fields=6031eb80 6031ec99 6031edb2 6031eecb 
+STATE install S+6=1 S+17=0 S+20=00000000 installed=1
+INSTALL v4: four fields redirected from interrupt context with no OS call; mutex not yet created
+CONTROL c3: direct wrapper ABI call; GUI routing disabled for this control only, original body modeled
+STATE c3 S+6=0 S+17=2 S+20=00000000 installed=1
+C3 first wrapper call with create failure: stock handler ran, S+6=0, S+17=2
+FIXTURE:state reset after control (c3): S+6=1, S+17=0, S+20=0
+V4 READY: matrix follows; its first wrapper call must create the mutex in task context
+HOOK-RUN fast-path before edge 0 event 01000002 installed=1 fields=6031eb80 6031ec99 6031edb2 6031eecb 
+TASK-CONTEXT feature mutex create at 6031eae9
+HOOK-RUN fast-path before edge 1 event 01050007 installed=1 fields=6031eb80 6031ec99 6031edb2 6031eecb 
+HOOK-RUN fast-path before edge 2 event 01050008 installed=1 fields=6031eb80 6031ec99 6031edb2 6031eecb 
+HOOK-RUN fast-path before edge 3 event 01000003 installed=1 fields=6031eb80 6031ec99 6031edb2 6031eecb 
+HOOK-RUN fast-path before edge 4 event 01000002 installed=1 fields=6031eb80 6031ec99 6031edb2 6031eecb 
+HOOK-RUN fast-path before edge 5 event 01050007 installed=1 fields=6031eb80 6031ec99 6031edb2 6031eecb 
+HOOK-RUN fast-path before edge 6 event 01050008 installed=1 fields=6031eb80 6031ec99 6031edb2 6031eecb 
+HOOK-RUN fast-path before edge 7 event 01000003 installed=1 fields=6031eb80 6031ec99 6031edb2 6031eecb 
+HOOK-RUN fast-path before edge 8 event 01000002 installed=1 fields=6031eb80 6031ec99 6031edb2 6031eecb 
+HOOK-RUN fast-path before edge 9 event 01050007 installed=1 fields=6031eb80 6031ec99 6031edb2 6031eecb 
+HOOK-RUN fast-path before edge 10 event 01050008 installed=1 fields=6031eb80 6031ec99 6031edb2 6031eecb 
+HOOK-RUN fast-path before edge 11 event 01000003 installed=1 fields=6031eb80 6031ec99 6031edb2 6031eecb 
+HOOK-RUN fast-path before edge 12 event 01000002 installed=1 fields=6031eb80 6031ec99 6031edb2 6031eecb 
+HOOK-RUN fast-path before edge 13 event 01050007 installed=1 fields=6031eb80 6031ec99 6031edb2 6031eecb 
+HOOK-RUN fast-path before edge 14 event 01050008 installed=1 fields=6031eb80 6031ec99 6031edb2 6031eecb 
+HOOK-RUN fast-path before edge 15 event 01000003 installed=1 fields=6031eb80 6031ec99 6031edb2 6031eecb 
+HOOK-RUN fast-path before edge 16 event 01000002 installed=1 fields=6031eb80 6031ec99 6031edb2 6031eecb 
+HOOK-RUN fast-path before edge 17 event 01050007 installed=1 fields=6031eb80 6031ec99 6031edb2 6031eecb 
+HOOK-RUN fast-path before edge 18 event 01050008 installed=1 fields=6031eb80 6031ec99 6031edb2 6031eecb 
+HOOK-RUN fast-path before edge 19 event 01000003 installed=1 fields=6031eb80 6031ec99 6031edb2 6031eecb 
+HOOK-RUN fast-path before edge 20 event 01000002 installed=1 fields=6031eb80 6031ec99 6031edb2 6031eecb 
+HOOK-RUN fast-path before edge 21 event 01050007 installed=1 fields=6031eb80 6031ec99 6031edb2 6031eecb 
+HOOK-RUN fast-path before edge 22 event 01050008 installed=1 fields=6031eb80 6031ec99 6031edb2 6031eecb 
+HOOK-RUN fast-path before edge 23 event 01000003 installed=1 fields=6031eb80 6031ec99 6031edb2 6031eecb 
+HOOK-RUN fast-path before edge 24 event 01000002 installed=1 fields=6031eb80 6031ec99 6031edb2 6031eecb 
+HOOK-RUN fast-path before edge 25 event 01050007 installed=1 fields=6031eb80 6031ec99 6031edb2 6031eecb 
+HOOK-RUN fast-path before edge 26 event 01050008 installed=1 fields=6031eb80 6031ec99 6031edb2 6031eecb 
+HOOK-RUN fast-path before edge 27 event 01000003 installed=1 fields=6031eb80 6031ec99 6031edb2 6031eecb 

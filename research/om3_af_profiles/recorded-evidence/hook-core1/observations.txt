@@ -1,0 +1,30 @@
+Hook task/core identification, 9 November 2026. Offline only (static listing + OM-Emu E147 lab, CPU 0 only).
+
+STATIC
+- 0x6017a5fc is registered by 0x6017a5d6 (mov 0x6017a5fc,A0) -> 0x600706b0, which stores it in the 4-slot
+  callback table 0xa32bff50 (count 0xa32bff60).
+- The only reader of the table is 0x600709dc: reads/clears the pending word 0x98e00098 (SCPU window) and
+  `calls` each slot (0x60070a11, return 0x60070a13).
+- 0x600709dc is attached as the handler of IRQ 0x140 (320), level 5, at 0x6007066c..77 via 0x6007602b, which
+  passes D1 = (0x8050), i.e. attaches on the CALLING core; 0x6004f86e attaches exclusively (clears the other
+  three banks). No other attach of IRQ 0x140 found (other 0x140 immediates are 320x240 sizes).
+- Caller: 0x60070482, called once from 0x60021249 in om3_application_entry's init chain (0x600210c5), the
+  boot core's pre-kernel path (OM-1 core spec: CPU 0 boots and starts the others).
+- Name table (0x61a56f../0x61a57...): UI_IN 0x55, CA_MAIN 0x3b, HIGHLEVEL_MAIN 0x3a: core field 0.
+- 0x60030659 (mutex create): reads the per-core nest byte (kcb+0x1c)->[0] and [1]; non-zero -> returns -25
+  (E_CTX) at 0x60030691.
+
+DYNAMIC (OM-Emu, breakpoints 0x6017a5fc and 0x610beb04, S1 down/up)
+- Engine 0x610beb04, event 0x01000002: running task tid 165 (0xa5, core field 0), entry disasm 0x510a711e,
+  SP 0x62453958 (task stack).
+- Hook 0x6017a5fc on S1 release: no task running; kcb(core 0)=0x600437c0, (kcb+0x1c)->0x62f1dcb4 = 01 (in
+  interrupt); interrupt stack kcb+0x70 = 0x62f05600, size 0x2000; SP 0x62f075e0 inside it; return address
+  0x60070a13 (slot dispatcher); 0x6004f6e4 (interrupt dispatch) and kcb 0x600437c0 on the stack.
+- Lab limit: OM-Emu runs CPU 0 only ((0x8050)=0) and makes the IRQ 320 attach in the init's place.
+
+CONCLUSIONS
+- Core: hook (IRQ 320 handler) and GUI engine (task 165) both run on core 0 -> the installer's cached-alias
+  section-7 stores are read by the same core's D-cache: Finding 1b closed (static + lab; hardware unconfirmed).
+- Context: the hook runs in INTERRUPT context. The consolidated installer's mutex create (0x60030659) would
+  return E_CTX there on the camera; the installer then disables the feature and never redirects (safe, but the
+  feature never activates). The Ghidra harness ran the hook with the nest byte 0, so it did not show this.

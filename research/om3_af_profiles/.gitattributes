@@ -1,0 +1,6 @@
+* -text whitespace=cr-at-eol
+scripts/OM3NativeFlow.java whitespace=cr-at-eol,-blank-at-eof
+trace_human_detection.py whitespace=cr-at-eol,-blank-at-eof
+
+# Unified patch context must preserve original blank lines and indentation.
+recorded-evidence/review/carry-fix/*.diff -whitespace

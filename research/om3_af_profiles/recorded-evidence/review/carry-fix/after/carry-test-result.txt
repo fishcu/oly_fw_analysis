@@ -1,0 +1,8 @@
+program=00_0100_50000020.decoded.bin languageID=mn10300:LE:32:mn10300
+instr@6004c28c=add D0,D0
+instr@6004c28d=rol D1
+add D0,D0 D0in=80000000 -> D0=00000000 CF=1 VF=1 ZF=1 NF=0
+add D0,D0 D0in=40000000 -> D0=80000000 CF=0 VF=1 ZF=0 NF=1
+add D0,D0 D0in=ffffffff -> D0=fffffffe CF=1 VF=0 ZF=0 NF=1
+add D0,D0 D0in=00000001 -> D0=00000002 CF=0 VF=0 ZF=0 NF=0
+normalize-loop seed D1=0 D0=80000000 bound=64 -> terminated at iteration 21

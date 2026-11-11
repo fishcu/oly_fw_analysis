@@ -1,0 +1,3 @@
+E_CTX refusals (interrupt context) = 1
+task-context mutex creates = 1
+state at end: S+6=1 S+17=1 S+20=00000412 installed=1

@@ -1,0 +1,190 @@
+{
+  "source_payload_sha256": "5e8d376e9111a44ac0352f26030d7c1b17026d42c45f3600cfa02a0e8c5b7d59",
+  "table_start": "6012028c",
+  "record_bytes": 12,
+  "terminator_address": "601203f4",
+  "scope": "Stock property-storage descriptors. Request header: reply buffer at +0, sender task ID at +4, command at +8, payload pointer at +12. Captured command is1, sender task is2. Command1 copies payload byte1 to key8101, one byte at6298d500. Earlier descriptor JSON scope incorrectly called it command2; descriptor rows are unchanged.",
+  "records": [
+    {
+      "index": 0,
+      "key": "0000",
+      "size": 100,
+      "storage": "6298d49c"
+    },
+    {
+      "index": 1,
+      "key": "0001",
+      "size": 2,
+      "storage": "6298d49c"
+    },
+    {
+      "index": 2,
+      "key": "0002",
+      "size": 2,
+      "storage": "6298d49e"
+    },
+    {
+      "index": 3,
+      "key": "0003",
+      "size": 1,
+      "storage": "6298d4a0"
+    },
+    {
+      "index": 4,
+      "key": "0100",
+      "size": 20,
+      "storage": "6298d4a2"
+    },
+    {
+      "index": 5,
+      "key": "0101",
+      "size": 1,
+      "storage": "6298d4a3"
+    },
+    {
+      "index": 6,
+      "key": "0102",
+      "size": 1,
+      "storage": "6298d4a5"
+    },
+    {
+      "index": 7,
+      "key": "0103",
+      "size": 1,
+      "storage": "6298d4b2"
+    },
+    {
+      "index": 8,
+      "key": "0104",
+      "size": 1,
+      "storage": "6298d4b3"
+    },
+    {
+      "index": 9,
+      "key": "0105",
+      "size": 1,
+      "storage": "6298d4b5"
+    },
+    {
+      "index": 10,
+      "key": "0200",
+      "size": 3,
+      "storage": "6298d4b6"
+    },
+    {
+      "index": 11,
+      "key": "0201",
+      "size": 1,
+      "storage": "6298d4b6"
+    },
+    {
+      "index": 12,
+      "key": "0202",
+      "size": 1,
+      "storage": "6298d4b8"
+    },
+    {
+      "index": 13,
+      "key": "0300",
+      "size": 68,
+      "storage": "6298d4ba"
+    },
+    {
+      "index": 14,
+      "key": "0301",
+      "size": 34,
+      "storage": "6298d4ba"
+    },
+    {
+      "index": 15,
+      "key": "0302",
+      "size": 2,
+      "storage": "6298d4be"
+    },
+    {
+      "index": 16,
+      "key": "0303",
+      "size": 2,
+      "storage": "6298d4c0"
+    },
+    {
+      "index": 17,
+      "key": "0304",
+      "size": 34,
+      "storage": "6298d4dc"
+    },
+    {
+      "index": 18,
+      "key": "0305",
+      "size": 2,
+      "storage": "6298d4e0"
+    },
+    {
+      "index": 19,
+      "key": "0306",
+      "size": 2,
+      "storage": "6298d4e2"
+    },
+    {
+      "index": 20,
+      "key": "0400",
+      "size": 2,
+      "storage": "6298d4fe"
+    },
+    {
+      "index": 21,
+      "key": "0401",
+      "size": 1,
+      "storage": "6298d4fe"
+    },
+    {
+      "index": 22,
+      "key": "0402",
+      "size": 1,
+      "storage": "6298d4ff"
+    },
+    {
+      "index": 23,
+      "key": "8001",
+      "size": 12,
+      "storage": "6298d500"
+    },
+    {
+      "index": 24,
+      "key": "8100",
+      "size": 6,
+      "storage": "6298d500"
+    },
+    {
+      "index": 25,
+      "key": "8101",
+      "size": 1,
+      "storage": "6298d500"
+    },
+    {
+      "index": 26,
+      "key": "8102",
+      "size": 1,
+      "storage": "6298d501"
+    },
+    {
+      "index": 27,
+      "key": "8103",
+      "size": 2,
+      "storage": "6298d502"
+    },
+    {
+      "index": 28,
+      "key": "8104",
+      "size": 2,
+      "storage": "6298d504"
+    },
+    {
+      "index": 29,
+      "key": "8200",
+      "size": 6,
+      "storage": "6298d506"
+    }
+  ],
+  "corrects_metadata_sha256": "ebe8427257a203f24d6162112896c753d54676c7e777ec61dd3ab253d7d9337a"
+}
