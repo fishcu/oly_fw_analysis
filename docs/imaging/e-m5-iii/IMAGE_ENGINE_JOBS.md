@@ -108,7 +108,11 @@ of the inputs.
   it refused a record, the worker stopped, and the next use of the image engine
   hung the camera until a battery pull.
 - **Physical camera test:** job 12 run without its setter completed, but its
-  output was not checked.
+  output was not checked. With its setter and the OM-5's geometry it runs on
+  E-M5 III live-view frames (2912 × 544): the reset form (no accumulator input)
+  passes the frame through, and add, slide and average give correct results.
+  Submitted from the live-view task it records CPU 1 in job byte 69, see
+  [Live ND](../../features/e-m5-iii/LIVE_ND.md#live-view-preview-on-the-e-m5-iii).
 
 ## Verification and limits
 
