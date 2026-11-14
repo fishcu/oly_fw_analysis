@@ -3,6 +3,35 @@
 Contributions for any Olympus or OM System camera are welcome: format details,
 function maps, hardware observations, tools, or corrections to existing findings.
 
+## Hardware testing for firmware patches
+
+Before merging or publishing a flashable firmware modification, we need
+confirmation from someone who installed it on the target camera and checked
+that the modified feature works. The contributor's own firsthand report is
+sufficient; photos or video are welcome but not required.
+
+The report must identify:
+
+- Camera model and base firmware version/build.
+- Exact tested build or firmware SHA-256.
+- Successful installation and boot, what behavior was checked, and the results.
+- Known problems and limits of the test.
+
+Emulator and static checks alone do not meet this requirement. It also applies
+to source-only patch definitions that generate installable firmware. A successful
+boot alone does not establish that the modified feature works.
+
+A build-tool change may refer to an existing camera test if it reproduces the
+tested firmware byte for byte; verify the output hash. Research notes, bounded
+probes and general tools remain welcome without a camera flash, provided their
+evidence and limitations are explicit. Do not present unverified findings as
+working camera features.
+
+Hardware confirmation is a minimum acceptance requirement, not a guarantee of
+safety or a substitute for technical review.
+
+## Research findings
+
 A useful finding states:
 
 1. Camera model, displayed firmware version, internal build and input hash.

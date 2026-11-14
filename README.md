@@ -4,6 +4,15 @@ Shared knowledge and tools for studying and modifying Olympus and OM System
 camera firmware. The repository covers update files, startup, settings, image
 processing and camera interfaces.
 
+> **Hardware testing is required for firmware patches.** Before merging or
+> publishing a flashable modification, we need a firsthand report that it was
+> installed successfully on the target camera and that the modified feature
+> works. Emulator and static checks alone are not enough. This also applies to
+> source-only patches that generate installable firmware. See the
+> [hardware-testing policy](CONTRIBUTING.md#hardware-testing-for-firmware-patches)
+> for the report requirements. Research notes and general tools remain welcome
+> with their evidence and limitations clearly stated.
+
 PEN-F has the deepest coverage. Comparisons also cover E-M1, E-M5 and E-M10
 models, E-P7, OM-3 and OM-5. Findings identify the model and firmware build;
 similar code does not imply identical hardware or interchangeable patches.
