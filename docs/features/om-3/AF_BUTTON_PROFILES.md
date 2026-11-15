@@ -23,7 +23,12 @@ components. Run from the repository root; use a new local output directory.
 ```sh
 python tools/oly_container.py /path/to/OLY_E_147_1100_0000_0000.BIN --out /path/to/decoded
 python tools/om3_af_probe.py /path/to/decoded/00_0100_50000020.decoded.bin
+OM3_MAIN=/path/to/decoded/00_0100_50000020.decoded.bin python -m unittest tests/test_om3_af_probe.py
 ```
+
+The unit tests check envelope decoding and input pinning without firmware.
+With `OM3_MAIN` set, they also assert the page-27/28 rows and queue-95 AF
+handlers listed below for this exact image.
 
 Main addresses below use the CPU mapping `0x60021020 + decoded offset` for
 this image. They are distinct from logical flash and container addresses.

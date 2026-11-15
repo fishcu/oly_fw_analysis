@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
+# Copyright 2026 tsmkirby (original contributions)
 # SPDX-License-Identifier: Apache-2.0
+# Scope and third-party exceptions: see RIGHTS-AND-PROVENANCE.md.
 """Inspect exact-build OM-3 AF tables and optional offline queue-95 bytes."""
 import argparse
 from hashlib import sha256
@@ -53,6 +55,7 @@ def target_settings(main):
               0x90A1, 0x99D2, 0x9FA1, 0xDFA1, 0x90D1, 0x5A11}
     result = {}
     address = 0x600E4BEC
+    records = 0
     while address < 0x6011FE20:
         key, count = words(main, address, "HH")
         if key in wanted:
@@ -61,8 +64,14 @@ def target_settings(main):
             mapped = cells.get(key, {})
             result[key] = {"descriptor": hex(address), "count": count, "ui_ids": mapped,
                            "unmapped_indices": sorted(set(range(count)) - mapped.keys())}
-        address = (address + 4 + count * (key & 7) + 3) & ~3
-    if address != 0x6011FE20 or result.keys() != wanted:
+        # Stock settings-area width helper 0x60061333 uses two bits, not the
+        # typed-accessor mask (which would misread e.g. key 0x6bcd as width 5).
+        width = (key & 3) or 4
+        if width not in (1, 2, 4) or count == 0:
+            raise ValueError(f"invalid setting descriptor at {address:#010x}")
+        address = (address + 4 + count * width + 3) & ~3
+        records += 1
+    if address != 0x6011FE20 or records != 1215 or result.keys() != wanted:
         raise ValueError("unexpected settings table extent or missing key")
     return {f"0x{key:04x}": result[key] for key in sorted(result)}
 

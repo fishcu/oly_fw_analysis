@@ -462,6 +462,15 @@
       "adapted": true
     },
     {
+      "path": "tests/test_om3_af_probe.py",
+      "sha256": "974c42b3fdf3aa750ee8840d02a44e0b09491880a5f0d2335ec15d9a141b7ea0",
+      "bytes": 3710,
+      "origin": "original OM-3 AF probe tests; exact-build cases opt-in via OM3_MAIN",
+      "local_imports": [
+        "om3_af_probe"
+      ]
+    },
+    {
       "path": "tests/test_penf_alex_bulk_model.py",
       "sha256": "ab28db02d16c453ab37e4c1100dc261acff4e055e7e51d82b19419de2c5b4f23",
       "bytes": 7289,
@@ -1239,8 +1248,8 @@
     },
     {
       "path": "tools/om3_af_probe.py",
-      "sha256": "a61d48906b76493c68af8d9957def80d34d12d2f691939188d0cc64348910099",
-      "bytes": 6811,
+      "sha256": "0a27bc865bc41c503de622abfbbdc0e79681132a173bcfc6789dfe450f2271f5",
+      "bytes": 7296,
       "origin": "original OM-3 stock AF data probe and envelope decoder",
       "local_imports": [],
       "entry_point": true
@@ -3167,8 +3176,8 @@
     },
     {
       "path": "tools/run_checks.py",
-      "sha256": "5ebc6e13786bdc1881d8f293f1dc07a97d30a30956d582b6979762faa94b03c3",
-      "bytes": 2330,
+      "sha256": "cc74f28c9fb16f3b72b7f997337fb3aa530c706a2d159e2885fab86893fdc076",
+      "bytes": 2374,
       "origin": "original documentation, fixture or utility",
       "local_imports": [
         "penf_emulator"

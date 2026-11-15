@@ -39,6 +39,7 @@ def main():
     print(f"Parsed {len(files)} Python files; imported {len(modules)} tool modules.", flush=True)
     run_tests(ROOT, "test_oly_container.py")
     run_tests(ROOT, "test_penf_emulator_performance.py")
+    run_tests(ROOT, "test_om3_af_probe.py")
     run_tests(ROOT / "camera_client", "test_*.py")
     if args.loopback:
         run_tests(ROOT / "camera_client", "check_loopback.py")
