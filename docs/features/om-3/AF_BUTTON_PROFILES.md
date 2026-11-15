@@ -33,7 +33,7 @@ handlers listed below for this exact image.
 Main addresses below use the CPU mapping `0x60021020 + decoded offset` for
 this image. They are distinct from logical flash and container addresses.
 For code observations, import decoded main at that base with the pinned
-MN10300 language in the [archived setup](https://github.com/tsmkirby/oly_fw_analysis/blob/936f4e090499c677e4cfc4250ef890ce82bbe656/research/om3_af_profiles/README.md#reproduce-native-execution).
+MN10300 language in the [archived setup](https://github.com/tsmkirby/oly_fw_analysis/blob/9d320dc1e74c4e5de987f3776664057190e85c22/research/om3_af_profiles/README.md#reproduce-native-execution).
 Disassemble from the listed function entries and follow branch and call
 targets; the Python probe reads data and does not emulate instructions.
 
@@ -89,8 +89,8 @@ was not supplied. This uses stock-reset and shooting-context fixtures, a
 silent SCPU, supplied startup inputs and modeled OS/device services. It says
 nothing about the new menu, storage, physical focusing or update safety.
 
-To repeat the archived matrix, use the [pinned research checkout](https://github.com/tsmkirby/oly_fw_analysis/tree/936f4e090499c677e4cfc4250ef890ce82bbe656/research/om3_af_profiles),
-its Ghidra setup and [MN10300 carry correction](https://github.com/tsmkirby/oly_fw_analysis/blob/936f4e090499c677e4cfc4250ef890ce82bbe656/research/om3_af_profiles/recorded-evidence/review/carry-fix/README.md).
+To repeat the archived matrix, use the [pinned research checkout](https://github.com/tsmkirby/oly_fw_analysis/tree/9d320dc1e74c4e5de987f3776664057190e85c22/research/om3_af_profiles),
+its Ghidra setup and [MN10300 carry correction](https://github.com/tsmkirby/oly_fw_analysis/blob/9d320dc1e74c4e5de987f3776664057190e85c22/research/om3_af_profiles/recorded-evidence/review/carry-fix/README.md).
 From that checkout's research directory, generate the local assembly
 export as described in `DECOMPILATION.md` (used by the access audit), set
 `JAVA_HOME`, create a fresh output directory, and run:
@@ -100,10 +100,10 @@ analyzeHeadless /path/to/projects OM3_main_full -process 00_0100_50000020.decode
 ```
 
 Compare `original-button-matrix.txt`, `af-consumer-evidence.txt` and
-`task-context-mutex-summary.txt` with the [recorded run and source hashes](https://github.com/tsmkirby/oly_fw_analysis/tree/936f4e090499c677e4cfc4250ef890ce82bbe656/research/om3_af_profiles/recorded-evidence/task-context-mutex2).
+`task-context-mutex-summary.txt` with the [recorded run and source hashes](https://github.com/tsmkirby/oly_fw_analysis/tree/9d320dc1e74c4e5de987f3776664057190e85c22/research/om3_af_profiles/recorded-evidence/task-context-mutex2).
 The expected result includes exactly one feature mutex create in task context
 (modeled) and one LOCK_START submission. No AF or device completion was
 injected. Headless exit status alone is not a pass.
 
-Detailed [menu/storage notes](https://github.com/tsmkirby/oly_fw_analysis/blob/936f4e090499c677e4cfc4250ef890ce82bbe656/research/om3_af_profiles/analysis/button-af/AFON-MENU-RESEARCH.md)
+Detailed [menu/storage notes](https://github.com/tsmkirby/oly_fw_analysis/blob/9d320dc1e74c4e5de987f3776664057190e85c22/research/om3_af_profiles/analysis/button-af/AFON-MENU-RESEARCH.md)
 and the historical reports and hardware-planning logs stay in the fork.
