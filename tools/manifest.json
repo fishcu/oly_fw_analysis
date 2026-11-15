@@ -15,6 +15,7 @@
     "tools/ida/wine.py",
     "tools/oly_container.py",
     "tools/oly_release_inspect.py",
+    "tools/om3_af_probe.py",
     "tools/om3_code_space_audit.py",
     "tools/om3_preview_probe.py",
     "tools/om3_tethering_probe.py",
@@ -1235,6 +1236,14 @@
         "penf_sd_activation_audit"
       ],
       "entry_point": false
+    },
+    {
+      "path": "tools/om3_af_probe.py",
+      "sha256": "a61d48906b76493c68af8d9957def80d34d12d2f691939188d0cc64348910099",
+      "bytes": 6811,
+      "origin": "original OM-3 stock AF data probe and envelope decoder",
+      "local_imports": [],
+      "entry_point": true
     },
     {
       "path": "tools/om3_code_space_audit.py",

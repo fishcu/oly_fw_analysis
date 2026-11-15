@@ -175,6 +175,21 @@
     }
   ],
   "outputs": "Prefer generated/ for new outputs. Full raw reports can contain embedded firmware bytes, regardless of JSON file extension.",
+  "om3_af": {
+    "tool": "tools/om3_af_probe.py",
+    "arguments": {
+      "main": {
+        "sha256": "5e8d376e9111a44ac0352f26030d7c1b17026d42c45f3600cfa02a0e8c5b7d59",
+        "format": "decoded stock OM-3 E147 1.1 main component (build 1100)",
+        "cpu_base": "0x60021020"
+      },
+      "--resources": {
+        "sha256": "3d9fd4426b45fbe4b715599422af38c6d22392c08543a69f63c28291c5a0b059",
+        "format": "optional decoded stock component 0106 (build 0100)"
+      }
+    },
+    "scope": "Static probing and offline envelope decoding; no emulation, device or firmware writes."
+  },
   "om3_tethering": {
     "tool": "tools/om3_tethering_probe.py",
     "arguments": {
