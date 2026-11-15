@@ -47,10 +47,10 @@ python tools/om3_af_probe.py /path/to/decoded/00_0100_50000020.decoded.bin --res
 
 To reproduce the code observations, disassemble from the listed boundaries
 using the main-component import above and compare branch/call targets. The
-[pinned Human analysis](https://github.com/tsmkirby/oly_fw_analysis/blob/9d320dc1e74c4e5de987f3776664057190e85c22/research/om3_af_profiles/HUMAN-DETECTION-ANALYSIS.md)
+[pinned Human analysis](https://github.com/tsmkirby/oly_fw_analysis/blob/04df764a6a2c4c3eb0882ba67241bb91246f3721/research/om3_af_profiles/HUMAN-DETECTION-ANALYSIS.md)
 contains the fuller call map. The fork's `scripts/OM3HumanWindows.java` and
 `trace_human_detection.py` provide bounded windows, and its
-[static evidence](https://github.com/tsmkirby/oly_fw_analysis/blob/9d320dc1e74c4e5de987f3776664057190e85c22/research/om3_af_profiles/recorded-evidence/human-detection/verified-evidence.json)
+[static evidence](https://github.com/tsmkirby/oly_fw_analysis/blob/04df764a6a2c4c3eb0882ba67241bb91246f3721/research/om3_af_profiles/recorded-evidence/human-detection/verified-evidence.json)
 records the data checks. Model bytes and bulk listings are not included.
 
 For small subjects, a useful experiment would compare raw candidates with
