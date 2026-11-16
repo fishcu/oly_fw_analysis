@@ -105,5 +105,30 @@ The expected result includes exactly one feature mutex create in task context
 (modeled) and one LOCK_START submission. No AF or device completion was
 injected. Headless exit status alone is not a pass.
 
-Detailed [menu/storage notes](https://github.com/tsmkirby/oly_fw_analysis/blob/04df764a6a2c4c3eb0882ba67241bb91246f3721/research/om3_af_profiles/analysis/button-af/AFON-MENU-RESEARCH.md)
+**Live OM-Emu observation (2026-11-16):** A separate player-driven test on
+E147 1.1, OM-Emu commit `4e4ec4ef084542a7e30eecce56970c7e09c123c9` plus
+archived local changes, passes 12 button-handoff edges in each of S-AF and
+C-AF with Subject Detect Off. Native AF initialization and a central
+application-task hook restore the expected target records for both release
+orders. Native enum conversion fixes the earlier C-AF setup error (raw value
+1 was MF). This remains the AF Home prototype, without a separate editor.
+
+Full live acceptance is **0/14**: neither Off case demonstrates the complete
+queue-95/queue-94 AF worker chain, and all 12 nonzero-SCP cases stop before
+completing their first measured edge. Native callback `0x608418fe` returns
+but posts an unserved CPU3 event-flag request. Disassembly identifies flag
+`0x3003` at `0x6004367a`, receiving task `0x60841a6b`, and a subsequent loader
+at `0x60842bde` waiting on flag `0x3004`. Callback return is not proof of
+Subject Detect completion. Porting and validating E147's CPU3 task/flag
+service and native TAKE boot prerequisites remain necessary.
+
+The [reproduction bundle](https://github.com/tsmkirby/oly_fw_analysis/tree/a2b6d446783f85af67a1582618014d9ffdd5b1fc/research/om3_af_profiles/analysis/button-af/readiness/om-emu-af-native1/reproduction)
+contains exact-build requirements, tested sources, emulator patch, hashes and
+commands. The [14-case report](https://github.com/tsmkirby/oly_fw_analysis/blob/a2b6d446783f85af67a1582618014d9ffdd5b1fc/research/om3_af_profiles/analysis/button-af/readiness/om-emu-af-native1/matrix-cpu3-final/report.json)
+separates handoff from full acceptance. These live results do not extend the
+earlier fixture-based 28/28 result to physical focusing or update safety.
+The new section-7 hook has no packaging/placement proof; no flashable image
+is supplied.
+
+Detailed [menu/storage notes](https://github.com/tsmkirby/oly_fw_analysis/blob/a2b6d446783f85af67a1582618014d9ffdd5b1fc/research/om3_af_profiles/analysis/button-af/AFON-MENU-RESEARCH.md)
 and the historical reports and hardware-planning logs stay in the fork.
