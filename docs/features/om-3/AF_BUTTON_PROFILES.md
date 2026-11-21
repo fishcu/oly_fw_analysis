@@ -130,5 +130,66 @@ earlier fixture-based 28/28 result to physical focusing or update safety.
 The new section-7 hook has no packaging/placement proof; no flashable image
 is supplied.
 
+## Emulator acceptance of the separate AF-ON profile (2026-11-21)
+
+**Observed in the emulator, reproduced across two runs:** an emulator-only hook gives AF-ON its own saved zone,
+size and position, and the stock writer builds the AF-ON target record from it. The test harness launched two
+processes on E147 1.1, using OM-Emu commit `4e4ec4ef084542a7e30eecce56970c7e09c123c9` with the
+[archived local patch](https://github.com/tsmkirby/oly_fw_analysis/blob/06517cf15bca7cc63440f6c95ea98b7511fb4282/research/om3_af_profiles/analysis/button-af/readiness/om-emu-af-native1/reproduction/om-emu-local.patch)
+(CR-stripped SHA-256 `61cd13270e82f9bc5236c36c945783defda4c97a2e99f93b75f11da521877702`) and Node `v26.12.1`.
+
+- **Identity process:** ran 324 operations and recorded the full state of each.
+- **Proof process:** repeated the same operations, and every recorded field matched the identity run exactly.
+- **Checks:** both runs evaluated 1,096 cross-role checks with no failures. The checks compare a hooked candidate
+  against two unhooked controls on the same overlay: K1e, whose half press supplies the reference records, and K2.
+- **Subject Detect:** it was Off (`0x1e71[0] = 0`) in every operation.
+
+The checks establish:
+- AF-ON press record = K1e half-press record built from the same edited settings, in landscape and EXIF 6.
+- AF-ON release record = the candidate's own half-press record.
+- The edited profile is held separately from the live half-press settings, for each role.
+- After an edit and a pose change, the live cells equal K2's, and the hook makes no live store of the saved
+  position.
+- The writer reads the saved bank: 0 in landscape, 4 in EXIF 6.
+- The writer runs 3 times in the T8d sequence and 7 times across the zones.
+- For six zones and a custom size, the AF-ON press and release records equal K1e's half-press records.
+
+**Assumptions and limits:**
+- **Reference not shown equal to stock AF-ON.** The reference is the half-press record. Static analysis did not
+  decide whether stock AF-ON with "Always tracks" writes the same record as stock half press: one writer is shared,
+  but which inputs each button feeds it, a 1×1 centre substitution and publication timing are unresolved.
+- **Display not covered.** The EVF/monitor frame was not validated in this run. The display stage of the harness
+  failed in the emulator and is being redone.
+- **Not implemented:** menu row, persistent storage and the hook's firmware placement. No flashable image is
+  supplied.
+- **No hardware claim.** Nothing here was tested on a camera.
+
+To reproduce (Windows, because the harness uses a directory junction and Node's permission model):
+1. **Workspace layout:**
+   - `ref` is a junction to `research/om3_af_profiles` of the
+     [archive commit](https://github.com/tsmkirby/oly_fw_analysis/tree/06517cf15bca7cc63440f6c95ea98b7511fb4282/research/om3_af_profiles), with Node
+     v26.12.1 for Windows x64 unpacked at `ref/tooling/node-v26.12.1-win-x64/`.
+   - `om-emu` is OM-Emu at the commit above with the patch applied, set up as in its
+     [reproduction notes](https://github.com/tsmkirby/oly_fw_analysis/blob/06517cf15bca7cc63440f6c95ea98b7511fb4282/research/om3_af_profiles/analysis/button-af/readiness/om-emu-af-native1/reproduction/README.md).
+   - `inputs` holds the decoded main `0100` and resource `0106` from the table above.
+   - `work/harness` is a copy of the
+     [accepted harness](https://github.com/tsmkirby/oly_fw_analysis/tree/06517cf15bca7cc63440f6c95ea98b7511fb4282/research/om3_af_profiles/analysis/button-af/readiness/t13b-afon-core-proof/harness).
+2. From the workspace root, run the commands below.
+3. In each `work/out/<tag>.launch/exit.json`, expect `ok` and `valid` true, mode `real`, an empty problem list,
+   324 operations executed, and 1,096 relations evaluated with 0 failed. Expect a reproduction count of 324 for the
+   proof.
+
+```sh
+ref/tooling/node-v26.12.1-win-x64/node work/harness/test_v5.mjs check-1
+ref/tooling/node-v26.12.1-win-x64/node work/harness/make_freeze_v5.mjs cap-1
+ref/tooling/node-v26.12.1-win-x64/node work/harness/launch_v5.mjs identity id-1 --freeze-sha <digest printed by make_freeze>
+ref/tooling/node-v26.12.1-win-x64/node work/harness/launch_v5.mjs proof proof-1 --freeze-sha <same digest> --identity id-1
+```
+
+The freeze records the absolute path behind the `ref` junction, so a new checkout gets its own digest. The pure-Node
+tests (43) need no emulator. The [recorded runs](https://github.com/tsmkirby/oly_fw_analysis/tree/06517cf15bca7cc63440f6c95ea98b7511fb4282/research/om3_af_profiles/analysis/button-af/readiness/t13b-afon-core-proof)
+include the freeze (`03db7d9640965afbb4fa8fe39b58cb088de063f87ce63941cb0caa3d2d03ae92`), both exit and inventory
+records, every operation log, and file hashes.
+
 Detailed [menu/storage notes](https://github.com/tsmkirby/oly_fw_analysis/blob/a2b6d446783f85af67a1582618014d9ffdd5b1fc/research/om3_af_profiles/analysis/button-af/AFON-MENU-RESEARCH.md)
 and the historical reports and hardware-planning logs stay in the fork.
