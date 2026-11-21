@@ -3,9 +3,11 @@
 Research for **OM-3 E147, version 1.1, main build 1100**. The current design
 would let half press keep the normal AF target and give AF-ON a separate zone,
 size and position configured from the per-button AF page. Both would keep the
-shared S-AF/C-AF setting. AF Home stays independent. This design has no
-working menu or persistent profile implementation and is not a firmware patch
-for installation.
+shared S-AF/C-AF setting. AF Home stays independent. Subject Detect for AF-ON
+is left to the stock AF Button setting described under
+[Menu and settings](#menu-and-settings). This design has no working menu or
+persistent profile implementation and is not a firmware patch for
+installation.
 
 ## Inputs and static reproduction
 
@@ -49,13 +51,28 @@ targets; the Python probe reads data and does not emulate instructions.
   descriptor; `0x61203a81` matches setting IDs to its rows. The viewer also
   reads a runtime list model, so adding to the descriptor alone is not known
   to make a row appear. AEL/AFL operation settings use a different viewer.
-- **Unproven:** Page 27 is the proposed home for the new AF-ON zone row. Names
-  suggest stock per-button Subject Detect behavior, but its behavior for AF-ON
-  and the setting values' meanings are unconfirmed. The selected AF target
-  arrays have a UI mapping for every allocated cell. Neither that scan nor the
-  absence of a UI ID proves spare storage. Editor routing, persistent storage
-  ownership, reset/custom-mode behavior and the active EVF/monitor overlay
-  remain open.
+- **Observed on a stock camera:** On the contributor's OM-3 with stock
+  firmware, **Menu > AF > 2. AF > AF Button** offers two choices for AF-ON:
+  "Always tracks focus on the selected AF Target Point" and tracking a
+  subject detected at the selected target point. With the first selected,
+  AF-ON ignored Subject Detect. This is a firsthand observation of stock
+  behavior, without modified firmware or recorded media.
+- **Observed in the emulator:** Changing the page-27 rows through the menu
+  shows that stored value 0 renders "AF is always performed at the selected
+  AF target position" and value 1 renders detected-subject priority. The top
+  row commits only ID 2154 and the bottom row only ID 2155. A blank emulator
+  session reads 1 for both; the stock registration payload at `0x6011e790`
+  is `00 00`. Details are in the
+  [archived menu notes](https://github.com/tsmkirby/oly_fw_analysis/blob/06517cf15bca7cc63440f6c95ea98b7511fb4282/research/om3_af_profiles/analysis/button-af/AFON-MENU-RESEARCH.md#stock-per-button-subject-detect-setting-likely-answer-to-the-owners-belief).
+- **Unproven:** Page 27 is the proposed home for the new AF-ON zone row.
+  Which row belongs to AF-ON is inferred, not shown: the page help names the
+  shutter and AF-ON buttons, and the names suggest 2154 is the shutter
+  (`..._RELEASE`) and 2155 AF-ON (`..._CUSTOM_SW`). Whether 2155 follows the
+  physical key or the assignable AF-ON function is also open. The selected
+  AF target arrays have a UI mapping for every allocated cell. Neither that
+  scan nor the absence of a UI ID proves spare storage. Editor routing,
+  persistent storage ownership, reset/custom-mode behavior and the active
+  EVF/monitor overlay remain open.
 
 Normal area UI enum `0x99a1` is distinct from internal area kind `0x84d1`.
 Stock type conversion `0x609b3ecd` and target building `0x609b3c79` are
@@ -79,20 +96,139 @@ python tools/om3_af_probe.py /path/to/decoded/00_0100_50000020.decoded.bin --req
 Expect command `0x2a`, handler `0x603c86d7`, kind 5 and flags `0x4`.
 A reply status or start acknowledgement alone is not a focus result.
 
-**Emulator observation (earlier AF Home prototype):** The engine-routed
-press/release matrix passed 28/28 profile checks across seven SCP values.
-AF-ON took precedence while both buttons were held, used the AF Home target
-and suppressed detection; release restored the half-press profile. Only the
-first AF-ON press submitted LOCK_START and reached its native acknowledgement.
-Later starts were blocked after a display-output transition; its completion
-was not supplied. This uses stock-reset and shooting-context fixtures, a
-silent SCPU, supplied startup inputs and modeled OS/device services. It says
-nothing about the new menu, storage, physical focusing or update safety.
+## Emulator evidence
 
-To repeat the archived matrix, use the [pinned research checkout](https://github.com/tsmkirby/oly_fw_analysis/tree/04df764a6a2c4c3eb0882ba67241bb91246f3721/research/om3_af_profiles),
+Everything in this section ran in an emulator with modeled OS and device
+services. None of it was tested on a camera, and no flashable image is
+supplied. The separate-profile result tests the current design; the two
+AF Home results test an earlier prototype that reused the AF Home target.
+
+| Test | Design | Result |
+| --- | --- | --- |
+| [Separate AF-ON profile](#separate-af-on-profile) | Current | 324 operations reproduced across two runs; 1,096 checks, 0 failed |
+| [Live AF Home handoff](#live-af-home-handoff) | Earlier prototype | 12/12 handoff edges in each of S-AF and C-AF; full acceptance 0/14 |
+| [Fixture AF Home matrix](#fixture-af-home-matrix) | Earlier prototype | 28/28 profile checks |
+
+### Separate AF-ON profile
+
+**Observed in the emulator, reproduced across two runs:** an emulator-only
+hook gives AF-ON its own saved zone, size and position, and the stock writer
+builds the AF-ON target record from it. The harness ran on E147 1.1 with
+OM-Emu commit `4e4ec4ef084542a7e30eecce56970c7e09c123c9`, the
+[archived local patch](https://github.com/tsmkirby/oly_fw_analysis/blob/06517cf15bca7cc63440f6c95ea98b7511fb4282/research/om3_af_profiles/analysis/button-af/readiness/om-emu-af-native1/reproduction/om-emu-local.patch)
+(CR-stripped SHA-256
+`61cd13270e82f9bc5236c36c945783defda4c97a2e99f93b75f11da521877702`) and
+Node `v26.12.1`.
+
+- **Identity process:** ran 324 operations and recorded the full state of
+  each.
+- **Proof process:** repeated the same operations; every recorded field
+  matched the identity run exactly.
+- **Checks:** both runs evaluated 1,096 cross-role checks with no failures.
+  They compare a hooked candidate against two unhooked controls on the same
+  overlay: K1e, whose half press supplies the reference records, and K2.
+- **Subject Detect:** Off (`0x1e71[0] = 0`) in every operation.
+
+The checks establish:
+
+- AF-ON press record = K1e half-press record built from the same edited
+  settings, in landscape and EXIF 6.
+- AF-ON release record = the candidate's own half-press record.
+- The edited profile is held separately from the live half-press settings,
+  for each role.
+- After an edit and a pose change, the live cells equal K2's, and the hook
+  makes no live store of the saved position.
+- The writer reads the saved bank: 0 in landscape, 4 in EXIF 6.
+- The writer runs 3 times in the T8d sequence and 7 times across the zones.
+- For six zones and a custom size, the AF-ON press and release records equal
+  K1e's half-press records.
+
+**Assumptions and limits:**
+
+- **Reference not shown equal to stock AF-ON.** The reference is the
+  half-press record. Static analysis did not decide whether stock AF-ON with
+  "Always tracks" writes the same record as stock half press: one writer is
+  shared, but which inputs each button feeds it, a 1×1 centre substitution
+  and publication timing are unresolved.
+- **Display not covered.** The EVF/monitor frame was not validated: the
+  harness's display stage failed in the emulator.
+- **Not implemented:** menu row, persistent storage and the hook's firmware
+  placement.
+
+To reproduce (Windows, because the harness uses a directory junction and
+Node's permission model):
+
+1. **Workspace layout:**
+   - `ref` is a junction to `research/om3_af_profiles` of the
+     [archive commit](https://github.com/tsmkirby/oly_fw_analysis/tree/06517cf15bca7cc63440f6c95ea98b7511fb4282/research/om3_af_profiles),
+     with Node v26.12.1 for Windows x64 unpacked at
+     `ref/tooling/node-v26.12.1-win-x64/`.
+   - `om-emu` is OM-Emu at the commit above with the patch applied, set up
+     as in its
+     [reproduction notes](https://github.com/tsmkirby/oly_fw_analysis/blob/06517cf15bca7cc63440f6c95ea98b7511fb4282/research/om3_af_profiles/analysis/button-af/readiness/om-emu-af-native1/reproduction/README.md).
+   - `inputs` holds the decoded main `0100` and resource `0106` from the
+     table above.
+   - `work/harness` is a copy of the
+     [accepted harness](https://github.com/tsmkirby/oly_fw_analysis/tree/06517cf15bca7cc63440f6c95ea98b7511fb4282/research/om3_af_profiles/analysis/button-af/readiness/t13b-afon-core-proof/harness).
+2. From the workspace root, run the commands below.
+3. In each `work/out/<tag>.launch/exit.json`, expect `ok` and `valid` true,
+   mode `real`, an empty problem list, 324 operations executed, and 1,096
+   relations evaluated with 0 failed. Expect a reproduction count of 324 for
+   the proof.
+
+```sh
+ref/tooling/node-v26.12.1-win-x64/node work/harness/test_v5.mjs check-1
+ref/tooling/node-v26.12.1-win-x64/node work/harness/make_freeze_v5.mjs cap-1
+ref/tooling/node-v26.12.1-win-x64/node work/harness/launch_v5.mjs identity id-1 --freeze-sha <digest printed by make_freeze>
+ref/tooling/node-v26.12.1-win-x64/node work/harness/launch_v5.mjs proof proof-1 --freeze-sha <same digest> --identity id-1
+```
+
+The freeze records the absolute path behind the `ref` junction, so a new
+checkout gets its own digest. The pure-Node tests (43) need no emulator. The
+[recorded runs](https://github.com/tsmkirby/oly_fw_analysis/tree/06517cf15bca7cc63440f6c95ea98b7511fb4282/research/om3_af_profiles/analysis/button-af/readiness/t13b-afon-core-proof)
+include the freeze
+(`03db7d9640965afbb4fa8fe39b58cb088de063f87ce63941cb0caa3d2d03ae92`), both
+exit and inventory records, every operation log, and file hashes.
+
+### Live AF Home handoff
+
+A player-driven test on E147 1.1, with the same OM-Emu commit plus archived
+local changes, passes 12 button-handoff edges in each of S-AF and C-AF with
+Subject Detect Off. Native AF initialization and a central application-task
+hook restore the expected target records for both release orders. Native
+enum conversion fixes an earlier C-AF setup error (raw value 1 was MF).
+
+Full live acceptance is **0/14**: neither Off case demonstrates the complete
+queue-95/queue-94 AF worker chain, and all 12 nonzero-SCP cases stop before
+completing their first measured edge. Native callback `0x608418fe` returns
+but posts an unserved CPU3 event-flag request. Disassembly identifies flag
+`0x3003` at `0x6004367a`, receiving task `0x60841a6b`, and a subsequent
+loader at `0x60842bde` waiting on flag `0x3004`. Callback return is not proof
+of Subject Detect completion. Because AF-ON relies on the stock AF Button
+setting, the CPU3 service matters here only for half-press regression with
+detection enabled.
+
+The [reproduction bundle](https://github.com/tsmkirby/oly_fw_analysis/tree/a2b6d446783f85af67a1582618014d9ffdd5b1fc/research/om3_af_profiles/analysis/button-af/readiness/om-emu-af-native1/reproduction)
+contains exact-build requirements, tested sources, emulator patch, hashes and
+commands. The [14-case report](https://github.com/tsmkirby/oly_fw_analysis/blob/a2b6d446783f85af67a1582618014d9ffdd5b1fc/research/om3_af_profiles/analysis/button-af/readiness/om-emu-af-native1/matrix-cpu3-final/report.json)
+separates handoff from full acceptance. The section-7 hook used here has no
+packaging or placement proof.
+
+### Fixture AF Home matrix
+
+The engine-routed press/release matrix passed 28/28 profile checks across
+seven SCP values. AF-ON took precedence while both buttons were held, used
+the AF Home target and suppressed detection; release restored the half-press
+profile. Only the first AF-ON press submitted LOCK_START and reached its
+native acknowledgement. Later starts were blocked after a display-output
+transition; its completion was not supplied. This uses stock-reset and
+shooting-context fixtures, a silent SCPU, supplied startup inputs and modeled
+OS/device services.
+
+To repeat it, use the [pinned research checkout](https://github.com/tsmkirby/oly_fw_analysis/tree/04df764a6a2c4c3eb0882ba67241bb91246f3721/research/om3_af_profiles),
 its Ghidra setup and [MN10300 carry correction](https://github.com/tsmkirby/oly_fw_analysis/blob/04df764a6a2c4c3eb0882ba67241bb91246f3721/research/om3_af_profiles/recorded-evidence/review/carry-fix/README.md).
-From that checkout's research directory, generate the local assembly
-export as described in `DECOMPILATION.md` (used by the access audit), set
+From that checkout's research directory, generate the local assembly export
+as described in `DECOMPILATION.md` (used by the access audit), set
 `JAVA_HOME`, create a fresh output directory, and run:
 
 ```sh
@@ -105,91 +241,5 @@ The expected result includes exactly one feature mutex create in task context
 (modeled) and one LOCK_START submission. No AF or device completion was
 injected. Headless exit status alone is not a pass.
 
-**Live OM-Emu observation (2026-11-16):** A separate player-driven test on
-E147 1.1, OM-Emu commit `4e4ec4ef084542a7e30eecce56970c7e09c123c9` plus
-archived local changes, passes 12 button-handoff edges in each of S-AF and
-C-AF with Subject Detect Off. Native AF initialization and a central
-application-task hook restore the expected target records for both release
-orders. Native enum conversion fixes the earlier C-AF setup error (raw value
-1 was MF). This remains the AF Home prototype, without a separate editor.
-
-Full live acceptance is **0/14**: neither Off case demonstrates the complete
-queue-95/queue-94 AF worker chain, and all 12 nonzero-SCP cases stop before
-completing their first measured edge. Native callback `0x608418fe` returns
-but posts an unserved CPU3 event-flag request. Disassembly identifies flag
-`0x3003` at `0x6004367a`, receiving task `0x60841a6b`, and a subsequent loader
-at `0x60842bde` waiting on flag `0x3004`. Callback return is not proof of
-Subject Detect completion. Porting and validating E147's CPU3 task/flag
-service and native TAKE boot prerequisites remain necessary.
-
-The [reproduction bundle](https://github.com/tsmkirby/oly_fw_analysis/tree/a2b6d446783f85af67a1582618014d9ffdd5b1fc/research/om3_af_profiles/analysis/button-af/readiness/om-emu-af-native1/reproduction)
-contains exact-build requirements, tested sources, emulator patch, hashes and
-commands. The [14-case report](https://github.com/tsmkirby/oly_fw_analysis/blob/a2b6d446783f85af67a1582618014d9ffdd5b1fc/research/om3_af_profiles/analysis/button-af/readiness/om-emu-af-native1/matrix-cpu3-final/report.json)
-separates handoff from full acceptance. These live results do not extend the
-earlier fixture-based 28/28 result to physical focusing or update safety.
-The new section-7 hook has no packaging/placement proof; no flashable image
-is supplied.
-
-## Emulator acceptance of the separate AF-ON profile (2026-11-21)
-
-**Observed in the emulator, reproduced across two runs:** an emulator-only hook gives AF-ON its own saved zone,
-size and position, and the stock writer builds the AF-ON target record from it. The test harness launched two
-processes on E147 1.1, using OM-Emu commit `4e4ec4ef084542a7e30eecce56970c7e09c123c9` with the
-[archived local patch](https://github.com/tsmkirby/oly_fw_analysis/blob/06517cf15bca7cc63440f6c95ea98b7511fb4282/research/om3_af_profiles/analysis/button-af/readiness/om-emu-af-native1/reproduction/om-emu-local.patch)
-(CR-stripped SHA-256 `61cd13270e82f9bc5236c36c945783defda4c97a2e99f93b75f11da521877702`) and Node `v26.12.1`.
-
-- **Identity process:** ran 324 operations and recorded the full state of each.
-- **Proof process:** repeated the same operations, and every recorded field matched the identity run exactly.
-- **Checks:** both runs evaluated 1,096 cross-role checks with no failures. The checks compare a hooked candidate
-  against two unhooked controls on the same overlay: K1e, whose half press supplies the reference records, and K2.
-- **Subject Detect:** it was Off (`0x1e71[0] = 0`) in every operation.
-
-The checks establish:
-- AF-ON press record = K1e half-press record built from the same edited settings, in landscape and EXIF 6.
-- AF-ON release record = the candidate's own half-press record.
-- The edited profile is held separately from the live half-press settings, for each role.
-- After an edit and a pose change, the live cells equal K2's, and the hook makes no live store of the saved
-  position.
-- The writer reads the saved bank: 0 in landscape, 4 in EXIF 6.
-- The writer runs 3 times in the T8d sequence and 7 times across the zones.
-- For six zones and a custom size, the AF-ON press and release records equal K1e's half-press records.
-
-**Assumptions and limits:**
-- **Reference not shown equal to stock AF-ON.** The reference is the half-press record. Static analysis did not
-  decide whether stock AF-ON with "Always tracks" writes the same record as stock half press: one writer is shared,
-  but which inputs each button feeds it, a 1×1 centre substitution and publication timing are unresolved.
-- **Display not covered.** The EVF/monitor frame was not validated in this run. The display stage of the harness
-  failed in the emulator and is being redone.
-- **Not implemented:** menu row, persistent storage and the hook's firmware placement. No flashable image is
-  supplied.
-- **No hardware claim.** Nothing here was tested on a camera.
-
-To reproduce (Windows, because the harness uses a directory junction and Node's permission model):
-1. **Workspace layout:**
-   - `ref` is a junction to `research/om3_af_profiles` of the
-     [archive commit](https://github.com/tsmkirby/oly_fw_analysis/tree/06517cf15bca7cc63440f6c95ea98b7511fb4282/research/om3_af_profiles), with Node
-     v26.12.1 for Windows x64 unpacked at `ref/tooling/node-v26.12.1-win-x64/`.
-   - `om-emu` is OM-Emu at the commit above with the patch applied, set up as in its
-     [reproduction notes](https://github.com/tsmkirby/oly_fw_analysis/blob/06517cf15bca7cc63440f6c95ea98b7511fb4282/research/om3_af_profiles/analysis/button-af/readiness/om-emu-af-native1/reproduction/README.md).
-   - `inputs` holds the decoded main `0100` and resource `0106` from the table above.
-   - `work/harness` is a copy of the
-     [accepted harness](https://github.com/tsmkirby/oly_fw_analysis/tree/06517cf15bca7cc63440f6c95ea98b7511fb4282/research/om3_af_profiles/analysis/button-af/readiness/t13b-afon-core-proof/harness).
-2. From the workspace root, run the commands below.
-3. In each `work/out/<tag>.launch/exit.json`, expect `ok` and `valid` true, mode `real`, an empty problem list,
-   324 operations executed, and 1,096 relations evaluated with 0 failed. Expect a reproduction count of 324 for the
-   proof.
-
-```sh
-ref/tooling/node-v26.12.1-win-x64/node work/harness/test_v5.mjs check-1
-ref/tooling/node-v26.12.1-win-x64/node work/harness/make_freeze_v5.mjs cap-1
-ref/tooling/node-v26.12.1-win-x64/node work/harness/launch_v5.mjs identity id-1 --freeze-sha <digest printed by make_freeze>
-ref/tooling/node-v26.12.1-win-x64/node work/harness/launch_v5.mjs proof proof-1 --freeze-sha <same digest> --identity id-1
-```
-
-The freeze records the absolute path behind the `ref` junction, so a new checkout gets its own digest. The pure-Node
-tests (43) need no emulator. The [recorded runs](https://github.com/tsmkirby/oly_fw_analysis/tree/06517cf15bca7cc63440f6c95ea98b7511fb4282/research/om3_af_profiles/analysis/button-af/readiness/t13b-afon-core-proof)
-include the freeze (`03db7d9640965afbb4fa8fe39b58cb088de063f87ce63941cb0caa3d2d03ae92`), both exit and inventory
-records, every operation log, and file hashes.
-
-Detailed [menu/storage notes](https://github.com/tsmkirby/oly_fw_analysis/blob/a2b6d446783f85af67a1582618014d9ffdd5b1fc/research/om3_af_profiles/analysis/button-af/AFON-MENU-RESEARCH.md)
+Detailed [menu/storage notes](https://github.com/tsmkirby/oly_fw_analysis/blob/06517cf15bca7cc63440f6c95ea98b7511fb4282/research/om3_af_profiles/analysis/button-af/AFON-MENU-RESEARCH.md)
 and the historical reports and hardware-planning logs stay in the fork.
